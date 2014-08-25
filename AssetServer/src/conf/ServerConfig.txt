@@ -13,9 +13,9 @@ ConnCacheScheme==fixed_wait_scheme
 Encrypt==N
 Connection
 	Oracle
-		Url==jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = TuanNA-PC)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = db)))
-		UserName==QLTS
-		Password==qlts
+		Url==jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 10.0.2.102)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = db)))
+		UserName==ASSET
+		Password==asset
 	MySQL
 		#Url==jdbc:mysql://192.168.1.110:3306/studylibrary?useEncoding=true&characterEncoding=utf-8
 		Url==jdbc:mysql://localhost:9999/ealarm?useEncoding=true&characterEncoding=UTF-8

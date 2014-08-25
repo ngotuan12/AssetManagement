@@ -39,7 +39,7 @@ public class ReportServiceBean extends AppProcessor
 			formReportIssueLoad();
 			break;
 		case "Test":
-			test();
+			response.put("FileOut", test());
 			break;
 		}
 

@@ -65,7 +65,7 @@ public class Util
 	{
 		// response
 		servletResponse.setCharacterEncoding("utf-8");
-		servletResponse.setContentType("text/plain");
+		servletResponse.setContentType("application/json");
 		servletResponse.setHeader("Access-Control-Allow-Origin", "* ");
 		servletResponse
 				.setHeader("Access-Control-Allow-Headers",

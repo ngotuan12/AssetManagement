@@ -92,6 +92,7 @@ public class PermissionBean extends AppProcessor
 			// put to session
 			Util.session.put(sessionKey, desKey);
 			// response
+			System.out.println(sessionKey);
 			response.put("sessionKey", sessionKey);
 			response.put("Authorization", sessionKey);
 //			response.put("userInfor", jsonInfor);
