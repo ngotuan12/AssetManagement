@@ -1,0 +1,8 @@
+Server
+	Host==http://10.15.30.104:8888/StockManager/
+	Class==ServletServer
+Encrypt
+	Algorithm==SHA
+#Link.Help==http://127.0.0.1:8080/help/index.html
+#ReportLoadType==0
+#Link.Report==D:/Projects/Hello/ICBS/hlo_icbs_ws_server/WebContent/report/

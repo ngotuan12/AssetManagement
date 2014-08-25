@@ -1,0 +1,18 @@
+/MarketingService
+	Class==com.ar.bean.LoginBean
+/AreaService
+	Class==com.ar.bean.AreaBean
+/PermissionService
+	Class==com.ar.bean.PermissionBean
+/GatewayService
+	Class==com.ar.bean.GatewayBean
+/DeviceServices
+	Class==com.ar.bean.DeviceBean
+/ReportService
+	Class==com.ar.bean.ReportServiceBean
+/UserService
+	Class==com.ar.bean.UserBean
+/UserManagementService
+	Class==com.ar.bean.UserManagementBean
+/DeviceManagementService
+	Class==com.ar.bean.DeviceManagementBean

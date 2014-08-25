@@ -1,0 +1,165 @@
+{% extends "base.html" %} 
+{% block styles %}
+	<link href="css/chart.css" rel="stylesheet">
+{% endblock %}
+{% block content-header %}
+<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i> Giám sát phòng máy <span>Theo dõi sự cố
+			hệ thống</span>
+	</h2>
+	<!-- <div class="breadcrumb-wrapper">
+			<span class="label">You are here:</span>
+			<ol class="breadcrumb">
+				<li><a href="index.html">Bracket</a></li>
+				<li class="active">Dashboard</li>
+			</ol>
+		</div> -->
+</div>
+{% endblock %}
+{% block content %}
+<div class="contentpanel">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-hover" id="table2">
+					<thead>
+						<tr>
+							<th>Mã</th>
+							<th>Trạm</th>
+							<th>Tên</th>
+							<th>MAC</th>
+							<th>Server</th>
+							<th>Online</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for device in devices %}
+						<tr class="odd gradeX" id="{{ device.id }}">
+							<td>{{ device.code }}</td>
+							<td><a href="#">{{ device.address }}</a></td>
+							<td>{{ device.name }}</td>
+							<td>{{ device.mac_add }}</td>
+							<td class="center">{{ device.connected_server }}</td>
+							{% if  device.status == '0' %}
+								<td class="center"><img width="15px" height="15px" src="images/ic_blue.png" alt="" /></td>
+							{% elif device.status == '1' %}
+								<td class="center"><img width="15px" height="15px" src="images/ic_green.png" alt="" /></td>
+							{% elif device.status == '2' %}
+								<td class="center"><img width="15px" height="15px" src="images/ic_red.png" alt="" /></td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<!-- table-responsive -->
+
+		</div>
+		<!-- panel-body -->
+	</div>
+	<!-- panel -->
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="title">Chi tiết phòng máy </h4>
+			<p id="device-name">
+				<a href="#">RW0001 </a> - 11A Nguyễn Khuyến, Văn Miếu, Đống Đa,Hà
+				Nội,Việt Nam
+			</p>
+			<p id="device-mac">
+				MAC: 65:AD:GD:09:09:89
+			</p>
+			<p id="device-server">
+				Connected server: 127.0.0.1
+			</p>
+			<p >
+				Trạng thái: <img id="device-status" width="15px" height="15px" src="images/ic_blue.png" alt="" />
+			</p>
+			<p id="device-issue">
+				Sự cố:
+			</p>
+		</div>
+		<!-- panel-heading -->
+		<div class="panel-body" style="min-height: 300px">
+			<div class ="row">
+				<div class="col-sm-6" id="device-infor">
+					<div class="row">
+						<div class="mb10"></div>
+						<div class="col-sm-6">
+							<p>Nhiệt độ</p>
+							<h4 style="color: red">90 °C</h4>
+						</div>
+						<div class="col-sm-6">
+							<p>Tần số điện lưới</p>
+							<h4 style="color: green">50.0 Hz %</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="mb10"></div>
+						<div class="col-sm-6">
+							<p>Độ ẩm</p>
+							<h4 style="color: red">35%</h4>
+						</div>
+						<div class="col-sm-6">
+							<p>Điện áp cầu</p>
+							<h4 style="color: green">25.5VDC</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<p>Nhiệt độ.</p>
+					<div class="demo-container">
+						<div id="placeholder" class="demo-placeholder"></div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<!-- panel-body -->
+	</div>
+
+</div>
+<!-- contentpanel -->
+<div id="footer">
+		Copyright &copy; 2007 - 2014 IOLA and Ole Laursen
+	</div>
+{% endblock %} 
+{% block scripts %}
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/jquery.datatables.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+
+<script src="js/flot/jquery.flot.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/device-infor.js"></script>
+<script>
+	jQuery(document).ready(function() {
+
+		jQuery('#table2').dataTable({
+			"sPaginationType" : "full_numbers"
+		});
+		// Chosen Select
+		jQuery("select").chosen({
+				'min-width' : '150px',
+				'white-space' : 'nowrap',
+				disable_search_threshold : 10
+			});
+		$('#table2 tbody tr').click(function()
+		{
+			var device_id = $(this).attr('id');
+			onGetDeviceInfor(device_id);
+		});
+		onGetDeviceInfor({{ devices.0.id }});
+	});
+</script>
+{% endblock scripts%}

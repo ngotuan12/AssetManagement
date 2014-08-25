@@ -1,0 +1,9 @@
+/.metadata
+
+*.pyc
+*.class
+/AssetServer/.settings
+/AssetServer/build
+/AssetServer/jar
+/RemoteSystemsTempFiles
+/Servers

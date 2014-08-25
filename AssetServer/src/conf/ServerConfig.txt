@@ -1,0 +1,43 @@
+EncryptAlgorithm==SHA
+AuthenticationCacheDuration==7200
+DateFormat==dd/MM/yyyy
+TimeZone
+	Offset==25200000
+	Description==Viet Nam/Ha Noi
+IgnoreCommandList==help,dtfmt,lssrv,mysrv,lsthread,lssession,sysdate,lsparam,exit,chpwd
+ReloadCommandIDList==1,103
+FormatMessage==TRUE
+DefaultDatabase==TC_11
+ConnectionPoolSize==20
+ConnCacheScheme==fixed_wait_scheme
+Encrypt==N
+Connection
+	Oracle
+		Url==jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = TuanNA-PC)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = db)))
+		UserName==QLTS
+		Password==qlts
+	MySQL
+		#Url==jdbc:mysql://192.168.1.110:3306/studylibrary?useEncoding=true&characterEncoding=utf-8
+		Url==jdbc:mysql://localhost:9999/ealarm?useEncoding=true&characterEncoding=UTF-8
+		UserName==root
+		Password==113322
+		#Password==123456@123
+	SQLServer
+		Url==jdbc:sqlserver://10.15.30.101:1433;databaseName=HANGHOA;
+		UserName==sa
+		Password==123456
+Report
+	ResourceAbsolutePath==/u01/app/jrun4/servers/loyalty/default-ear/default-war/excel-report/
+	ResourceVirtualPath==/excel-report/
+	rpt_ur205
+		MaxRow==1000
+		DefaultRow==50
+	rpt_ur200
+		MaxRow==1000
+		DefaultRow==200
+		MaxDay==5
+		DefaultTime==1
+		DefaultDay==5
+ExcelTemplatePath==D:/Projects/AssetManagement/AssetServer/src/report/template/
+TemplatePath==/report/sql/
+ReportOut==D:/Projects/AssetManagement/AssetWebapp/report/

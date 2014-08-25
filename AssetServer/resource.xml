@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<project basedir="." default="archive" name="TuanNA">
+	<property name="dest" value="build/classes" />
+	<property name="src" value="src" />
+	<property name="resource" value="resource" />
+	<path id="project.class.path">
+		<pathelement location="${dest}" />
+	</path>
+
+	<target depends="cleanup" name="archive">
+		<jar compress="true" destfile="jar/resource.jar">
+			<fileset dir="${dest}">
+				<!--<exclude name="com/fis/**"/> -->
+				<include name="**/*.xml" />
+				<include name="**/*.sql" />
+				<include name="**/*.txt" />
+				<include name="**/*.xls" />
+				<include name="**/*.gif" />
+				<include name="**/*.jpeg" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.properties" />
+				<exclude name="conf/ServerConfig.txt"/>
+				<!--
+				<exclude name="properties/database.properties"/>
+				<exclude name="com/fis/hlo/icbs/report/sql/**"/>
+				<exclude name="com/fis/hlo/icbs/report/template/**"/>
+				-->
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="cleanup">
+		<delete failonerror="false" file="jar/resource.jar" />
+	</target>
+</project>

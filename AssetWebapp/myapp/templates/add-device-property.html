@@ -1,0 +1,127 @@
+<!-- Modal -->
+<div class="modal fade" id="add-device-property" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width: 80%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Thêm cảm biến</h4>
+			</div>
+
+			<div class="panel panel-default">
+				<form class="form" id="addDeviceProperty" novalidate="novalidate" method="post" action="/add-device-property">
+					{% csrf_token %}
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="panel-body" style="padding-top: 0px;padding-bottom: 0px;">
+									<div class="form-group">
+										<label class="col-sm-12 control-label">Tên:</label>
+										<div class="col-sm-12">
+											<input type="text" name="txtName" class="form-control"
+												placeholder="<Tên cảm biến>" required="">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-12 control-label">Mã:</label>
+										<div class="col-sm-12">
+											<input type="text" name="txtCode" class="form-control"
+												placeholder="<Mã cảm biến>" required="">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-12 control-label">Loại:</label>
+										<div class="col-sm-12">
+											<select name='slType' class="form-control" required="">
+												<option value="1">Công tắc</option>
+												<option value="2">Cảm biến</option>
+											</select>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-12 control-label">Mô tả:</label>
+										<div class="col-sm-12">
+											<textarea rows="6" class="form-control"
+												placeholder="<Mô tả>" name="txtDescription" required=""></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="panel-body" style="padding-top: 0px;padding-bottom: 0px;">
+									<div class="form-group">
+										<label class="col-sm-12 control-label">Nhỏ nhất:</label>
+										<div class="col-sm-12">
+											<input type="text" name="txtMin" class="form-control numberic"
+												placeholder="<Giá trị nhỏ nhất của cảm biến>" required="" maxlength="10">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-12 control-label">Lớn nhất:</label>
+										<div class="col-sm-12">
+											<input type="text" name="txtMax" class="form-control numberic"
+												placeholder="<Giá tri lớn nhất của cảm biến>" required="" maxlength="10">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-12 control-label">Ngưỡng dưới:</label>
+										<div class="col-sm-12">
+											<input type="text" name="txtMinAlarm" class="form-control numberic"
+												placeholder="<Ngưỡng dưới của cảm biến>" required="" maxlength="10">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-12 control-label">Ngưỡng trên:</label>
+										<div class="col-sm-12">
+											<input type="text" name="txtMaxAlarm" class="form-control numberic"
+												placeholder="<Ngưỡng trên cửa cảm biến>" required="" maxlength="10">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-12 control-label">Đơn vị:</label>
+										<div class="col-sm-12">
+											<input type="text" name="txtSymbol" class="form-control"
+												placeholder="<Đơn vị>" required="">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="type" value="addDeviceProperty">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+						<button type="button" class="btn btn-primary" onclick="return onAddDevicePropertyFromSubmit();">Lưu</button>
+					</div>
+				</form>
+			</div>
+			<!-- End of block -->
+			
+		</div>
+		<!-- modal-content -->
+		
+	</div>
+	<!-- modal-dialog -->
+</div>
+<!-- modal -->
+
+<script>
+	function onAddDevicePropertyFromSubmit()
+	{
+		var $valid = jQuery('#addDeviceProperty').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#addDeviceProperty').submit();
+	};
+</script>

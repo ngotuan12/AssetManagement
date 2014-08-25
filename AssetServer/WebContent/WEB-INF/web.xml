@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<servlet>
+		<description></description>
+		<display-name>PermissionService</display-name>
+		<servlet-name>PermissionService</servlet-name>
+		<servlet-class>com.ar.service.PermissionService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PermissionService</servlet-name>
+		<url-pattern>/PermissionService</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>ReportService</display-name>
+		<servlet-name>ReportService</servlet-name>
+		<servlet-class>com.ar.service.ReportService</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ReportService</servlet-name>
+		<url-pattern>/ReportService</url-pattern>
+	</servlet-mapping>
+</web-app>

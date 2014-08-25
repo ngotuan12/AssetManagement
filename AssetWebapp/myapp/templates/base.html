@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+<title>Hệ thống giám sát và cảnh báo</title>
+
+<link href="css/style.default.css" rel="stylesheet">
+<link href="css/jquery.datatables.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+	{% block styles %} 
+	{% endblock %}
+</head>
+
+<body>
+
+	<!-- Preloader -->
+	{% include 'preloader.tpl.html' %}
+
+	<section>
+		{% block left-panel %} 
+			{% include 'left-panel.tpl.html' %}
+		{% endblock %} 
+		
+		<div class="mainpanel">
+			<div class="headerbar">
+				<a class="menutoggle"><i class="fa fa-bars"></i></a>
+				{% block tool-bar-header %}
+					{% include 'tool-bar-header.tpl.html' %}
+				{% endblock %}
+			</div>
+			{% block content-header %} 
+				{% include 'main-panel-header.tpl.html' %}
+			{% endblock %}
+			
+			{% block content %}
+				{% include 'main-panel-content.tpl.html' %}
+			{% endblock %}
+		</div>
+	</section>
+
+	{% block scripts %}
+		<script src="js/jquery-1.10.2.min.js"></script>
+		<script src="js/jquery-migrate-1.2.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/custom.js"></script>
+	{% endblock %}
+</body>
+</html>
