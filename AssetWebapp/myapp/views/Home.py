@@ -4,6 +4,7 @@ Created on Apr 3, 2014
 @author: TuanNA
 '''
 # @login_required(login_url='/signin')
+import datetime
 import json
 
 from django.contrib.auth import authenticate, login
@@ -13,14 +14,32 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
 import requests
 
-from myapp.models import Device
+from myapp.models.Reason import Reason
 
 
 @login_required(login_url='/login')
 def index(request):
-	devices = Device.objects.all()
-	context={'devices':devices}
-	return render_to_response("index.html", context)
+	context={}
+	print(request.session.get('django_timezone'))
+	print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'))
+	reason = Reason()
+	reason.reason_code = "dsads"
+	reason.reason_name = "test"
+	reason.description = "dfds"
+# 	reason.create_datetime = datetime.now()
+	reason.save()
+	context.update(csrf(request))
+	return render_to_response("report.html", context)
+def test(request):
+	authorization = request.session['authorization']
+	print(authorization)
+	url = 'http://localhost:8080/AssetServer/ReportService'
+	payload = {"SessionUserName":"TuanNA","Method":"Test"}
+	headers = {'content-type': 'application/json;charset=utf-8',"Authorization":authorization}
+	r = requests.request('POST',url, data=json.dumps(payload), headers=headers)
+	response = r.json()
+	fileout = response['FileOut']
+	return HttpResponseRedirect("/report/"+fileout)
 def signin(request):
 	context ={}
 	if request.POST:
@@ -34,16 +53,10 @@ def signin(request):
 				headers = {'content-type': 'application/json;charset=utf-8',"Authorization":""}
 				r = requests.request('POST',url, data=json.dumps(payload), headers=headers)
 				response = r.json()
-				print(response['Authorization'])
-				url = 'http://localhost:8080/AssetServer/ReportService'
-				payload = {"SessionUserName":"TuanNA","Method":"Test"}
-				headers = {'content-type': 'application/json;charset=utf-8',"Authorization":response['Authorization']}
-				r = requests.request('POST',url, data=json.dumps(payload), headers=headers)
-				response = r.json()
-				fileout = response['FileOut']
-				print(fileout)
+				authorization = response['Authorization']
+				request.session['authorization'] = authorization;
 				login(request, user)
-				return HttpResponseRedirect('/report/'+fileout)
+				return HttpResponseRedirect('/home')
 			else:
 				context.update({'has_error':'User is blocked!'})
 		else:
