@@ -197,7 +197,9 @@ public class ReportServiceBean extends AppProcessor
 		}
 		finally
 		{
-
+			Database.closeObject(rs);
+			Database.closeObject(pstm);
+			close();
 		}
 	}
 
