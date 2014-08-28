@@ -13,6 +13,5 @@ from myapp.models import Device
 
 @login_required(login_url='/login')
 def index(request):
-	devices = Device.objects.all()
-	context={'devices':devices}
-	return render_to_response("index.html", context, RequestContext(request))
+	context={}
+	return render_to_response("base.html", context, RequestContext(request))

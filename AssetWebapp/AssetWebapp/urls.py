@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from eAlarm import settings
+from AssetWebapp import settings
 from myapp.views import Home, DeviceProperties, AddDeviceProperties, EditDeviceProperties, Area, AddArea, DeviceInfor, EditArea\
-, Device, User, Error, Group,ListDevice,AddDevice
+, Device, User, Error, Group
 
 
 admin.autodiscover()
@@ -24,10 +24,6 @@ urlpatterns = patterns('',
     url(r'^add-area$', AddArea.index,name='add-area'),
     url(r'^edit-area$', EditArea.index),
     url(r'^device$', Device.index),
-    url(r'^device-list$', ListDevice.index),
-    url(r'^add-device', AddDevice.index),
-    url(r'^add-device', AddDevice.index,name='add-device'),
-    
     # User
     url(r'^user$', User.view_user,name='user'),
     url(r'^user/add/$', User.add_user,name='delete-user'),
