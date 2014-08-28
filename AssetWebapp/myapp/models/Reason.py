@@ -23,6 +23,10 @@ class Reason(models.Model):
     user_name = models.CharField(max_length=20,db_column="user_name")
     class Meta:
         db_table = 'reason'
+        app_label = 'myapp'
+        permissions = (
+            ("view_reason", "Can see list reason"),
+        )
     @update_id
     def save(self):
         # Now actually save the object.
