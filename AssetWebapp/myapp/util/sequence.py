@@ -24,6 +24,7 @@ def update_id(func):
             row = cursor.fetchone()
             # Update the data object's ID with the returned sequence value.
             data_object.id = row[0]
+            cursor.close()
         # Execute the function we're decorating.
         return func(*args)
     return decorated_function
