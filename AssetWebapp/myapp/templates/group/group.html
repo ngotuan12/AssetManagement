@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="css/custom.css" rel="stylesheet">
+{% endblock styles %}
+{% block content-header %}
+<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i>Phòng ban <span>Chi tiết phòng ban </span>
+	</h2>
+	<div class="breadcrumb-wrapper">
+		<a class="btn btn-success" href="/group/add/">Thêm phòng ban</a>
+	</div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="contentpanel">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-hover" id="usertable">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Tên phòng ban</th>
+							<th>Sửa/Xoá</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for group in groups %}
+						<tr class="odd gradeX">
+							<td>{{forloop.counter}}</td>
+							<td><a href="/group/{{ group.id }}/">{{ group.name }}</a></td>
+							<td class="table-action">
+								<a href="/group/{{ group.id }}/"><i class="fa fa-pencil"></i></a>
+								<a href="#" onclick="deleteGroup('{{ group.id }}');" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
+								<form method="post" id="deleteGroup{{ group.id }}" action="/group/delete/{{ group.id }}/">
+									{% csrf_token %}
+								</form>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<!-- table-responsive -->
+
+		</div>
+		<!-- panel-body -->
+	</div>
+	<!-- panel -->
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/jquery.datatables.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/jquery.confirm.js"></script>
+<script>
+	jQuery(document).ready(function() {
+		$('#usertable').dataTable({
+			"sPaginationType" : "full_numbers"
+		});
+		$("select").chosen({
+			'min-width' : '150px',
+			'white-space' : 'nowrap',
+			disable_search_threshold : 10
+	});
+	});
+	function deleteGroup(group_id)
+	{
+		$.confirm({
+			text : "Bạn thực sự muốn xoá phòng ban",
+			confirm : function(button)
+			{
+				jQuery('#deleteGroup' + group_id).submit();
+			},
+			cancel : function(button)
+			{
+
+			}
+		});
+	}
+</script>
+{% endblock scripts%}

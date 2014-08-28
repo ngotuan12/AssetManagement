@@ -6,7 +6,7 @@
 	<h2>
 		<i class="fa fa-home"></i> Danh sách cảm biến <span> Thuộc tính thiết bị</span>
 	</h2>
-	<div class="breadcrumb-wrapper" style="top:3px;">
+	<div class="breadcrumb-wrapper">
 		<a class="btn btn-success" data-toggle="modal" data-target="#add-device-property">Thêm cảm biến</a>
 	</div>
 	<!-- <div class="breadcrumb-wrapper">
@@ -26,16 +26,16 @@
 				<table class="table table-hover" id="table2">
 					<thead>
 						<tr>
-							<th>Tên cảm biến </th>
-							<th>Mã</th>
-							<th>Mô tả</th>
-							<th>Loại</th>
-							<th>Nhỏ nhất</th>
-							<th>Lớn nhất</th>
-							<th>Ngưỡng dưới</th>
-							<th>Ngưỡng trên</th>
-							<th>Đơn vị</th>
-							<th>Sửa|Xóa</th>
+							<th style="width: 12%;">Tên cảm biến </th>
+							<th style="width: 5%;">Mã</th>
+							<th style="width: 10%;">Mô tả</th>
+							<th style="width: 10%;">Loại</th>
+							<th style="width: 10%;">Nhỏ nhất</th>
+							<th style="width: 10%;">Lớn nhất</th>
+							<th style="width: 12%;">Ngưỡng dưới</th>
+							<th style="width: 12%;">Ngưỡng trên</th>
+							<th style="width: 8%;">Đơn vị</th>
+							<th style="width: 8%;">Sửa|Xóa</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -52,7 +52,12 @@
 							<td devicePropertyId ="symbol{{ deviceProperty.id }}" symbol="{{ deviceProperty.symbol }}">{{ deviceProperty.symbol }}</td>
 							<td class="table-action">
 								<a href="#" onclick="onEditDeviceProperty('{{ deviceProperty.id }}');" data-toggle="modal" data-target="#edit-device-property"><i class="fa fa-pencil"></i></a>
-								<a href="#" onclick="onDeleteDeviceProperty('{{ deviceProperty.id }}');" class="delete-row"><i class="fa fa-trash-o"></i></a>
+								<a href="#" onclick="onDeleteDeviceProperty('{{ deviceProperty.id }}');" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
+								<form method="post" id="DeleteDeviceProperty{{ deviceProperty.id }}" action="/edit-device-property">
+									{% csrf_token %}
+									<input type="hidden" name="hd_device_pro" value="{{ deviceProperty.id }}">
+									<input type="hidden" name="type" value="deleteDeviceProperty">
+								</form>
 							</td>
 						</tr>
 						{% endfor %}
@@ -83,6 +88,7 @@
 <script src="js/jquery.numeric.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.confirm.js"></script>
 <script>
 	jQuery(document).ready(function() {
 		// Chosen Select
@@ -120,7 +126,15 @@
 	}
 	function onDeleteDeviceProperty(device_property_id)
 	{
-		alert("delete: "+device_property_id);
+		$.confirm({
+			text: "Xóa bản ghi?",
+			confirm: function(button) {
+				jQuery('#DeleteDeviceProperty'+device_property_id).submit();
+			},
+			cancel: function(button) {
+				
+			}
+		});
 	}
 	jQuery(window).load(function(){ 
 		$(".numberic").numeric();

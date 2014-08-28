@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+	<table class="table" id="table2">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Code</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for reason in reasons %}
+				<tr class="even gradeC">
+					<td>{{ reason.id }}</td>
+					<td>{{ reason.reason_code }}</td>
+					<td>{{ reason.reason_name }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<form action="/add-reason" method="post">
+		{% csrf_token %}
+		<input type="text" name="txtReasonCode" placeholder="Reason code">
+		<input class="btn btn-success btn-block" type="submit" value="add reason" />
+	</form>
+{% endblock %}
+{% block scripts %}
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/jquery.datatables.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+
+<script src="js/flot/jquery.flot.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/device-infor.js"></script>
+<script>
+$(document).ready(function() {
+	alert('Already');
+	
+	$('#table2').dataTable({
+			"sPaginationType" : "full_numbers"
+	});
+	// Chosen Select
+	jQuery("select").chosen({
+			'min-width' : '100px',
+			'white-space' : 'nowrap',
+			disable_search_threshold : 10
+		});
+	});
+</script>
+{% endblock scripts %}

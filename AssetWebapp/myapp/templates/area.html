@@ -6,16 +6,9 @@
 	<h2>
 		<i class="fa fa-home"></i> Danh sách địa bàn <span> </span>
 	</h2>
-	<div class="breadcrumb-wrapper" style="top:3px;">
+	<div class="breadcrumb-wrapper">
 		<a class="btn btn-success" href="/add-area">Thêm địa bàn</a>
 	</div>
-	<!-- <div class="breadcrumb-wrapper">
-			<span class="label">You are here:</span>
-			<ol class="breadcrumb">
-				<li><a href="index.html">Bracket</a></li>
-				<li class="active">Dashboard</li>
-			</ol>
-		</div> -->
 </div>
 {% endblock %}
 {% block content %}
@@ -39,12 +32,17 @@
 						<tr class="odd gradeX">
 							<td devicePropertyId ="name{{ area.id }}" name="{{ area.name }}">{{ area.name }}</td>
 							<td devicePropertyId ="code{{ area.id }}" code="{{ area.code }}">{{ area.code }}</td>
-							<td devicePropertyId ="code{{ area.id }}" description="{{ area.code }}">{{ area.code }}</td>
+							<td devicePropertyId ="code{{ area.id }}" description="{{ area.code }}">{{ area.parent.name }}</td>
 							<td devicePropertyId ="full_name{{ area.id }}" type="{{ area.full_name }}"> {{ area.full_name}}</td>
 							<td devicePropertyId ="status{{ area.id }}" min="{{ area.id }}">{% if area.status = "1" %} Kích hoạt {% else %} Không kích hoạt {% endif %}</td>
 							<td class="table-action">
 								<a href="/edit-area?area_id={{ area.id }}"><i class="fa fa-pencil"></i></a>
 								<a href="#" onclick="onDeleteArea('{{ area.id }}');" class="delete-row"><i class="fa fa-trash-o"></i></a>
+								<form method="post" id="DeleteArea{{ area.id }}" action="/edit-area">
+									{% csrf_token %}
+									<input type="hidden" name="hd_area" value="{{ area.id }}">
+									<input type="hidden" name="type" value="deleteArea">
+								</form>
 							</td>
 						</tr>
 						{% endfor %}
@@ -75,6 +73,7 @@
 <script src="js/jquery.numeric.js"></script>
 <script src="js/custom.js"></script>
 <script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.confirm.js"></script>
 <script>
 	jQuery(document).ready(function() {
 		// Chosen Select
@@ -110,9 +109,17 @@
 		$("#txtSymbol").val(symbol);
 		$("#hd_device_property_id").val(device_property_id);
 	}
-	function onDeleteDeviceProperty(device_property_id)
+	function onDeleteArea(area_id)
 	{
-		alert("delete: "+device_property_id);
+		$.confirm({
+			text: "Xóa bản ghi?",
+			confirm: function(button) {
+				jQuery('#DeleteArea'+area_id).submit();
+			},
+			cancel: function(button) {
+				
+			}
+		});
 	}
 	jQuery(window).load(function(){ 
 		$(".numberic").numeric();

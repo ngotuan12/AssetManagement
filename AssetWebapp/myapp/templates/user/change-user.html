@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="../../css/style.default.css" rel="stylesheet">
+	<link href="../../css/custom.css" rel="stylesheet">
+{% endblock styles %}
+
+{% block content-header %} 
+	<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i> Tài khoản <span>Sửa thông tin tài khoản</span>
+	</h2>
+	<div class="breadcrumb-wrapper">
+		<ol class="breadcrumb">
+			<li><a href="/user">User</a></li>
+			<li class="active">{{ current_user.username }}</li>
+		</ol>
+	</div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="contentpanel">
+	<form action="" class="form-horizontal form-bordered" method="post" id="formUser" novalidate="novalidate">
+		{% csrf_token %}
+		<div class="panel">
+			<div class="panel-body">
+			
+				<div class="form-group ">
+					<label class="col-sm-2 control-label">Tài khoản</label>
+					<div class="col-sm-8">
+						<input type="text" name="txtUserName" placeholder="Tài khoản" class="form-control" value="{{ current_user.username }}" disabled="disabled">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Mật khẩu</label>
+					<div class="col-sm-8">
+						<input type="password" name="txtPassWord" placeholder="Mật khẩu" class="form-control" value="{{ current_user.password }}" disabled="disabled">
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Thông tin tài khoản</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Họ</label>
+					<div class="col-sm-8">
+						<input name="txtFirstName" type="text" placeholder="Họ" class="form-control" value="{{ current_user.first_name }}" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Tên</label>
+					<div class="col-sm-8">
+						<input name="txtLastName" type="text" placeholder="Tên" class="form-control" value="{{ current_user.last_name }}" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-8">
+						<input name="txtEmail" type="text" placeholder="Email" class="form-control" value="{{ current_user.email }}" required>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Phân quyền</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<div class="col-sm-5 ckbox ckbox-default ckpermission">
+						<input type="checkbox" name="checkboxSupperUser" id="checkboxSupperUser"
+							{% if current_user.is_superuser %}
+											checked="checked"
+										{% endif %}> <label for="checkboxSupperUser">Admin
+							</label>
+					</div>
+					
+				</div>
+				<div class="form-group">
+					<div class="col-sm-5 ckbox ckbox-default ckpermission">
+						<input type="checkbox" name="checkboxActive" id="checkboxActive"
+							{% if current_user.is_active %}
+											checked="checked"
+										{% endif %} > <label for="checkboxActive">Kích hoạt
+							</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-1">
+						<p>Quyền hạn</p>
+					</div>
+					<div class="col-sm-9">
+						{% for per in permissions %}
+							<div class="form-group">
+								<div class="col-sm-5">
+									<div class="ckbox ckbox-default">
+										<input type="checkbox" id="checkboxPer{{ per.id }}" name = "checkboxPer{{ per.id }}" {% if per.id in current_pers %}
+											checked="checked"
+										{% endif %}> <label for="checkboxPer{{ per.id }}">{{ per.name }}</label>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-1">
+						<p>Phòng ban</p>
+						
+					</div>
+					<div class="col-sm-8">
+						{% for group in groups %}
+							<div class="form-group">
+								<div class="col-sm-5">
+									<div class="ckbox ckbox-default">
+										<input type="checkbox" id="checkboxGroup{{ group.id }}" name = "checkboxGroup{{ group.id }}" {% if group.id in current_groups %}
+											checked="checked"
+										{% endif %} > <label for="checkboxGroup{{ group.id }}">{{ group.name }}</label>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<button class="btn btn-primary" onclick="return onValidate();">Lưu</button>&nbsp;
+					<button class="btn btn-default">Thoát</button>
+				</div>
+			 </div>
+	</form>
+	
+</div>
+{% endblock content %} {% block scripts %}
+<script src="../../js/jquery-1.10.2.min.js"></script>
+<script src="../../js/jquery-migrate-1.2.1.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/modernizr.min.js"></script>
+<script src="../../js/jquery.sparkline.min.js"></script>
+<script src="../../js/toggles.min.js"></script>
+<script src="../../js/retina.min.js"></script>
+<script src="../../js/jquery.cookies.js"></script>
+
+<script src="../../js/custom.js"></script>
+<script src="../../js/jquery.validate.min.js"></script>
+<script>
+function onValidate()
+{
+	var $valid = jQuery('#formUser').validate();
+	if (!$valid)
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#formUser').submit();
+}
+</script>
+{% endblock scripts%}

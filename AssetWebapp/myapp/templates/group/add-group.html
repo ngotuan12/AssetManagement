@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="../../css/style.default.css" rel="stylesheet">
+{% endblock styles %}
+
+{% block content-header %} 
+	<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i>Phòng ban<span>Thêm phòng ban</span>
+	</h2>
+	<div class="breadcrumb-wrapper">
+		<ol class="breadcrumb">
+			<li><a href="/group">Phòng ban</a></li>
+			<li class="active">Thêm phòng ban</li>
+		</ol>
+	</div>
+</div>
+{% endblock %}
+			
+{% block content %}
+<div class="contentpanel">
+	<form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="formGroup">
+		{% csrf_token %}
+		<div class="panel">
+			<div class="panel-body">
+			
+				<div class="form-group ">
+					<label class="col-sm-2 control-label">Tên phòng ban</label>
+					<div class="col-sm-8">
+						<input name= "txtGroupName"type="text" placeholder="Tên phòng ban" class="form-control" value="" required>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Phân quyền</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<div class="col-sm-9">
+						{% for per in permissions %}
+							<div class="form-group">
+								<div class="col-sm-5">
+									<div class="ckbox ckbox-default">
+										<input type="checkbox"  id = "{{ per.id }}"name="checkboxPer{{ per.id }}"> <label for="{{ per.id }}">{{ per.name }}</label>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<button class="btn btn-primary" onclick="return onValidate();">Lưu</button>&nbsp;
+					<a class="btn btn-default" href="/group">Thoát</a>
+				</div>
+			 </div>
+	</form>
+	
+</div>
+{% endblock content %}
+{% block scripts %}
+<script src="../../js/jquery-1.10.2.min.js"></script>
+<script src="../../js/jquery-migrate-1.2.1.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/modernizr.min.js"></script>
+<script src="../../js/jquery.sparkline.min.js"></script>
+<script src="../../js/toggles.min.js"></script>
+<script src="../../js/retina.min.js"></script>
+<script src="../../js/jquery.cookies.js"></script>
+
+<script src="../../js/custom.js"></script>
+<script src="../../js/jquery.validate.min.js"></script>
+<script>
+	function onValidate()
+	{
+		var $valid = jQuery('#formGroup').valid();
+		if (!$valid)
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#formGroup').submit();
+	}
+</script>
+{% endblock scripts%}

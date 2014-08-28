@@ -33,15 +33,15 @@
 
 				<div class="col-md-4" style="margin-top: 12%;">
 					<form method="post"
-						action="/login">
+						action="{% url 'django.contrib.auth.views.login' %}">
 						{% csrf_token %}
 						<h2 class="nomargin">Hệ thống cảnh báo tín hiệu</h2>
 						<p class="mt5 mb20">Đăng nhập hệ thống.</p>
 						<input id="id_username" class="form-control uname" maxlength="100" name="username" type="text" /> 
 						<input id="id_password" class="form-control pword" maxlength="100" name="password" type="password" />
 						<a href="#"><small>Quên mật khẩu?</small></a> 
-						{% if has_error %}
-							<p for="" class="error">{{has_error}}</p>
+						{% if form.errors %}
+							<label for="" class="error">Tài khoản hoặc mật khẩu không đúng. Vui lòng thử lại</label>
 						{% endif %} 
 						<input class="btn btn-success btn-block" type="submit" value="Đăng nhập" />
 						<input type="hidden" name="next" value="{{ next }}" />

@@ -1,0 +1,19 @@
+.table thread tr{
+	font-family: "Times New Roman", Times, serif
+}
+.contentpanel .panel .panel-heading{
+	padding: 5px;
+}
+.panel-body{
+	padding: 5px;
+}
+.ckpermission{
+	margin: 5px 0 0 20px;
+}
+.filtered{
+	width: 100%;
+	min-height: 300px;
+}
+.panel-body .form-group{
+	padding: 5px 0;
+}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="css/custom.css" rel="stylesheet">
+{% endblock styles %}
+{% block content-header %}
+<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i> Danh sách tài khoản <span>Chi tiết tài khoản hệ thống </span>
+	</h2>
+	<div class="breadcrumb-wrapper">
+		<a class="btn btn-success" href="/user/add/">Thêm tài khoản</a>
+	</div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="contentpanel">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-hover" id="usertable">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Tài khoản </th>
+							<th>Họ </th>
+							<th>Tên</th>
+							<th>Email </th>
+							<th>Ngày tạo</th>
+							<th>Sửa/Xoá</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+						<tr class="odd gradeX">
+							<td>{{forloop.counter}}</td>
+							<td><a href="/user/{{ user.id }}/">{{ user.username }}</a></td>
+							<td>{{ user.first_name }}</td>
+							<td>{{ user.last_name }}</td>
+							<td>{{ user.email }}</td>
+							<td>{{ user.date_joined }}</td>
+							<td class="table-action">
+								<a href="/user/{{ user.id }}/"><i class="fa fa-pencil"></i></a>
+								<a href="#" onclick="deleteUser('{{ user.id }}');" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
+								 <form method="post" id="deleteUser{{ user.id }}" action="/user/delete/{{ user.id }}/">
+								  {% csrf_token %}
+								  <input type="hidden" name="hd_device_pro" value="{{ user.id }}">
+								  <input type="hidden" name="type" value="deleteDeviceProperty">
+								 </form>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<!-- table-responsive -->
+
+		</div>
+		<!-- panel-body -->
+	</div>
+	<!-- panel -->
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/jquery.datatables.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/jquery.confirm.js"></script>
+<script>
+	jQuery(document).ready(function() {
+
+		$('#usertable').dataTable({
+			"sPaginationType" : "full_numbers"
+		});
+		// Chosen Select
+		$("select").chosen({
+				'min-width' : '150px',
+				'white-space' : 'nowrap',
+				disable_search_threshold : 10
+		});
+	});
+	
+	function deleteUser(user_id)
+	{
+		$.confirm({
+			text : "Xóa bản ghi?",
+			confirm : function(button)
+			{
+				jQuery('#deleteUser' + user_id).submit();
+			},
+			cancel : function(button)
+			{
+
+			}
+		});
+	}
+</script>
+{% endblock scripts%}

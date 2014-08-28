@@ -15,3 +15,7 @@ class DeviceInfor(models.Model):
     status = models.CharField(max_length=1)
     class Meta:
         db_table = 'device_infor'
+        app_label = 'myapp'
+        permissions = (
+            ("view_deviceinfor", "Can see list device infor"),
+        )

@@ -18,3 +18,7 @@ class DeviceProperties(models.Model):
     symbol = models.CharField(max_length=15)
     class Meta:
         db_table = 'device_properties'
+        app_label = 'myapp'
+        permissions = (
+            ("view_deviceproperties", "Can see list device properties"),
+        )

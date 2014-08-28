@@ -32,24 +32,26 @@
 
 		<h5 class="sidebartitle">Chức năng</h5>
 		<ul class="nav nav-pills nav-stacked nav-bracket">
-			<li class="active"><a href="home"><i
+			<li class="active"><a href="/home"><i
 					class="fa fa-home"></i> <span>Giám sát phòng máy</span></a></li>
+			{% if user.is_superuser %}
 			<li class="nav-parent"><a href="#"><i class="fa fa-edit"></i>
 					<span>Quản trị</span></a>
 				<ul class="children">
-					<li><a href="general-forms.html"><i
+					<li><a href="/user"><i
 							class="fa fa-caret-right"></i> Quản lý tài khoản </a></li>
-					<li><a href="form-layouts.html"><i
-							class="fa fa-caret-right"></i> Quản lý phòng ban</a></li>
+					<li><a href="/group"><i
+							class="fa fa-caret-right"></i> Danh sách phòng ban</a></li>
 				</ul></li>
+			{% endif %}
 			<li class="nav-parent nav-active"><a href="#"><i class="fa fa-laptop"></i>
 					<span>Phòng máy</span></a>
 				<ul class="children" style="display: block;">
-					<li><a href="buttons.html"><i class="fa fa-caret-right"></i>
+					<li><a href="/device-list"><i class="fa fa-caret-right"></i>
 							Danh sách phòng máy</a></li>
-					<li><a href="icons.html"><i class="fa fa-caret-right"></i>
+					<li><a href="/area"><i class="fa fa-caret-right"></i>
 							Danh sách khu vực</a></li>
-					<li><a href="typography.html"><i class="fa fa-caret-right"></i>
+					<li><a href="/device-property"><i class="fa fa-caret-right"></i>
 							Danh sách cảm biến</a></li>
 				</ul></li>
 			<li class="nav-parent"><a href="#"><i class="fa fa-suitcase"></i>
@@ -61,8 +63,10 @@
 			<li class="nav-parent"><a href="#"><i class="fa fa-file-text"></i>
 					<span>Báo cáo</span></a>
 				<ul class="children">
+					{% if perms.myapp.view_area %}
 					<li><a href="buttons.html"><i class="fa fa-caret-right"></i>
 							Tình trạng phòng máy theo địa bàn</a></li>
+					{% endif %}	
 					<li><a href="icons.html"><i class="fa fa-caret-right"></i>
 							Tình trạng phòng máy theo Thời gian</a></li>
 				</ul></li>

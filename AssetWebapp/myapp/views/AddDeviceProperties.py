@@ -4,19 +4,22 @@ Created on Apr 3, 2014
 @author: DienND
 '''
 
+from django.contrib.auth.decorators import permission_required
 from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.template.context import RequestContext
 
 from myapp.models import DeviceProperties
 
 
+@permission_required('myapp.add_deviceproperties',login_url='/permission-error')
 def index(request):
 	if request.method == 'GET':
 		lsDeviceProperty = DeviceProperties.objects.all()
 		context={'lsDeviceProperty':lsDeviceProperty}
 		context.update(csrf(request))
-		return render_to_response("device-property.html", context)
+		return render_to_response("device-property.html", context,RequestContext(request))
 	elif request.method == 'POST':
 		formType= request.POST['type']
 		if formType == 'addDeviceProperty':

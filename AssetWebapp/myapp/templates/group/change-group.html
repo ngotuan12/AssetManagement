@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="../../css/style.default.css" rel="stylesheet">
+	<link href="../../css/custom.css" rel="stylesheet">
+{% endblock styles %}
+
+{% block content-header %} 
+	<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i> Phòng ban <span>Sửa thông tin phòng ban</span>
+	</h2>
+	<div class="breadcrumb-wrapper">
+		<ol class="breadcrumb">
+			<li><a href="/group">Phòng ban</a></li>
+			<li class="active">{{ current_group.name }}</li>
+		</ol>
+	</div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="contentpanel">
+	<form action="" class="form-horizontal form-bordered" method="post" id="formGroup" novalidate="novalidate">
+		{% csrf_token %}
+		<div class="panel">
+			<div class="panel-body">
+			
+				<div class="form-group ">
+					<label class="col-sm-2 control-label">Tên phòng ban</label>
+					<div class="col-sm-8">
+						<input name=txtGroupName type="text" placeholder="Phòng ban" class="form-control" value="{{ current_group.name }}" required>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Phân quyền</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<div class="col-sm-9">
+						{% for per in permissions %}
+							<div class="form-group">
+								<div class="col-sm-5">
+									<div class="ckbox ckbox-default">
+										<input type="checkbox" name="checkboxPer{{ per.id }}" id="checkboxPer{{ per.id }}"
+										{% if per.id in current_pers %}
+											checked="checked"
+										{% endif %}
+											> <label for="checkboxPer{{ per.id }}">{{ per.name }}</label>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<button class="btn btn-primary" onclick="return onValidate();">Lưu</button>&nbsp;
+					<a href="/group" class="btn btn-default">Thoát</a>
+				</div>
+			 </div>
+	</form>
+	
+</div>
+{% endblock content %} 
+{% block scripts %}
+<script src="../../js/jquery-1.10.2.min.js"></script>
+<script src="../../js/jquery-migrate-1.2.1.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/modernizr.min.js"></script>
+<script src="../../js/jquery.sparkline.min.js"></script>
+<script src="../../js/toggles.min.js"></script>
+<script src="../../js/retina.min.js"></script>
+<script src="../../js/jquery.cookies.js"></script>
+
+<script src="../../js/custom.js"></script>
+<script src="../../js/jquery.validate.min.js"></script>
+<script>
+	function onValidate()
+	{
+		var $valid = jQuery('#formGroup').valid();
+		if (!$valid)
+		{
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#formGroup').submit();
+	}
+</script>
+{% endblock scripts%}

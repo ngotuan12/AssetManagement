@@ -4,6 +4,7 @@ Created on Apr 3, 2014
 @author: DienND
 '''
 
+from django.contrib.auth.decorators import permission_required
 from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -11,6 +12,7 @@ from django.shortcuts import render_to_response
 from myapp.models import DeviceProperties
 
 
+@permission_required('myapp.change_deviceproperties',login_url='/permission-error')
 def index(request):
 	if request.method == 'GET':
 		lsDeviceProperty = DeviceProperties.objects.all()
@@ -46,4 +48,10 @@ def index(request):
 			
 			dp.save()
 			
+			return HttpResponseRedirect('/device-property')
+		elif formType == 'deleteDeviceProperty':
+			_id = request.POST['hd_device_pro']
+			dp = DeviceProperties.objects.get(id = _id)
+			
+			dp.delete()
 			return HttpResponseRedirect('/device-property')
