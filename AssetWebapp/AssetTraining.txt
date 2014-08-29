@@ -1,0 +1,36 @@
+1. Quan ly source code: github
+Register on http://github.com
+Install git bash , tortoise git
+
+2. Python & JAVA
+
+- python 2.7
+- JDK 
+- extract apache tomcat
+- extract eclipse
+- Install lib for python
+install pip from file python  get-pip.py
+install easy_install from file python  ez-setup.py
++) Requirement
+Django
+install cx_Oracle-5.1.2-10g.win32-py2.7
+pip install django-oraclepool
+
+3. IDE: eclipse for python & java
+- config python
+Windows -> Preference -> Pydev -> Interpreter -> Python Interpreter:
+Windows -> Preference -> .Jjava -> installed JRE
+Windows -> Preference -> Server -> Runtiome Environment
+
+4. Example Page
+
+
+
+
+
+
+
+
+
+
+	
