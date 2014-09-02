@@ -26,7 +26,7 @@ class Reason(models.Model):
         app_label = 'myapp'
         permissions = (
             ("view_reason", "Can see list reason"),
-        )
+        )    
     @update_id
     def save(self):
         # Now actually save the object.
