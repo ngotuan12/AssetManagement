@@ -146,7 +146,9 @@
 	}
 	function clickRow(user_id,user_name,email,first_name,last_name)
 	{
-		$("#usertable tbody tr[user_id][user_id='"+ user_id +"']").css('background-color','#8EE2BC');
+		//#A94442
+		$("#usertable tbody tr[user_id][user_id='"+ user_id +"']").css('background-color','#1d2939');
+		//$("#usertable tbody tr[user_id][user_id='"+ user_id +"']").css('color','#fff');
 		$("#usertable tbody tr[user_id][user_id!='"+ user_id +"']").css('background-color','#fff');
 		
 		$("#first_name").val(first_name);

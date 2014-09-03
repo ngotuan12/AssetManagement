@@ -120,7 +120,7 @@ def change_user(request,user_id):
                     else:
                         current_user.groups.remove(group)
                 current_user.save()
-                return HttpResponseRedirect("/user")
+                return HttpResponseRedirect("/list-user")
             except Exception as ex:
                 context.update({"has_error":str(ex)})
         context.update(csrf(request))
