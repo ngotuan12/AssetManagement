@@ -18,4 +18,4 @@ def index(request):
 		context={}
 		print(ex)
 	finally:
-		return render_to_response("decrement-asset.html", context,RequestContext(request))
+		return render_to_response("verify-asset.html", context,RequestContext(request))
