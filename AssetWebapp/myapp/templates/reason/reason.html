@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="css/custom.css" rel="stylesheet">
+{% endblock styles %}
+{% block content-header %}
+<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i>Lý do <span>Chi tiết lý do </span>
+	</h2>
+	<div class="breadcrumb-wrapper">
+		<a class="btn btn-success" href="/reason/add/">Thêm lý do</a>
+	</div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="contentpanel">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-hover" id="usertable">
+					<thead>
+						<tr>
+							<th>STT</th>
+							<th>Mã lý do</th>
+							<th>Tên lý do</th>
+							<th>Trạng thái</th>
+							<th>Mô tả</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for reason in reasons %}
+						<tr class="odd gradeX" ondblclick="">
+							<td>{{forloop.counter}}</td>
+							<td><a href="/reason/{{ reason.id }}/">{{ reason.reason_code }}</a></td>
+							<td>{{ reason.reason_name }}</td>
+							<td>{% ifequal reason.reason_status "1" %} Hiệu lực {% else %} Hết hiệu lực {% endifequal  %}</td>
+							<td>{{ reason.description }}</td>
+							<td class="table-action">
+								<a href="/reason/{{ reason.id }}/"><i class="fa fa-pencil"></i></a>
+								<a href="#" onclick="deleteReason('{{ reason.id }}');" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
+								<form method="post" id="deleteReason{{ reason.id }}" action="/reason/delete/{{ reason.id }}/">
+									{% csrf_token %}
+								</form>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<!-- table-responsive -->
+
+		</div>
+		<!-- panel-body -->
+	</div>
+	<!-- panel -->
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/jquery.datatables.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/jquery.confirm.js"></script>
+<script>
+	jQuery(document).ready(function() {
+		$('#usertable').dataTable({
+			"sPaginationType" : "full_numbers"
+		});
+		$("select").chosen({
+			'min-width' : '150px',
+			'white-space' : 'nowrap',
+			disable_search_threshold : 10
+	});
+	});
+	function deleteReason(reason_id)
+	{
+		$.confirm({
+			text : "Bạn thực sự muốn xoá lý do",
+			confirm : function(button)
+			{
+				jQuery('#deleteReason' + reason_id).submit();
+			},
+			cancel : function(button)
+			{
+
+			}
+		});
+	}
+</script>
+{% endblock scripts%}
