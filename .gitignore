@@ -2,6 +2,8 @@
 
 *.pyc
 *.class
+sqlnet.log
+/AssetWebapp/sqlnet.log
 /AssetServer/build
 /AssetServer/jar
 /RemoteSystemsTempFiles
