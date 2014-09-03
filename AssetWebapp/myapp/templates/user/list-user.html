@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block styles %}
+	
+	<link href="css/custom.css" rel="stylesheet">
+{% endblock styles %}
+
+{% block content %}
+<div class="contentpanel" style="background:#828283">
+	<div class="col-md" >
+	  <div class="panel panel-primary">
+		<div class="panel-heading">
+		  <h4 class="panel-title" style="text-align:center;">QUẢN LÝ TÀI KHOẢN HỆ THỐNG</h4>
+		</div>
+		<form>
+		<div class="panel-body" style="min-height: 500px;">
+		  <div class="row row-pad-5">
+			<div class="alert alert-warning" style= "height: 120px;width: 98%;margin-left: 1%">
+
+				<div class="col-lg-4">
+					<select id= "asset_code" class="form-control chosen-select" data-placeholder="Mã ĐV" style="display: none;">
+					  <option value=""></option>
+					  <option value="United States">TTVTT</option>
+					</select>
+				</div>
+				<div class="col-lg-8">
+				  <input type="text" name="asset_name" placeholder="Tên đơn vị" class="form-control">
+				</div>
+			
+				<div class="col-lg-4">
+				  <input type="text" name="asset_name" placeholder="Mã nhân viên (Tài khoản đăng nhập)" class="form-control">
+				</div>
+				<div class="col-lg-4">
+				  <input type="text" name="asset_name" placeholder="Họ và đệm" class="form-control">
+				</div>
+				<div class="col-lg-4" >
+				  <input type="text" name="asset_name" placeholder="Tên nhân viên" class="form-control">
+				</div>
+			
+			
+			</div> <!-- alert alert-warning -->
+			<div class="col-sm" >
+
+					<div class="table-responsive">
+						<table class="table table-bordered" id="usertable">
+							<thead>
+								<tr>
+									<th>STT</th>
+									<th>Tài khoản </th>
+									<th>Họ </th>
+									<th>Tên</th>
+									<th>Email </th>
+									<th>Ngày tạo</th>
+									<th>Sửa/Xoá</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for user in users %}
+								<tr class="odd gradeX">
+									<td>{{forloop.counter}}</td>
+									<td><a href="/user/{{ user.id }}/">{{ user.username }}</a></td>
+									<td>{{ user.first_name }}</td>
+									<td>{{ user.last_name }}</td>
+									<td>{{ user.email }}</td>
+									<td>{{ user.date_joined }}</td>
+									<td class="table-action">
+										<a href="/user/{{ user.id }}/"><i class="fa fa-pencil"></i></a>
+										<a href="#" onclick="deleteUser('{{ user.id }}');" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
+										 <form method="post" id="deleteUser{{ user.id }}" action="/user/delete/{{ user.id }}/">
+										  {% csrf_token %}
+										  <input type="hidden" name="hd_device_pro" value="{{ user.id }}">
+										  <input type="hidden" name="type" value="deleteDeviceProperty">
+										 </form>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					<!-- table-responsive -->
+				</div> <!--row-->
+			</div><!-- row -->
+
+		  </div><!-- panel-body -->
+		<div class="panel-footer">
+			<a class="btn btn-primary" href="/user/add/">Thêm tài khoản</a>
+		</div>
+	  </div><!-- panel body-->
+	</div>
+</div> <!-- content panel -->
+
+{% endblock content %}
+
+{% block scripts %}
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/jquery.datatables.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/jquery.confirm.js"></script>
+<script>
+	jQuery(document).ready(function() {
+		jQuery(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+		
+		$('#usertable').dataTable({
+			"sPaginationType" : "full_numbers"
+		});
+		// Chosen Select
+		$("select").chosen({
+				'min-width' : '150px',
+				'white-space' : 'nowrap',
+				disable_search_threshold : 10
+		});
+	});
+	
+	function deleteUser(user_id)
+	{
+		$.confirm({
+			text : "Xóa bản ghi?",
+			confirm : function(button)
+			{
+				jQuery('#deleteUser' + user_id).submit();
+			},
+			cancel : function(button)
+			{
+
+			}
+		});
+	}
+</script>
+{% endblock scripts%}
