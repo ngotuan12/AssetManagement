@@ -21,9 +21,9 @@
 				<div class="form-group">
 					<div class = "row row-pad-5">
 						<div class="col-lg-6">
-							<select id="" class="form-control chosen-select valid"
+							<select id="" class="form-control chosen-select"
 								data-placeholder="Tài sản" style="display: none;"
-								name = "slAsset" required>
+								name = "slAsset">
 								<option value=""></option>
 								{% for asset in assets%}
 									<option value="{{ asset.id }}">{{ asset.code }} - {{ asset.name }}</option>
@@ -34,7 +34,7 @@
 						<div class="col-lg-6">
 							<select id="" class="form-control chosen-select"
 								data-placeholder="Lý do" style="display: none;"
-								name = "slReason" required>
+								name = "slReason">
 								<option value=""></option>
 								{% for reason in reasons %}
 									<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
@@ -47,7 +47,7 @@
 						<div class="col-lg-6">
 							<select id="" class="form-control chosen-select"
 								data-placeholder="Nguồn vốn" style="display: none;"
-								name = "slSource" required>
+								name = "slSource">
 								<option value=""></option>
 								{% for source in sources %}
 									<option value="{{ source.id }}">{{ source.code }} - {{ source.name }}</option>
@@ -58,7 +58,7 @@
 						<div class="col-lg-6">
 							<select id="" class="form-control chosen-select"
 								data-placeholder="Phương pháp tính" style="display: none;"
-								name = "slMethod" required>
+								name = "slMethod">
 								<option value=""></option>
 								{% for method in methods %}
 									<option value="{{ method.id }}">{{ method.code }} - {{ method.name }}</option>
@@ -71,7 +71,7 @@
 						<div class="col-lg-6">
 							<select id="" class="form-control chosen-select"
 								data-placeholder="Nhà cung cấp" style="display: none;"
-								name = "slSupplier" required>
+								name = "slSupplier">
 								<option value=""></option>
 								{% for supplier in suppliers %}
 									<option value="{{ supplier.id }}">{{ supplier.code }} - {{ supplier.name }}</option>
@@ -82,7 +82,7 @@
 						<div class="col-lg-6">
 							<select id="" class="form-control chosen-select"
 								data-placeholder="Xuất sứ" style="display: none;"
-								name = "slCountry" required>
+								name = "slCountry">
 								<option value=""></option>
 								{% for country in countries %}
 									<option value="{{ country.id }}">{{ country.code }} - {{ country.name }}</option>
@@ -95,7 +95,7 @@
 						<div class="col-lg-6">
 							<select id="slDept" class="form-control chosen-select"
 								data-placeholder="Đơn vị" style="display: none;"
-								name = "slDept" required>
+								name = "slDept">
 								<option value=""></option>
 								{% for dept in depts %}
 									<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
@@ -106,7 +106,7 @@
 						<div class="col-lg-6">
 							<select id="slStock" class="form-control chosen-select"
 								data-placeholder="Kho" style="display: none;"
-								name = "slStock" required>
+								name = "slStock">
 								<option value=""></option>
 								{% for stock in stocks %}
 									<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
@@ -118,7 +118,7 @@
 						<div class="col-lg-6">
 							<select id="" class="form-control chosen-select"
 								data-placeholder="Mục đích sử dụng" style="display: none;"
-								name = "slGoal" required>
+								name = "slGoal">
 								<option value=""></option>
 								{% for goal in goals %}
 									<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
@@ -129,7 +129,7 @@
 						<div class="col-lg-6">
 							<select id="" class="form-control chosen-select"
 								data-placeholder="Hiện trạng sử dụng" style="display: none;"
-								name = "slState" required>
+								name = "slState">
 								<option value=""></option>
 								{% for state in states %}
 									<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
@@ -181,12 +181,12 @@
 					<div class = "row row-pad-5">
 						<div class="col-lg-4">
 							<input type="text" name="txtOriginPrice" placeholder="Nguyên Giá"
-								class="form-control numberic" required>
+								class="form-control numberic" required maxlength="15">
 						</div>
 						
 						<div class="col-lg-4">
 							<input type="text" name="txtRemainAmount"
-								placeholder="Giá trị còn lại" class="form-control numberic" required>
+								placeholder="Giá trị còn lại" class="form-control numberic" required maxlength="15">
 						</div>
 						<div class="col-lg-4">
 							<input type="text" name="txtSerial" placeholder="Số thẻ TSCĐ"
@@ -203,8 +203,8 @@
 			</div>
 			<!-- panel-body -->
 			<div class="row">
-				<div class="col-sm col-sm-offset-5">
-					<div class="panel-footer">
+				<div class="col-sm col-sm-offset-5" >
+					<div class="panel-footer" style="border-top: none;">
 						<button class="btn btn-primary" onclick=" return onSUbmitFormIncrement();">Thực hiện</button>
 					</div>
 				</div>
@@ -251,16 +251,22 @@ $(document).ready(function(){
   $('#start_use_date').mask("99/99/9999");
   $('#up_date').mask("99/99/9999");
   $('#atrophy_date').mask("99/99/9999");
+  
+  //Validation with select boxes
 });
 //change slDept
 $('#slDept').change(function(){
+	
+	var dept_id = $(this).find('option:selected').val();
+	
+	$("#slStock option[dept_id][dept_id='" + dept_id + "']").show();
+	$("#slStock option[dept_id][dept_id='" + dept_id + "']").css("display", "block");
+	$("#slStock option[dept_id][dept_id!='" + dept_id + "']").hide(); 
+	
 	$('#slStock').chosen('destroy');
 	$('#slStock').prop("selectedIndex", -1);
 	$('#slStock').chosen();
-});
-//
-$('#slStock').change(function(){
-	alert('slStock change');
+	
 });
 jQuery(window).load(function(){ 
 	$(".numberic").numeric();

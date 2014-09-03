@@ -84,7 +84,7 @@ h4, .h4 {
 .form-bordered .form-group {
    margin: 0;
    padding: 15px 0;
-   border-top: 1px solid #d3d7db;
+   /* border-top: 1px solid #d3d7db; */
 }
 
 .form-bordered .form-group:first-child {
