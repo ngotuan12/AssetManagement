@@ -19,8 +19,9 @@ class StockAssetSerial(models.Model):
     stock = models.ForeignKey(Stock,db_column='stock_id')
     asset = models.ForeignKey(Asset,db_column="asset_id")
     serial = models.CharField(max_length=100,db_column="serial")
-    original_value = models.CharField(max_length=100,db_column='original_value')
-    list_level = models.CharField(max_length=1,db_column="list_level")
+    original_value = models.FloatField(db_column="original_value")
+    remain_value = models.FloatField(db_column="remain_value")
+    import_date = models.DateField(db_column="import_date")
     status = models.CharField(max_length=1,db_column="status")
     interval = models.CharField(max_length=1,db_column="interval")
     class_group = models.CharField(max_length=10,db_column="class_group")
@@ -28,10 +29,10 @@ class StockAssetSerial(models.Model):
     user_name = models.CharField(max_length=20,db_column="user_name")
     parent_code = models.CharField(max_length=40,db_column="parent_code")
     class Meta:
-        db_table = 'asset'
+        db_table = 'stock_asset_serial'
         app_label = 'myapp'
         permissions = (
-            ("view_asset", "Can see list asset"),
+            ("view_stock_asset_serial", "Can see list stock asset serial"),
         )
     @update_id
     def save(self):

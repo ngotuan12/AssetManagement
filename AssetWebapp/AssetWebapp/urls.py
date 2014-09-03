@@ -32,6 +32,8 @@ urlpatterns = patterns('',
     url(r'^increment-asset$', IncrementAsset.index,name='increment-asset'),
     #increment asset
     url(r'^decrement-asset$', DecrementAsset.index,name='decrement-asset'),
+    url(r'^get-list-stock/(?P<dept_id>\w+)/$', DecrementAsset.getListStock,name='get-list-stock'),
+    url(r'^get-list-serial/(?P<stock_id>\w+)/$', DecrementAsset.getListSerial,name='get-list-serial'),
     #verify asset
     url(r'^verify-asset$', VerifyAsset.index),
     #revaluate asset
