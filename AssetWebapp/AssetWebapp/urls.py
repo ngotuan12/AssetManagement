@@ -3,12 +3,7 @@ from django.contrib import admin
 
 from AssetWebapp import settings
 from myapp.views import Home, DeviceProperties, AddDeviceProperties, EditDeviceProperties, Area, AddArea, DeviceInfor, EditArea\
-<<<<<<< HEAD
-, Device, User, Error, Group, IncrementAsset, DecrementAsset
-=======
-, Device, User, Error, Group, Reason
-
->>>>>>> 97db5bc402e0f64f9906754fef5870c032da963a
+, Device, User, Error, Group,Reason, IncrementAsset, DecrementAsset
 
 
 admin.autodiscover()
