@@ -1,32 +1,67 @@
 '''
-Created on Aug 26, 2014
+Created on Aug 31, 2014
 
-@author: TuanNA
+@author: VinhNDQ
 '''
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
 
 from myapp.models.Reason import Reason
+from django.template.context import RequestContext
 
 
-@login_required(login_url='/login')
-@permission_required('myapp.add_reason', raise_exception=True)
-def index(request):
-    reasons = Reason.objects.all().order_by('id')
-    context = {'reasons':reasons}
-    context.update(csrf(request))
-    return render_to_response("reason.html", context)
 @login_required(login_url='/login')
 def add_reason(request):
-    if(request.POST):
-        reason_code = request.POST["txtReasonCode"]
-        print(reason_code)
+    context ={}
+    if request.POST:
+        reason_code = request.POST['txtReasonCode']
+        reason_name = request.POST['txtReasonName']
+        reason_status = request.POST['optStatus']
+        description = request.POST['txtDescription']
+        try:
+            reason = Reason()
+            reason.reason_code = reason_code
+            reason.reason_name = reason_name
+            reason.reason_status=reason_status
+            reason.description = description
+            reason.save()
+            return HttpResponseRedirect("/reason")
+        except Exception as ex:
+            context.update({"has_error":str(ex)})
+    context.update(csrf(request))
+    return render_to_response("reason/add-reason.html",context, RequestContext(request))
+@login_required(login_url='/login')
+def view_reason(request):
+    reasons = Reason.objects.all().order_by("reason_name")
+    context ={"reasons":reasons}
+    return render_to_response("reason/reason.html",context, RequestContext(request))
+@login_required(login_url='/login')
+def change_reason(request,reason_id):
+    try:
+        context = {}
+        current_reason = Reason.objects.get(id = reason_id)
+        context.update({"current_reason":current_reason}) 
+        if request.POST :
+            try:
+                reason_name = request.POST['txtReasonName']
+                reason_status = request.POST['optStatus']
+                description = request.POST['txtDescription']
+                current_reason.reason_name = reason_name
+                current_reason.reason_status=reason_status
+                current_reason.description = description
+                current_reason.save()
+                return HttpResponseRedirect("/reason")
+            except Exception as ex:
+                context.update({'has_error':ex})
+        context.update(csrf(request))
+        return render_to_response("reason/change-reason.html",context, RequestContext(request))
+    except Reason.DoesNotExist:
+        return HttpResponseRedirect("/notfound-error")
+@login_required(login_url='/login')
+def delete_reason(request,reason_id):
+    if request.POST:
+        current = Reason.objects.get(id=reason_id)
+        current.delete()
     return HttpResponseRedirect("/reason")
-@login_required(login_url='/login')
-def update_reason(request):
-    return ""
-@login_required(login_url='/login')
-def delete_reason(request):
-    return ""
