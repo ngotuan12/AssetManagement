@@ -32,14 +32,17 @@ urlpatterns = patterns('',
     url(r'^increment-asset$', IncrementAsset.index,name='increment-asset'),
     #increment asset
     url(r'^decrement-asset$', DecrementAsset.index,name='decrement-asset'),
+    #verify asset
     url(r'^verify-asset$', VerifyAsset.index),
+    #revaluate asset
     url(r'^revaluate-asset$', RevaluateAsset.index),
     # User
     url(r'^user$', User.view_user,name='user'),
+    #list user
     url(r'^list-user$', User.list_user,name='list-user'),
-    
+    # add user 
     url(r'^user/add/$', User.add_user,name='delete-user'),
-    
+    #delete user 
     url(r'^user/delete/(?P<user_id>\w+)/$', User.delete_user,name='add-user'),
     url(r'^user/(?P<user_id>\w+)/$', User.change_user,name='change-user'),
     # Group
