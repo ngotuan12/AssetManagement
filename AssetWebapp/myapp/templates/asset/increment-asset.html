@@ -5,6 +5,7 @@
 {% block content %}
 <div class="contentpanel no-padding" style="background: #828283">
 	<form class="form-horizontal form-bordered">
+		{% csrf_token %}
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
@@ -16,7 +17,8 @@
 					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Tài sản" style="display: none;">
+								data-placeholder="Tài sản" style="display: none;"
+								name = "slAsset">
 								<option value=""></option>
 								{% for asset in assets%}
 									<option value="{{ asset.id }}">{{ asset.code }} - {{ asset.name }}</option>
@@ -26,7 +28,8 @@
 						
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Lý do" style="display: none;">
+								data-placeholder="Lý do" style="display: none;"
+								name = "slReason">
 								<option value=""></option>
 								{% for reason in reasons %}
 									<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
@@ -38,7 +41,8 @@
 					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Nguồn vốn" style="display: none;">
+								data-placeholder="Nguồn vốn" style="display: none;"
+								name = "slSource">
 								<option value=""></option>
 								{% for source in sources %}
 									<option value="{{ source.id }}">{{ source.code }} - {{ source.name }}</option>
@@ -48,7 +52,8 @@
 						
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Phương pháp tính" style="display: none;">
+								data-placeholder="Phương pháp tính" style="display: none;"
+								name = "slMethod">
 								<option value=""></option>
 								{% for method in methods %}
 									<option value="{{ method.id }}">{{ method.code }} - {{ method.name }}</option>
@@ -60,7 +65,8 @@
 					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Nhà cung cấp" style="display: none;">
+								data-placeholder="Nhà cung cấp" style="display: none;"
+								name = "slSupplier">
 								<option value=""></option>
 								{% for supplier in suppliers %}
 									<option value="{{ supplier.id }}">{{ supplier.code }} - {{ supplier.name }}</option>
@@ -70,7 +76,8 @@
 						
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Xuất sứ" style="display: none;">
+								data-placeholder="Xuất sứ" style="display: none;"
+								name = "slCountry">
 								<option value=""></option>
 								{% for country in countries %}
 									<option value="{{ country.id }}">{{ country.code }} - {{ country.name }}</option>
@@ -82,7 +89,8 @@
 					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Đơn vị" style="display: none;">
+								data-placeholder="Đơn vị" style="display: none;"
+								name = "slDept">
 								<option value=""></option>
 								{% for dept in depts %}
 									<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
@@ -92,7 +100,8 @@
 						
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Kho" style="display: none;">
+								data-placeholder="Kho" style="display: none;"
+								name = "slStock">
 								<option value=""></option>
 								{% for stock in stocks %}
 									<option value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
@@ -106,7 +115,8 @@
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày mua" id="buy_date"> <span
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày mua" id="buy_date"
+									name = "dtBuyDate"> <span
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
@@ -114,7 +124,8 @@
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày bắt đầu sử dụng" id="start_use_date">
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày bắt đầu sử dụng" id="start_use_date"
+									name = "dtStartUseDate">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
@@ -123,7 +134,8 @@
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày ghi tăng" id="up_date">
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày ghi tăng" id="up_date"
+									name = "dtUpDate">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
@@ -131,7 +143,8 @@
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tính hao mòn" id="atrophy_date">
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tính hao mòn" id="atrophy_date"
+									name = "dtAtrophyDate">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
@@ -140,12 +153,12 @@
 				<div class="form-group">
 					<div class = "row row-pad-5">
 						<div class="col-lg-6">
-							<input type="email" name="origin_price" placeholder="Nguyên Giá"
+							<input type="text" name="txtOriginPrice" placeholder="Nguyên Giá"
 								class="form-control">
 						</div>
 						
 						<div class="col-lg-6">
-							<input type="url" name="remain_amount"
+							<input type="text" name="txtRemainAmount"
 								placeholder="Giá trị còn lại" class="form-control">
 						</div>
 					</div>
@@ -153,7 +166,7 @@
 					
 				<!-- row -->
 
-				<textarea class="form-control" name="note" rows="2"
+				<textarea class="form-control" name="txtNote" rows="2"
 					placeholder="Ghi chú"></textarea>
 
 			</div>

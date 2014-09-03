@@ -30,8 +30,24 @@ def index(request):
 		context.update({'depts':Dept.objects.all()})
 		context.update({'stocks':Stock.objects.all()})
 		if request.POST: 
+			#Get parameter
+			asset_id = request.POST["slAsset"]
+			reason_id = request.POST["slReason"]
+			method_id = request.POST["slMethod"]
+			source_id = request.POST["slSource"]
+			country_id = request.POST["slCountry"]
+			supplier_id = request.POST["slSupplier"]
+			dept_id = request.POST["slDept"]
+			stock_id = request.POST["slStock"]
+			buy_date = request.POST["slStock"]
+			start_use_date = request.POST["slStock"]
+			up_date = request.POST["slStock"]
+			atrophy_date = request.POST["slStock"]
+			origin_price = request.POST["txtOriginPrice"]
+			remain_amount = request.POST["txtRemainAmount"]
+			note = request.POST["txtNote"]
 			cursor = connection.cursor()
-			cursor.execute("UPDATE bar SET foo = 1 WHERE baz = %s", ['dsad'])
+# 			cursor.execute("UPDATE bar SET foo = 1 WHERE baz = %s", ['dsad'])
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
