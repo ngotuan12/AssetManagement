@@ -11,8 +11,13 @@
 				<h4 class="panel-title"
 					style="text-align: center; line-height: 10px">TĂNG TÀI SẢN</h4>
 			</div>
+			
 			<div class="panel-body">
-
+				{% if has_error %}
+					<div class="panel">
+						<label class="error">{{ has_error }}</label>
+					</div>
+				{% endif %}
 				<div class="form-group">
 					<div class = "row row-pad-5">
 						<div class="col-lg-6">
@@ -109,6 +114,29 @@
 							</select>
 						</div>
 					</div>
+					<div class = "row row-pad-5">
+						<div class="col-lg-6">
+							<select id="asset_code" class="form-control chosen-select"
+								data-placeholder="Mục đích sử dụng" style="display: none;"
+								name = "slGoal">
+								<option value=""></option>
+								{% for goal in goals %}
+									<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
+								{% endfor%}
+							</select>
+						</div>
+						
+						<div class="col-lg-6">
+							<select id="asset_code" class="form-control chosen-select"
+								data-placeholder="Hiện trạng sử dụng" style="display: none;"
+								name = "slState">
+								<option value=""></option>
+								{% for state in states %}
+									<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
+								{% endfor%}
+							</select>
+						</div>
+					</div>
 				</div>
 				<div class="form-group">
 					<div class = "row row-pad-5">
@@ -160,6 +188,13 @@
 						<div class="col-lg-6">
 							<input type="text" name="txtRemainAmount"
 								placeholder="Giá trị còn lại" class="form-control">
+						</div>
+					</div>
+					
+					<div class = "row row-pad-5">
+						<div class="col-lg">
+							<input type="text" name="txtSerial" placeholder="Số thẻ TSCĐ"
+								class="form-control">
 						</div>
 					</div>
 				</div>
