@@ -7,12 +7,15 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from myapp.models.Asset import Asset
 
 @login_required(login_url='/login')
 @permission_required('myapp.view_area',login_url='/permission-error')
 def index(request):
 	context={}
 	try:
+		assets = Asset.objects.all()
+		context.update({'assets':assets})
 		context.update(csrf(request))
 	except Exception as ex:
 		context={}

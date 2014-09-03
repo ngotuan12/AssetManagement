@@ -4,61 +4,93 @@
 {% endblock %}
 {% block content %}
 <div class="contentpanel no-padding" style="background: #828283">
+	<form class="form-horizontal form-bordered">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
 					style="text-align: center; line-height: 10px">TĂNG TÀI SẢN</h4>
 			</div>
-			<form>
-				<div class="panel-body">
-					<div class="row row-pad-5">
+			<div class="panel-body">
 
-						<div class="col-lg-4">
-							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Chọn Mã Tài Sản.." style="display: none;">
-								<option value=""></option>
-								<option value="United States">TTVTT</option>
-							</select>
-						</div>
-
-						<div class="col-lg-8">
-							<input type="text" name="asset_name" placeholder="Tên Tài sản"
-								class="form-control">
-						</div>
-
+				<div class="form-group">
+					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Lý do tăng.." style="display: none;">
+								data-placeholder="Tài sản" style="display: none;">
 								<option value=""></option>
-								<option value="United States">TTVTT</option>
+								{% for asset in assets%}
+									<option value="{{ asset.id }}">{{ asset.code }} - {{ asset.name }}</option>
+								{% endfor%}
 							</select>
 						</div>
-
+						
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Nguồn vốn.." style="display: none;">
+								data-placeholder="Lý do" style="display: none;">
 								<option value=""></option>
-								<option value="United States">TTVTT</option>
+								{% for reason in reasons %}
+									<option value="{{ asset.id }}">{{ asset.code }} - {{ asset.name }}</option>
+								{% endfor%}
 							</select>
 						</div>
-
+					</div>
+					
+					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Phương pháp tính hao mòn.."
-								style="display: none;">
+								data-placeholder="Nguồn vốn" style="display: none;">
 								<option value=""></option>
 								<option value="United States">TTVTT</option>
 							</select>
 						</div>
-
+						
 						<div class="col-lg-6">
 							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Nước Sản Xuất.." style="display: none;">
+								data-placeholder="Phương pháp tính" style="display: none;">
 								<option value=""></option>
 								<option value="United States">TTVTT</option>
 							</select>
 						</div>
-
+					</div>
+					
+					<div class = "row row-pad-5">
+						<div class="col-lg-6">
+							<select id="asset_code" class="form-control chosen-select"
+								data-placeholder="Nhà cung cấp" style="display: none;">
+								<option value=""></option>
+								<option value="United States">TTVTT</option>
+							</select>
+						</div>
+						
+						<div class="col-lg-6">
+							<select id="asset_code" class="form-control chosen-select"
+								data-placeholder="Xuất sứ" style="display: none;">
+								<option value=""></option>
+								<option value="United States">TTVTT</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class = "row row-pad-5">
+						<div class="col-lg-6">
+							<select id="asset_code" class="form-control chosen-select"
+								data-placeholder="Đơn vị" style="display: none;">
+								<option value=""></option>
+								<option value="United States">TTVTT</option>
+							</select>
+						</div>
+						
+						<div class="col-lg-6">
+							<select id="asset_code" class="form-control chosen-select"
+								data-placeholder="Kho" style="display: none;">
+								<option value=""></option>
+								<option value="United States">TTVTT</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
@@ -70,11 +102,12 @@
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày BĐ SD" id="start_use_date">
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày bắt đầu sử dụng" id="start_use_date">
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
-
+					</div>
+					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
@@ -90,51 +123,29 @@
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
-
-						<div class="col-lg-4">
-							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Mã Nhà cung câp.." style="display: none;">
-								<option value=""></option>
-								<option value="United States">TTVTT</option>
-							</select>
-						</div>
-
-						<div class="col-lg-8">
-							<input type="text" name="asset_name"
-								placeholder="Tên nhà cung cấp" class="form-control">
-						</div>
-
-						<div class="col-lg-4">
-							<select id="asset_code" class="form-control chosen-select"
-								data-placeholder="Mã ĐV Thụ hưởng.." style="display: none;">
-								<option value=""></option>
-								<option value="United States">TTVTT</option>
-							</select>
-						</div>
-
-						<div class="col-lg-8">
-							<input type="text" name="asset_name"
-								placeholder="Tên đơn vị thụ hưởng" class="form-control">
-						</div>
-
+					</div>
+				</div>
+				<div class="form-group">
+					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<input type="email" name="origin_price" placeholder="Nguyên Giá"
 								class="form-control">
 						</div>
+						
 						<div class="col-lg-6">
 							<input type="url" name="remain_amount"
 								placeholder="Giá trị còn lại" class="form-control">
 						</div>
-
-
 					</div>
-					<!-- row -->
-
-					<textarea class="form-control" name="note" rows="2"
-						placeholder="Ghi chú"></textarea>
-
 				</div>
-				<!-- panel-body -->
+					
+				<!-- row -->
+
+				<textarea class="form-control" name="note" rows="2"
+					placeholder="Ghi chú"></textarea>
+
+			</div>
+			<!-- panel-body -->
 			<div class="row">
 				<div class="col-sm col-sm-offset-5">
 					<div class="panel-footer">
@@ -142,10 +153,12 @@
 					</div>
 				</div>
 			</div>
-		</form>
+		
 		</div>
 		<!-- panel body-->
+	</form>
 </div>
+
 {% endblock %} 
 {% block scripts %}
 <script src="js/jquery-1.10.2.min.js"></script>
