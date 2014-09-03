@@ -3,7 +3,12 @@ from django.contrib import admin
 
 from AssetWebapp import settings
 from myapp.views import Home, DeviceProperties, AddDeviceProperties, EditDeviceProperties, Area, AddArea, DeviceInfor, EditArea\
+<<<<<<< HEAD
 , Device, User, Error, Group, IncrementAsset, DecrementAsset
+=======
+, Device, User, Error, Group, Reason
+
+>>>>>>> 97db5bc402e0f64f9906754fef5870c032da963a
 
 
 admin.autodiscover()
@@ -38,9 +43,15 @@ urlpatterns = patterns('',
     url(r'^group/add/$', Group.add_group,name='add-group'),
     url(r'^group/delete/(?P<group_id>\w+)/$', Group.delete_group,name='delete-group'),
     url(r'^group/(?P<group_id>\w+)/$', Group.change_group,name='change-group'),
+    #Reason
+    url(r'^reason$',Reason.view_reason ,name='reason'),
+    url(r'^reason/add/$', Reason.add_reason,name='add-reason'),
+    url(r'^reason/delete/(?P<reason_id>\w+)/$', Reason.delete_reason,name='delete-reason'),
+    url(r'^reason/(?P<reason_id>\w+)/$', Reason.change_reason,name='change-reason'),
     
     url(r'^permission-error$', Error.permission_error,name='permission-error'),
     url(r'^notfound-error$', Error.notfound_error,name='notfound-error'),
     url(regex=r'^report/(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.REPORT_ROOT, 'show_indexes' : True, }),
     url(regex=r'^(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.STATIC_ROOT, 'show_indexes' : False, }),
+    
 )

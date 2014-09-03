@@ -58,10 +58,10 @@ WSGI_APPLICATION = 'AssetWebapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'oraclepool',
-        'NAME': 'db',
+        'NAME': 'orcl',
         'USER': 'ASSET',
         'PASSWORD': 'asset',
-        'HOST': '10.0.2.102',
+        'HOST': 'localhost',
         'PORT': '1521',
     }
 }
