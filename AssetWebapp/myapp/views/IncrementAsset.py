@@ -10,9 +10,11 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 from myapp.models.Asset import Asset
-from myapp.models.Reason import Reason
-from myapp.models.List import List
 from myapp.models.Country import Country
+from myapp.models.Dept import Dept
+from myapp.models.List import List
+from myapp.models.Reason import Reason
+from myapp.models.Stock import Stock
 from myapp.models.Supplier import Supplier
 
 
@@ -25,6 +27,8 @@ def index(request):
 		context.update({'assets':assets,'reasons':Reason.objects.all(),'methods':List.objects.filter(list_type='6'),'sources':List.objects.filter(list_type='3')})
 		context.update({'countries':Country.objects.all()})
 		context.update({'suppliers':Supplier.objects.all()})
+		context.update({'depts':Dept.objects.all()})
+		context.update({'stocks':Stock.objects.all()})
 		if request.POST: 
 			cursor = connection.cursor()
 			cursor.execute("UPDATE bar SET foo = 1 WHERE baz = %s", ['dsad'])
@@ -32,4 +36,4 @@ def index(request):
 		context.update({'has_error':str(ex)})
 	finally:
 		context.update(csrf(request))
-		return render_to_response("increment-asset.html", context,RequestContext(request))
+		return render_to_response("asset/increment-asset.html", context,RequestContext(request))
