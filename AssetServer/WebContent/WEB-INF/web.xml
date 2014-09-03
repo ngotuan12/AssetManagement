@@ -25,4 +25,15 @@
 		<servlet-name>ReportService</servlet-name>
 		<url-pattern>/ReportService</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>AuthorizationService</display-name>
+		<servlet-name>AuthorizationService</servlet-name>
+		<servlet-class>com.ar.service.AuthorizationService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthorizationService</servlet-name>
+		<url-pattern>/AuthorizationService</url-pattern>
+	</servlet-mapping>
 </web-app>

@@ -8,14 +8,17 @@ from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
+from myapp.models.Dept import Dept
+
+
 @login_required(login_url='/login')
 @permission_required('myapp.view_decrement_asset',login_url='/permission-error')
 def index(request):
 	context = {}
 	try:
-		context.update(csrf(request))
+		context.update({'depts':Dept.objects.all()})
 	except Exception as ex:
-		context={}
-		print(ex)
+		context.update({'has_error':str(ex)})
 	finally:
-		return render_to_response("decrement-asset.html", context,RequestContext(request))
+		context.update(csrf(request))
+		return render_to_response("asset/decrement-asset.html", context,RequestContext(request))
