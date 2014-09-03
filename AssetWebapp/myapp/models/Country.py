@@ -12,22 +12,20 @@ from myapp.util.sequence import update_id
 
 
 # Create your models here.
-class Reason(models.Model):
+class Country(models.Model):
     id = models.IntegerField(primary_key=True,db_column="id")
-    reason_code = models.CharField(max_length=10,db_column="reason_code")
-    reason_name = models.CharField(max_length=200,db_column="reason_name")
-    reason_status = models.CharField(max_length=1,default='0',db_column="reason_status")
-    description = models.CharField(max_length=500,db_column="description")
-    group_code = models.CharField(max_length=10,db_column="group_code")
+    code = models.CharField(max_length=40,db_column="country_code")
+    name = models.CharField(max_length=200,db_column="country_name")
+    po_code = models.CharField(max_length=40,db_column="po_code") 
     create_datetime = models.DateTimeField(default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),db_column="create_datetime")
     user_name = models.CharField(max_length=20,db_column="user_name")
     class Meta:
-        db_table = 'reason'
+        db_table = 'country'
         app_label = 'myapp'
         permissions = (
-            ("view_reason", "Can see list reason"),
+            ("view_country", "Can see list country"),
         )
     @update_id
     def save(self):
         # Now actually save the object.
-        super(Reason, self).save()
+        super(Country, self).save()

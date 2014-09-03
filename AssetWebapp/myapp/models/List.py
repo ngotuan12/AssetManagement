@@ -21,8 +21,11 @@ class List(models.Model):
     list_level = models.CharField(max_length=1,db_column="list_level")
     status = models.CharField(max_length=1,db_column="status")
     interval = models.CharField(max_length=10,db_column="interval")
+    class_group = models.CharField(max_length=10,db_column="class_group") 
+    list_type = models.CharField(max_length=10,db_column="list_type") 
     create_datetime = models.DateTimeField(default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),db_column="create_datetime")
     user_name = models.CharField(max_length=20,db_column="user_name")
+    parent_code = models.CharField(max_length=40,db_column="parent_code")
     class Meta:
         db_table = 'list'
         app_label = 'myapp'
