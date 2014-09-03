@@ -4,13 +4,13 @@ Created on Aug 25, 2014
 @author: TuanNA
 '''
 
-import datetime
-
 from django.db import models
 
-from myapp.util.sequence import update_id
-from myapp.models.Stock import Stock
 from myapp.models.Asset import Asset
+from myapp.models.Country import Country
+from myapp.models.List import List
+from myapp.models.Stock import Stock
+from myapp.util.sequence import update_id
 
 
 # Create your models here.
@@ -22,12 +22,13 @@ class StockAssetSerial(models.Model):
     original_value = models.FloatField(db_column="original_value")
     remain_value = models.FloatField(db_column="remain_value")
     import_date = models.DateField(db_column="import_date")
-    status = models.CharField(max_length=1,db_column="status")
-    interval = models.CharField(max_length=1,db_column="interval")
-    class_group = models.CharField(max_length=10,db_column="class_group")
-    create_datetime = models.DateTimeField(default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),db_column="create_datetime")
-    user_name = models.CharField(max_length=20,db_column="user_name")
-    parent_code = models.CharField(max_length=40,db_column="parent_code")
+    use_date = models.DateField(db_column="use_date")
+    change_date = models.DateField(db_column="change_date")
+    state = models.ForeignKey(List,db_column="state_id")
+    goal = models.ForeignKey(List,db_column="goal_id")
+    country = models.ForeignKey(Country,db_column="country_id")
+    capital = models.ForeignKey(List,db_column="capital_id")
+    amortize = models.ForeignKey(List,db_column="amortize_id")
     class Meta:
         db_table = 'stock_asset_serial'
         app_label = 'myapp'

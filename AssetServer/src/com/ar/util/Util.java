@@ -65,7 +65,7 @@ public class Util
 	{
 		// response
 		servletResponse.setCharacterEncoding("utf-8");
-		servletResponse.setContentType("application/json");
+		servletResponse.setContentType("text/plain");
 		servletResponse.setHeader("Access-Control-Allow-Origin", "* ");
 		servletResponse
 				.setHeader("Access-Control-Allow-Headers",
@@ -104,7 +104,7 @@ public class Util
 			// jsonRequest = new JSONObject("{}");
 			jsonRequest = new JSONObject(strRequest);
 			// check session
-			if (!strServiceName.equals("/PermissionService"))
+			if (!strServiceName.equals("/PermissionService")&&!strServiceName.equals("/AuthorizationService"))
 			{
 				// String strMethod =
 				// StringUtil.nvl(jsonRequest.getString("Method"), "");
