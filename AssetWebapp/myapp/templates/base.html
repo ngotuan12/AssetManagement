@@ -33,16 +33,6 @@
 		{% endblock %} 
 		
 		<div class="mainpanel">
-			<div class="headerbar">
-				<a class="menutoggle"><i class="fa fa-bars"></i></a>
-				{% block tool-bar-header %}
-					{% include 'tool-bar-header.tpl.html' %}
-				{% endblock %}
-			</div>
-			{% block content-header %} 
-				{% include 'main-panel-header.tpl.html' %}
-			{% endblock %}
-			
 			{% block content %}
 				{% include 'main-panel-content.tpl.html' %}
 			{% endblock %}

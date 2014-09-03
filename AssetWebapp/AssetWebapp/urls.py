@@ -34,7 +34,10 @@ urlpatterns = patterns('',
     url(r'^decrement-asset$', DecrementAsset.index,name='decrement-asset'),  
     # User
     url(r'^user$', User.view_user,name='user'),
+    url(r'^list-user$', User.list_user,name='list-user'),
+    
     url(r'^user/add/$', User.add_user,name='delete-user'),
+    
     url(r'^user/delete/(?P<user_id>\w+)/$', User.delete_user,name='add-user'),
     url(r'^user/(?P<user_id>\w+)/$', User.change_user,name='change-user'),
     # Group

@@ -26,6 +26,12 @@ def view_user(request):
     return render_to_response("user/user.html",context, RequestContext(request))
 @login_required(login_url='/login')
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error',redirect_field_name=None)
+def list_user(request):
+    users = User.objects.all().order_by("username")
+    context ={"users":users}
+    return render_to_response("user/list-user.html",context, RequestContext(request))
+@login_required(login_url='/login')
+@user_passes_test(lambda u: u.is_superuser,login_url='/permission-error',redirect_field_name=None)
 def add_user(request):
     context ={}
     content_types = ContentType.objects.filter(app_label = "myapp")

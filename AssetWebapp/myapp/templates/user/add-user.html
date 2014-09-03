@@ -19,6 +19,7 @@
 {% endblock %}
 {% block content %}
 <div class="contentpanel">
+
 	<form action="" class="form-horizontal form-bordered" method="post" id="formUser" novalidate="novalidate">
 		{% csrf_token %}
 		{% if has_error %}
