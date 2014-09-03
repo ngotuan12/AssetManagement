@@ -3,13 +3,15 @@ from django.contrib import admin
 
 from AssetWebapp import settings
 from myapp.views import Home, DeviceProperties, AddDeviceProperties, EditDeviceProperties, Area, AddArea, DeviceInfor, EditArea\
-, Device, User, Error, Group,Reason, IncrementAsset, DecrementAsset
+, Device, User, Error, Group, Reason, IncrementAsset, DecrementAsset, \
+    FunctionList
 
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^home$', Home.index),
+    
     url(r'^device-infor$', DeviceInfor.index),
     url(r'^$', Home.index),
     url(r'^admin/', include(admin.site.urls)),
@@ -24,10 +26,12 @@ urlpatterns = patterns('',
     url(r'^add-area$', AddArea.index,name='add-area'),
     url(r'^edit-area$', EditArea.index),
     url(r'^device$', Device.index),
+    #Function List
+    url(r'^function-list$', FunctionList.index,name='function-list'),
     #increment asset
-    url(r'^increment-asset$', IncrementAsset.index,name='user'),
+    url(r'^increment-asset$', IncrementAsset.index,name='increment-asset'),
     #increment asset
-    url(r'^increment-asset$', DecrementAsset.index,name='user'),  
+    url(r'^decrement-asset$', DecrementAsset.index,name='decrement-asset'),  
     # User
     url(r'^user$', User.view_user,name='user'),
     url(r'^user/add/$', User.add_user,name='delete-user'),

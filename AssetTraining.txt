@@ -11,7 +11,9 @@ Install git bash , tortoise git
 - Install lib for python
 install pip from file python  get-pip.py
 install easy_install from file python  ez-setup.py
+
 +) Requirement
+
 Django
 install cx_Oracle-5.1.2-10g.win32-py2.7
 pip install django-oraclepool

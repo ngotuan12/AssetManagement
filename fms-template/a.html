@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+<link href="css/style.default.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="input-group col-sm-2">
+		<input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker"> 
+		<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	</div>
+	<div class="input-group col-sm-2">
+		<input type="text" class="form-control" placeholder="000.00" id="duration"> 		
+	</div>
+
+</body>
+</html>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery.maskedinput.min.js"></script>
+<script src="js/jquery-ui-1.10.3.min.js"></script>
+<script>
+  jQuery(window).load(function(){
+	alert('onload');
+  	// Date Picker
+	jQuery("#duration").mask("99");
+	});
+	
+	jQuery(document).ready(function() {
+	// Handler for .ready() called.
+	alert('ready');
+	jQuery('#datepicker').datepicker();
+	});
+	
+</script>

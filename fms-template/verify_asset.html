@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+  <title>Bracket Responsive Bootstrap3 Admin</title>
+
+  <link href="css/style.default.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap-fileupload.min.css" />
+  <link rel="stylesheet" href="css/bootstrap-timepicker.min.css" />
+  <link rel="stylesheet" href="css/jquery.tagsinput.css" />
+  <link rel="stylesheet" href="css/colorpicker.css" />
+  <link rel="stylesheet" href="css/dropzone.css" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<div class="col-md-6" style="margin-left:25%;margin-top:1%;">
+  <div class="panel panel-primary">
+	<div class="panel-heading">
+	  <h4 class="panel-title" style="text-align:center;line-height:10px">TĂNG TÀI SẢN</h4>
+	</div>
+	<form>
+	<div class="panel-body">
+	  <div class="row row-pad-5">
+		
+		<div class="col-lg-4">
+			<select id= "asset_code" class="form-control chosen-select" data-placeholder="Chọn Mã Tài Sản.." style="display: none;">
+			  <option value=""></option>
+			  <option value="United States">TTVTT</option>
+			</select>
+		</div>
+
+		<div class="col-lg-8">
+		  <input type="text" name="asset_name" placeholder="Tên Tài sản" class="form-control">
+		</div>
+
+		<div class="col-lg-6">
+			<select id= "asset_code" class="form-control chosen-select" data-placeholder="Lý do tăng.." style="display: none;">
+			  <option value=""></option>
+			  <option value="United States">TTVTT</option>
+			</select>
+		</div>
+
+		<div class="col-lg-6">
+			<select id= "asset_code" class="form-control chosen-select" data-placeholder="Nguồn vốn.." style="display: none;">
+			  <option value=""></option>
+			  <option value="United States">TTVTT</option>
+			</select>
+		</div>
+
+		<div class="col-lg-6">
+			<div class="input-group">
+                <input type="text" class="form-control hasDatepicker" placeholder="Ngày mua (mm/dd/yyyy)" id="buy_date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+		</div>
+
+		<div class="col-lg-6">
+			<div class="input-group">
+                <input type="text" class="form-control hasDatepicker" placeholder="Ngày BĐ SD (mm/dd/yyyy)" id="start_use_date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+		</div>
+
+		<div class="col-lg-6">
+			<div class="input-group">
+                <input type="text" class="form-control hasDatepicker" placeholder="Ngày ghi tăng (mm/dd/yyyy)" id="up_date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+		</div>
+
+		<div class="col-lg-6">
+			<div class="input-group">
+                <input type="text" class="form-control hasDatepicker" placeholder="Ngày tính hao mòn (mm/dd/yyyy)" id="atrophy_date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            </div>
+		</div>
+
+		<div class="col-lg-6">
+			<select id= "asset_code" class="form-control chosen-select" data-placeholder="Phương pháp tính hao mòn.." style="display: none;">
+			  <option value=""></option>
+			  <option value="United States">TTVTT</option>
+			</select>
+		</div>
+
+		<div class="col-lg-6">
+			<select id= "asset_code" class="form-control chosen-select" data-placeholder="Nước Sản Xuất.." style="display: none;">
+			  <option value=""></option>
+			  <option value="United States">TTVTT</option>
+			</select>
+		</div>
+
+		<div class="col-lg-4">
+			<select id= "asset_code" class="form-control chosen-select" data-placeholder="Mã Nhà cung câp.." style="display: none;">
+			  <option value=""></option>
+			  <option value="United States">TTVTT</option>
+			</select>
+		</div>
+		
+		<div class="col-lg-8">
+		  <input type="text" name="asset_name" placeholder="Tên nhà cung cấp" class="form-control">
+		</div>
+		
+
+		<div class="col-lg-6">
+		  <input type="email" name="origin_price" placeholder="Nguyên Giá" class="form-control">
+		</div>
+		<div class="col-lg-6">
+		  <input type="url" name="remain_amount" placeholder="Giá trị còn lại" class="form-control">
+		</div>
+
+		<div class="col-lg-4">
+			<select id= "asset_code" class="form-control chosen-select" data-placeholder="Mã ĐV Thụ hưởng.." style="display: none;">
+			  <option value=""></option>
+			  <option value="United States">TTVTT</option>
+			</select>
+		</div>
+
+		<div class="col-lg-8">
+		  <input type="text" name="asset_name" placeholder="Tên đơn vị thụ hưởng" class="form-control">
+		</div>
+
+		</div><!-- row -->
+
+	  <textarea class="form-control" name="note" rows="2" placeholder="Ghi chú"></textarea>
+
+	  </div><!-- panel-body -->
+	<div class="panel-footer">
+	  <button class="btn btn-primary">Lưu & Đóng</button>
+	  <button class="btn btn-primary">Lưu & Thêm</button>
+	  <button class="btn btn-primary">Đóng</button>
+	</div>
+	</form>
+  </div><!-- panel body-->
+</div>
+
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/jquery.autogrow-textarea.js"></script>
+<script src="js/jquery.maskedinput.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+<script src="js/jquery-ui-1.10.3.min.js"></script>
+
+<script src="js/custom.js"></script>
+
+<script>
+jQuery(document).ready(function(){
+    
+  // Chosen Select
+  jQuery(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+  
+  // Date Picker
+  jQuery('#buy_date').datepicker();
+  jQuery('#start_use_date').datepicker();
+  jQuery('#up_date').datepicker();
+  jQuery('#atrophy_date').datepicker();
+  
+  // Input Masks
+  jQuery("#datepicker").mask("99/99/9999");
+  jQuery('#buy_date').mask("99/99/9999");
+  jQuery('#start_use_date').mask("99/99/9999");
+  jQuery('#up_date').mask("99/99/9999");
+  jQuery('#atrophy_date').mask("99/99/9999");
+
+  
+});
+</script>
+
+</body>
+</html>
