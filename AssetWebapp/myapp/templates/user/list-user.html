@@ -11,29 +11,25 @@
 		<div class="panel-heading">
 		  <h4 class="panel-title" style="text-align:center;">QUẢN LÝ TÀI KHOẢN HỆ THỐNG</h4>
 		</div>
-		<form>
 		<div class="panel-body" style="min-height: 500px;">
 		  <div class="row row-pad-5">
 			<div class="alert alert-warning" style= "height: 120px;width: 98%;margin-left: 1%">
 
 				<div class="col-lg-4">
-					<select id= "asset_code" class="form-control chosen-select" data-placeholder="Mã ĐV" style="display: none;">
-					  <option value=""></option>
-					  <option value="United States">TTVTT</option>
-					</select>
+					<input type="text" id="user_name" name="" placeholder="Tên đơn vị" class="form-control">
 				</div>
 				<div class="col-lg-8">
-				  <input type="text" name="asset_name" placeholder="Tên đơn vị" class="form-control">
+				  <input type="text" id="full_name" name="" placeholder="Tên đơn vị" class="form-control">
 				</div>
 			
 				<div class="col-lg-4">
-				  <input type="text" name="asset_name" placeholder="Mã nhân viên (Tài khoản đăng nhập)" class="form-control">
+				  <input type="text" id="email" name="" placeholder="Mã nhân viên (Tài khoản đăng nhập)" class="form-control">
 				</div>
 				<div class="col-lg-4">
-				  <input type="text" name="asset_name" placeholder="Họ và đệm" class="form-control">
+				  <input type="text" id="first_name" placeholder="Họ và đệm" class="form-control">
 				</div>
 				<div class="col-lg-4" >
-				  <input type="text" name="asset_name" placeholder="Tên nhân viên" class="form-control">
+				  <input type="text" id="last_name" placeholder="Tên nhân viên" class="form-control">
 				</div>
 			
 			
@@ -55,7 +51,9 @@
 							</thead>
 							<tbody>
 								{% for user in users %}
-								<tr class="odd gradeX">
+								<tr class="odd gradeX" user_id ="{{ user.id }}"
+									 user_first_name ="{{ user.first_name }}" user_last_name ="{{ user.last_name }}"
+									 user_name = "{{ user.username }}" email = "{{ user.email }}">
 									<td>{{forloop.counter}}</td>
 									<td><a href="/user/{{ user.id }}/">{{ user.username }}</a></td>
 									<td>{{ user.first_name }}</td>
@@ -118,6 +116,18 @@
 				'white-space' : 'nowrap',
 				disable_search_threshold : 10
 		});
+		//onclick tr table
+		$('#usertable tbody tr').click(function(e)
+			{
+				//get
+				var user_id = $(this).attr('user_id');
+				var user_first_name = $(this).attr('user_first_name');
+				var user_last_name = $(this).attr('user_last_name');
+				var user_name = $(this).attr('user_name');
+				var email = $(this).attr('email');
+				//set
+				clickRow(user_id,user_name,email,user_first_name,user_last_name);
+			});
 	});
 	
 	function deleteUser(user_id)
@@ -134,5 +144,34 @@
 			}
 		});
 	}
+	function clickRow(user_id,user_name,email,first_name,last_name)
+	{
+		$("#usertable tbody tr[user_id][user_id='"+ user_id +"']").css('background-color','#8EE2BC');
+		$("#usertable tbody tr[user_id][user_id!='"+ user_id +"']").css('background-color','#fff');
+		
+		$("#first_name").val(first_name);
+		$("#last_name").val(last_name);
+		$("#full_name").val(first_name+ " " + last_name);
+		$("#email").val(email);
+		$("#user_name").val(user_name);
+		$("#asset_code").val(user_id);
+		
+		$("#first_name").attr("disabled", "disabled");
+		$("#last_name").attr("disabled", "disabled");
+		$("#full_name").attr("disabled", "disabled");
+		$("#email").attr("disabled", "disabled");
+		$("#asset_code").attr("disabled", "disabled");
+		$("#user_name").attr("disabled", "disabled");
+	}
+	jQuery(window).load(function(){ 
+		//get
+		var user_id = $("#usertable tbody tr[user_id]").first().attr('user_id');
+		var user_first_name = $("#usertable tbody tr[user_id]").first().attr('user_first_name');
+		var user_last_name = $("#usertable tbody tr[user_id]").first().attr('user_last_name');
+		var user_name = $("#usertable tbody tr[user_id]").first().attr('user_name');
+		var email = $("#usertable tbody tr[user_id]").first().attr('email');
+		//set
+		clickRow(user_id,user_name,email,user_first_name,user_last_name);
+	});
 </script>
 {% endblock scripts%}
