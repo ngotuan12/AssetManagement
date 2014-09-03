@@ -8,7 +8,6 @@ import datetime
 
 from django.db import models
 
-from myapp.models.Dept import Dept
 from myapp.util.sequence import update_id
 
 
