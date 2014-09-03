@@ -93,4 +93,6 @@ TEMPLATE_DIRS = (
                 os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)), 'myapp/templates'),
 )
 
-
+REPORT_SERVER = 'http://localhost:8080/AlarmServer/'
+REPORT_SERVICE = 'ReportService'
+PERMISSION_SERVICE = 'AuthorizationService'

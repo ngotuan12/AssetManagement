@@ -3,7 +3,7 @@ from django.contrib import admin
 
 from AssetWebapp import settings
 from myapp.views import Home, DeviceProperties, AddDeviceProperties, EditDeviceProperties, Area, AddArea, DeviceInfor, EditArea\
-, Device, User, Error, Group
+, Device, User, Error, Group, IncrementAsset, DecrementAsset
 
 
 admin.autodiscover()
@@ -24,6 +24,10 @@ urlpatterns = patterns('',
     url(r'^add-area$', AddArea.index,name='add-area'),
     url(r'^edit-area$', EditArea.index),
     url(r'^device$', Device.index),
+    #increment asset
+    url(r'^increment-asset$', IncrementAsset.index,name='user'),
+    #increment asset
+    url(r'^increment-asset$', DecrementAsset.index,name='user'),  
     # User
     url(r'^user$', User.view_user,name='user'),
     url(r'^user/add/$', User.add_user,name='delete-user'),

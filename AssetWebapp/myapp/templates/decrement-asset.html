@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="contentpanel" style="background: #828283">
+	<div class="col-md" style="margin-left: 18%;">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">GIẢM TÀI SẢN</h4>
+			</div>
+			<form>
+				<div class="panel-body">
+					<div class="row row-pad-5">
+						<div class="alert alert-warning">
+							<div class="row">
+								<div class="col-lg-4">
+									<select id="asset_code" class="form-control chosen-select"
+										data-placeholder="Mã ĐV giảm.." style="display: none;">
+										<option value=""></option>
+										<option value="United States">TTVTT</option>
+									</select>
+								</div>
+								<div class="col-lg-8">
+									<input type="text" name="asset_name"
+										placeholder="Tên đơn vị giảm" class="form-control">
+								</div>
+
+								<div class="col-lg-4">
+									<select id="asset_code" class="form-control chosen-select"
+										data-placeholder="Mã NV Thực hiện.." style="display: none;">
+										<option value=""></option>
+										<option value="United States">TTVTT</option>
+									</select>
+								</div>
+								<div class="col-lg-8">
+									<input type="text" name="asset_name"
+										placeholder="Tên nhân viên thực hiện" class="form-control">
+								</div>
+
+								<div class="col-lg-4">
+									<select id="asset_code" class="form-control chosen-select"
+										data-placeholder="Chọn mã tài sản giảm.."
+										style="display: none;">
+										<option value=""></option>
+										<option value="United States">TTVTT</option>
+									</select>
+								</div>
+
+								<div class="col-lg-8">
+									<input type="text" name="asset_name"
+										placeholder="Tên tài sản giảm" class="form-control">
+								</div>
+								<div class="col-lg-4">
+									<select id="asset_code" class="form-control chosen-select"
+										data-placeholder="Nguồn vốn.." style="display: none;">
+										<option value=""></option>
+										<option value="United States">TTVTT</option>
+									</select>
+								</div>
+
+								<div class="col-lg-4">
+									<input type="email" name="origin_price"
+										placeholder="Nguyên Giá" class="form-control">
+								</div>
+								<div class="col-lg-4">
+									<input type="url" name="remain_amount"
+										placeholder="Giá trị còn lại" class="form-control">
+								</div>
+
+							</div>
+							<!--row-->
+						</div>
+						<!-- alert alert-warning -->
+
+						<div class="col-lg-6">
+							<select id="asset_code" class="form-control chosen-select"
+								data-placeholder="Lý do giảm.." style="display: none;">
+								<option value=""></option>
+								<option value="United States">TTVTT</option>
+							</select>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="input-group">
+								<input type="text" class="form-control hasDatepicker"
+									placeholder="Ngày ghi giảm (mm/dd/yyyy)" id="buy_date">
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+
+
+						<div class="col-lg-4">
+							<select id="asset_code" class="form-control chosen-select"
+								data-placeholder="Mã ĐV tăng.." style="display: none;">
+								<option value=""></option>
+								<option value="United States">TTVTT</option>
+							</select>
+						</div>
+						<div class="col-lg-8">
+							<input type="text" name="asset_name"
+								placeholder="Tên đơn vị tăng" class="form-control">
+						</div>
+
+					</div>
+					<!-- row -->
+
+					<textarea class="form-control" name="note" rows="4"
+						placeholder="Ghi chú"></textarea>
+
+				</div>
+				<!-- panel-body -->
+				<div class="panel-footer">
+					<button class="btn btn-primary">In biên bản</button>
+					<button class="btn btn-primary">Lưu</button>
+					<button class="btn btn-primary">Đóng</button>
+				</div>
+			</form>
+		</div>
+		<!-- panel body-->
+	</div>
+</div>
+{% endblock %} 
