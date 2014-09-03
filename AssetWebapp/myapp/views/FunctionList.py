@@ -9,6 +9,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 @login_required(login_url='/login')
+
 def index(request):
 	context={}
 	return render_to_response("base.html", context, RequestContext(request))
