@@ -36,6 +36,7 @@ urlpatterns = patterns('',
     url(r'^get-list-serial/(?P<stock_id>\w+)/$', DecrementAsset.getListSerial,name='get-list-serial'),
     #verify asset
     url(r'^verify-asset$', VerifyAsset.index),
+    url(r'^verify-asset/(?P<serial_id>\w+)/$', VerifyAsset.verify),
     #revaluate asset
     url(r'^revaluate-asset$', RevaluateAsset.index),
     # User

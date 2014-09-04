@@ -1,0 +1,87 @@
+{% extends "base.html" %} 
+{% block styles %}
+	<link href="css/chart.css" rel="stylesheet">
+{% endblock %}
+{% block content-header %}
+<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i> Báo cáo <span>Báo cáo tổng hợp trạng thái phòng máy
+		</span>
+	</h2>
+</div>
+{% endblock %}
+{% block content %}
+<div class="contentpanel">
+	<form action="" class="form-horizontal form-bordered" method="post" id="formUser" novalidate="novalidate">
+		{% csrf_token %}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Thông tin phòng máy</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Phòng máy</label>
+					<div class="col-sm-8">
+						<select name='slDevice' class="form-control" required="">
+							<option value="ALL" selected>Tất cả </option>
+							{% for device in devices%}
+							<option value="{{ device.id }}">{{ device.code|add:" - "|add:device.name|add:" - "|add:device.address|truncatechars:100}} </option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Khu vực</label>
+					<div class="col-sm-8">
+						<select name='slArea' class="form-control" required="">
+							<option value="ALL" selected>Tất cả </option>
+							{% for area in areas%}
+							<option value="{{ area.id }}">{{ area.name }} </option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Trạng thái</label>
+					<div class="col-sm-8">
+						<select name='slStatus' class="form-control" required="">
+							<option value="ALL" selected>Tất cả </option>
+							<option value="0">Ngưng hoạt động</option>
+							<option value="1">Tốt</option>
+							<option value="2">Sự cố</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm col-sm-offset-5">
+							<button class="btn btn-primary" onclick="return onValidate();">In báo cáo</button>&nbsp;
+						</div>
+					</div>
+			 	</div>
+			</div>
+			
+		</div>
+	</form>
+</div>
+{% endblock %} 
+{% block scripts %}
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/chosen.jquery.min.js"></script>
+
+
+<script src="js/custom.js"></script>
+<script>
+	jQuery(document).ready(function() {
+
+	});
+</script>
+{% endblock scripts%}
