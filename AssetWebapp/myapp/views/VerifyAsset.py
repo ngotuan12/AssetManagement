@@ -29,8 +29,8 @@ def verify(request,serial_id):
 		serial = StockAssetSerial.objects.get(id=serial_id)
 		context.update({'serial':serial})
 		if(request.POST):
-			original_amount = request.POST["txtOriginalAmount"]
-			serial.original_value = original_amount
+			remain_amount = request.POST["txtRemainAmount"]
+			serial.remain_value = remain_amount
 			serial.save()
 			return HttpResponseRedirect("/verify-asset")
 	except Exception as ex:

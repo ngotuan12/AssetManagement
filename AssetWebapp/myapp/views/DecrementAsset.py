@@ -31,7 +31,7 @@ def index(request):
 			# Get parameter
 			dept_id = request.POST["slDept"]
 			stock_id = request.POST["slStock"]
-			serial_id = request.POST["slSerial"]
+			serial = request.POST["slSerial"]
 			asset_id = request.POST["txtAssetID"]
 # 			CapitalAmount_id = request.POST["txtCapitalAmount"]
 # 			OriginalAmount_id = request.POST["txtOriginalAmount"]
@@ -54,7 +54,7 @@ def index(request):
 							# p_asset_id
 							asset_id,
 							# p_seria
-							serial_id,
+							serial,
 							# p_export_date
 							decrement_date,
 							# p_reason_id
