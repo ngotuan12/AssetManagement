@@ -20,9 +20,12 @@
 <div class="contentpanel">
 	<form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="formReason">
 		{% csrf_token %}
-		<div class="panel">
-			<div class="panel-body">
+		<div class="panel panel-primary">
 			
+				<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">Báo cáo tài sản cố định</h4>
+				</div>
 				<div class="form-group ">
 					<label class="col-sm-2 control-label">Nguồn vốn</label>
 					<div class="col-sm-8">
@@ -50,7 +53,6 @@
 							{% endfor %}
 						</select>
 					</div>
-				</div>
 			</div>
 			
 			
