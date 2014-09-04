@@ -142,6 +142,7 @@
 <script src="js/retina.min.js"></script>
 <script src="js/jquery.cookies.js"></script>
 
+<script src="js/jquery.datatables.min.js"></script>
 <script src="js/jquery.autogrow-textarea.js"></script>
 <script src="js/jquery.maskedinput.min.js"></script>
 <script src="js/chosen.jquery.min.js"></script>
@@ -151,6 +152,15 @@
 
 <script>
 $(document).ready(function(){
+	jQuery('#table2').dataTable({
+		"sPaginationType" : "full_numbers"
+	});
+	// Select
+	jQuery("#table2 .select").chosen({
+				'min-width' : '150px',
+				'white-space' : 'nowrap',
+				disable_search_threshold : 10
+			});
   // Chosen Select
   $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
   // Date Picker
