@@ -98,4 +98,5 @@ def view_Asset_Inventory_report(request):
 		return HttpResponseRedirect('/report/' + fileOut)
 	context.update(csrf(request))
 	return render_to_response("report/asset-inventory-report.html", context, RequestContext(request))
-
+def verify_asset_report(request):
+	return ""
