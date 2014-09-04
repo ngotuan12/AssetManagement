@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="css/increment-asset.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="contentpanel no-padding" style="background: #828283">
+	<form class="form-horizontal form-bordered" method="post" id="viewAsset">
+		{% csrf_token %}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">Tra cứu tài sản</h4>
+			</div>
+			
+			<div class="panel-body">
+				{% if has_error %}
+					<div class="panel">
+						<label class="error">{{ has_error }}</label>
+					</div>
+				{% endif %}
+				<div class="form-group" style="padding: 0px;">
+					<div class = "row row-pad-5">
+						<div class="col-lg-4">
+							<select id="slAsset" class="form-control chosen-select"
+								data-placeholder="Tài sản" style="display: none;"
+								name = "slAsset">
+								<option value="-1"></option>
+								{% for asset in assets %}
+									<option asset_code ="{{ asset.code }}" value="{{ asset.id }}">{{ asset.code }} - {{ asset.name }}</option>
+								{% endfor%}
+							</select>
+						</div>
+						
+						<div class="col-lg-4">
+							<select id="slCountry" class="form-control chosen-select"
+								data-placeholder="Xuất sứ" style="display: none;"
+								name = "slCountry">
+								<option value="-1"></option>
+								{% for country in countries %}
+									<option value="{{ country.id }}">{{ country.code }} - {{ country.name }}</option>
+								{% endfor%}
+							</select>
+						</div>
+						
+						<div class="col-lg-4">
+							<select id="slStock" class="form-control chosen-select"
+								data-placeholder="Kho" style="display: none;"
+								name = "slStock">
+								<option value="-1"></option>
+								{% for stock in stocks %}
+									<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
+								{% endfor%}
+							</select>
+						</div>
+					</div>
+					
+					<div class = "row row-pad-5">
+						<div class="col-lg-4">
+							<select id="slGoal" class="form-control chosen-select"
+								data-placeholder="Mục đích sử dụng" style="display: none;"
+								name = "slGoal">
+								<option value="-1"></option>
+								{% for goal in goals %}
+									<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
+								{% endfor%}
+							</select>
+						</div>
+						
+						<div class="col-lg-4">
+							<select id="slState" class="form-control chosen-select"
+								data-placeholder="Hiện trạng sử dụng" style="display: none;"
+								name = "slState">
+								<option value="-1"></option>
+								{% for state in states %}
+									<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
+								{% endfor%}
+							</select>
+						</div>
+						
+						<div class="col-lg-4">
+							<input type="text" id="txtOriginal" name="txtOriginal" placeholder="Nguyên giá" class="form-control numberic" style="padding-bottom: 6px;">
+						</div>
+						
+					</div>
+					<div class = "row row-pad-5">
+						<div class="col-lg-12">
+							<button class="btn btn-primary" onclick=" return onSearchFormAsset();" style="float: right;">Tìm Kiếm</button>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm" >
+						<div class="table-responsive">
+							<table class="table table-bordered" id="assetTable">
+								<thead>
+									<tr>
+										<th>STT</th>
+										<th style="width: 10%;">Mã tài sản </th>
+										<th>Tên tài sản </th>
+										<th>Nguyên giá</th>
+										<th>Giá trị còn lại</th>
+										<th>Sửa/Xoá</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for asset in stockeAssets %}
+									<tr class="odd gradeX" asset_id ="{{ asset.asset.id }}" asset_code="{{ asset.asset.code }}">
+										<td>{{ forloop.counter }}</td>
+										<td>{{ asset.asset.code }}</td>
+										<td>{{ asset.asset.name }}</td>
+										<td>{{ asset.original_value }}</td>
+										<td>{{ asset.remain_value }}</td>
+										<td class="table-action">
+											<a href="#"><i class="fa fa-pencil"></i></a>
+											<a href="#" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<!-- table-responsive -->
+					</div> <!--row-->
+				</div>
+			</div>
+			<!-- panel-body -->
+		</div>
+		<!-- panel body-->
+	</form>
+</div>
+
+{% endblock %} 
+{% block scripts %}
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toggles.min.js"></script>
+<script src="js/retina.min.js"></script>
+<script src="js/jquery.cookies.js"></script>
+
+<script src="js/jquery.autogrow-textarea.js"></script>
+<script src="js/jquery.maskedinput.min.js"></script>
+<script src="js/chosen.jquery.min.js"></script>
+<script src="js/jquery-ui-1.10.3.min.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/jquery.numeric.js"></script>
+<script src="js/jquery.datatables.min.js"></script>
+
+<script src="js/custom.js"></script>
+
+<script>
+$(document).ready(function(){
+	
+  // Chosen Select
+  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+ 
+  // Date Picker
+  $('#buy_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $('#start_use_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $('#up_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $('#atrophy_date').datepicker({dateFormat: 'dd/mm/yy',});
+  
+  // Input Masks
+  $("#datepicker").mask("99/99/9999");
+  $('#buy_date').mask("99/99/9999");
+  $('#start_use_date').mask("99/99/9999");
+  $('#up_date').mask("99/99/9999");
+  $('#atrophy_date').mask("99/99/9999");
+  
+  $('#assetTable').dataTable({
+		"sPaginationType" : "full_numbers"
+	});
+  $(".table-responsive  select").chosen({
+		'min-width' : '150px',
+		'white-space' : 'nowrap',
+		disable_search_threshold : 10
+	});
+});
+//change slDept
+$('#slDept').change(function(){
+	
+	var dept_id = $(this).find('option:selected').val();
+	
+	$("#slStock option[dept_id][dept_id='" + dept_id + "']").show();
+	$("#slStock option[dept_id][dept_id='" + dept_id + "']").css("display", "block");
+	$("#slStock option[dept_id][dept_id!='" + dept_id + "']").hide();
+	
+	
+	$('#slStock').chosen('destroy');
+	$('#slStock').prop("selectedIndex", -1);
+	$('#slStock').chosen();
+	
+});
+//change slDept
+$('#slAsset').change(function(){
+	/* 
+	var asset_id = $(this).find('option:selected').val();
+	var asset_code = $(this).find('option:selected').attr('asset_code');
+	$("#assetTable tbody tr[asset_id][asset_code!='"+ asset_code +"']").hide();
+	$("#assetTable tbody tr[asset_id][asset_code*='"+ asset_code +"']").show(); */
+});
+
+jQuery(window).load(function(){ 
+	$(".numberic").numeric();
+	var stock_id ='{{ stock_id }}';
+	var asset_id ='{{ asset_id }}';
+	var country_id ='{{ country_id }}';
+	var goal_id ='{{ goal_id }}';
+	var state_id ='{{ state_id }}';
+	var original ='{{ original }}';
+	
+	if( stock_id != '-1')
+		{
+			$("#slStock").val(stock_id);
+			$('#slStock').chosen('destroy');
+			$('#slStock').chosen();
+		}
+	if( asset_id != '-1')
+	{
+	
+		$("#slAsset").val(asset_id);
+		$('#slAsset').chosen('destroy');
+		$('#slAsset').chosen();
+	}
+	
+	if( country_id != '-1')
+	{
+		$("#slCountry").val(country_id);
+		$('#slCountry').chosen('destroy');
+		$('#slCountry').chosen();
+	}
+	
+	if( goal_id != '-1')
+	{
+		$("#slGoal").val(goal_id);
+		$('#slGoal').chosen('destroy');
+		$('#slGoal').chosen();
+	}
+	
+	if( state_id != '-1')
+	{
+		$("#slState").val(state_id);
+		$('#slState').chosen('destroy');
+		$('#slState').chosen();
+	}
+	if( original != '-1')
+		$("#txtOriginal").val(original);
+});
+function onSearchFormAsset()
+{
+	jQuery('#viewAsset').submit();
+}
+</script>
+{% endblock scripts%}
