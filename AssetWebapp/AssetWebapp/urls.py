@@ -4,7 +4,7 @@ from django.contrib import admin
 from AssetWebapp import settings
 from myapp.views import Home, DeviceProperties, AddDeviceProperties, EditDeviceProperties, Area, AddArea, DeviceInfor, EditArea\
 , Device, User, Error, Group, Reason, IncrementAsset, DecrementAsset\
-,FunctionList,VerifyAsset,RevaluateAsset
+, FunctionList, VerifyAsset, RevaluateAsset, ListAsset
 
 
 admin.autodiscover()
@@ -30,6 +30,8 @@ urlpatterns = patterns('',
     url(r'^function-list$', FunctionList.index,name='function-list'),
     #increment asset
     url(r'^increment-asset$', IncrementAsset.index,name='increment-asset'),
+    #List Asset
+    url(r'^list-asset$', ListAsset.index,name='list-asset'),
     #increment asset
     url(r'^decrement-asset$', DecrementAsset.index,name='decrement-asset'),
     url(r'^get-list-stock/(?P<dept_id>\w+)/$', DecrementAsset.getListStock,name='get-list-stock'),
