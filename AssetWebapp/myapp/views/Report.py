@@ -60,5 +60,7 @@ def verify_asset_report(request):
 	context.update({'depts':depts})
 	if request.POST :
 		authorization = client.getAuthorization(request.user.username)
+		fileOut = client.exportVerifyAsset(authorization, request.user.username)
+		return HttpResponseRedirect('/report/' + fileOut)
 	context.update(csrf(request))
 	return render_to_response("report/verify-asset-report.html", context, RequestContext(request))

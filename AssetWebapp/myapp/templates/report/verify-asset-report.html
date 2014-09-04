@@ -2,23 +2,10 @@
 {% block styles %}
 	<link href="../../css/style.default.css" rel="stylesheet">
 {% endblock styles %}
-
-{% block content-header %} 
-	<div class="pageheader">
-	<h2>
-		<i class="fa fa-home"></i>Báo cáo kiểm kê tài sản cố định
-	</h2>
-	<div class="breadcrumb-wrapper">
-		<ol class="breadcrumb">
-			
-		</ol>
-	</div>
-</div>
-{% endblock %}
 			
 {% block content %}
 <div class="contentpanel">
-	<form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="formReport">
+	<form action="" novalidate="novalidate" class="form-horizontal form-bordered" method="post" id="formReport">
 		{% csrf_token %}
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -41,8 +28,9 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-6 col-sm-offset-5">
-								<button class="btn btn-primary" onclick="return onSubmit();">Xuất báo cáo</button>&nbsp;
+							<div class="col-sm col-sm-offset-5">
+								<!-- <button class="btn btn-primary">In biên bản</button> -->
+								<button class="btn btn-primary" onclick="return onSubmitFormDecrement();">Thực hiện</button>
 							</div>
 						</div>
 					</div>
@@ -74,8 +62,14 @@
 			'white-space' : 'nowrap'
 		});
 	});
-	function onSubmit()
+	function onSubmitFormDecrement()
 	{
+		var $valid = jQuery('#formReport').valid();
+		if(!$valid) 
+		{
+			$validator.focusInvalid();
+			return false;
+		}
 		jQuery('#formReport').submit();
 	}
 </script>

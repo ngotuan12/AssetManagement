@@ -56,10 +56,62 @@ public class ReportServiceBean extends AppProcessor {
 			String reportLink = createReportByJasper();
 			response.put("FileOut", reportLink);
 			break;
+		case "VerifyAssetReport":
+			response.put("FileOut", exportVerifyAssetReport());
+			break;
 		}
 
 	}
-
+	private String exportVerifyAssetReport()throws Exception
+	{
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try
+		{
+			// template path
+			String excelTemplatePath = AppServer.getParam("ExcelTemplatePath");
+			String templatePath = AppServer.getParam("TemplatePath");
+			String strReportOut = AppServer.getParam("ReportOut");
+			String strFileName = "TemplateVerifyAssetReport";
+			String strFileOut = strFileName
+					+ StringUtil.format(new Date(), "yyyyMMddhhmmss");
+			// String strFileOut = "dev_report";
+			// read sql file
+			String strSQL = new ReadSQLFile(templatePath + strFileName + ".sql")
+					.getSQLQuery();
+			// open connection
+			open();
+			// get parameter
+			// prepare statement
+			pstm = mcnMain.prepareStatement(strSQL);
+			// execute query
+			rs = pstm.executeQuery();
+			// create report
+			Report report = new Report(rs, excelTemplatePath + strFileName
+					+ ".xls", strReportOut + strFileOut + ".xls");
+			report.setParameter("$Report_Date",
+					StringUtil.format(new Date(), "yyyy-MM-dd"));
+			report.setParameter("$Report_Time",
+					StringUtil.format(new Date(), "HH:mm:ss"));
+			// fill data
+			report.fillDataToExcel();
+			// create file
+			// createRealFile(strFileOut);
+			// return link
+			return strFileOut + ".xls";
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			throw ex;
+		}
+		finally
+		{
+			Database.closeObject(rs);
+			Database.closeObject(pstm);
+			close();
+		}
+	}
 	private String createReportByJasper() throws Exception {
 		try {
 			open();

@@ -66,8 +66,8 @@
 							<tr class="odd gradeX">
 								<td><a href="/verify-asset/{{ serial.id }}/">{{ serial.serial }} </a></td>
 								<td>{{ serial.asset.name }}</td>
-								<td>{{ serial.original_value }}</td>
-								<td > {{ serial.remain_value }}</td>
+								<td>{{ serial.original_value|stringformat:".3f" }}</td>
+								<td > {{ serial.remain_value|stringformat:".3f" }}</td>
 							 </tr>
 						{% endfor%}
 					  </tbody>
