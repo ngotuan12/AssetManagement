@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetInventory" language="groovy" pageWidth="1400" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="67de0e17-5405-4fd4-ab0a-2ea1120e179f">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="700"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="100"/>
 	<parameter name="p_capital_id" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -1189,14 +1189,14 @@ c.serial,c.capital_id,c.use_date,
 				<text><![CDATA[- Cột G phản ánh: TSCĐ dùng trong SXKD; TSCĐ chưa cần dùng; TSCĐ hư hỏng, chờ thanh lý.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0a595cde-516e-44d5-a0b4-49ee5c01425a" x="53" y="120" width="220" height="20"/>
+				<reportElement uuid="0a595cde-516e-44d5-a0b4-49ee5c01425a" x="54" y="120" width="220" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Người lập biểu   ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fd988077-3832-4a81-9107-a9f402f17ceb" x="465" y="120" width="247" height="20"/>
+				<reportElement uuid="fd988077-3832-4a81-9107-a9f402f17ceb" x="466" y="120" width="247" height="20"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
