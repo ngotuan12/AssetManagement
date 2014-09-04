@@ -49,3 +49,11 @@ def exportReportByJasper(authorization,user_name,template_name,params_object,fil
     response = r.json()
     fileout = response['FileOut']
     return fileout
+def exportVerifyAsset(authorization,user_name):
+    url = settings.REPORT_SERVER + settings.REPORT_SERVICE
+    payload = {"SessionUserName":user_name,"Method":"VerifyAssetReport"}
+    headers = {'content-type': 'application/json;charset=utf-8',"Authorization":authorization}
+    r = requests.request('POST',url, data=json.dumps(payload), headers=headers)
+    response = r.json()
+    fileout = response['FileOut']
+    return fileout

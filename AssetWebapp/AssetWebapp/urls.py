@@ -54,13 +54,17 @@ urlpatterns = patterns('',
     url(r'^group/delete/(?P<group_id>\w+)/$', Group.delete_group,name='delete-group'),
     url(r'^group/(?P<group_id>\w+)/$', Group.change_group,name='change-group'),
     #Reason
-#     url(r'^reason$',Reason.view_reason ,name='reason'),
-#     url(r'^reason/add/$', Reason.add_reason,name='add-reason'),
-#     url(r'^reason/delete/(?P<reason_id>\w+)/$', Reason.delete_reason,name='delete-reason'),
-#     url(r'^reason/(?P<reason_id>\w+)/$', Reason.change_reason,name='change-reason'),
+    url(r'^reason$',Reason.view_reason ,name='reason'),
+    url(r'^reason/add/$', Reason.add_reason,name='add-reason'),
+    url(r'^reason/delete/(?P<reason_id>\w+)/$', Reason.delete_reason,name='delete-reason'),
+    url(r'^reason/(?P<reason_id>\w+)/$', Reason.change_reason,name='change-reason'),
+    #Report
     url(r'^report/asset-inventory-report$',Report.view_Asset_Inventory_report ,name='asset-inventory-report'),
+    url(r'^report/verify-asset-report$',Report.verify_asset_report ,name='verify-asset-report'),
+    #Error page
     url(r'^permission-error$', Error.permission_error,name='permission-error'),
     url(r'^notfound-error$', Error.notfound_error,name='notfound-error'),
+    #Static directory
     url(regex=r'^report/(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.REPORT_ROOT, 'show_indexes' : True, }),
     url(regex=r'^(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.STATIC_ROOT, 'show_indexes' : False, }),
     
