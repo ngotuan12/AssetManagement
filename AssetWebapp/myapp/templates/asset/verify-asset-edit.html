@@ -25,7 +25,7 @@
 			</div>
 
 			<form action="" class="form form-bordered" method="post"
-				id="formUser" novalidate="novalidate">
+				id="form-verify-asset-edit" novalidate="novalidate">
 				{% csrf_token %}
 				<div class="panel-body">
 					{% if has_error %}
@@ -131,11 +131,12 @@
 <script src="../../js/jquery.validate.min.js"></script>
 <script>
 	function onValidate() {
-		var $valid = jQuery('#formUser').validate();
+		var $valid = jQuery('#form-verify-asset-edit').validate();
 		if (!$valid) {
 			$validator.focusInvalid();
 			return false;
 		}
+		jQuery('#form-verify-asset-edit').submit();
 	}
 </script>
 {% endblock scripts%}
