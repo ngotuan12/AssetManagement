@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetInventory" language="groovy" pageWidth="1400" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1400" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="67de0e17-5405-4fd4-ab0a-2ea1120e179f">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="700"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="100"/>
 	<parameter name="p_capital_id" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -433,13 +433,13 @@ c.serial,c.capital_id,c.use_date,
 				</textElement>
 				<text><![CDATA[BẢNG KIỂM KÊ TÀI SẢN CỐ ĐỊNH ]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="141c95dc-6101-4995-80d2-66b7d4718742" x="0" y="60" width="1400" height="20"/>
-				<textElement textAlignment="Center" markup="none">
+			<staticText>
+				<reportElement uuid="b3471c14-b035-4c7e-a5f1-530dd6399d5b" x="0" y="60" width="665" height="20"/>
+				<textElement textAlignment="Right" markup="none">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Tại thời điểm 24 giờ ngày "+new SimpleDateFormat("dd").format(new Date())+"tháng"+new SimpleDateFormat("MM").format(new Date())+" năm "+new SimpleDateFormat("yyyy").format(new Date())]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Ngày tạo : ]]></text>
+			</staticText>
 			<staticText>
 				<reportElement uuid="1ff2d25e-1a6c-4ee4-b7ec-2a8577fd9b4b" x="1082" y="20" width="318" height="20"/>
 				<textElement textAlignment="Right">
@@ -447,6 +447,13 @@ c.serial,c.capital_id,c.use_date,
 				</textElement>
 				<text><![CDATA[Tờ số:…... trong tổng số……tờ]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="5c5d2eab-a159-489f-99af-1b06b1bc232c" x="665" y="60" width="735" height="20"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
