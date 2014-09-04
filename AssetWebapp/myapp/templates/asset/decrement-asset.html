@@ -11,6 +11,7 @@
 					style="text-align: center; line-height: 10px">GIẢM TÀI SẢN</h4>
 			</div>
 			<form method="post" novalidate="novalidate" id="decrementAsset">
+				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
 				{% csrf_token %}
 				<div class="panel-body">
 					<div class="row row-pad-5">
@@ -147,8 +148,10 @@ $(document).ready(function(){
 	$( "#slSerial" ).change(function() {
 		var original = $(this).find('option:selected').attr('original-value');
 		var remain = $(this).find('option:selected').attr('remain-value');
+		var asset_id = $(this).find('option:selected').attr('asset-id');
 		$("#original-amount").val(original);
 		$("#remain-amount").val(remain);
+		$("#txtAssetID").val(asset_id);
 	});
 });
 function onSubmitFormDecrement()
@@ -180,6 +183,7 @@ function onGetCode(stock_id)
 			option.attr("value",serial.id)
 			option.attr("original-value",serial.original_value)
 			option.attr("remain-value",serial.remain_value)
+			option.attr("asset-id",serial.asset)
 			option.text(serial.serial)
 			$('#slSerial').append(option)
 		}

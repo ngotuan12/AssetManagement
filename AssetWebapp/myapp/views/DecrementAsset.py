@@ -32,6 +32,7 @@ def index(request):
 			dept_id = request.POST["slDept"]
 			stock_id = request.POST["slStock"]
 			serial_id = request.POST["slSerial"]
+			asset_id = request.POST["txtAssetID"]
 # 			CapitalAmount_id = request.POST["txtCapitalAmount"]
 # 			OriginalAmount_id = request.POST["txtOriginalAmount"]
 # 			RemainAmount_id = request.POST["txtRemainAmount"]
@@ -42,7 +43,7 @@ def index(request):
 			cursor = connection.cursor()
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
-			cursor.callproc("pck_stock_trans.export_stock_asset_serial",
+			cursor.callproc("pck_stock_trans.export_asset_serial",
 						(
 							# p_error
 							p_error,
@@ -51,7 +52,7 @@ def index(request):
 							# p_ie_stock_id
 							None,
 							# p_asset_id
-							None,
+							asset_id,
 							# p_seria
 							serial_id,
 							# p_export_date

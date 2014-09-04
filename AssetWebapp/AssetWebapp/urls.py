@@ -52,14 +52,15 @@ urlpatterns = patterns('',
     url(r'^group/add/$', Group.add_group,name='add-group'),
     url(r'^group/delete/(?P<group_id>\w+)/$', Group.delete_group,name='delete-group'),
     url(r'^group/(?P<group_id>\w+)/$', Group.change_group,name='change-group'),
-    #Reason
-#     url(r'^reason$',Reason.view_reason ,name='reason'),
-#     url(r'^reason/add/$', Reason.add_reason,name='add-reason'),
-#     url(r'^reason/delete/(?P<reason_id>\w+)/$', Reason.delete_reason,name='delete-reason'),
-#     url(r'^reason/(?P<reason_id>\w+)/$', Reason.change_reason,name='change-reason'),
-    
+    # Reason
+     url(r'^reason$',Reason.view_reason ,name='reason'),
+     url(r'^reason/add/$', Reason.add_reason,name='add-reason'),
+     url(r'^reason/delete/(?P<reason_id>\w+)/$', Reason.delete_reason,name='delete-reason'),
+     url(r'^reason/(?P<reason_id>\w+)/$', Reason.change_reason,name='change-reason'),
+    # Error page
     url(r'^permission-error$', Error.permission_error,name='permission-error'),
     url(r'^notfound-error$', Error.notfound_error,name='notfound-error'),
+    # Static directory
     url(regex=r'^report/(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.REPORT_ROOT, 'show_indexes' : True, }),
     url(regex=r'^(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.STATIC_ROOT, 'show_indexes' : False, }),
     
