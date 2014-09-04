@@ -110,4 +110,4 @@ def index(request):
 		context.update({'has_error':str(ex)})
 	finally:
 		context.update(csrf(request))
-		return render_to_response("list/list-asset.html", context, RequestContext(request))
+		return render_to_response("list-asset.html", context, RequestContext(request))
