@@ -2,6 +2,8 @@
 	Class==com.ar.bean.LoginBean
 /AreaService
 	Class==com.ar.bean.AreaBean
+/AuthorizationService
+	Class==com.ar.bean.AuthorizationBean	
 /PermissionService
 	Class==com.ar.bean.PermissionBean
 /GatewayService

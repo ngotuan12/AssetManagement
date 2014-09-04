@@ -4,7 +4,7 @@ from django.contrib import admin
 from AssetWebapp import settings
 from myapp.views import Home, DeviceProperties, AddDeviceProperties, EditDeviceProperties, Area, AddArea, DeviceInfor, EditArea\
 , Device, User, Error, Group, Reason, IncrementAsset, DecrementAsset\
-,FunctionList,VerifyAsset,RevaluateAsset
+,FunctionList,VerifyAsset,RevaluateAsset, Report
 
 
 admin.autodiscover()
@@ -57,7 +57,7 @@ urlpatterns = patterns('',
 #     url(r'^reason/add/$', Reason.add_reason,name='add-reason'),
 #     url(r'^reason/delete/(?P<reason_id>\w+)/$', Reason.delete_reason,name='delete-reason'),
 #     url(r'^reason/(?P<reason_id>\w+)/$', Reason.change_reason,name='change-reason'),
-    
+    url(r'^report-reason$',Report.view_reason_report ,name='report-reason'),
     url(r'^permission-error$', Error.permission_error,name='permission-error'),
     url(r'^notfound-error$', Error.notfound_error,name='notfound-error'),
     url(regex=r'^report/(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.REPORT_ROOT, 'show_indexes' : True, }),

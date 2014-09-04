@@ -13,7 +13,7 @@ ConnCacheScheme==fixed_wait_scheme
 Encrypt==N
 Connection
 	Oracle
-		Url==jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 10.0.2.102)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = db)))
+		Url==jdbc:oracle:thin:@localhost:1521:orcl
 		UserName==ASSET
 		Password==asset
 	MySQL
@@ -38,6 +38,6 @@ Report
 		MaxDay==5
 		DefaultTime==1
 		DefaultDay==5
-ExcelTemplatePath==D:/Projects/AssetManagement/AssetServer/src/report/template/
+ExcelTemplatePath==F:/VINHNDQ/AssetManagement/AssetWebapp/template/
 TemplatePath==/report/sql/
-ReportOut==D:/Projects/AssetManagement/AssetWebapp/report/
+ReportOut==F:/VINHNDQ/AssetManagement/AssetWebapp/report/

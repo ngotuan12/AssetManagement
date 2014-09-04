@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reason_list" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="644c9b6b-5ffb-45cd-951e-96f04f062518">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_reason_code" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_reason_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_reason_status" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from reason
+where reason_code like '%$P!{p_reason_code}%'
+and reason_name like '%$P!{p_reason_name}%'
+and ($P{p_reason_status} is null or reason_status=$P{p_reason_status})]]>
+	</queryString>
+	<field name="ID" class="java.math.BigDecimal"/>
+	<field name="REASON_CODE" class="java.lang.String"/>
+	<field name="REASON_NAME" class="java.lang.String"/>
+	<field name="REASON_STATUS" class="java.lang.String"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="GROUP_CODE" class="java.lang.String"/>
+	<field name="CREATE_DATETIME" class="java.sql.Timestamp"/>
+	<field name="USER_NAME" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c4f8be23-e459-44a9-9336-bf8ebacaa831" x="0" y="36" width="555" height="33"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="24"/>
+				</textElement>
+				<text><![CDATA[REASON LIST]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ebd8f46a-e6aa-4afc-97f3-0d13559b77c2" x="0" y="0" width="138" height="20"/>
+				<textElement/>
+				<text><![CDATA[REASON_CODE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8ec7ca02-92fe-4ff9-bffa-8b7360481176" x="138" y="0" width="138" height="20"/>
+				<textElement/>
+				<text><![CDATA[REASON_NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="68f05395-7517-41ea-b871-968050fb9125" x="276" y="0" width="138" height="20"/>
+				<textElement/>
+				<text><![CDATA[REASON_STATUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7dc4eaa4-1468-40f1-a8d7-230d7c37284d" x="414" y="0" width="141" height="20"/>
+				<textElement/>
+				<text><![CDATA[DESCRIPTION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement uuid="7c312417-f030-4a26-96b4-a53f0e7487fc" x="0" y="0" width="138" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{REASON_CODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7051236a-518f-4be4-acda-f2697759ed28" x="138" y="0" width="138" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{REASON_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cfad742c-03fa-42e3-be3e-c2a341ec9723" x="276" y="0" width="138" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{REASON_STATUS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="16740d2c-d9d8-4850-a8b5-2c36b81f3cd6" x="414" y="0" width="141" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
