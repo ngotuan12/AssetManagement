@@ -13,7 +13,7 @@
 			
 			<div class="panel-body">
 				<div class="alert alert-warning" style="margin-bottom:1%;">
-					<div class="row" style="margin-bottom:1%;">
+					<!-- <div class="row" style="margin-bottom:1%;">
 						<div class="col-lg-3">
 							<select id= "asset_code" class="form-control chosen-select" data-placeholder="Mã Phòng ban kiểm kê.." style="display: none;">
 							  <option value=""></option>
@@ -49,84 +49,38 @@
 						  <button class="btn btn-primary btn-block" style="margin-top:3px;">Tìm kiếm</button>
 						</div>
 						
-					</div> <!-- Div Row-->
-					</div>
+					</div> Div Row
+					</div> -->
 				  <div class="table-responsive ">
 				  <table class="table table-bordered" id="table2">
 					  <thead>
 						 <tr>
-							<th>Mã Tài sản</th>
+							<th>Số thẻ TSCĐ</th>
 							<th>Tên tài sản</th>
 							<th>Nguyên Giá</th>
 							<th>Giá trị còn lại</th>
-							<th>Ghi chú</th>
 						 </tr>
 					  </thead>
 					  <tbody>
-						 <tr class="odd gradeX">
-							<td>Trident</td>
-							<td>Internet
-								Explorer 4.0</td>
-							<td>Win 95+</td>
-							<td class="center"> 4</td>
-							<td class="center">X</td>
-						 </tr>
-						 <tr class="even gradeC">
-							<td>Trident</td>
-							<td>Internet
-								Explorer 5.0</td>
-							<td>Win 95+</td>
-							<td class="center">5</td>
-							<td class="center">C</td>
-						 </tr>
-						 <tr class="odd gradeA">
-							<td>Trident</td>
-							<td>Internet
-								Explorer 5.5</td>
-							<td>Win 95+</td>
-							<td class="center">5.5</td>
-							<td class="center">A</td>
-						 </tr>
-						 <tr class="odd gradeA">
-							<td>Trident</td>
-							<td>Internet
-								Explorer 5.5</td>
-							<td>Win 95+</td>
-							<td class="center">5.5</td>
-							<td class="center">A</td>
-						 </tr>
-						 <tr class="odd gradeA">
-							<td>Trident</td>
-							<td>Internet
-								Explorer 5.5</td>
-							<td>Win 95+</td>
-							<td class="center">5.5</td>
-							<td class="center">A</td>
-						 </tr>
-						 <tr class="gradeA">
-							<td>Gecko</td>
-							<td>Firefox 3.0</td>
-							<td>Win 2k+ / OSX.3+</td>
-							<td class="center">1.9</td>
-							<td class="center">A</td>
-						 </tr>
-						 <tr class="gradeU">
-							<td>Other browsers</td>
-							<td>All others</td>
-							<td>-</td>
-							<td class="center">-</td>
-							<td class="center">U</td>
-						 </tr>
+					  	{% for serial in serials %}
+							<tr class="odd gradeX">
+								<td><a href="/verify-asset/{{ serial.id }}/">{{ serial.serial }} </a></td>
+								<td>{{ serial.asset.name }}</td>
+								<td>{{ serial.original_value }}</td>
+								<td > {{ serial.remain_value }}</td>
+							 </tr>
+						{% endfor%}
 					  </tbody>
 				   </table>
-				  </div><!-- table-responsive -->	
+				  </div><!-- table-responsive -->
+				<!-- <div class="row" style="padding:6px;">
+					<button class="btn btn-primary">Nhập từ File</button>
+					<button class="btn btn-primary">In BB KK </button>
+					<button class="btn btn-primary">Lưu</button>
+					<button class="btn btn-primary">Đóng</button>
+				</div>	 -->
 			  </div><!-- panel-body -->
-			<div class="panel-footer" style="padding:6px;">
-				<button class="btn btn-primary">Nhập từ File</button>
-				<button class="btn btn-primary">In BB KK </button>
-				<button class="btn btn-primary">Lưu</button>
-				<button class="btn btn-primary">Đóng</button>
-			</div>
+			
 			</form>
 		  </div><!-- panel body-->
 		</form>
@@ -142,6 +96,7 @@
 <script src="js/retina.min.js"></script>
 <script src="js/jquery.cookies.js"></script>
 
+<script src="js/jquery.datatables.min.js"></script>
 <script src="js/jquery.autogrow-textarea.js"></script>
 <script src="js/jquery.maskedinput.min.js"></script>
 <script src="js/chosen.jquery.min.js"></script>
@@ -151,6 +106,15 @@
 
 <script>
 $(document).ready(function(){
+	jQuery('#table2').dataTable({
+		"sPaginationType" : "full_numbers"
+	});
+	// Select
+	jQuery(".table-responsive  select").chosen({
+				'min-width' : '150px',
+				'white-space' : 'nowrap',
+				disable_search_threshold : 10
+			});
   // Chosen Select
   $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
   // Date Picker

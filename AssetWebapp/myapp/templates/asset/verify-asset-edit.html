@@ -1,0 +1,142 @@
+{% extends "base.html" %} {% block styles %}
+<link href="../../css/style.default.css" rel="stylesheet">
+<link href="../../css/custom.css" rel="stylesheet">
+{% endblock styles %} {% block content-header %}
+<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i> Tài khoản <span>Sửa thông tin tài
+			khoản</span>
+	</h2>
+	<div class="breadcrumb-wrapper">
+		<ol class="breadcrumb">
+			<li><a href="/user">User</a></li>
+			<li class="active">{{ current_user.username }}</li>
+		</ol>
+	</div>
+</div>
+{% endblock %} 
+{% block content %}
+<div class="contentpanel nopadding" style="background: #828283">
+	<div class="col-md">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title" style="text-align: center;">CẬP NHẬT
+					TÀI KHOẢN NGƯỜI DÙNG</h4>
+			</div>
+
+			<form action="" class="form form-bordered" method="post"
+				id="form-verify-asset-edit" novalidate="novalidate">
+				{% csrf_token %}
+				<div class="panel-body">
+					{% if has_error %}
+						<div class="panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+					<div class="row row-pad-5">
+						<div class="alert alert-warning">
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Số thẻ TSCĐ</label> <input
+											type="text"  placeholder="Tài khoản"
+											class="form-control" required="required"
+											value="{{ serial.serial }}" disabled="disabled">
+									</div>
+								</div>
+
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Tên tài sản</label> <input
+											type="text"  
+											class="form-control" value="{{ serial.asset.name }}"
+											disabled="disabled">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Nguyên giá</label>
+									<div class="col-sm-4">
+										<input type="text" name="txtPassWord"
+											 class="form-control"
+											value="{{ serial.original_value }}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Nguồn vốn</label> <input
+											type="text"  placeholder="Tài khoản"
+											class="form-control" required="required"
+											value="{{ serial.capital.name }}" disabled="disabled">
+									</div>
+								</div>
+
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Nhà cung cấp</label> <input
+											type="text" placeholder="Mật khẩu"
+											class="form-control" value="{{ serial.supplier.name }}"
+											disabled="disabled">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Đối tác</label>
+									<div class="col-sm-4">
+										<input type="text" name="txtPassWord"
+											placeholder="Nhập lại mật khẩu" class="form-control"
+											value="{{ serial.country.name }}" disabled="disabled">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm">
+									<div class="form-group">
+										<label class="control-label">Giá trị còn lại</label>
+											<input type="text" 
+												name = "txtRemainAmount"class="form-control" value="{{ serial.remain_value }}"
+												required>
+									</div>
+								</div>	
+							</div>
+							<div class="row">
+								<div class="col-sm">
+									<button class="btn btn-primary" onclick="return onValidate();">Thực hiện &nbsp;</button>
+									
+								</div>
+							</div>
+						</div> <!-- alert-warning -->
+					</div> <!-- row-pad-5 -->
+					
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %} 
+{% block scripts %}
+<script src="../../js/jquery-1.10.2.min.js"></script>
+<script src="../../js/jquery-migrate-1.2.1.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/modernizr.min.js"></script>
+<script src="../../js/jquery.sparkline.min.js"></script>
+<script src="../../js/toggles.min.js"></script>
+<script src="../../js/retina.min.js"></script>
+<script src="../../js/jquery.cookies.js"></script>
+
+<script src="../../js/custom.js"></script>
+<script src="../../js/jquery.validate.min.js"></script>
+<script>
+	function onValidate() {
+		var $valid = jQuery('#form-verify-asset-edit').validate();
+		if (!$valid) {
+			$validator.focusInvalid();
+			return false;
+		}
+		jQuery('#form-verify-asset-edit').submit();
+	}
+</script>
+{% endblock scripts%}

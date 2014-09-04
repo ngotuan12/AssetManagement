@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
+encoding//myapp/templates/group/add-group.html=UTF-8
 encoding//myapp/views/Home.py=utf-8
+encoding/<project>=UTF-8

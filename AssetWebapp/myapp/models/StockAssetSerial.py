@@ -11,6 +11,7 @@ from myapp.models.Country import Country
 from myapp.models.List import List
 from myapp.models.Stock import Stock
 from myapp.util.sequence import update_id
+from myapp.models import Supplier
 
 
 # Create your models here.
@@ -27,6 +28,7 @@ class StockAssetSerial(models.Model):
     state = models.ForeignKey(List,db_column="state_id")
     goal = models.ForeignKey(List,db_column="goal_id")
     country = models.ForeignKey(Country,db_column="country_id")
+    supplier = models.ForeignKey(Supplier,db_column="supplier_id")
     capital = models.ForeignKey(List,db_column="capital_id")
     amortize = models.ForeignKey(List,db_column="amortize_id")
     class Meta:
