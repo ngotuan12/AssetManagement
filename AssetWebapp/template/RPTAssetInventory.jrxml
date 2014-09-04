@@ -1,19 +1,226 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetInventory" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="67de0e17-5405-4fd4-ab0a-2ea1120e179f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetInventory" language="groovy" pageWidth="1500" pageHeight="595" orientation="Landscape" columnWidth="1500" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="67de0e17-5405-4fd4-ab0a-2ea1120e179f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="672"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_capital_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_use_date" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_status" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  a.code,a.name,a.parent_code,(select name from asset where code=a.parent_code) parent_name,b.serial,b.capital_id,b.use_date,
+    (select name from list where list_type='4' and id=b.state_id) status,
+   null unit,(select supplier_name from supplier where  id=b.supplier_id) supplier,
+   original_value acc_original,remain_value acc_remain, original_value inv_original ,check_remain_amount inv_remain,
+  0 diff_original,check_remain_amount-remain_value diff_remain
+  from asset a,(select * from stock_asset_serial c left join check_stock_asset_serial d on c.id=d.stock_asset_serial_id) b
+  where a.id=b.asset_id
+ and a.parent_code is not null
+ and ($P{p_capital_id} is null or b.capital_id=$P{p_capital_id})
+  and ($P{p_status} is null or b.state_id=$P{p_status})
+  and ($P{p_use_date} is null or b.use_date>=trunc($P{p_use_date}))
+  order by a.code
+ ]]>
+	</queryString>
+	<field name="CODE" class="java.lang.String"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="PARENT_CODE" class="java.lang.String"/>
+	<field name="PARENT_NAME" class="java.lang.String"/>
+	<field name="SERIAL" class="java.lang.String"/>
+	<field name="CAPITAL_ID" class="java.math.BigDecimal"/>
+	<field name="USE_DATE" class="java.sql.Timestamp"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="UNIT" class="java.lang.String"/>
+	<field name="SUPPLIER" class="java.lang.String"/>
+	<field name="ACC_ORIGINAL" class="java.math.BigDecimal"/>
+	<field name="ACC_REMAIN" class="java.math.BigDecimal"/>
+	<field name="INV_ORIGINAL" class="java.math.BigDecimal"/>
+	<field name="INV_REMAIN" class="java.math.BigDecimal"/>
+	<field name="DIFF_ORIGINAL" class="java.math.BigDecimal"/>
+	<field name="DIFF_REMAIN" class="java.math.BigDecimal"/>
+	<group name="PARENT_CODE">
+		<groupExpression><![CDATA[$F{PARENT_CODE}]]></groupExpression>
+		<groupHeader>
+			<band height="50"/>
+		</groupHeader>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="127" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="af01eb77-88c2-4158-b435-dcf862678e76" x="0" y="0" width="274" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tên đơn vị kiểm kê: ViỄN THÔNG BÌNH PHƯỚC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5963e31-fb93-4532-ae0c-ad0b4280e96f" x="0" y="20" width="274" height="20"/>
+				<textElement/>
+				<text><![CDATA[Thuộc: TẬP ĐOÀN BƯU CHÍNH ViỄN THÔNG ViỆT NAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="97fe3b7a-3fa7-4016-89ba-5ece03ffc9c0" x="482" y="0" width="320" height="20"/>
+				<textElement/>
+				<text><![CDATA[Bảng kiểm kê BK - 07/KK-TSCĐ]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="55f90ea0-9b43-4778-a98c-b02213ec30ee" x="44" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d675c2af-5ce5-443d-b3fe-0c26f082c5b3" x="148" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[CODE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c21a852f-2b25-4941-b775-6f054500e00d" x="252" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[SERIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e772c5c1-563d-4e00-9df2-1c7e219bf55a" x="356" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[CAPITAL_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e8fc2099-a1f3-43d3-b0d6-c0db54344554" x="460" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[USE_DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="18d6aa86-014e-43ff-8638-b326ffdc4a12" x="564" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a7723060-7cce-4798-a2ae-6dbe2d4cf8c5" x="668" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[UNIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b2119f00-31b5-43b7-833f-86d5e510d8b1" x="772" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[SUPPLIER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="91e0587f-e992-4932-9fe2-e1209b365310" x="876" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[ACC_ORIGINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5eb2c582-ae01-42cf-875f-cbc3bde45cf9" x="980" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[ACC_REMAIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bb75bdb4-4428-413f-86e6-a580fe4c933e" x="1084" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[INV_ORIGINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="587aa9e3-5b65-456c-a913-485e7db453e6" x="1188" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[INV_REMAIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="afa66966-ea40-483f-a271-177477b7def5" x="1292" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[DIFF_ORIGINAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a96fbf79-c434-482c-9c1d-b06efb62a23f" x="1396" y="0" width="104" height="20"/>
+				<textElement/>
+				<text><![CDATA[DIFF_REMAIN]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement uuid="e5eda7d3-2af5-4b33-b7bf-35e0ff3bb0e7" x="44" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="457394bf-4acc-4a23-876c-80d8aee42927" x="148" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{CODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ab3db9d4-83a3-4a85-af1e-e1bc5d6ec0ed" x="252" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{SERIAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="15b3c584-430d-4f40-9ef8-4908bc755480" x="356" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{CAPITAL_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9929e8fa-58b1-4d40-8329-1b4f7e7d84b0" x="460" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{USE_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a3b9459b-07cc-4c8a-8f85-2a10be0a71f0" x="564" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{STATUS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4fadb07f-07bc-4c55-8793-4c1137f80ad2" x="668" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{UNIT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6991c367-0dbe-4210-a6c4-01f3a5c28637" x="772" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{SUPPLIER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8c0e546a-d3eb-4d17-bf52-b81f2b2c6e9d" x="876" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ACC_ORIGINAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a89d7ba-5db4-4853-bbd5-4e1a13442727" x="980" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ACC_REMAIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f69b5b69-22bf-46d4-b625-2dbb45ba3394" x="1084" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{INV_ORIGINAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3ab86483-b956-41d4-85d5-832b524db3b5" x="1188" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{INV_REMAIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c9e3b1df-b7f3-41f2-8797-9f0a09ff54a5" x="1292" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DIFF_ORIGINAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a52e06e8-d881-4b80-bdac-1b3f8ba1260b" x="1396" y="0" width="104" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DIFF_REMAIN}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
