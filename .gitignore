@@ -3,6 +3,7 @@
 *.pyc
 *.class
 sqlnet.log
+/AssetWebapp/log
 /AssetWebapp/sqlnet.log
 /AssetServer/build
 /AssetServer/jar
