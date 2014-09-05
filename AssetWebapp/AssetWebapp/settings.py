@@ -98,14 +98,15 @@ LOCALE_PATHS = (
 )
 LANGUAGES = (
     ('en', 'English'),
-    ('vi', 'VietNamese')
+    ('vi', 'VietNamese'),
+    ('de', 'Germany')
 )
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-LOGIN_REDIRECT_URL = '/home'
-LOGIN_URL = '/login'
-LOGOUT_URL = '/logout'
+LOGIN_REDIRECT_URL = '/home/'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/common"
 REPORT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/report"

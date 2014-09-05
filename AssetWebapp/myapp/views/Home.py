@@ -8,10 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
-from myapp.models import Device
-
-
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def index(request):
 	context={}
 	return render_to_response("base.html", context, RequestContext(request))

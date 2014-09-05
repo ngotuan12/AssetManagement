@@ -13,7 +13,7 @@ from django.template.context import RequestContext
 from django.core.context_processors import csrf
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def change_password(request):
     context = {}
     try:
@@ -34,19 +34,19 @@ def change_password(request):
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error',redirect_field_name=None)
 def reset_password(request):
     return ""
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error',redirect_field_name=None)
 def view_user(request):
     users = User.objects.all().order_by("username")
     context ={"users":users}
     return render_to_response("user/user.html",context, RequestContext(request))
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error',redirect_field_name=None)
 def list_user(request):
     users = User.objects.all().order_by("username")
     context ={"users":users}
     return render_to_response("user/list-user.html",context, RequestContext(request))
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error',redirect_field_name=None)
 def add_user(request):
     context ={}
