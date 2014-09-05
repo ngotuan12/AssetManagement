@@ -20,8 +20,8 @@ from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.util.DateEncoder import DateEncoder
 
 
-@login_required(login_url='/login')
-@permission_required('myapp.view_decrement_asset',login_url='/permission-error')
+@login_required(login_url='/login/')
+@permission_required('myapp.view_decrement_asset',login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:
@@ -77,7 +77,7 @@ def index(request):
 		context.update(csrf(request))
 		return render_to_response("asset/decrement-asset.html", context,RequestContext(request))
 
-@permission_required('myapp.view_decrement_asset',login_url='/permission-error')
+@permission_required('myapp.view_decrement_asset',login_url='/permission-error/')
 def getListStock(request,dept_id):
 	try:
 		dept = Dept.objects.get(id=dept_id)
@@ -88,7 +88,7 @@ def getListStock(request,dept_id):
 		return HttpResponse(json.dumps({'stocks':infors,}) ,content_type="application/json")
 	except Exception as ex:
 		return HttpResponse(json.dumps({"error": str(ex)}),content_type="application/json")
-@permission_required('myapp.view_decrement_asset',login_url='/permission-error')
+@permission_required('myapp.view_decrement_asset',login_url='/permission-error/')
 def getListSerial(request,stock_id):
 	try:
 		stock = Stock.objects.get(id=stock_id)

@@ -33,7 +33,7 @@ def add_group(request):
                     group.permissions.add(permission)
                 else:
                     group.permissions.remove(permission)
-            return HttpResponseRedirect("/group")
+            return HttpResponseRedirect("/group/")
         except Exception as ex:
             context.update({'has_error':ex})
     context.update({'permissions':permissions})
@@ -57,7 +57,7 @@ def change_group(request,group_id):
                     else:
                         current_group.permissions.remove(permission)
                 current_group.save()
-                return HttpResponseRedirect("/group")
+                return HttpResponseRedirect("/group/")
             except Exception as ex:
                 context.update({'has_error':ex})
         context.update({'permissions':permissions,'current_group':current_group,'current_pers':current_pers})
@@ -70,4 +70,4 @@ def delete_group(request,group_id):
     if request.POST :
         current_group = Group.objects.get(id = group_id)
         current_group.delete()
-    return HttpResponseRedirect("/group")
+    return HttpResponseRedirect("/group/")

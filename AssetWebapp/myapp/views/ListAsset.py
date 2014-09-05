@@ -18,8 +18,8 @@ from myapp.models.Stock import Stock
 from myapp.models.Supplier import Supplier
 
 
-@login_required(login_url='/login')
-@permission_required('myapp.view_area', login_url='/permission-error')
+@login_required(login_url='/login/')
+@permission_required('myapp.view_area', login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:

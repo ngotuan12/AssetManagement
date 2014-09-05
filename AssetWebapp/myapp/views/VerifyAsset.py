@@ -12,7 +12,7 @@ from myapp.models.StockAssetSerial import StockAssetSerial
 from django.http.response import HttpResponseRedirect
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def index(request):
 	context = {}
 	try:
@@ -32,7 +32,7 @@ def verify(request,serial_id):
 			remain_amount = request.POST["txtRemainAmount"]
 			serial.remain_value = remain_amount
 			serial.save()
-			return HttpResponseRedirect("/verify-asset")
+			return HttpResponseRedirect("/verify-asset/")
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

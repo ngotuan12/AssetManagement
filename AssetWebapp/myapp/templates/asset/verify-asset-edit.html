@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block styles %}
-<link href="../../css/style.default.css" rel="stylesheet">
-<link href="../../css/custom.css" rel="stylesheet">
+<link href="/css/style.default.css" rel="stylesheet">
+<link href="/css/custom.css" rel="stylesheet">
 {% endblock styles %} {% block content-header %}
 <div class="pageheader">
 	<h2>
@@ -9,7 +9,7 @@
 	</h2>
 	<div class="breadcrumb-wrapper">
 		<ol class="breadcrumb">
-			<li><a href="/user">User</a></li>
+			<li><a href="/user/">User</a></li>
 			<li class="active">{{ current_user.username }}</li>
 		</ol>
 	</div>
@@ -118,17 +118,17 @@
 </div>
 {% endblock content %} 
 {% block scripts %}
-<script src="../../js/jquery-1.10.2.min.js"></script>
-<script src="../../js/jquery-migrate-1.2.1.min.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
-<script src="../../js/modernizr.min.js"></script>
-<script src="../../js/jquery.sparkline.min.js"></script>
-<script src="../../js/toggles.min.js"></script>
-<script src="../../js/retina.min.js"></script>
-<script src="../../js/jquery.cookies.js"></script>
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
 
-<script src="../../js/custom.js"></script>
-<script src="../../js/jquery.validate.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
 <script>
 	function onValidate() {
 		var $valid = jQuery('#form-verify-asset-edit').validate();

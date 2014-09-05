@@ -8,8 +8,8 @@ from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
-@login_required(login_url='/login')
-@permission_required('myapp.view_decrement_asset',login_url='/permission-error')
+@login_required(login_url='/login/')
+@permission_required('myapp.view_decrement_asset',login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:

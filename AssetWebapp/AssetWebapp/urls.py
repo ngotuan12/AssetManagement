@@ -37,18 +37,18 @@ urlpatterns = patterns('',
     # Function List
     url(r'^function-list$', FunctionList.index, name='function-list'),
     # increment asset
-    url(r'^increment-asset$', IncrementAsset.index, name='increment-asset'),
+    url(r'^increment-asset/$', IncrementAsset.index, name='increment-asset'),
     # view Asset
-    url(r'^view-asset', ViewAsset.index),
+    url(r'^view-asset/$', ViewAsset.index),
     # increment asset
-    url(r'^decrement-asset$', DecrementAsset.index, name='decrement-asset'),
+    url(r'^decrement-asset/$', DecrementAsset.index, name='decrement-asset'),
     url(r'^get-list-stock/(?P<dept_id>\w+)/$', DecrementAsset.getListStock, name='get-list-stock'),
     url(r'^get-list-serial/(?P<stock_id>\w+)/$', DecrementAsset.getListSerial, name='get-list-serial'),
     # verify asset
-    url(r'^verify-asset$', VerifyAsset.index),
+    url(r'^verify-asset/$', VerifyAsset.index),
     url(r'^verify-asset/(?P<serial_id>\w+)/$', VerifyAsset.verify),
     # revaluate asset
-    url(r'^revaluate-asset$', RevaluateAsset.index),
+    url(r'^revaluate-asset/$', RevaluateAsset.index),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 
@@ -58,7 +58,7 @@ urlpatterns = patterns('',
     url(r'^user/(?P<user_id>\w+)/$', User.change_user, name='change-user'),
     url(r'^change-password/$', User.change_password, name='change-password'),
     # Group
-    url(r'^group$', Group.view_group, name='user'),
+    url(r'^group/$', Group.view_group, name='user'),
     url(r'^group/add/$', Group.add_group, name='add-group'),
     url(r'^group/delete/(?P<group_id>\w+)/$', Group.delete_group, name='delete-group'),
     url(r'^group/(?P<group_id>\w+)/$', Group.change_group, name='change-group'),
@@ -71,8 +71,8 @@ urlpatterns = patterns('',
     url(r'^report/asset-inventory-report$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
     url(r'^report/verify-asset-report$', Report.verify_asset_report , name='verify-asset-report'),
     # Error page
-    url(r'^permission-error$', Error.permission_error, name='permission-error'),
-    url(r'^notfound-error$', Error.notfound_error, name='notfound-error'),
+    url(r'^permission-error/$', Error.permission_error, name='permission-error'),
+    url(r'^notfound-error/$', Error.notfound_error, name='notfound-error'),
     # Static directory
     url(regex=r'^report/(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.REPORT_ROOT, 'show_indexes' : True, }),
     url(regex=r'^(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.STATIC_ROOT, 'show_indexes' : False, }),

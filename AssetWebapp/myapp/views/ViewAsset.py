@@ -19,8 +19,8 @@ from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.Supplier import Supplier
 
 
-@login_required(login_url='/login')
-@permission_required('myapp.view_area', login_url='/permission-error')
+@login_required(login_url='/login/')
+@permission_required('myapp.view_area', login_url='/permission-erro/r')
 def index(request):
 	context = {}
 	try:

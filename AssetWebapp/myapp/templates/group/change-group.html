@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block styles %}
-	<link href="../../css/style.default.css" rel="stylesheet">
-	<link href="../../css/custom.css" rel="stylesheet">
+	<link href="/css/style.default.css" rel="stylesheet">
+	<link href="/css/custom.css" rel="stylesheet">
 {% endblock styles %}
 
 {% block content-header %} 
@@ -11,7 +11,7 @@
 	</h2>
 	<div class="breadcrumb-wrapper">
 		<ol class="breadcrumb">
-			<li><a href="/group">Phòng ban</a></li>
+			<li><a href="/group/">Phòng ban</a></li>
 			<li class="active">{{ current_group.name }}</li>
 		</ol>
 	</div>
@@ -62,7 +62,7 @@
 		<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
 					<button class="btn btn-primary" onclick="return onValidate();">Lưu</button>&nbsp;
-					<a href="/group" class="btn btn-default">Thoát</a>
+					<a href="/group/" class="btn btn-default">Thoát</a>
 				</div>
 			 </div>
 	</form>
@@ -70,17 +70,17 @@
 </div>
 {% endblock content %} 
 {% block scripts %}
-<script src="../../js/jquery-1.10.2.min.js"></script>
-<script src="../../js/jquery-migrate-1.2.1.min.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
-<script src="../../js/modernizr.min.js"></script>
-<script src="../../js/jquery.sparkline.min.js"></script>
-<script src="../../js/toggles.min.js"></script>
-<script src="../../js/retina.min.js"></script>
-<script src="../../js/jquery.cookies.js"></script>
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
 
-<script src="../../js/custom.js"></script>
-<script src="../../js/jquery.validate.min.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
 <script>
 	function onValidate()
 	{
