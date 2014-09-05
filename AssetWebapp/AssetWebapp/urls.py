@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-import registration.backends.default.urls
 
 from AssetWebapp import settings
 from myapp.views import Home, DeviceProperties, AddDeviceProperties, EditDeviceProperties, Area, AddArea, DeviceInfor, EditArea\
@@ -16,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^device-infor$', DeviceInfor.index),
     url(r'^$', Home.index),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include(registration.backends.default.urls)),
+#     url(r'^accounts/', include(registration.backends.default.urls)),
     url(r'^password/change/$', 'django.contrib.auth.views.password_change', {'template_name': 'change-password.html'}, name='password_change'),
     url(r'^password/change/done/$',
                     'django.contrib.auth.views.password_change',
