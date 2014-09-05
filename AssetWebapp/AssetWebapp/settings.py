@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
@@ -58,11 +58,23 @@ WSGI_APPLICATION = 'AssetWebapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'oraclepool',
-        'NAME': 'orcl',
+        'NAME': 'db',
         'USER': 'ASSET',
         'PASSWORD': 'asset',
-        'HOST': 'localhost',
+        'HOST': '10.0.2.103',
         'PORT': '1521',
+        'EXTRAS': {'min':1,  # start number of connections
+                    'max':20,  # max number of connections
+                    'increment':2,  # increase by this amount when more are needed
+                    'homogeneous':1,  # 1 = single credentials, 0 = multiple credentials
+                    'threaded':True,  # server platform optimisation 
+                    'timeout':10,  # connection timeout, 600 = 10 mins
+                    'log':1,  # extra logging functionality
+                    'logpath':os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/log",  # file system path to log file
+                    'existing':'Unicode',  # Type modifications if using existing database data
+                    'session': ["alter session set session_cached_cursors = 8;",
+                                "alter session set cursor_sharing = 'SIMILAR'"]
+                   }
     }
 }
 # Internationalization
