@@ -24,7 +24,7 @@ def index(request):
 	context = {}
 	try:
 		assets = Asset.objects.all()
-		context.update({'assets':assets, 'reasons':Reason.objects.all(), 'methods':List.objects.filter(list_type='6'), 'sources':List.objects.filter(list_type='3')})
+		context.update({'assets':assets, 'reasons':Reason.objects.filter(group_code='1'), 'methods':List.objects.filter(list_type='6'), 'sources':List.objects.filter(list_type='3')})
 		
 		context.update({'countries':Country.objects.all()})
 		context.update({'suppliers':Supplier.objects.all()})
