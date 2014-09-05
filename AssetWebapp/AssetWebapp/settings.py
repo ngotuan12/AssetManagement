@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'myapp',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,28 +70,36 @@ DATABASES = {
                     'homogeneous':1,  # 1 = single credentials, 0 = multiple credentials
                     'threaded':True,  # server platform optimisation 
                     'timeout':10,  # connection timeout, 600 = 10 mins
-                    'log':1,  # extra logging functionality
+                    'log':0,  # extra logging functionality
                     'logpath':os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/log",  # file system path to log file
                     'existing':'Unicode',  # Type modifications if using existing database data
                     'session': ["alter session set session_cached_cursors = 8;",
                                 "alter session set cursor_sharing = 'SIMILAR'"]
-                   }
+                   },
+        'OPTIONS': {
+                        'autocommit': True,
+                    }
     }
 }
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'vi'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = False
+USE_I18N = True
 
 USE_L10N = False
 
 USE_TZ = False
-
-
+LOCALE_PATHS = (
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/locale", # replace with correct path here
+)
+LANGUAGES = (
+    ('en', 'English'),
+    ('vi', 'VietNamese')
+)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on Aug 26, 2014
 
@@ -14,7 +15,22 @@ from django.core.context_processors import csrf
 
 @login_required(login_url='/login')
 def change_password(request):
-    return ""
+    context = {}
+    try:
+        if (request.POST):
+            user = User.objects.get(username = request.user.username)
+            old_password = ""
+            new_password = ""
+            if user.check_password(old_password) == False:
+                raise Exception("Mật khẩu cũ không đúng!")
+            user.set_password(new_password)
+            user.save()
+            return HttpResponseRedirect("/change-password/success/")
+    except Exception as ex:
+        context.update({'has_error':str(ex)})
+    finally:
+        context.update(csrf(request))
+        return render_to_response("change-password.html", context,RequestContext(request))
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error',redirect_field_name=None)
 def reset_password(request):
     return ""
