@@ -100,7 +100,11 @@
 											<div class="col-sm-6">
 												<div class="ckbox ckbox-default" style="margin-top: 2%">
 													<input type="checkbox" name="checkboxSupperUser"
-														id="checkboxSupperUser" checked="checked"> <label
+														id="checkboxSupperUser" 
+													{% if current_user.is_superuser %}
+														checked="checked"
+													{% endif %}> 
+													<label
 														for="checkboxSupperUser">Admin</label>
 												</div>
 											</div>
@@ -108,7 +112,9 @@
 												<div class="form-group">
 													<div class="ckbox ckbox-default" style="margin-top: 2%">
 														<input type="checkbox" name="checkboxActive"
-															id="checkboxActive" checked="checked"> <label
+															id="checkboxActive" {% if current_user.is_active %}
+																					checked="checked"
+																				{% endif %}> <label
 															for="checkboxActive">Kích hoạt </label>
 													</div>
 												</div>
