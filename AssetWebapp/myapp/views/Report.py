@@ -35,8 +35,22 @@ def view_reason_report(request):
 	return render_to_response("report/reason-report.html", context, RequestContext(request))
 
 @login_required(login_url='/login')
-#@permission_required('myapp.view_Asset_Inventory_report', login_url='/permission-error')
 def view_Asset_Inventory_report(request):
+	context = {}
+	capitals = List.objects.filter(list_type="3")
+	context.update({'capitals':capitals})
+	if request.POST :
+		capital_id = request.POST['optCapital']
+		authorization = client.getAuthorization(request.user.username)
+		params_object = {
+							"p_capital_id":capital_id
+						}
+		fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetInventory_Summarize", params_object,"EXCEL")
+		return HttpResponseRedirect('/report/' + fileOut)
+	context.update(csrf(request))
+	
+	return render_to_response("report/verify-asset-report.html", context, RequestContext(request))
+def verify_asset_report(request):
 	capitals = List.objects.filter(list_type="3")
 	statuses = List.objects.filter(list_type="4")
 	context = {'capitals':capitals,'statuses':statuses}
@@ -54,13 +68,3 @@ def view_Asset_Inventory_report(request):
 		return HttpResponseRedirect('/report/' + fileOut)
 	context.update(csrf(request))
 	return render_to_response("report/asset-inventory-report.html", context, RequestContext(request))
-def verify_asset_report(request):
-	context = {}
-	depts = Dept.objects.all()
-	context.update({'depts':depts})
-	if request.POST :
-		authorization = client.getAuthorization(request.user.username)
-		fileOut = client.exportVerifyAsset(authorization, request.user.username)
-		return HttpResponseRedirect('/report/' + fileOut)
-	context.update(csrf(request))
-	return render_to_response("report/verify-asset-report.html", context, RequestContext(request))

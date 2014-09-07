@@ -6,7 +6,7 @@
 {% block content-header %} 
 	<div class="pageheader">
 	<h2>
-		<i class="fa fa-home"></i>Báo cáo kiểm kê tài sản cố định
+		<i class="fa fa-home"></i>Báo cáo tài sản cố định tổng hợp
 	</h2>
 	<div class="breadcrumb-wrapper">
 		<ol class="breadcrumb">
@@ -26,11 +26,15 @@
 				<h4 class="panel-title"
 					style="text-align: center; line-height: 10px">Báo cáo tài sản cố định</h4>
 				</div>
+				<div class="panel-body">
+				<div class="alert alert-warning">
+				<div class="row row-pad-5">
 				<div class="form-group ">
+					
 					<label class="col-sm-2 control-label">Nguồn vốn</label>
 					<div class="col-sm-8">
 						<select name="optCapital" class="form-control">
-							<option value="-1">Tất cả nguồn vốn</option>
+							<option value="">Tất cả nguồn vốn</option>
 							{% for capital in capitals%}
 							<option value="{{capital.id}}">{{capital.name}}</option>
 							{% endfor %}
@@ -47,20 +51,21 @@
 					<label class="col-sm-2 control-label">Hiện trạng</label>
 					<div class="col-sm-8">
 						<select  name="optStatus" class="form-control" required="required">
-							<option value="-1">Tất cả hiện trạng</option>
+							<option value="">Tất cả hiện trạng</option>
 							{% for status  in statuses %}
 							<option value={{status.id}}>{{status.name}}</option>
 							{% endfor %}
 						</select>
 					</div>
 			</div>
-			
-			
+			</div>
+			</div>
+				</div>
 		</div>
 		
 		<div class="row">
-				<div class="col-sm-6 col-sm-offset-3">
-					<button class="btn btn-primary" onclick="return onSubmit();">Xuất danh sách</button>&nbsp;
+				<div class="col-sm col-sm-offset-5">
+					<button class="btn btn-primary" onclick="return onSubmit();">Thực hiện</button>&nbsp;
 					<a class="btn btn-default" href="/home">Thoát</a>
 				</div>
 			 </div>
