@@ -13,7 +13,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from table(report_asset($P{p_capital_id},to_date($P{p_use_date},'yyyy-mm-dd'),$P{p_status}))]]>
+		<![CDATA[select * from table(pck_report.report_asset($P{p_capital_id},to_date($P{p_use_date},'yyyy-mm-dd'),$P{p_status}))]]>
 	</queryString>
 	<field name="ROW_NUM" class="java.math.BigDecimal"/>
 	<field name="NO" class="java.lang.String"/>
@@ -35,6 +35,7 @@
 	<field name="NOTE" class="java.lang.String"/>
 	<field name="CUR_LEVEL" class="java.math.BigDecimal"/>
 	<field name="MAX_LEVEL" class="java.math.BigDecimal"/>
+	<field name="FLAG_IN_STOCK" class="java.math.BigDecimal"/>
 	<variable name="sum_acc_og" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{CUR_LEVEL}==1?$F{ACC_ORIGINAL}:0]]></variableExpression>
 	</variable>

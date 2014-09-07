@@ -13,7 +13,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from table(report_asset_summarize($P{p_capital_id}))]]>
+		<![CDATA[select * from table(pck_report.report_asset_summarize($P{p_capital_id}))]]>
 	</queryString>
 	<field name="ROW_NUM" class="java.math.BigDecimal"/>
 	<field name="NO" class="java.lang.String"/>
