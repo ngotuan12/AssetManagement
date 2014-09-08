@@ -32,7 +32,7 @@
 						</div>
 						
 						<div class="col-lg-6">
-							<select id="ok" class="form-control chosen-select"
+							<select class="form-control chosen-select"
 								data-placeholder="Lý do" name = "slReason" required>
 								<option value></option>
 								{% for reason in reasons %}
@@ -240,10 +240,6 @@ $(document).ready(function(){
   // Chosen Select
   $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
   
-  $('#ok').chosen('destroy');
-  $('#ok').prop("selectedIndex",0);
-  $('#ok').chosen();
-  
   // Date Picker
   $('#buy_date').datepicker({dateFormat: 'dd/mm/yy',});
   $('#start_use_date').datepicker({dateFormat: 'dd/mm/yy',});
@@ -278,23 +274,14 @@ jQuery(window).load(function(){
 });
 function onSUbmitFormIncrement()
 {
-
-		if ($("#ok").valid()) {
-			alert('ok');
-		} else {
-			alert('NO');
-			$validator.focusInvalid();
-			return false;
-		} 
-		var $valid = jQuery('#incrementAsset').valid();
-		if (!$valid) {
-			alert("NO");
-			$validator.focusInvalid();
-			return false;
-		}
-		else{
-			jQuery('#incrementAsset').submit();
-		}
+	var $valid = jQuery('#incrementAsset').valid();
+	if (!$valid) {
+		$validator.focusInvalid();
+		return false;
 	}
+	else{
+		jQuery('#incrementAsset').submit();
+	}
+}
 </script>
 {% endblock scripts%}
