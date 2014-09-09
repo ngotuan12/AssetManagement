@@ -14,20 +14,14 @@
 				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
 				{% csrf_token %}
 				<div class="panel-body">
-						<div id="alert-success" class="alert alert-success">
-							<button type="button" class="close" data-dismiss="alert"
-								aria-hidden="true">×</button>
-							<strong>Well done!</strong> You successfully read this <a href="#"
-								class="alert-link">important alert message</a>.
-						</div>
-					
 					{% if has_error %}
 						<div class="panel">
 							<label class="error">{{ has_error }}</label>
 						</div>
 					{% endif %}
+					<div class="alert alert-warning">
 					<div class="row row-pad-5">
-						<div class="alert alert-warning">
+						
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
@@ -69,16 +63,8 @@
 								</div>
 							</div>
 						</div>
-						
+						<div class="row row-pad-5">
 						<div class="row">
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label class="control-label"> Giá trị còn lại</label>
-									<input type="text" name="txtRemainAmount" id="remain-amount" 
-										placeholder="Giá trị còn lại" class="form-control numberic" required>
-								</div>
-							</div>
-							
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label class="control-label"> Trạng thái</label>
@@ -89,6 +75,14 @@
 											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 										{% endfor %}
 									</select>
+								</div>
+							</div>
+							
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="control-label"> Giá trị còn lại</label>
+									<input type="text" name="txtRemainAmount" id="remain-amount" 
+										placeholder="Giá trị còn lại" class="form-control numberic" required>
 								</div>
 							</div>
 							
@@ -105,10 +99,10 @@
 							</div>
 								
 						</div>
+						</div>
 						<div class="row">
 							<div class="col-lg">
 								<div class="form-group">
-										<label class="control-label"> Trạng thái</label>
 										<textarea class="form-control" name="txtNote" rows="5"
 											placeholder="Ghi chú" required></textarea>
 								</div>
@@ -151,7 +145,6 @@
 <script src="/js/custom.js"></script>
 
 <script>
-var tid;
 $(document).ready(function(){
 // Chosen Select
 	$(".chosen-select").chosen({
@@ -186,15 +179,9 @@ $(document).ready(function(){
 		$('#slState').chosen('destroy');
 		$('#slState').chosen();
 	});
-	tid = setTimeout(hideNotification, 2000);
 });
 
-function hideNotification()
-{
-	if($("#alert-success")!=null)
-		$("#alert-success").remove();
-	clearTimeout(tid);
-}
+
 function onSubmitFormEvaluation()
 {
 	var $valid = jQuery('#evaluationAsset').valid();

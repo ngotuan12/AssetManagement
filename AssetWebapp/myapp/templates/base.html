@@ -33,6 +33,15 @@
 	{% include 'preloader.tpl.html' %}
 
 	<section>
+		{% if has_success %}
+			<div id="notice-success" class="alert alert-info"
+				style="z-index: 1000; position: fixed; width: 100%; text-align: center;display: None">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<strong>{{ has_success_important }}</strong> {{ has_success }} <a href="#"
+					class="alert-link">{{ has_success_link }}</a>.
+			</div>
+		{% endif %}
 		{% block left-panel %} 
 			{% include 'left-panel.tpl.html' %}
 		{% endblock %} 
@@ -70,11 +79,21 @@
 	
 	{% endblock %}
 	<script type="text/javascript"> 
-	$(document).ready(function(){
+	var tidAlertSuccess;
+	$(document).ready(function()
+	{
 		$menuChildren = $('.leftpanel a[href="'+window.location.pathname+'"]');
 		$menuChildren.parent().addClass("active");
 		$menuChildren.closest(".children").css("display","block")
 		$menuChildren.closest(".nav-parent").addClass("nav-active active");
+		if($("#notice-success")!=null)
+		{
+			jQuery('#notice-success').delay(350).fadeIn(function(){
+				jQuery('#notice-success').delay(2000).fadeOut(function(){
+					$("#notice-success").remove();
+				});
+			});
+		}
 	});
 	</script>
 </body>
