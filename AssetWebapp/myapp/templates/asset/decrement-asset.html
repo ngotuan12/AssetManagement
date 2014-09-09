@@ -20,11 +20,12 @@
 						</div>
 					{% endif %}
 					<div class="row row-pad-5">
-						<div class="alert alert-warning">
+						<div class="alert alert-info">
 							<div class="row">
 								<div class="col-lg-4">
+									<label>Bộ phận</label>
 									<select id="slDept" class="form-control chosen-select"
-										data-placeholder="Đơn vị" style="display: none;"
+										data-placeholder="Bộ phận" style="display: none;"
 										name = "slDept">
 										<option value=""></option>
 										{% for dept in depts %}
@@ -33,6 +34,7 @@
 									</select>
 								</div>
 								<div class="col-lg-4">
+									<label>Kho</label>
 									<select id="slStock" class="form-control chosen-select"
 										data-placeholder="Kho" style="display: none;"
 										name = "slStock" disabled="disabled">
@@ -40,6 +42,7 @@
 									</select>
 								</div>
 								<div class="col-lg-4">
+									<label>Số thẻ TSCĐ</label>
 									<select id="slSerial" class="form-control chosen-select"
 										data-placeholder="Số thẻ TSCĐ"
 										style="display: none;"
@@ -51,15 +54,18 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-4">
+									<label>Nguồn Vốn</label>
 									<input type="text" name="txtCapitalAmount" id="capital-amount"
 										placeholder="Nguồn Vốn" class="form-control" disabled="disabled">
 								</div>
 
 								<div class="col-lg-4">
+									<label>Nguyên Giá</label>
 									<input type="text" name="txtOriginalAmount" id="original-amount" 
 										placeholder="Nguyên Giá" class="form-control" disabled="disabled">
 								</div>
 								<div class="col-lg-4">
+									<label>Giá trị còn lại</label>
 									<input type="text" name="txtRemainAmount" id="remain-amount" 
 										placeholder="Giá trị còn lại" class="form-control" disabled="disabled">
 								</div>
@@ -67,6 +73,7 @@
 							
 							<div class="row">
 								<div class="col-lg-6">
+									<label>Lý do giảm..</label>
 									<select id="slReason" name="slReason"class="form-control chosen-select"
 										data-placeholder="Lý do giảm.." style="display: ;">
 										<option value=""></option>
@@ -77,6 +84,7 @@
 								</div>
 								
 								<div class="col-lg-6">
+									<label>Ngày ghi giảm</label>
 									<div class="input-group">
 										<input type="text" class="form-control" name="dtDecrementDate"
 											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày ghi giảm (mm/dd/yyyy)" id="dtDecrementDate" required> <span
