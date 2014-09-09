@@ -172,6 +172,8 @@
 		  
 		// Date Picker
 		  $('#dt_verify').datepicker({dateFormat: 'dd/mm/yy',});
+		//set default date now
+		 $("#dt_verify").datepicker("setDate",new Date());
 		  // Input Masks
 		  $("#dt_verify").mask("99/99/9999");
 	});
