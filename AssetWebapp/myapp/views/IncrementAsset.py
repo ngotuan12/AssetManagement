@@ -67,6 +67,7 @@ def index(request):
 			decision_no = request.POST["txtDecisionNo"]
 			asset_name = request.POST["txtAssetName"]
 			document_status = request.POST["slDocumentStatus"]
+			interval = request.POST["txtInterval"]
 			parent_serial = None
 			if request.POST.get("ckChildAsset"):
 				parent_serial = request.POST["slParent"]
@@ -137,6 +138,7 @@ def index(request):
 							#p_name
 							asset_name,
 							#p_interval
+							interval,
 							#p_parent_serial
 							parent_serial,
 						))
