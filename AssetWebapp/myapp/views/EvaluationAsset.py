@@ -15,9 +15,9 @@ from myapp.models.Dept import Dept
 from myapp.models.List import List
 from myapp.models.Reason import Reason
 from myapp.models.Stock import Stock
-from myapp.models.Supplier import Supplier
-
 from myapp.models.StockAssetSerial import StockAssetSerial
+from myapp.models.Supplier import Supplier
+import cx_Oracle
 
 @login_required(login_url='/login/')
 @permission_required('myapp.view_area', login_url='/permission-error/')
@@ -46,10 +46,12 @@ def index(request):
 			stockAssetSerial = StockAssetSerial.objects.get(id=serial_id)
 			
 			p_serial = stockAssetSerial.serial
-			p_error =""
+# 			p_error =""
 			cursor = connection.cursor()
+			
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
+			p_error = cursor.var(cx_Oracle.STRING).var
 			cursor.callproc("pck_asset.update_asset",
 						(
 							#p_error
@@ -69,9 +71,12 @@ def index(request):
 # 							#p_check_date
 # 							dtEvalution
 						))
+# 			print(p_error.getvalue())
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
 			cursor.close()
+			if p_error.getvalue() is not None:
+				raise Exception(p_error.getvalue())
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
