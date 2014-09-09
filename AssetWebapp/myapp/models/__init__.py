@@ -6,3 +6,4 @@ from myapp.models.Reason import Reason
 from myapp.models.Staff import Staff
 from myapp.models.Stock import Stock
 from myapp.models.Supplier import Supplier
+from myapp.models.ModulePermission import ModulePermission
