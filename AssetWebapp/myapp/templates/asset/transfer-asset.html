@@ -180,19 +180,17 @@ $(document).ready(function(){
 		'white-space' : 'nowrap'
 	});
 	// Date Picker
-	$('#dt_transfer').datepicker({dateFormat: 'dd/mm/yy',});
+	var endDate=new Date();
+	$('#dt_transfer').datepicker({
+		dateFormat: 'dd/mm/yy',
+		});
+	$("#dt_transfer").datepicker("setDate",new Date());
 	// Input Masks
 	$("#dt_transfer").mask("99/99/9999");
-	
 	$( "#slDeptSoure" ).change(function() {
 		var dept_id =$(this).find('option:selected').val()
 		var id_name ='slStockSource';
 		onGetStock(dept_id,id_name);
-		
-		/* $('#slSerialSource').remove();
-		$('#slSerialSource').chosen('destroy');
-		$('#slSerialSource').prop("selectedIndex", -1);
-		$('#slSerialSource').chosen(); */
 	});
 	
 	$( "#slStockSource" ).change(function() {
