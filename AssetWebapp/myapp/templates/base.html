@@ -49,7 +49,7 @@
 			{% endblock %}
 		</div>
 	</section>
-
+	
 	{% block scripts %}
 	<script src="/js/jquery-1.10.2.min.js"></script>
 	<script src="/js/jquery-migrate-1.2.1.min.js"></script>
@@ -67,6 +67,15 @@
 
 	<script src="/js/custom.js"></script>
 	<script src="/js/device-infor.js"></script>
+	
 	{% endblock %}
+	<script type="text/javascript"> 
+	$(document).ready(function(){
+		$menuChildren = $('.leftpanel a[href="'+window.location.pathname+'"]');
+		$menuChildren.parent().addClass("active");
+		$menuChildren.closest(".children").css("display","block")
+		$menuChildren.closest(".nav-parent").addClass("nav-active active");
+	});
+	</script>
 </body>
 </html>
