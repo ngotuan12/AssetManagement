@@ -13,7 +13,7 @@ from django.template.context import RequestContext
 
 from myapp.models.List import List
 from myapp.models.StockAssetSerial import StockAssetSerial
-
+from myapp.models.Staff import Staff
 
 @login_required(login_url='/login/')
 def index(request):
@@ -33,9 +33,12 @@ def verify(request,serial_id):
 		state =serial.state.id
 		context.update({'serial':serial,'state':state})
 		context.update({'states':List.objects.filter(list_type='4')})
+		context.update({'staffs':Staff.objects.all()})
 		if(request.POST):
 			remain_amount = request.POST["txtRemainAmount"]
 			state_id = request.POST["slState"]
+			check_no = request.POST["txtCheckNo"]
+			staff_code = request.POST["slStaff"]
 			note = request.POST["txtNote"]
 			username = request.user.username
 			dtVerify = request.POST["dtVerify"]
@@ -49,6 +52,10 @@ def verify(request,serial_id):
 						(
 							#p_error
 							p_error,
+							#p_check_no
+							check_no,
+							#p_check_user
+							staff_code,
 							#p_serial
 							p_serial,
 							#p_remain_amount

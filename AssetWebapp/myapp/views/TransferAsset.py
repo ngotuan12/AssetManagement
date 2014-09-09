@@ -18,7 +18,7 @@ from myapp.models.Reason import Reason
 from myapp.models.Stock import Stock
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.Supplier import Supplier
-
+from myapp.models.Staff import Staff
 
 @login_required(login_url='/login/')
 @permission_required('myapp.view_area', login_url='/permission-error/')
@@ -34,6 +34,7 @@ def index(request):
 		context.update({'stocks':Stock.objects.all()})
 		context.update({'goals':List.objects.filter(list_type='2')})
 		context.update({'states':List.objects.filter(list_type='4')})
+		context.update({'staffs':Staff.objects.all()})
 		if request.POST: 
 			# Get parameter
 			
@@ -51,7 +52,7 @@ def index(request):
 			p_serial = stockAssetSerial.serial
 			
 			dtTransfer = request.POST["dt_transfer"]
-			staff_id =""
+			staff_id =request.POST["slStaff"]
 			
 			print(stock_source_id)
 			print(stock_des_id)
@@ -89,7 +90,7 @@ def index(request):
 # 							#p_dept_id
 							dept_source_id,
 							#p_staff_id
-							None,
+							staff_id,
 							#p_username
 							username,
 							#p_note

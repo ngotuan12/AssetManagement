@@ -64,9 +64,12 @@
 									<div class="form-group">
 										<label class="control-label"> Người chuyển </label>
 											<select id="slStaff" class="form-control chosen-select"
-												data-placeholder="Người chuyển" style="display: none;"
+												data-placeholder="Người chuyển..." style="display: none;"
 												name = "slStaff">
 												<option value=""></option>
+												{% for staff in staffs %}
+													<option value="{{ staff.id }}">{{ staff.name }}</option>
+												{% endfor %}
 											</select>
 									</div>
 								</div>
