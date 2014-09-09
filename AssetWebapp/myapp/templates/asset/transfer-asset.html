@@ -272,7 +272,13 @@ function onGetStock(dept_id,id_name)
 			option = $("<option></option>")
 			option.attr("value",stock.id)
 			option.text(stock.name)
-			$('#'+id_name).append(option)
+			if(id_name == "slStockDes")
+			{
+				if($("#slStockSource").val().toString() != stock.id.toString())
+					$('#'+id_name).append(option);
+			}
+			else
+				$('#'+id_name).append(option);
 		}
 		$('#'+id_name).chosen('destroy');
 		$('#'+id_name).prop("selectedIndex", -1);
