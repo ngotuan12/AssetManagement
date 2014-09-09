@@ -3,6 +3,7 @@ Created on Apr 3, 2014
 
 @author: TuanNA
 '''
+import cx_Oracle
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.db import connection
@@ -43,6 +44,7 @@ def verify(request,serial_id):
 			cursor = connection.cursor()
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
+			p_error = cursor.var(cx_Oracle.STRING).var
 			cursor.callproc("pck_asset.check_asset",
 						(
 							#p_error
@@ -65,6 +67,8 @@ def verify(request,serial_id):
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
 			cursor.close()
+			if p_error.getvalue() is not None:
+				raise Exception(p_error.getvalue())
 			return HttpResponseRedirect("/verify-asset/")
 	except Exception as ex:
 		context.update({'has_error':str(ex)})

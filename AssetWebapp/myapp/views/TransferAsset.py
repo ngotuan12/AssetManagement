@@ -3,6 +3,7 @@ Created on Apr 3, 2014
 
 @author: TuanNA
 '''
+import cx_Oracle
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.db import connection
@@ -15,9 +16,9 @@ from myapp.models.Dept import Dept
 from myapp.models.List import List
 from myapp.models.Reason import Reason
 from myapp.models.Stock import Stock
+from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.Supplier import Supplier
 
-from myapp.models.StockAssetSerial import StockAssetSerial
 
 @login_required(login_url='/login/')
 @permission_required('myapp.view_area', login_url='/permission-error/')
@@ -68,6 +69,7 @@ def index(request):
 			cursor = connection.cursor()
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
+			p_error = cursor.var(cx_Oracle.STRING).var
 			cursor.callproc("pck_stock_trans.change_stock_asset_serial",
 						(
 							#p_error
@@ -96,6 +98,8 @@ def index(request):
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
 			cursor.close()
+			if p_error.getvalue() is not None:
+				raise Exception(p_error.getvalue())
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
