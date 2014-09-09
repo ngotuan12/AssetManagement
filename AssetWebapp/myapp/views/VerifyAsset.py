@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on Apr 3, 2014
 
@@ -76,6 +77,7 @@ def verify(request,serial_id):
 			cursor.close()
 			if p_error.getvalue() is not None:
 				raise Exception(p_error.getvalue())
+			context.update({'has_success':"Giao dịch thành công"})
 			return HttpResponseRedirect("/verify-asset/")
 	except Exception as ex:
 		context.update({'has_error':str(ex)})

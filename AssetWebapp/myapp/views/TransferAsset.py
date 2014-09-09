@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on Apr 3, 2014
 
@@ -101,6 +102,7 @@ def index(request):
 			cursor.close()
 			if p_error.getvalue() is not None:
 				raise Exception(p_error.getvalue())
+			context.update({'has_success':"Chuyển đổi thành công"})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

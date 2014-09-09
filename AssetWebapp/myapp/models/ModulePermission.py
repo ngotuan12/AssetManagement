@@ -18,4 +18,9 @@ class ModulePermission(models.Model):
         permissions = (
             ("increment_asset", "Có thể tăng tài sản"),
             ("decrement_asset", "Có thể giảm tài sản"),
+            ("evaluation_asset", "Có thể đánh giá lại tài sản"),
+            ("transfer_asset", "Có thể chuyển đổi tài sản"),
+            ("verify_asset", "Có thể kiểm kê tài sản"),
+            ("verify_asset_edit", "Có thể sửa kiểm kê tài sản"),
+            ("view_asset", "Có thể tra cứu tài sản")
         )
