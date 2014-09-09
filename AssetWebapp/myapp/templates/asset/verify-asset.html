@@ -55,7 +55,8 @@
 				  <table class="table table-bordered" id="table2">
 					  <thead>
 						 <tr>
-							<th>Số thẻ TSCĐ</th>
+							<th>STT</th>
+							<th style="width: 12%;">Số thẻ TSCĐ</th>
 							<th>Tên tài sản</th>
 							<th>Nguyên Giá</th>
 							<th>Giá trị còn lại</th>
@@ -64,6 +65,7 @@
 					  <tbody>
 					  	{% for serial in serials %}
 							<tr class="odd gradeX">
+								<td>{{ forloop.counter }}</td>
 								<td><a href="/verify-asset/{{ serial.id }}/">{{ serial.serial }} </a></td>
 								<td>{{ serial.asset.name }}</td>
 								<td>{{ serial.original_value|stringformat:".3f" }}</td>

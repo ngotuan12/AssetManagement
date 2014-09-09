@@ -4,7 +4,8 @@ from django.contrib import admin
 from AssetWebapp import settings
 from myapp.views import Home, \
  User, Error, Group, Reason, IncrementAsset, DecrementAsset\
-, FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset
+, FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
+,EvaluationAsset,TransferAsset
 
 
 admin.autodiscover()
@@ -49,6 +50,10 @@ urlpatterns = patterns('',
     url(r'^verify-asset/(?P<serial_id>\w+)/$', VerifyAsset.verify),
     # revaluate asset
     url(r'^revaluate-asset/$', RevaluateAsset.index),
+    # evaluation asset
+    url(r'^evaluation-asset/$', EvaluationAsset.index),
+    # evaluation asset
+    url(r'^transfer-asset/$', TransferAsset.index),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 

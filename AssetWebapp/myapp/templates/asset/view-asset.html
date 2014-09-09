@@ -101,7 +101,6 @@
 										<th>Tên tài sản </th>
 										<th>Nguyên giá</th>
 										<th>Giá trị còn lại</th>
-										<th>Sửa/Xoá</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -112,10 +111,6 @@
 										<td>{{ asset.asset.name }}</td>
 										<td>{{ asset.original_value }}</td>
 										<td>{{ asset.remain_value }}</td>
-										<td class="table-action">
-											<a href="#"><i class="fa fa-pencil"></i></a>
-											<a href="#" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
-										</td>
 									</tr>
 									{% endfor %}
 								</tbody>
