@@ -18,7 +18,7 @@ from myapp.models.Reason import Reason
 from myapp.models.Stock import Stock
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.util.DateEncoder import DateEncoder
-
+import cx_Oracle
 
 @login_required(login_url='/login/')
 @permission_required('myapp.view_decrement_asset',login_url='/permission-error/')
@@ -43,6 +43,7 @@ def index(request):
 			cursor = connection.cursor()
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
+			p_error = cursor.var(cx_Oracle.STRING).var
 			cursor.callproc("pck_stock_trans.export_asset_serial",
 						(
 							# p_error
@@ -71,6 +72,8 @@ def index(request):
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
 			cursor.close()
+			if p_error.getvalue() is not None:
+				raise Exception(p_error.getvalue())
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
