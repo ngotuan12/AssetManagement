@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="contentpanel no-padding" >
+		<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="release-asset">
+		
+		{% csrf_token %}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">GỘP TÀI SẢN</h4>
+			</div>
+			
+			<div class="panel-body">
+				{% if has_error %}
+					<div class="panel">
+						<label id="error-text" class="error">{{ has_error }}</label>
+					</div>
+				{% endif %}
+				<select id="choosen-asset" style="display:none ">
+					</select>
+					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  /> 
+				<div class="form-group">
+					<div class = "row row-pad-5">
+						<label class="col-sm-2 control-label">Tài sản</label>
+						<div class="col-lg-9">
+							<select id="slAsset" class="form-control chosen-select"
+								data-placeholder="Tài sản" style="display: none;"
+								name = "slAsset" required>
+								<option value=""></option>
+								{% for asset in assets%}
+									<option value="{{ asset.SERIAL }}" {% ifequal asset.SERIAL|add:'0' parent_serial|add:'0' %} selected {% endifequal %}>{{ asset.CODE }} - {{ asset.NAME }}</option>
+								{% endfor%}
+							</select>
+						</div>
+						
+					</div>
+					
+				</div>
+					
+				<div class="form-group" >
+					<div class="col-sm" >
+						<div class="table-responsive">
+							<table class="table table-bordered" id="childAssetTable" num_row="0">
+								<thead>
+									<tr>
+										<th width='30'>Chọn</th>
+										<th width='100'>Mã tài sản </th>
+										<th>Tên tài sản </th>
+									</tr>
+								</thead>
+								<tbody id="child-asset-table-body">
+									{% for asset in child_assets %}
+									<tr class="odd gradeX" >
+										<td width='30'><input type="checkbox" id='{{ "child-asset-id-"|add:asset.SERIAL }}' value='{{ asset.SERIAL }}' onClick="chooseAsset(this.id,this.checked)"></td>
+										<td width='100'>{{ asset.CODE }}</td>
+										<td>{{ asset.NAME }}</td>
+										
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<!-- table-responsive -->
+					</div>
+					
+					
+					
+					<!-- panel-body -->
+				</div>
+				<span id="error-validate" class="error" style="color:red"></span>					
+				<!-- row -->
+
+			<div class="form-group">
+					<div class = "row row-pad-5">
+						<label class="col-sm-2 control-label">Ghi chú</label>
+						<div class="col-lg-9">
+							<input type="text" name="txtNote" placeholder="Chi chú"
+								class="form-control">
+						</div>
+						
+					</div>
+			
+				</div>	
+			<div class="row">
+				<div class="col-sm col-sm-offset-5" >
+					<div class="panel-footer" style="border-top: none;">
+						<button class="btn btn-primary" onclick="return onSubmitForm();">Thực hiện</button>
+					</div>
+					
+				</div>
+			</div>
+			</div>
+		
+			
+		
+		</div>
+		</form>
+		
+		<!-- panel body-->
+	</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+<script src="/js/jquery.datatables.min.js"></script>
+
+<script src="/js/custom.js"></script>
+
+
+<script>
+$(document).ready(function(){
+  // Chosen Select
+  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+  
+  $('#childAssetTable').dataTable({
+		"sPaginationType" : "full_numbers"
+	});
+  $(".table-responsive  select").chosen({
+		'min-width' : '150px',
+		'white-space' : 'nowrap',
+		disable_search_threshold : 10
+	});
+  
+	
+});
+
+
+
+function onSubmitForm()
+{
+	var choosenId='';
+	$('#error-validate').empty();
+	
+	if($('#slAsset').val()=='')
+	{
+		$('#error-validate').html("Bạn phải chọn một tài sản nhóm");
+		$('#slAsset').focus();
+		return false;
+	}
+	$('#choosen-asset option').each(function(){
+		choosenId+=$(this).val();
+		choosenId+=';';
+	});
+	if(choosenId=='')
+	{
+		$('#error-validate').html("Không có tài sản nào được chọn để gộp");
+		return false;
+	}
+	else
+	{
+		choosenId=choosenId.substring(0,choosenId.length-1);
+		
+		$('#txtChooseAsset').val(choosenId);
+		$('#release-asset').submit();
+		return true;
+	}
+}
+function chooseAsset(id,checked){
+	var value=$('#'+id).val();
+	
+	if(checked==true)
+	{
+		
+		option=$("<option></option>");
+		option.attr("value",value);
+		$('#choosen-asset').append(option);
+	}
+	else
+	{
+		$('#choosen-asset option[value="'+value+'"]').remove();
+	}
+}
+</script>
+{% endblock scripts%}

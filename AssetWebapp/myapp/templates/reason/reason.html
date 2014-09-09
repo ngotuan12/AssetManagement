@@ -31,9 +31,9 @@
 						{% for reason in reasons %}
 						<tr class="odd gradeX" ondblclick="">
 							<td>{{forloop.counter}}</td>
-							<td><a href="/reason/{{ reason.id }}/">{{ reason.reason_code }}</a></td>
-							<td>{{ reason.reason_name }}</td>
-							<td>{% ifequal reason.reason_status "1" %} Hiệu lực {% else %} Hết hiệu lực {% endifequal  %}</td>
+							<td><a href="/reason/{{ reason.id }}/">{{ reason.code }}</a></td>
+							<td>{{ reason.name }}</td>
+							<td>{% ifequal reason.status "1" %} Hiệu lực {% else %} Hết hiệu lực {% endifequal  %}</td>
 							<td>{{ reason.description }}</td>
 							<td class="table-action">
 								<a href="/reason/{{ reason.id }}/"><i class="fa fa-pencil"></i></a>

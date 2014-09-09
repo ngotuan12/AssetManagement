@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="contentpanel no-padding" >
+		<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="amortize-asset">
+		
+		{% csrf_token %}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">TÍNH KHẤU HAO TÀI SẢN</h4>
+			</div>
+			
+			<div class="panel-body">
+				{% if has_error %}
+					<div class="panel">
+						<label id="error-text" class="error">{{ has_error }}</label>
+					</div>
+				{% endif %}
+				<div class="form-group">
+					<div class = "row row-pad-5">
+						<label class="col-sm-2 control-label">Tháng tính khấu hao</label>
+						<div class="col-lg-6">
+							<div class="input-group">
+								<input type="text" class="form-control"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Tháng tính khấu hao" id="amortize_month"
+									name = "dtAmortizeMonth" required> <span
+									class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<!-- row -->
+				<div class="form-group">
+					<div class = "row row-pad-5">
+						<label class="col-sm-2 control-label">Số thẻ tài sản</label>
+						<div class="col-lg-6">
+							<input type="text" name="txtSerial" placeholder="Số thẻ tài sản"
+								class="form-control">
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-sm col-sm-offset-5" >
+							<div class="panel-footer" style="border-top: none;">
+								<button class="btn btn-primary" onclick=" return onSubmitForm();">Thực hiện</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		
+			
+		
+		</div>
+		</form>
+		<!-- panel body-->
+	</div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+<script src="/js/jquery.datatables.min.js"></script>
+
+<script src="/js/custom.js"></script>
+
+
+<script>
+$(document).ready(function(){
+  // Chosen Select
+	$('#amortize_month').datepicker({dateFormat: 'dd/mm/yyyy'});
+	 $('#amortize_month').mask("99/99/9999");
+});
+
+
+function onSubmitForm()
+{
+	var $valid = jQuery('#amortize-asset').valid();
+	if (!$valid) {
+		$validator.focusInvalid();
+		return false;
+	}
+	else{
+		jQuery('#amortize-asset').submit();
+	}
+}
+
+</script>
+{% endblock scripts%}
