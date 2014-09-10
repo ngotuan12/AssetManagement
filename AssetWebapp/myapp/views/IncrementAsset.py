@@ -28,7 +28,11 @@ from myapp.models.StockAssetSerial import StockAssetSerial
 def index(request):
 	context = {}
 	try:
-		assets = Asset.objects.all()
+		assets = Asset.objects.raw("select id, NAME,code,parent_code "+
+									"FROM asset "+ 
+									"WHERE connect_by_isleaf = 1 "+
+									"start with parent_id is null "+
+									"connect by prior id = parent_id ORDER BY code ")
 		context.update({'assets':assets, 'reasons':Reason.objects.filter(group_code='1'), 'methods':List.objects.filter(list_type='6'), 
 					'capitals':List.objects.filter(list_type='3')})
 		
