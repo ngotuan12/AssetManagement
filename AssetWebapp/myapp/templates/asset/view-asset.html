@@ -110,8 +110,8 @@
 										<td>{{ forloop.counter }}</td>
 										<td>{{ asset.serial }}</td>
 										<td>{{ asset.name }}</td>
-										<td  style="text-align: right;">{{ asset.original_value }}</td>
-										<td style="text-align: right;">{{ asset.remain_value }}</td>
+										<td class="currency" style="text-align: right;">{{ asset.original_value }}</td>
+										<td class="currency" style="text-align: right;">{{ asset.remain_value }}</td>
 										<td style="text-align: center;"> {{ asset.import_date|date:'d-m-Y' }}</td>
 										<!-- <td class="table-action">
 											<a href="#"><i class="fa fa-pencil"></i></a>
@@ -150,6 +150,9 @@
 <script src="/js/jquery.validate.min.js"></script>
 <script src="/js/jquery.numeric.js"></script>
 <script src="/js/jquery.datatables.min.js"></script>
+
+<script src="/js/jquery.formatCurrency.vi-VN.js"></script>
+<script src="/js/jquery.formatCurrency-1.4.0.js"></script>
 
 <script src="/js/custom.js"></script>
 
@@ -207,7 +210,7 @@ $('#slAsset').change(function(){
 
 jQuery(window).load(function(){ 
 	$(".numberic").numeric();
-	
+	$('.currency').formatCurrency({ colorize:true, region: 'vi-VN' });
 	var stock_id ='{{ stock_id }}';
 	var asset_id ='{{ asset_id }}';
 	var country_id ='{{ country_id }}';
