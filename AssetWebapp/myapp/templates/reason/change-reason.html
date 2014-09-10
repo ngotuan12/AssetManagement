@@ -34,8 +34,8 @@
 					<label class="col-sm-2 control-label">Trạng thái</label>
 					<div class="col-sm-8">
 						<select  name="optStatus" class="form-control" required="required">
-							<option value="1" {% ifequal current_reason.status "1" %} selected {% endifequal %}>Hiệu lực</option>
-							<option value="0" {% ifequal current_reason.status "0" %} selected {% endifequal %}>Hết hiệu lực</option>
+							<option value="1" {% if current_reason.status == "1" %} selected {% endif %}>Hiệu lực</option>
+							<option value="0" {% if current_reason.status == "0" %} selected {% endif %}>Hết hiệu lực</option>
 						</select>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 		<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
 					<button class="btn btn-primary" onclick="return onValidate();">Lưu</button>&nbsp;
-					<a href="/reason" class="btn btn-default">Thoát</a>
+					<a href="/reason/" class="btn btn-default">Thoát</a>
 				</div>
 			 </div>
 	</form>
