@@ -21,7 +21,7 @@
 
 	// default Region is en
 	$.formatCurrency.regions[''] = {
-		symbol: '$',
+		symbol: '',
 		positiveFormat: '%s%n',
 		negativeFormat: '(%s%n)',
 		decimalSymbol: '.',
