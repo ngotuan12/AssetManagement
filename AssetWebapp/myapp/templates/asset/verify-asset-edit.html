@@ -20,8 +20,7 @@
 	<div class="col-md">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h4 class="panel-title" style="text-align: center;">CẬP NHẬT
-					TÀI KHOẢN NGƯỜI DÙNG</h4>
+				<h4 class="panel-title" style="text-align: center;">KIỂM KÊ TÀI SẢN</h4>
 			</div>
 
 			<form action="" class="form form-bordered" method="post"
@@ -93,12 +92,66 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm">
+								<div class="col-sm-4">
 									<div class="form-group">
 										<label class="control-label">Giá trị còn lại</label>
 											<input type="text" 
-												name = "txtRemainAmount"class="form-control" value="{{ serial.remain_value }}"
+												name = "txtRemainAmount"class="form-control numberic" value="{{ serial.remain_value }}"
 												required>
+									</div>
+								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Trạng Thái</label>
+										<select id="slState" name="slState"class="form-control chosen-select"
+											data-placeholder="Lý do giảm.." style="display: ;">
+											<option value=""></option>
+											{% for state in states%}
+												<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Ngày kiểm kê</label>
+										<div class="input-group">
+											<input type="text" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày kiểm kê" id="dt_verify"
+												name = "dtVerify" required>
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Số biên bản</label>
+										<input type="text" 
+											name = "txtCheckNo"class="form-control" value="" placeholder="Số biên bản"
+											required>
+									</div>
+								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Người chuyển</label>
+										<select id="slStaff" name="slStaff" class="form-control chosen-select"
+											data-placeholder="Người kiểm kê" >
+											<option value=""></option>
+											{% for staff in staffs %}
+												<option value="{{ staff.code }}">{{ staff.name }}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label class="control-label">Ghi Chú</label>
+											<textarea class="form-control" name="txtNote" rows="3"
+												placeholder="Ghi chú" required></textarea>
 									</div>
 								</div>	
 							</div>
@@ -127,9 +180,26 @@
 <script src="/js/retina.min.js"></script>
 <script src="/js/jquery.cookies.js"></script>
 
-<script src="/js/custom.js"></script>
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
 <script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+
+<script src="/js/custom.js"></script>
 <script>
+	$(document).ready(function(){
+		  // Chosen Select
+		  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+		  
+		// Date Picker
+		  $('#dt_verify').datepicker({dateFormat: 'dd/mm/yy',});
+		//set default date now
+		 $("#dt_verify").datepicker("setDate",new Date());
+		  // Input Masks
+		  $("#dt_verify").mask("99/99/9999");
+	});
 	function onValidate() {
 		var $valid = jQuery('#form-verify-asset-edit').validate();
 		if (!$valid) {
@@ -138,5 +208,12 @@
 		}
 		jQuery('#form-verify-asset-edit').submit();
 	}
+	jQuery(window).load(function(){ 
+		$(".numberic").numeric();
+		var state_id = '{{ state }}'
+		$("#slState").val(state_id);
+		$('#slState').chosen('destroy');
+		$('#slState').chosen();
+	});
 </script>
 {% endblock scripts%}

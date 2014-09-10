@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="contentpanel no-padding" style="background: #828283">
+	<div class="col-md">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">CHUYỂN ĐỔI TÀI SẢN</h4>
+			</div>
+			<form method="post" novalidate="novalidate" id="transferAsset">
+				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
+				{% csrf_token %}
+				<div class="panel-body">
+					{% if has_error %}
+						<div class="panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+					<div class="row row-pad-5">
+						<div class="alert alert-info">
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> Đơn vị chuyển đi</label>
+										<select id="slDeptSoure" class="form-control chosen-select"
+											data-placeholder="Đơn vị" style="display: none;"
+											name = "slDeptSoure">
+											<option value=""></option>
+											{% for dept in depts %}
+												<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+											{% endfor%}
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> Kho </label>
+										<select id="slStockSource" class="form-control chosen-select"
+											data-placeholder="Kho" style="display: none;"
+											name = "slStockSource" disabled="disabled">
+											<option value=""></option>
+										</select>
+									</div>
+									
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> Số thẻ TSCD </label>
+										<select id="slSerialSource" class="form-control chosen-select"
+											data-placeholder="Số thẻ TSCĐ"
+											style="display: none;"
+											name = "slSerialSource" disabled="disabled">
+											<option value=""></option>
+											<option value="United States">TTVTT</option>
+										</select>
+									</div>
+									
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> Người chuyển </label>
+											<select id="slStaff" class="form-control chosen-select"
+												data-placeholder="Người chuyển..." style="display: none;"
+												name = "slStaff">
+												<option value=""></option>
+												{% for staff in staffs %}
+													<option value="{{ staff.id }}">{{ staff.name }}</option>
+												{% endfor %}
+											</select>
+									</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label">Ngày chuyển</label>
+										<div class="input-group">
+											<input type="text" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày chuyển" id="dt_transfer"
+												name = "dt_transfer" required>
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<div class="alert alert-warning">
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> Lý do chuyển</label>
+										<select id="slReason" name="slReason"class="form-control chosen-select"
+											data-placeholder="Lý do chuyển ..." style="display: ;">
+											<option value=""></option>
+											{% for reason in reasons%}
+												<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+											<label class="control-label"> Đơn vị chuyển đến</label>
+											<select id="slDeptDes" class="form-control chosen-select"
+												data-placeholder="Đơn vị" style="display: none;"
+												name = "slDeptDes">
+												<option value=""></option>
+												{% for dept in depts %}
+													<option value="{{ dept.id }}" dept_id="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+												{% endfor%}
+											</select>
+										</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> Kho chuyển đến </label>
+											<select id="slStockDes" class="form-control chosen-select"
+												data-placeholder="chuyển đến" style="display: none;"
+												name = "slStockDes" disabled="disabled">
+												<option value=""></option>
+											</select>
+									</div>
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class="col-lg">
+									<div class="form-group">
+											<label class="control-label"> Trạng thái</label>
+											<textarea class="form-control" name="txtNote" rows="5"
+												placeholder="Ghi chú" required></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm col-sm-offset-5">
+							<!-- <button class="btn btn-primary">In biên bản</button> -->
+							<button class="btn btn-primary" onclick="return onSubmitFormTransfer();">Thực hiện</button>
+						</div>
+					</div>
+				</div>
+				<!-- panel body-->
+			</form>
+		</div>
+		<!-- panel -->
+	</div>
+</div>
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+
+
+<script src="/js/custom.js"></script>
+
+<script>
+$(document).ready(function(){
+// Chosen Select
+	$(".chosen-select").chosen({
+		'width' : '100%',
+		'white-space' : 'nowrap'
+	});
+	// Date Picker
+	var endDate=new Date();
+	$('#dt_transfer').datepicker({
+		dateFormat: 'dd/mm/yy',
+		});
+	$("#dt_transfer").datepicker("setDate",new Date());
+	// Input Masks
+	$("#dt_transfer").mask("99/99/9999");
+	$( "#slDeptSoure" ).change(function() {
+		var dept_id =$(this).find('option:selected').val()
+		var id_name ='slStockSource';
+		onGetStock(dept_id,id_name);
+	});
+	
+	$( "#slStockSource" ).change(function() {
+		var id_name ='slSerialSource';
+		onGetCode($(this).find('option:selected').val(),id_name);
+	});
+	$( "#slSerialSource" ).change(function() {
+	});
+	
+	$( "#slDeptDes" ).change(function() {
+		var dept_id =$(this).find('option:selected').val()
+		var id_name ='slStockDes';
+		onGetStock(dept_id,id_name);
+	});
+	
+	$("#slStockDes" ).change(function() {
+		var id_name ='slSerialDes';
+		onGetCode($(this).find('option:selected').val(),id_name);
+	});
+});
+function onSubmitFormTransfer()
+{
+	var $valid = jQuery('#transferAsset').valid();
+	if(!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#transferAsset').submit();
+}
+function onGetCode(stock_id,id_name)
+{
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-serial"+"/"+stock_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		serials = data.serials;
+		if(stocks.length>0)
+			$('#'+id_name).prop("disabled", false);
+		$('#'+ id_name +' option[value!=""]').remove();
+		for(var i=0;i<serials.length ;i++)
+		{
+			serial = serials[i];
+			option = $("<option></option>")
+			option.attr("value",serial.id)
+			option.attr("original-value",serial.original_value)
+			option.attr("remain-value",serial.remain_value)
+			option.attr("asset-id",serial.asset)
+			option.attr("state-id",serial.state)
+			option.text(serial.serial)
+			$('#'+id_name).append(option)
+		}
+		$('#'+ id_name).chosen('destroy');
+		$('#'+ id_name).prop("selectedIndex", -1);
+		$('#'+ id_name).chosen();
+	});
+}
+function onGetStock(dept_id,id_name)
+{
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-stock"+"/"+dept_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		//alert(JSON.stringify(data))
+		stocks = data.stocks
+		if(stocks.length>0)
+			$('#'+ id_name).prop("disabled", false);
+		$('#'+ id_name +' option[value!=""]').remove();
+		for(var i=0;i<stocks.length ;i++)
+		{
+			stock = stocks[i];
+			option = $("<option></option>")
+			option.attr("value",stock.id)
+			option.text(stock.name)
+			if(id_name == "slStockDes")
+			{
+				if($("#slStockSource").val().toString() != stock.id.toString())
+					$('#'+id_name).append(option);
+			}
+			else
+				$('#'+id_name).append(option);
+		}
+		$('#'+id_name).chosen('destroy');
+		$('#'+id_name).prop("selectedIndex", -1);
+		$('#'+id_name).chosen();
+	});
+}
+
+
+function onGetSerial(stock_id)
+{
+}
+
+jQuery(window).load(function(){ 
+	$(".numberic").numeric();
+});
+</script>
+{% endblock scripts%}

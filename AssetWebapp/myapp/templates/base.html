@@ -33,6 +33,15 @@
 	{% include 'preloader.tpl.html' %}
 
 	<section>
+		{% if has_success %}
+			<div id="notice-success" class="alert alert-info"
+				style="z-index: 1000; position: fixed; width: 100%; text-align: center;display: None">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<strong>{{ has_success_important }}</strong> {{ has_success }} <a href="#"
+					class="alert-link">{{ has_success_link }}</a>.
+			</div>
+		{% endif %}
 		{% block left-panel %} 
 			{% include 'left-panel.tpl.html' %}
 		{% endblock %} 
@@ -49,7 +58,7 @@
 			{% endblock %}
 		</div>
 	</section>
-
+	
 	{% block scripts %}
 	<script src="/js/jquery-1.10.2.min.js"></script>
 	<script src="/js/jquery-migrate-1.2.1.min.js"></script>
@@ -67,6 +76,25 @@
 
 	<script src="/js/custom.js"></script>
 	<script src="/js/device-infor.js"></script>
+	
 	{% endblock %}
+	<script type="text/javascript"> 
+	var tidAlertSuccess;
+	$(document).ready(function()
+	{
+		$menuChildren = $('.leftpanel a[href="'+window.location.pathname+'"]');
+		$menuChildren.parent().addClass("active");
+		$menuChildren.closest(".children").css("display","block")
+		$menuChildren.closest(".nav-parent").addClass("nav-active active");
+		if($("#notice-success")!=null)
+		{
+			jQuery('#notice-success').delay(350).fadeIn(function(){
+				jQuery('#notice-success').delay(20000).fadeOut(function(){
+					$("#notice-success").remove();
+				});
+			});
+		}
+	});
+	</script>
 </body>
 </html>

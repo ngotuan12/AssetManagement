@@ -8,106 +8,118 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">GIẢM TÀI SẢN</h4>
+					style="text-align: center; line-height: 10px">ĐÁNH GIÁ LẠI TÀI SẢN</h4>
 			</div>
-			<form method="post" novalidate="novalidate" id="decrementAsset">
+			<form method="post" novalidate="novalidate" id="evaluationAsset">
 				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
 				{% csrf_token %}
 				<div class="panel-body">
+						<div id="alert-success" class="alert alert-success">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-hidden="true">×</button>
+							<strong>Well done!</strong> You successfully read this <a href="#"
+								class="alert-link">important alert message</a>.
+						</div>
+					
 					{% if has_error %}
 						<div class="panel">
 							<label class="error">{{ has_error }}</label>
 						</div>
 					{% endif %}
 					<div class="row row-pad-5">
-						<div class="alert alert-info">
+						<div class="alert alert-warning">
 							<div class="row">
 								<div class="col-lg-4">
-									<label>Bộ phận</label>
-									<select id="slDept" class="form-control chosen-select"
-										data-placeholder="Bộ phận" style="display: none;"
-										name = "slDept">
-										<option value=""></option>
-										{% for dept in depts %}
-											<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
-										{% endfor%}
-									</select>
+									<div class="form-group">
+										<label class="control-label"> Đơn vị </label>
+										<select id="slDept" class="form-control chosen-select"
+											data-placeholder="Đơn vị" style="display: none;"
+											name = "slDept">
+											<option value=""></option>
+											{% for dept in depts %}
+												<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+											{% endfor%}
+										</select>
+									</div>
+									
 								</div>
 								<div class="col-lg-4">
-									<label>Kho</label>
-									<select id="slStock" class="form-control chosen-select"
-										data-placeholder="Kho" style="display: none;"
-										name = "slStock" disabled="disabled">
-										<option value=""></option>
-									</select>
+									<div class="form-group">
+										<label class="control-label"> Kho </label>
+										<select id="slStock" class="form-control chosen-select"
+											data-placeholder="Kho" style="display: none;"
+											name = "slStock" disabled="disabled">
+											<option value=""></option>
+										</select>
+									</div>
+									
 								</div>
 								<div class="col-lg-4">
-									<label>Số thẻ TSCĐ</label>
-									<select id="slSerial" class="form-control chosen-select"
-										data-placeholder="Số thẻ TSCĐ"
-										style="display: none;"
-										name = "slSerial" disabled="disabled">
-										<option value=""></option>
-										<option value="United States">TTVTT</option>
-									</select>
+									<div class="form-group">
+										<label class="control-label"> Số thẻ TSCD </label>
+										<select id="slSerial" class="form-control chosen-select"
+											data-placeholder="Số thẻ TSCĐ"
+											style="display: none;"
+											name = "slSerial" disabled="disabled">
+											<option value=""></option>
+											<option value="United States">TTVTT</option>
+										</select>
+									</div>
+									
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-lg-4">
-									<label>Nguồn Vốn</label>
-									<input type="text" name="txtCapitalAmount" id="capital-amount"
-										placeholder="Nguồn Vốn" class="form-control" disabled="disabled">
-								</div>
-
-								<div class="col-lg-4">
-									<label>Nguyên Giá</label>
-									<input type="text" name="txtOriginalAmount" id="original-amount" 
-										placeholder="Nguyên Giá" class="form-control" disabled="disabled">
-								</div>
-								<div class="col-lg-4">
-									<label>Giá trị còn lại</label>
+						</div>
+						
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="control-label"> Giá trị còn lại</label>
 									<input type="text" name="txtRemainAmount" id="remain-amount" 
-										placeholder="Giá trị còn lại" class="form-control" disabled="disabled">
+										placeholder="Giá trị còn lại" class="form-control numberic" required>
 								</div>
 							</div>
 							
-							<div class="row">
-								<div class="col-lg-6">
-									<label>Lý do giảm..</label>
-									<select id="slReason" name="slReason"class="form-control chosen-select"
-										data-placeholder="Lý do giảm.." style="display: ;">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="control-label"> Trạng thái</label>
+									<select id="slState" name="slState"class="form-control chosen-select"
+										data-placeholder="Trạng thái ..." style="display: ;">
 										<option value=""></option>
-										{% for reason in reasons%}
-											<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
+										{% for state in states%}
+											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 										{% endfor %}
 									</select>
 								</div>
-								
-								<div class="col-lg-6">
-									<label>Ngày ghi giảm</label>
+							</div>
+							
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="control-label">Ngày đánh giá lại tài sản</label>
 									<div class="input-group">
-										<input type="text" class="form-control" name="dtDecrementDate"
-											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày ghi giảm (mm/dd/yyyy)" id="dtDecrementDate" required> <span
-											class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control"
+											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày đánh giá lại tài sản" id="dt_evalution"
+											name = "dt_evalution" required>
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									</div>
 								</div>
 							</div>
-							
-							<div class="row">
-								<div class="col-lg">
-									<textarea class="form-control" name="txtNote" rows="4"
-										placeholder="Ghi chú" required></textarea>
+								
+						</div>
+						<div class="row">
+							<div class="col-lg">
+								<div class="form-group">
+										<label class="control-label"> Trạng thái</label>
+										<textarea class="form-control" name="txtNote" rows="5"
+											placeholder="Ghi chú" required></textarea>
 								</div>
 							</div>
-							
-							<!--row-->
 						</div>
 					</div>
 					
 					<div class="row">
 						<div class="col-sm col-sm-offset-5">
 							<!-- <button class="btn btn-primary">In biên bản</button> -->
-							<button class="btn btn-primary" onclick="return onSubmitFormDecrement();">Thực hiện</button>
+							<button class="btn btn-primary" onclick="return onSubmitFormEvaluation();">Thực hiện</button>
 						</div>
 					</div>
 				</div>
@@ -133,10 +145,13 @@
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/jquery-ui-1.10.3.min.js"></script>
 <script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+
 
 <script src="/js/custom.js"></script>
 
 <script>
+var tid;
 $(document).ready(function(){
 // Chosen Select
 	$(".chosen-select").chosen({
@@ -144,12 +159,10 @@ $(document).ready(function(){
 		'white-space' : 'nowrap'
 	});
 	// Date Picker
-	$('#dtDecrementDate').datepicker({
-		dateFormat : 'dd/mm/yy',
-	});
-
+	$('#dt_evalution').datepicker({dateFormat: 'dd/mm/yy',});
+	$("#dt_evalution").datepicker("setDate",new Date());
 	// Input Masks
-	$('#dtDecrementDate').mask("99/99/9999");
+	$("#dt_evalution").mask("99/99/9999");
 	
 	$( "#slDept" ).change(function() {
 		onGetStock($(this).find('option:selected').val());
@@ -162,20 +175,35 @@ $(document).ready(function(){
 		var original = $(this).find('option:selected').attr('original-value');
 		var remain = $(this).find('option:selected').attr('remain-value');
 		var asset_id = $(this).find('option:selected').attr('asset-id');
+		var state_id = $(this).find('option:selected').attr('state-id');
 		$("#original-amount").val(original);
 		$("#remain-amount").val(remain);
 		$("#txtAssetID").val(asset_id);
+		
+		//checked slState
+		$('#slState').val(state_id);
+		
+		$('#slState').chosen('destroy');
+		$('#slState').chosen();
 	});
+	tid = setTimeout(hideNotification, 2000);
 });
-function onSubmitFormDecrement()
+
+function hideNotification()
 {
-	var $valid = jQuery('#decrementAsset').valid();
+	if($("#alert-success")!=null)
+		$("#alert-success").remove();
+	clearTimeout(tid);
+}
+function onSubmitFormEvaluation()
+{
+	var $valid = jQuery('#evaluationAsset').valid();
 	if(!$valid) 
 	{
 		$validator.focusInvalid();
 		return false;
 	}
-	jQuery('#decrementAsset').submit();
+	jQuery('#evaluationAsset').submit();
 }
 function onGetCode(stock_id)
 {
@@ -193,10 +221,11 @@ function onGetCode(stock_id)
 		{
 			serial = serials[i];
 			option = $("<option></option>")
-			option.attr("value",serial.serial)
+			option.attr("value",serial.id)
 			option.attr("original-value",serial.original_value)
 			option.attr("remain-value",serial.remain_value)
 			option.attr("asset-id",serial.asset)
+			option.attr("state-id",serial.state)
 			option.text(serial.serial)
 			$('#slSerial').append(option)
 		}
@@ -235,5 +264,9 @@ function onGetStock(dept_id)
 function onGetSerial(stock_id)
 {
 }
+
+jQuery(window).load(function(){ 
+	$(".numberic").numeric();
+});
 </script>
 {% endblock scripts%}
