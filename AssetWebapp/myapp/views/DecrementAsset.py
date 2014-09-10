@@ -22,7 +22,7 @@ from myapp.util.DateEncoder import DateEncoder
 import cx_Oracle
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_decrement_asset',login_url='/permission-error/')
+@permission_required('myapp.decrement_asset',login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:
