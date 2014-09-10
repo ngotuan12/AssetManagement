@@ -44,7 +44,7 @@ def index(request):
 			state_id = request.POST["slState"]
 			original = '-1'
 			
-			stockAsset = StockAssetSerial.objects.all()
+			stockAsset = StockAssetSerial.objects.all().order_by('-import_date')
 			if asset_id !='-1':
 				stockAsset = stockAsset.filter(asset =asset_id)
 			if stock_id !='-1' :
@@ -68,7 +68,7 @@ def index(request):
 			state_id = '-1'
 			original = '-1'
 			
-			stockAsset = StockAssetSerial.objects.all()
+			stockAsset = StockAssetSerial.objects.all().order_by('-import_date')
 			context.update({'stockeAssets':stockAsset})
 			context.update({'original':original,'stock_id':stock_id,'country_id':country_id,'asset_id':asset_id,'goal_id':goal_id,'state_id':state_id})
 	except Exception as ex:
