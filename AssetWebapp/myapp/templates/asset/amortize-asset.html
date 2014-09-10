@@ -16,6 +16,7 @@
 						<label id="error-text" class="error">{{ has_error }}</label>
 					</div>
 				{% endif %}
+				 
 				<div class="alert alert-info">
 				<div class="form-group">
 					<div class = "row row-pad-5">
@@ -23,7 +24,7 @@
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Tháng tính khấu hao" id="amortize_month"
+									data-provide="datepicker" data-date-format="mm/yy" placeholder="Tháng tính khấu hao" id="amortize_month"
 									name = "dtAmortizeMonth" required> <span
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
@@ -48,56 +49,89 @@
 			<div class="row">
 						<div class="col-sm col-sm-offset-5" >
 							<div class="panel-footer" style="border-top: none;">
-								<button class="btn btn-primary" onclick=" return onSubmitForm();">Thực hiện</button>
+								<button class="btn btn-primary" onclick=" return onCalculate();">Thực hiện</button>
 							</div>
 						</div>
 					</div>
-			<div class="alert alert-info">
-				<div class="form-group">
-					<div class="col-sm" >
-						<div class="table-responsive">
-							<table class="table table-bordered" id="childAssetTable">
-								<thead>
-									<tr>
-										<th width='30'>Chọn</th>
-										<th width='150'>Số thẻ tài sản </th>
-										<th>Tên tài sản </th>
-									</tr>
-								</thead>
-								<tbody id="child-asset-table-body">
-									{% for asset in child_assets %}
-									<tr class="odd gradeX" >
-										<td width='30'><input type="checkbox" id='{{ "child-asset-id-"|add:asset.SERIAL }}' value='{{ asset.SERIAL }}' onClick="chooseAsset(this.id,this.checked)"></td>
-										<td width='100'>{{ asset.SERIAL }}</td>
-										<td>{{ asset.NAME }}</td>
-										
-									</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
-						<!-- table-responsive -->
-					</div>
-					
-				</div>
-				<!-- row -->
-				<div class="form-group">
-					<div class = "row row-pad-5">
-						<label class="col-sm-2 control-label">Số thẻ tài sản</label>
-						<div class="col-lg-6">
-							<input type="text" name="txtSerial" placeholder="Số thẻ tài sản"
-								class="form-control">
-						</div>
-						
-					</div>
-					
-				</div>
-			</div>
+			
 			</div>
 		
 			
 		
 		</div>
+		<input type="hidden" name="submitForm" value="calculate"/>
+		</form>
+		<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="approve-amortize-asset">
+			{% csrf_token %}
+			<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">DUYỆT</h4>
+			</div>
+			
+			<div class="panel-body">
+				<div class="alert alert-info">
+					<div class="form-group">
+						<div class="col-sm" >
+							<div class="table-responsive">
+								<table class="table table-bordered" id="childAssetTable">
+									<thead>
+										<tr>
+											<th width='30'>Chọn</th>
+											<th width='150'>Số thẻ tài sản </th>
+											<th>Tháng </th>
+											<th>Số tiền </th>
+											<th>Phương pháp tính </th>
+											<th>Trạng thái</th>
+										</tr>
+									</thead>
+									<tbody id="child-asset-table-body">
+										{% for amortizeAsset in amortize_assets %}
+										<tr class="odd gradeX" >
+											<td width='30'><input type="checkbox" id='{{ "child-asset-id-"|add:amortizeAsset.serial_no }}' 
+												serial_no="{{ amortizeAsset.serial_no }}" month="{{ amortizeAsset.month|date:'m/Y' }}" 
+												onClick="chooseAsset(this.id,this.checked)"
+												{% if amortizeAsset.status != '00' %} disabled="disabled" {% endif %}
+												></td>
+											<td width='100'>{{ amortizeAsset.serial_no }}</td>
+											<td>{{ amortizeAsset.month|date:'m/Y' }}</td>
+											<td style="text-align: right;">{{ amortizeAsset.amount }}</td>
+											<td>{{ amortizeAsset.amortize.name }}</td>
+											{% if amortizeAsset.status == '00' %}
+												<td>
+													Đã tính
+												</td>
+											{% else %}
+												<td>
+													Đã duyệt
+												</td>
+											{% endif %}
+											
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+							<!-- table-responsive -->
+						</div>
+						
+					</div>
+					<!-- row -->
+				</div>
+				<div class="row">
+						<div class="col-sm col-sm-offset-5" >
+							<div class="panel-footer" style="border-top: none;">
+								<button class="btn btn-primary" onclick=" return onApproved();">Thực hiện</button>
+							</div>
+						</div>
+					</div>
+			
+			</div>
+			</div>
+			<input type="hidden" name="submitForm" value="approved"/>
+			<select id="choosen-asset" style="display:none ">
+					</select>
+					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  />
 		</form>
 		<!-- panel body-->
 	</div>
@@ -127,12 +161,20 @@
 <script>
 $(document).ready(function(){
   // Chosen Select
-	$('#amortize_month').datepicker({dateFormat: 'dd/mm/yyyy'});
-	 $('#amortize_month').mask("99/99/9999");
+	$('#amortize_month').datepicker({dateFormat: 'mm/yy'});
+	 $('#amortize_month').mask("99/9999");
+	 $('#childAssetTable').dataTable({
+			"sPaginationType" : "full_numbers"
+		});
+	  $(".table-responsive  select").chosen({
+			'min-width' : '150px',
+			'white-space' : 'nowrap',
+			disable_search_threshold : 10
+		});
 });
 
 
-function onSubmitForm()
+function onCalculate()
 {
 	var $valid = jQuery('#amortize-asset').valid();
 	if (!$valid) {
@@ -144,5 +186,45 @@ function onSubmitForm()
 	}
 }
 
+function onApproved()
+{
+	var choosenId='';
+	$('#error-validate').empty();
+	
+	
+	$('#choosen-asset option').each(function(){
+		choosenId+=($(this).attr("serial_no")+":"+$(this).attr("month"));
+		choosenId+=';';
+	});
+	if(choosenId=='')
+	{
+		$('#error-validate').html("Không có bản ghi nào được chọn để duyệt");
+		return false;
+	}
+	else
+	{
+		choosenId=choosenId.substring(0,choosenId.length-1);
+		
+		$('#txtChooseAsset').val(choosenId);
+		$('#approve-amortize-asset').submit();
+		return true;
+	}
+}
+function chooseAsset(id,checked){
+	var serial_no=$('#'+id).attr("serial_no");
+	var month=$('#'+id).attr("month");
+	if(checked==true)
+	{
+		option=$("<option></option>");
+		option.attr("serial_no",serial_no);
+		option.attr("month",month);
+		$('#choosen-asset').append(option);
+	}
+	else
+	{
+		$('#choosen-asset option[value="'+value+'"]').remove();
+	}
+	
+}
 </script>
 {% endblock scripts%}

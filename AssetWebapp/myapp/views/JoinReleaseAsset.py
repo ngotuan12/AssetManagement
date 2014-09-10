@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on Sep 8, 2014
 
@@ -32,9 +33,12 @@ def release_asset(request):
             list_choosen=strChoosen.split(';');
             p_error=''
             for child_asset_serial in list_choosen:
-                p_error=p_error + do_join_release_asset("2", parent_serial, child_asset_serial, note, request.user.username)+"</br>"
+                p_error=p_error + do_join_release_asset("2", parent_serial, child_asset_serial, note, request.user.username)
+                if p_error.strip()!='':
+                    p_error=p_error+"<br/>"
             if p_error.strip()!='':
                 context.update({"has_error":p_error})
+            context.update({"has_success":"Tách tài sản thành công!"})
             sql="SELECT a.id,a.code,a.name,b.serial from asset a,stock_asset_serial b where a.id=b.asset_id and b.parent_serial=%s"
             context.update({"child_assets":sqltodict(sql, [parent_serial])})
             context.update({"parent_serial":parent_serial})
@@ -60,9 +64,12 @@ def join_asset(request):
             list_choosen=strChoosen.split(';');
             p_error=''
             for child_asset in list_choosen:
-                p_error=p_error + do_join_release_asset("1", parent_id, child_asset, note, request.user.username)+"</br>"
+                p_error=p_error + do_join_release_asset("1", parent_id, child_asset, note, request.user.username)
+                if p_error.strip()!='':
+                    p_error=p_error+"<br/>"
             if p_error.strip()!='':
                 context.update({"has_error":p_error})
+            context.update({"has_success":"Gộp tài sản thành công!"})
         context.update(csrf(request))
         return render_to_response("asset/join-asset.html",context, RequestContext(request))
     except Exception as ex:
