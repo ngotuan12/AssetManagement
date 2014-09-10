@@ -97,25 +97,26 @@
 								<thead>
 									<tr>
 										<th>STT</th>
-										<th style="width: 10%;">Mã tài sản </th>
-										<th>Tên tài sản </th>
-										<th>Nguyên giá</th>
-										<th>Giá trị còn lại</th>
-										<th>Sửa/Xoá</th>
+										<th style="width: 10%;">MÃ TÀI SẢN </th>
+										<th style="width: 40%;">TÊN TÀI SẢN </th>
+										<th>NGUYÊN GIÁ</th>
+										<th>GIÁ TRỊ CÒN LẠI</th>
+										<th>NGÀY TẠO</th> 
 									</tr>
 								</thead>
 								<tbody>
 									{% for asset in stockeAssets %}
 									<tr class="odd gradeX" asset_id ="{{ asset.asset.id }}" asset_code="{{ asset.asset.code }}">
 										<td>{{ forloop.counter }}</td>
-										<td>{{ asset.asset.code }}</td>
-										<td>{{ asset.asset.name }}</td>
-										<td>{{ asset.original_value }}</td>
-										<td>{{ asset.remain_value }}</td>
-										<td class="table-action">
+										<td>{{ asset.serial }}</td>
+										<td>{{ asset.name }}</td>
+										<td style="text-align: right;">{{ asset.original_value }}</td>
+										<td style="text-align: right;">{{ asset.remain_value }}</td>
+										<td> {{ asset.import_date|date:'d-m-Y' }}</td>
+										<!-- <td class="table-action">
 											<a href="#"><i class="fa fa-pencil"></i></a>
 											<a href="#" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
-										</td>
+										</td> -->
 									</tr>
 									{% endfor %}
 								</tbody>
