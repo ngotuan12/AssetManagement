@@ -10,9 +10,8 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.db import connection
 import cx_Oracle
-from datetime import datetime
 @login_required(login_url='/login/')
-@permission_required('myapp.view_amortize_asset',login_url='/permission-error/')
+@permission_required('myapp.amortize_asset',login_url='/permission-error/')
 def index(request):
     try:
         context={}

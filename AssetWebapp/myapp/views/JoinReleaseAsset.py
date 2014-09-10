@@ -6,7 +6,7 @@ Created on Sep 8, 2014
 import json
 
 import cx_Oracle
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.db import connection
 from django.http.response import HttpResponse
@@ -17,6 +17,7 @@ from myapp.util.DateEncoder import DateEncoder
 
 
 @login_required(login_url='/login/')
+@permission_required('myapp.release_asset', login_url='/permission-error/')
 def release_asset(request):
     try:
         context={}
@@ -42,6 +43,7 @@ def release_asset(request):
     except Exception as ex:
         return HttpResponse(json.dumps({"has_error": str(ex)}),content_type="application/json")
 @login_required(login_url='/login/')
+@permission_required('myapp.join_asset', login_url='/permission-error/')
 def join_asset(request):
     try:
         context={}

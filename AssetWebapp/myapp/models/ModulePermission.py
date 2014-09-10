@@ -22,5 +22,10 @@ class ModulePermission(models.Model):
             ("transfer_asset", "Có thể chuyển đổi tài sản"),
             ("verify_asset", "Có thể kiểm kê tài sản"),
             ("verify_asset_edit", "Có thể sửa kiểm kê tài sản"),
-            ("view_asset", "Có thể tra cứu tài sản")
+            ("view_asset", "Có thể tra cứu tài sản"),
+            ("release_asset", "Có thể tách tài sản"),
+            ("join_asset", "Có thể gộp tài sản"),
+            ("amortize_asset", "Có thể tính khấu hao tài sản"),
+            ("inventory_asset_report", "Có thể xuất báo cáo kiểm kê tài sản"),
+            ("summarize_inventorry_asset_report", "Có thể xuất báo cáo tổng hợp kiểm kê tài sản")
         )
