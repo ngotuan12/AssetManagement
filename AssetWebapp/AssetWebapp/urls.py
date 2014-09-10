@@ -5,7 +5,7 @@ from AssetWebapp import settings
 from myapp.views import Home, \
  User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
-, EvaluationAsset, TransferAsset
+, EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset
 
 
 admin.autodiscover()
@@ -68,10 +68,15 @@ urlpatterns = patterns('',
     url(r'^group/delete/(?P<group_id>\w+)/$', Group.delete_group, name='delete-group'),
     url(r'^group/(?P<group_id>\w+)/$', Group.change_group, name='change-group'),
     # Reason
-    url(r'^reason$', Reason.view_reason , name='reason'),
+    url(r'^reason/$', Reason.view_reason , name='reason'),
     url(r'^reason/add/$', Reason.add_reason, name='add-reason'),
     url(r'^reason/delete/(?P<reason_id>\w+)/$', Reason.delete_reason, name='delete-reason'),
     url(r'^reason/(?P<reason_id>\w+)/$', Reason.change_reason, name='change-reason'),
+    #Join-Release_asset
+    url(r'^release-asset/$', JoinReleaseAsset.release_asset, name='release_asset'),
+    url(r'^join-asset/$', JoinReleaseAsset.join_asset, name='join-asset'),
+    url(r'^get-child-asset/(?P<asset_parent_id>\w+)/$', JoinReleaseAsset.load_child_asset, name='get-child-asset'),
+    url(r'^amortize-asset/$', AmortizeAsset.index, name='amortize-asset'),
     # Report
     url(r'^report/asset-inventory-report$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
     url(r'^report/verify-asset-report$', Report.verify_asset_report , name='verify-asset-report'),

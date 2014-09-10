@@ -10,13 +10,11 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
-from myapp.util import client
 from myapp.models.List import List
-from myapp.models.Dept import Dept
+from myapp.util import client
 
 
 @login_required(login_url='/login')
-#@permission_required('myapp.view_reason_report', login_url='/permission-error')
 def view_reason_report(request):
 	context = {}
 	if request.POST :
@@ -34,7 +32,8 @@ def view_reason_report(request):
 	context.update(csrf(request))
 	return render_to_response("report/reason-report.html", context, RequestContext(request))
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
+@permission_required('myapp.summarize_inventorry_asset_report', login_url='/permission-error/')
 def view_Asset_Inventory_report(request):
 	context = {}
 	capitals = List.objects.filter(list_type="3")
@@ -50,6 +49,8 @@ def view_Asset_Inventory_report(request):
 	context.update(csrf(request))
 	
 	return render_to_response("report/verify-asset-report.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.inventory_asset_report', login_url='/permission-error/')
 def verify_asset_report(request):
 	capitals = List.objects.filter(list_type="3")
 	statuses = List.objects.filter(list_type="4")

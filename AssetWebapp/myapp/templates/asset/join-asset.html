@@ -19,6 +19,7 @@
 				<select id="choosen-asset" style="display:none ">
 					</select>
 					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  /> 
+				<div class="alert alert-info">
 				<div class="form-group">
 					<div class = "row row-pad-5">
 						<label class="col-sm-2 control-label">Tài sản</label>
@@ -28,7 +29,7 @@
 								name = "slAsset" required>
 								<option value=""></option>
 								{% for asset in assets%}
-									<option value="{{ asset.SERIAL }}" {% ifequal asset.SERIAL|add:'0' parent_serial|add:'0' %} selected {% endifequal %}>{{ asset.CODE }} - {{ asset.NAME }}</option>
+									<option value="{{ asset.SERIAL }}" {% ifequal asset.SERIAL|add:'0' parent_serial|add:'0' %} selected {% endifequal %}>{{ asset.SERIAL }} - {{ asset.NAME }}</option>
 								{% endfor%}
 							</select>
 						</div>
@@ -44,7 +45,7 @@
 								<thead>
 									<tr>
 										<th width='30'>Chọn</th>
-										<th width='100'>Mã tài sản </th>
+										<th width='150'>Số thẻ tài sản </th>
 										<th>Tên tài sản </th>
 									</tr>
 								</thead>
@@ -52,7 +53,7 @@
 									{% for asset in child_assets %}
 									<tr class="odd gradeX" >
 										<td width='30'><input type="checkbox" id='{{ "child-asset-id-"|add:asset.SERIAL }}' value='{{ asset.SERIAL }}' onClick="chooseAsset(this.id,this.checked)"></td>
-										<td width='100'>{{ asset.CODE }}</td>
+										<td width='150'>{{ asset.SERIAL }}</td>
 										<td>{{ asset.NAME }}</td>
 										
 									</tr>
@@ -81,6 +82,9 @@
 					</div>
 			
 				</div>	
+			
+			</div>
+			</div>
 			<div class="row">
 				<div class="col-sm col-sm-offset-5" >
 					<div class="panel-footer" style="border-top: none;">
@@ -88,7 +92,6 @@
 					</div>
 					
 				</div>
-			</div>
 			</div>
 		
 			
