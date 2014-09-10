@@ -2,29 +2,29 @@
 	
 
 	<div class="leftpanelinner" style="background: #1d2939">
-		<div class="logopanel" style="text-align: center;">
+		<div class="logopanel" style="padding:0px;margin-bottom:15px; text-align: center;">
 			<h1>
 				 FMS - Ver 2.0 
 			</h1>
 		</div>
 		<!-- logopanel -->
 		<ul class="nav nav-pills nav-stacked nav-bracket">
-			<li><a href="/increment-asset/"><i class="fa fa-upload"></i>
-					<span>TĂNG TÀI SẢN</span></a></li>
-			<li><a href="/decrement-asset/"><i class="fa fa-download"></i>
-					<span>GIẢM TÀI SẢN</span></a></li>
-			<li><a href="/join-asset/"><i class="fa fa-upload"></i>
-					<span>GỘP TÀI SẢN</span></a></li>
-			<li><a href="/release-asset/"><i class="fa fa-download"></i>
-					<span>TÁCH TÀI SẢN</span></a></li>
-			<li><a href="/amortize-asset/"><i class="fa fa-download"></i>
-					<span>TÍNH KHẤU HAO TÀI SẢN</span></a></li>
-			<li><a href="/revaluate-asset/"><i class="fa fa-th-list"></i>
-					<span>ĐÁNH GIÁ LẠI TS</span></a></li>
-			<li><a href="/verify-asset/"><i class="fa fa-th-list"></i> <span>KIỂM
-						KÊ TÀI SẢN</span></a></li>
-			<li><a href="/view-asset/"><i class="fa fa-th-list"></i> <span>TRA
-						CỨU TÀI SẢN</span></a></li>
+			<li class="nav-parent"><a href="#"><i
+					class="fa fa-building-o"></i> <span>Chức năng</span></a>
+				<ul class="children">
+					<li><a href="/increment-asset/"><i class="fa fa-caret-right"></i>
+							<span>TĂNG TÀI SẢN</span></a></li>
+					<li><a href="/decrement-asset/"><i class="fa fa-caret-right"></i>
+							<span>GIẢM TÀI SẢN</span></a></li>
+					<!-- <li><a href="/revaluate-asset/"><i class="fa fa-caret-right"></i>
+							<span>ĐÁNH GIÁ LẠI TS</span></a></li> -->
+					<li><a href="/verify-asset/"><i class="fa fa-caret-right"></i> <span>KIỂM
+								KÊ TÀI SẢN</span></a></li>
+					<li><a href="/view-asset/"><i class="fa fa-caret-right"></i> <span>TRA
+								CỨU TÀI SẢN</span></a></li>
+					<li><a href="/evaluation-asset/"><i class="fa fa-caret-right"></i> <span>ĐÁNH GIÁ LẠI TÀI SẢN</span></a></li>
+					<li><a href="/transfer-asset/"><i class="fa fa-caret-right"></i> <span>CHUYỂN ĐỔI TÀI SẢN</span></a></li>
+				</ul></li>
 			<li class="nav-parent"><a href="#"><i
 					class="fa fa-bar-chart-o"></i> <span>BÁO CÁO</span></a>
 				<ul class="children">
@@ -32,8 +32,8 @@
 							class="fa fa-caret-right"></i>BC CTTSCD-BK07</a></li>
 					<li><a href="/report/asset-inventory-report"><i
 							class="fa fa-caret-right"></i>BC TSCDTH-4ATHTSCĐ</a></li>
-					<li><a href="/report/asset-inventory-report"><i
-							class="fa fa-caret-right"></i>BC CTdatdai-BK06</a></li>
+					<!-- <li><a href="/report/asset-inventory-report"><i
+							class="fa fa-caret-right"></i>BC CTdatdai-BK06</a></li> -->
 				</ul></li>
 			<li class="nav-parent"><a href="#"><i
 					class="fa fa-file-text"></i> <span>DANH MỤC</span></a>
@@ -54,7 +54,7 @@
 							sở phòng ban</a></li>
 					<li><a href="buttons.html"><i class="fa fa-caret-right"></i>Nhà
 							cung cấp</a></li>
-					<li><a href="/reason/"><i class="fa fa-caret-right"></i>Lý
+					<li><a href="buttons.html"><i class="fa fa-caret-right"></i>Lý
 							do</a></li>
 				</ul></li> 
 			{% if user.is_superuser %}
@@ -104,6 +104,7 @@
 				</ul>
 			</div>
 			<!-- infosummary -->
+		</ul>
 	</div>
 	<!-- leftpanelinner -->
 </div>
