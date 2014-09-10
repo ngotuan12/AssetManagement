@@ -35,7 +35,7 @@
 	
 </head>
 
-<body class="leftpanel-collapsed">
+<body>
 
 	<!-- Preloader -->
 	{% include 'preloader.tpl.html' %}
@@ -104,33 +104,42 @@
 			});
 		}
 		
-		var parent = jQuery(".nav-parent > a").parent();
-	    
-		var sub = parent.find('> ul');
-
 		// Dropdown works only when leftpanel is not collapsed
-		if (!jQuery('body').hasClass('leftpanel-collapsed'))
+		
+		var body = jQuery('body');
+		var bodypos = body.css('position');
+
+		if (bodypos != 'relative')
 		{
-			if (sub.is(':visible'))
+
+			if (!body.hasClass('leftpanel-collapsed'))
 			{
-				sub.slideUp(200, function()
-				{
-					parent.removeClass('nav-active');
-					jQuery('.mainpanel').css({
-						height : ''
-					});
-					adjustmainpanelheight();
-				});
+				body.addClass('leftpanel-collapsed');
+				jQuery('.nav-bracket ul').attr('style', '');
+
+				jQuery(this).addClass('menu-collapsed');
+
 			} else
 			{
-				closeVisibleSubMenu();
-				parent.addClass('nav-active');
-				sub.slideDown(200, function()
-				{
-					adjustmainpanelheight();
+				body.removeClass('leftpanel-collapsed chat-view');
+				jQuery('.nav-bracket li.active ul').css({
+					display : 'block'
 				});
+
+				jQuery(this).removeClass('menu-collapsed');
+
 			}
+		} else
+		{
+
+			if (body.hasClass('leftpanel-show'))
+				body.removeClass('leftpanel-show');
+			else
+				body.addClass('leftpanel-show');
+
+			adjustmainpanelheight();
 		}
+	});
 	</script>
 </body>
 </html>
