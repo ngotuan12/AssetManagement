@@ -271,6 +271,9 @@
 /* @group Active  */
 .chosen-container-active .chosen-single {
   border: 1px solid #bbb;
+  color: #fff;
+  background-color: #1d2939;
+  
 }
 .chosen-container-active.chosen-with-drop .chosen-single {
   border: 1px solid #aaa;
