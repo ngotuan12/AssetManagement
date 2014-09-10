@@ -17,7 +17,7 @@ class Supplier(models.Model):
     code = models.CharField(max_length=10,db_column="supplier_code")
     name = models.CharField(max_length=200,db_column="supplier_name")
     status = models.CharField(max_length=1,db_column="supplier_status")
-    parent_id = models.ForeignKey('self',db_column='parent_id')
+    parent_id = models.ForeignKey('self',db_column='parent_id',null=True)
     address = models.CharField(max_length=300,db_column="address")
     tel = models.CharField(max_length=100,db_column="tel")
     fax = models.CharField(max_length=100,db_column="fax")
