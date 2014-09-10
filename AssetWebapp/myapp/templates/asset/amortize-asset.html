@@ -16,6 +16,7 @@
 						<label id="error-text" class="error">{{ has_error }}</label>
 					</div>
 				{% endif %}
+				<div class="alert alert-info">
 				<div class="form-group">
 					<div class = "row row-pad-5">
 						<label class="col-sm-2 control-label">Tháng tính khấu hao</label>
@@ -41,15 +42,57 @@
 						</div>
 						
 					</div>
-					<div class="row">
+					
+				</div>
+			</div>
+			<div class="row">
 						<div class="col-sm col-sm-offset-5" >
 							<div class="panel-footer" style="border-top: none;">
 								<button class="btn btn-primary" onclick=" return onSubmitForm();">Thực hiện</button>
 							</div>
 						</div>
 					</div>
+			<div class="alert alert-info">
+				<div class="form-group">
+					<div class="col-sm" >
+						<div class="table-responsive">
+							<table class="table table-bordered" id="childAssetTable">
+								<thead>
+									<tr>
+										<th width='30'>Chọn</th>
+										<th width='150'>Số thẻ tài sản </th>
+										<th>Tên tài sản </th>
+									</tr>
+								</thead>
+								<tbody id="child-asset-table-body">
+									{% for asset in child_assets %}
+									<tr class="odd gradeX" >
+										<td width='30'><input type="checkbox" id='{{ "child-asset-id-"|add:asset.SERIAL }}' value='{{ asset.SERIAL }}' onClick="chooseAsset(this.id,this.checked)"></td>
+										<td width='100'>{{ asset.SERIAL }}</td>
+										<td>{{ asset.NAME }}</td>
+										
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<!-- table-responsive -->
+					</div>
+					
 				</div>
-			
+				<!-- row -->
+				<div class="form-group">
+					<div class = "row row-pad-5">
+						<label class="col-sm-2 control-label">Số thẻ tài sản</label>
+						<div class="col-lg-6">
+							<input type="text" name="txtSerial" placeholder="Số thẻ tài sản"
+								class="form-control">
+						</div>
+						
+					</div>
+					
+				</div>
+			</div>
 			</div>
 		
 			
@@ -58,7 +101,6 @@
 		</form>
 		<!-- panel body-->
 	</div>
-</div>
 {% endblock content %}
 
 {% block scripts %}
@@ -85,7 +127,7 @@
 <script>
 $(document).ready(function(){
   // Chosen Select
-	$('#amortize_month').datepicker({dateFormat: 'dd/mm/yyyy'},);
+	$('#amortize_month').datepicker({dateFormat: 'dd/mm/yyyy'});
 	 $('#amortize_month').mask("99/99/9999");
 });
 

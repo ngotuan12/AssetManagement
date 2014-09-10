@@ -3,14 +3,19 @@ Created on Sep 8, 2014
 
 @author: vinhndq
 '''
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
-from django.core.context_processors import csrf
-from django.template.context import RequestContext
-from django.http.response import HttpResponse
 import json
-from myapp.util.DateEncoder import DateEncoder
+
+import cx_Oracle
+from django.contrib.auth.decorators import login_required
+from django.core.context_processors import csrf
 from django.db import connection
+from django.http.response import HttpResponse
+from django.shortcuts import render_to_response
+from django.template.context import RequestContext
+
+from myapp.util.DateEncoder import DateEncoder
+
+
 @login_required(login_url='/login/')
 def release_asset(request):
     try:
@@ -70,9 +75,10 @@ def load_child_asset(request,asset_parent_id):
     except Exception as ex:
         return HttpResponse(json.dumps({"error": str(ex)}),content_type="application/json")
 def do_join_release_asset(p_type,p_parent_serial,p_child_serial,p_note,p_user):
-    p_error=''
+    
     try:
         cursor = connection.cursor()
+        p_error=cursor.var(cx_Oracle.STRING).var
         cursor.callproc("pck_asset.join_release_asset",
                     (
                         #p_error
@@ -89,7 +95,10 @@ def do_join_release_asset(p_type,p_parent_serial,p_child_serial,p_note,p_user):
                         p_user,
                     ))
         cursor.close()
-        return p_error
+        strError =p_error.getvalue() 
+        if(strError is None): 
+            strError=''
+        return strError
     except Exception as ex:
         return str(ex)
     
