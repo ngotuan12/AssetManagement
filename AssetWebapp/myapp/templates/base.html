@@ -90,10 +90,12 @@
 	var tidAlertSuccess;
 	$(document).ready(function()
 	{
+		
 		$menuChildren = $('.leftpanel a[href="'+window.location.pathname+'"]');
 		$menuChildren.parent().addClass("active");
 		$menuChildren.closest(".children").css("display","block")
 		$menuChildren.closest(".nav-parent").addClass("nav-active active");
+		$('.nav-bracket ul').attr('style','');
 		if($("#notice-success")!=null)
 		{
 			jQuery('#notice-success').delay(350).fadeIn(function(){
