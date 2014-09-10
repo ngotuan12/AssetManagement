@@ -110,9 +110,9 @@
 										<td>{{ forloop.counter }}</td>
 										<td>{{ asset.serial }}</td>
 										<td>{{ asset.name }}</td>
-										<td style="text-align: right;">{{ asset.original_value }}</td>
+										<td  style="text-align: right;">{{ asset.original_value }}</td>
 										<td style="text-align: right;">{{ asset.remain_value }}</td>
-										<td> {{ asset.import_date|date:'d-m-Y' }}</td>
+										<td style="text-align: center;"> {{ asset.import_date|date:'d-m-Y' }}</td>
 										<!-- <td class="table-action">
 											<a href="#"><i class="fa fa-pencil"></i></a>
 											<a href="#" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
@@ -207,6 +207,7 @@ $('#slAsset').change(function(){
 
 jQuery(window).load(function(){ 
 	$(".numberic").numeric();
+	
 	var stock_id ='{{ stock_id }}';
 	var asset_id ='{{ asset_id }}';
 	var country_id ='{{ country_id }}';
