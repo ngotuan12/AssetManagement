@@ -18,12 +18,15 @@
 						<div class="form-group ">
 							<label class="col-sm-2 control-label">Nguồn vốn</label>
 							<div class="col-sm-8">
-								<select name="optCapital" class="form-control">
-									<option value="">---- Tất cả nguồn vốn ----</option>
+								<select id="" class="form-control chosen-select"
+									data-placeholder="Nguồn vốn" style="display: none;"
+									name="optCapital">
+									<option value="">Tất cả nguồn vốn</option> 
 									{% for capital in capitals%}
-									<option value="{{capital.id}}">{{capital.name}}</option>
+										<option value="{{capital.id}}">{{capital.name}}</option> 
 									{% endfor %}
 								</select>
+		
 							</div>
 						</div>
 						<div class="row">

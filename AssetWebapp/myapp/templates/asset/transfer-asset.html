@@ -64,9 +64,12 @@
 									<div class="form-group">
 										<label class="control-label"> Người chuyển </label>
 											<select id="slStaff" class="form-control chosen-select"
-												data-placeholder="Người chuyển" style="display: none;"
+												data-placeholder="Người chuyển..." style="display: none;"
 												name = "slStaff">
 												<option value=""></option>
+												{% for staff in staffs %}
+													<option value="{{ staff.id }}">{{ staff.name }}</option>
+												{% endfor %}
 											</select>
 									</div>
 								</div>
@@ -85,7 +88,7 @@
 								
 							</div>
 						</div>
-						<div class="alert alert-warning">
+						<div class="alert alert-info">
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
@@ -269,7 +272,13 @@ function onGetStock(dept_id,id_name)
 			option = $("<option></option>")
 			option.attr("value",stock.id)
 			option.text(stock.name)
-			$('#'+id_name).append(option)
+			if(id_name == "slStockDes")
+			{
+				if($("#slStockSource").val().toString() != stock.id.toString())
+					$('#'+id_name).append(option);
+			}
+			else
+				$('#'+id_name).append(option);
 		}
 		$('#'+id_name).chosen('destroy');
 		$('#'+id_name).prop("selectedIndex", -1);

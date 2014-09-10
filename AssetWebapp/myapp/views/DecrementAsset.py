@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on Apr 3, 2014
 
@@ -21,7 +22,7 @@ from myapp.util.DateEncoder import DateEncoder
 import cx_Oracle
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_decrement_asset',login_url='/permission-error/')
+@permission_required('myapp.decrement_asset',login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:
@@ -39,7 +40,6 @@ def index(request):
 			reason_id = request.POST["slReason"]
 			note = request.POST["txtNote"]
 			decrement_date = request.POST["dtDecrementDate"]
-			p_error  = ''
 			cursor = connection.cursor()
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
@@ -74,6 +74,7 @@ def index(request):
 			cursor.close()
 			if p_error.getvalue() is not None:
 				raise Exception(p_error.getvalue())
+			context.update({'has_success':"Giảm tài sản thành công"})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

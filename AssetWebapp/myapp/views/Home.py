@@ -11,4 +11,4 @@ from django.template.context import RequestContext
 @login_required(login_url='/login/')
 def index(request):
 	context={}
-	return render_to_response("base.html", context, RequestContext(request))
+	return render_to_response("index.html", context, RequestContext(request))

@@ -11,7 +11,7 @@ from myapp.models.Country import Country
 from myapp.models.List import List
 from myapp.models.Stock import Stock
 from myapp.util.sequence import update_id
-from myapp.models import Supplier
+from myapp.models.Supplier import Supplier
 
 
 # Create your models here.
@@ -31,6 +31,20 @@ class StockAssetSerial(models.Model):
     supplier = models.ForeignKey(Supplier,db_column="supplier_id")
     capital = models.ForeignKey(List,db_column="capital_id")
     amortize = models.ForeignKey(List,db_column="amortize_id")
+    project_id = models.CharField(max_length=100,db_column="project_id")
+    reason = models.ForeignKey(List,db_column="reason_id")
+    unit = models.CharField(max_length=100,db_column="unit")
+    product_date = models.DateTimeField(db_column="product_date")
+    power = models.IntegerField(db_column="power")
+    interval = models.IntegerField(db_column="interval")
+    source = models.CharField(max_length=100,db_column="source")
+    decision_no = models.CharField(max_length=100,db_column="decision_no")
+    document_status = models.CharField(max_length=5,db_column="document_status")
+    num_sub = models.IntegerField(db_column="num_sub")
+    parent_serial = models.CharField(max_length=5,db_column="parent_serial")
+    name = models.CharField(max_length=50,db_column="name")
+    note =  models.CharField(max_length=50,db_column="note")
+    status = models.CharField(max_length=50,db_column="status")
     class Meta:
         db_table = 'stock_asset_serial'
         app_label = 'myapp'

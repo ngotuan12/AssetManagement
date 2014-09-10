@@ -12,7 +12,7 @@ from myapp.models.Reason import Reason
 from django.template.context import RequestContext
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def add_reason(request):
     context ={}
     if request.POST:
@@ -22,22 +22,22 @@ def add_reason(request):
         description = request.POST['txtDescription']
         try:
             reason = Reason()
-            reason.reason_code = reason_code
-            reason.reason_name = reason_name
-            reason.reason_status=reason_status
+            reason.code = reason_code
+            reason.name = reason_name
+            reason.status=reason_status
             reason.description = description
             reason.save()
-            return HttpResponseRedirect("/reason")
+            return HttpResponseRedirect("/reason/")
         except Exception as ex:
             context.update({"has_error":str(ex)})
     context.update(csrf(request))
     return render_to_response("reason/add-reason.html",context, RequestContext(request))
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def view_reason(request):
-    reasons = Reason.objects.all().order_by("reason_name")
+    reasons = Reason.objects.all().order_by("name")
     context ={"reasons":reasons}
     return render_to_response("reason/reason.html",context, RequestContext(request))
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def change_reason(request,reason_id):
     try:
         context = {}
@@ -48,20 +48,20 @@ def change_reason(request,reason_id):
                 reason_name = request.POST['txtReasonName']
                 reason_status = request.POST['optStatus']
                 description = request.POST['txtDescription']
-                current_reason.reason_name = reason_name
-                current_reason.reason_status=reason_status
+                current_reason.reason = reason_name
+                current_reason.reason=reason_status
                 current_reason.description = description
                 current_reason.save()
-                return HttpResponseRedirect("/reason")
+                return HttpResponseRedirect("/reason/")
             except Exception as ex:
                 context.update({'has_error':ex})
         context.update(csrf(request))
         return render_to_response("reason/change-reason.html",context, RequestContext(request))
     except Reason.DoesNotExist:
         return HttpResponseRedirect("/notfound-error")
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def delete_reason(request,reason_id):
     if request.POST:
         current = Reason.objects.get(id=reason_id)
         current.delete()
-    return HttpResponseRedirect("/reason")
+    return HttpResponseRedirect("/reason/")

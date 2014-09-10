@@ -33,7 +33,7 @@
 						</div>
 					{% endif %}
 					<div class="row row-pad-5">
-						<div class="alert alert-warning">
+						<div class="alert alert-info">
 							<div class="row">
 								<div class="col-sm-4">
 									<div class="form-group">
@@ -97,7 +97,7 @@
 										<label class="control-label">Giá trị còn lại</label>
 											<input type="text" 
 												name = "txtRemainAmount"class="form-control numberic" value="{{ serial.remain_value }}"
-												required>
+												required maxlength="10">
 									</div>
 								</div>
 								
@@ -124,10 +124,33 @@
 										</div>
 									</div>
 								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Số biên bản</label>
+										<input type="text" 
+											name = "txtCheckNo"class="form-control" value="" placeholder="Số biên bản"
+											required maxlength="20">
+									</div>
+								</div>
+								
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Người chuyển</label>
+										<select id="slStaff" name="slStaff" class="form-control chosen-select"
+											data-placeholder="Người kiểm kê" >
+											<option value=""></option>
+											{% for staff in staffs %}
+												<option value="{{ staff.code }}">{{ staff.name }}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</div>
+								
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label class="control-label">Ghi Chú</label>
-											<textarea class="form-control" name="txtNote" rows="5"
+											<textarea class="form-control" name="txtNote" rows="3"
 												placeholder="Ghi chú" required></textarea>
 									</div>
 								</div>	
