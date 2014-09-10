@@ -7,11 +7,6 @@
 	<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="incrementAsset">
 		{% csrf_token %}
 		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">TĂNG TÀI SẢN</h4>
-			</div>
-			
 			<div class="panel-body">
 				{% if has_error %}
 					<div class="panel">
@@ -22,7 +17,7 @@
 					<div class="form-group">
 						<div class = "row row-pad-5">
 						
-							<div class="col-lg-4">
+							<div class="col-lg-3">
 								<label>Lý do</label>
 								<select class="form-control chosen-select"
 									data-placeholder="Lý do" name = "slReason" required>
@@ -33,7 +28,7 @@
 								</select>
 							</div>
 						
-							<div class="col-lg-4">
+							<div class="col-lg-3">
 								<label>Mã nhận diện</label>
 								<select id="" class="form-control chosen-select"
 									data-placeholder="Mã nhận diện ..." style="display: none;"
@@ -44,52 +39,7 @@
 									{% endfor%}
 								</select>
 							</div>
-							
-							<div class="col-lg-4">
-								<label>Tên tài sản</label>
-								<input type="text" name="txtAssetName" placeholder="Tên tài sản"
-									class="form-control" required>
-							</div>
-							
-						</div>
-						
-						<div class = "row row-pad-5">
-						
-							<div class="col-lg-4">
-								<label>Số thẻ TSCĐ</label>
-								<input type="text" name="txtSerial" placeholder="Số thẻ TSCĐ"
-									class="form-control" required>
-							</div>
-							
-							<div class="col-lg-4">
-								<label>Nguyên Giá</label>
-								<input type="text" name="txtOriginPrice" placeholder="Nguyên Giá"
-									class="form-control numberic" required maxlength="15">
-							</div>
-							
-							<div class="col-lg-4">
-								<label>Giá trị còn lại</label>
-								<input type="text" name="txtRemainAmount"
-									placeholder="Giá trị còn lại" class="form-control numberic" required maxlength="15">
-							</div>
-							
-						</div>
-						
-						<div class = "row row-pad-5">
-						
-							<div class="col-lg-4">
-								<label>Hiện trạng sử dụng</label>
-								<select id="" class="form-control chosen-select"
-									data-placeholder="Hiện trạng sử dụng" style="display: none;"
-									name = "slState">
-									<option value=""></option>
-									{% for state in states %}
-										<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
-									{% endfor%}
-								</select>
-							</div>
-							
-							<div class="col-lg-4">
+							<div class="col-lg-3">
 								<label>Nguồn vốn</label>
 								<select id="" class="form-control chosen-select"
 									data-placeholder="Nguồn vốn" style="display: none;"
@@ -100,24 +50,8 @@
 									{% endfor%}
 								</select>
 							</div>
-							
-							<div class="col-lg-4">
-								<label>Mục đích sử dụng</label>
-								<select id="" class="form-control chosen-select"
-									data-placeholder="Mục đích sử dụng" style="display: none;"
-									name = "slGoal">
-									<option value=""></option>
-									{% for goal in goals %}
-										<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
-									{% endfor%}
-								</select>
-							</div>
-							
-						</div>
-						
-						<div class = "row row-pad-5">
-						
-							<div class="col-lg-4">
+
+							<div class="col-lg-3">
 								<label>Nguồn gốc</label>
 								<select class="form-control chosen-select"
 									data-placeholder="Nguồn gốc" style="display: none;"
@@ -129,7 +63,12 @@
 								</select>
 							</div>
 							
-							<div class="col-lg-4">
+						</div>
+						<!-- --------------------------------END OF ROW PAD 5-------------------------------------- -->
+						
+						<div class = "row row-pad-5">
+							
+							<div class="col-lg-3">
 								<label>Phương pháp tính</label>
 								<select id="" class="form-control chosen-select"
 									data-placeholder="Phương pháp tính" style="display: none;"
@@ -140,55 +79,30 @@
 									{% endfor%}
 								</select>
 							</div>
-							
-							<div class="col-lg-4">
-								<label>Số năm khấu hao</label>
-								<input type="text" name="txtInterval" placeholder="Số năm khấu hao"
-									class="form-control numberic" maxlength="2">
-							</div>
-							
-						</div>
-						<div class = "row row-pad-5">
-						
-							<div class="col-lg-4">
-								<label>Bộ phận</label>
-								<select id="slDept" class="form-control chosen-select"
-									data-placeholder="Bộ phận" style="display: none;"
-									name = "slDept">
+							<div class="col-lg-3">
+								<label>Mục đích sử dụng</label>
+								<select id="" class="form-control chosen-select"
+									data-placeholder="Mục đích sử dụng" style="display: none;"
+									name = "slGoal">
 									<option value=""></option>
-									{% for dept in depts %}
-										<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+									{% for goal in goals %}
+										<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
 									{% endfor%}
 								</select>
 							</div>
-						
-							<div class="col-lg-4">
-								<label>Kho</label>
-								<select id="slStock" class="form-control chosen-select"
-									data-placeholder="Kho" style="display: none;"
-									name = "slStock">
+							<div class="col-lg-3">
+								<label>Hiện trạng sử dụng</label>
+								<select id="" class="form-control chosen-select"
+									data-placeholder="Hiện trạng sử dụng" style="display: none;"
+									name = "slState">
 									<option value=""></option>
-									{% for stock in stocks %}
-										<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
+									{% for state in states %}
+										<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 									{% endfor%}
 								</select>
 							</div>
-						
-							<div class="col-lg-4">
-								<label>Đơn vị tính</label>
-								<select class="form-control chosen-select"
-									data-placeholder="Đơn vị tính" style="display: none;"
-									name = "slUnit">
-									<option value=""></option>
-									{% for unit in units %}
-										<option value="{{ unit.code }}">{{ unit.code }} - {{ unit.name }}</option>
-									{% endfor%}
-								</select>
-							</div>
-						</div>
-						
-						<div class = "row row-pad-5">
-							<div class="col-lg-4">
+
+							<div class="col-lg-3">
 								<label>Nhà cung cấp</label>
 								<select id="" class="form-control chosen-select"
 									data-placeholder="Nhà cung cấp" style="display: none;"
@@ -200,7 +114,80 @@
 								</select>
 							</div>
 							
-							<div class="col-lg-4">
+
+							
+						</div>
+
+						<!-- --------------------------------END OF ROW PAD 5-------------------------------------- -->
+
+						<div class = "row row-pad-5">								
+
+							<div class="col-lg-3">
+								<label>Tên tài sản</label>
+								<input type="text" name="txtAssetName" placeholder="Tên tài sản"
+									class="form-control" required>
+							</div>
+
+							<div class="col-lg-3">
+								<label>Số thẻ TSCĐ</label>
+								<input type="text" name="txtSerial" placeholder="Số thẻ TSCĐ"
+									class="form-control" required>
+							</div>
+							
+
+							<div class="col-lg-2">
+								<label>Nguyên Giá</label>
+								<input type="text" name="txtOriginPrice" placeholder="Nguyên Giá"
+									class="form-control numberic" required maxlength="15">
+							</div>
+							
+							<div class="col-lg-2">
+								<label>Giá trị còn lại</label>
+								<input type="text" name="txtRemainAmount"
+									placeholder="Giá trị còn lại" class="form-control numberic" required maxlength="15">
+							</div>
+							
+							
+							<div class="col-lg-2">
+								<label>Số quyết định</label>
+								<input type="text" name="txtDecisionNo" placeholder="Số quyết định"
+									class="form-control">
+							</div>
+
+						</div>
+
+
+						<!-- --------------------------------END OF ROW PAD 5-------------------------------------- -->
+						
+
+						<div class = "row row-pad-5">
+						
+							<div class="col-lg-3">
+								<label>Bộ phận</label>
+								<select id="slDept" class="form-control chosen-select"
+									data-placeholder="Bộ phận" style="display: none;"
+									name = "slDept">
+									<option value=""></option>
+									{% for dept in depts %}
+										<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+									{% endfor%}
+								</select>
+							</div>
+						
+
+							<div class="col-lg-3">
+								<label>Kho</label>
+								<select id="slStock" class="form-control chosen-select"
+									data-placeholder="Kho" style="display: none;"
+									name = "slStock">
+									<option value=""></option>
+									{% for stock in stocks %}
+										<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
+									{% endfor%}
+								</select>
+							</div>
+						
+							<div class="col-lg-3">
 								<label>Xuất sứ</label>
 								<select id="" class="form-control chosen-select"
 									data-placeholder="Xuất sứ" style="display: none;"
@@ -211,35 +198,34 @@
 									{% endfor%}
 								</select>
 							</div>
-							
-							<div class="col-lg-4">
-								<label>Số quyết định</label>
-								<input type="text" name="txtDecisionNo" placeholder="Số quyết định"
-									class="form-control">
+
+							<div class="col-lg-1">
+								<label>Đơn vị tính</label>
+								<select class="form-control chosen-select"
+									data-placeholder="Đơn vị tính" style="display: none;"
+									name = "slUnit">
+									<option value=""></option>
+									{% for unit in units %}
+										<option value="{{ unit.code }}">{{ unit.code }} - {{ unit.name }}</option>
+									{% endfor%}
+								</select>
 							</div>
+
+
+							<div class="col-lg-2">
+								<label>Số năm khấu hao</label>
+								<input type="text" name="txtInterval" placeholder="Số năm khấu hao"
+									class="form-control numberic" maxlength="2">
+							</div>
+							
 						</div>
-						
+						<!-- -----------------------END OF ROW PAD 5 -->						
 					</div>
 				</div>
 				<div class="alert alert-info">
 					<div class = "row row-pad-5">
-						<div class="col-lg-4">
-							<label>Công xuất</label>
-							<input type="text" name="txtPower" placeholder="Công xuất"
-								class="form-control numberic" maxlength="10">
-						</div>
-						
-						<div class="col-lg-4">
-							<label>Trạng thái tài liệu</label>
-							<select  class="form-control"
-								data-placeholder="Tài liệu" 
-								name = "slDocumentStatus" >
-									<option value="1" selected="selected">Có</option>
-									<option value="0">Không</option>
-							</select>
-						</div>
-						
-						<div class="col-lg-4">
+
+						<div class="col-lg-2">
 							<label>Ngày ghi tăng</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
@@ -248,10 +234,7 @@
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
-					</div>
-					
-					<div class = "row row-pad-5">
-						<div class="col-lg-4">
+						<div class="col-lg-2">
 							<label>Ngày bắt đầu sử dụng</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
@@ -261,7 +244,7 @@
 							</div>
 						</div>
 						
-						<div class="col-lg-4">
+						<div class="col-lg-2">
 							<label>Ngày sản xuất</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
@@ -271,7 +254,7 @@
 							</div>
 						</div>
 						
-						<div class="col-lg-4">
+						<div class="col-lg-2">
 							<label>Ngày mua</label>
 							<div class="input-group">
 								
@@ -281,10 +264,8 @@
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
-					</div>
-					
-					<div class = "row row-pad-5">
-						<div class="col-lg-4">
+
+						<div class="col-lg-2">
 							<label>Ngày tính hao mòn</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
@@ -293,15 +274,37 @@
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
+
+						<div class="col-lg-1">
+							<label>Công xuất</label>
+							<input type="text" name="txtPower" placeholder="Công xuất"
+								class="form-control numberic" maxlength="10">
+						</div>
 						
-						<div class="col-lg-4">
-							<div class="ckbox ckbox-default pull-right" style="margin-top: 11%;">
+						<div class="col-lg-1">
+							<label>TT tài liệu</label>
+							<select  class="form-control"
+								data-placeholder="Tài liệu" 
+								name = "slDocumentStatus" >
+									<option value="1" selected="selected">Có</option>
+									<option value="0">Không</option>
+							</select>
+						</div>
+						
+
+
+					</div> 
+					<!-- ---------END OF ROW PAD 5 ------------------- -->
+					<div class = "row row-pad-5">	
+
+						<div class="col-lg-2">
+							<div class="ckbox ckbox-default" style="margin-top: 20%;">
 								<input type="checkbox" name="ckChildAsset" id="ckChildAsset"> 
 								<label for="ckChildAsset">Tài sản con</label>
 							</div>
 						</div>
 						
-						<div class="col-lg-4">
+						<div class="col-lg-2">
 							<label>Tài sản cha</label>
 							<select id = "slParent" class="form-control chosen-select"
 								data-placeholder="Chọn TS cha" style="display: none;"
@@ -313,21 +316,18 @@
 							</select>
 						</div>
 						
+						<div class="col-lg-6">
+							<textarea class="form-control" name="txtNote" rows="3" placeholder="Ghi chú" required></textarea>
+						</div>
+
+						<div class="col-lg-2">
+							<button class="btn btn-primary  btn-block" style="min-height: 76px;" onclick=" return onSUbmitFormIncrement();">Thực hiện</button>
+						</div>
+
 					</div>
 					<!-- row -->
-					<div class="form-group">
-						<textarea class="form-control" name="txtNote" rows="3"
-							placeholder="Ghi chú" required></textarea>
-					</div>
 				</div>
 				
-				<div class="row">
-					<div class="col-sm col-sm-offset-5" >
-						<div class="panel-footer" style="border-top: none;">
-							<button class="btn btn-primary" onclick=" return onSUbmitFormIncrement();">Thực hiện</button>
-						</div>
-					</div>
-				</div>
 			</div>
 			<!-- panel-body -->
 		</div>
