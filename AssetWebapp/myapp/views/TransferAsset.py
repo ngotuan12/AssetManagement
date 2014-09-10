@@ -55,19 +55,6 @@ def index(request):
             dtTransfer = request.POST["dt_transfer"]
             staff_id =request.POST["slStaff"]
             
-            print(stock_source_id)
-            print(stock_des_id)
-            print(asset_source_id)
-            print(p_serial)
-            print(dtTransfer)
-            print(reason_id)
-            print(dept_source_id)
-            print(staff_id)
-            print(username)
-            print(note)
-            
-            p_error =""
-            
             cursor = connection.cursor()
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
