@@ -95,7 +95,6 @@
 		$menuChildren.parent().addClass("active");
 		$menuChildren.closest(".children").css("display","block")
 		$menuChildren.closest(".nav-parent").addClass("nav-active active");
-		$('.nav-bracket ul').attr('style','');
 		if($("#notice-success")!=null)
 		{
 			jQuery('#notice-success').delay(350).fadeIn(function(){
@@ -104,7 +103,34 @@
 				});
 			});
 		}
-	});
+		
+		var parent = jQuery(".nav-parent > a").parent();
+	    
+		var sub = parent.find('> ul');
+
+		// Dropdown works only when leftpanel is not collapsed
+		if (!jQuery('body').hasClass('leftpanel-collapsed'))
+		{
+			if (sub.is(':visible'))
+			{
+				sub.slideUp(200, function()
+				{
+					parent.removeClass('nav-active');
+					jQuery('.mainpanel').css({
+						height : ''
+					});
+					adjustmainpanelheight();
+				});
+			} else
+			{
+				closeVisibleSubMenu();
+				parent.addClass('nav-active');
+				sub.slideDown(200, function()
+				{
+					adjustmainpanelheight();
+				});
+			}
+		}
 	</script>
 </body>
 </html>
