@@ -11,7 +11,7 @@ from myapp.models.Country import Country
 from myapp.models.List import List
 from myapp.models.Stock import Stock
 from myapp.util.sequence import update_id
-from myapp.models import Supplier
+from myapp.models.Supplier import Supplier
 
 
 # Create your models here.
