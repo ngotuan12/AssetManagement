@@ -105,9 +105,6 @@
 		}
 		
 		// Dropdown works only when leftpanel is not collapsed
-		if(jQuery('body').hasClass('leftpanel-collapsed')) {
-			jQuery('body').removeClass('leftpanel-collapsed')
-		}
 		var body = jQuery('body');
 		var bodypos = body.css('position');
 
@@ -131,16 +128,7 @@
 				jQuery(this).removeClass('menu-collapsed');
 
 			}
-		} else
-		{
-
-			if (body.hasClass('leftpanel-show'))
-				body.removeClass('leftpanel-show');
-			else
-				body.addClass('leftpanel-show');
-
-			adjustmainpanelheight();
-		}
+		} 
 	});
 	</script>
 </body>
