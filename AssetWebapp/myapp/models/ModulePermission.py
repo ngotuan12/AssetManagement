@@ -27,5 +27,6 @@ class ModulePermission(models.Model):
             ("join_asset", "Có thể gộp tài sản"),
             ("amortize_asset", "Có thể tính khấu hao tài sản"),
             ("inventory_asset_report", "Có thể xuất báo cáo kiểm kê tài sản"),
-            ("summarize_inventorry_asset_report", "Có thể xuất báo cáo tổng hợp kiểm kê tài sản")
+            ("summarize_inventorry_asset_report", "Có thể xuất báo cáo tổng hợp kiểm kê tài sản"),
+            ("upgrade_asset", "Có thể nâng cấp tài sản")
         )
