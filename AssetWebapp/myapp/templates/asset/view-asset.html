@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
+	<link href="/css/print-preview.css" rel="stylesheet">
 {% endblock %}
 {% block content %}
 <div class="contentpanel no-padding" style="background: #828283">
@@ -104,6 +105,7 @@
 										<th>TRẠNG THÁI</th>
 										<th>XUẤT XỨ</th>
 										<th style="width: 10%;">NGÀY TẠO</th> 
+										<th></th> 
 									</tr>
 								</thead>
 								<tbody>
@@ -117,6 +119,9 @@
 										<td >{{ asset.state.name }}</td>
 										<td >{{ asset.country.name }}</td>
 										<td style="text-align: center;"> {{ asset.import_date|date:'d-m-Y' }}</td>
+										<td class="table-action">
+											<a href="#" id="btn-print" serial="{{ asset.serial }}"><i class="fa fa-print mr5"></i></a>
+										</td>
 									</tr>
 									{% endfor %}
 								</tbody>
@@ -153,12 +158,15 @@
 
 <script src="/js/jquery.formatCurrency.vi-VN.js"></script>
 <script src="/js/jquery.formatCurrency-1.4.0.js"></script>
-
+<script src="/js/print.js"></script>
 <script src="/js/custom.js"></script>
 
 <script>
 $(document).ready(function(){
-	
+	$("a[id^='btn-print']").each(function(){
+		var src = "/invoice/"+$(this).attr('serial')+"/";
+		$(this).printPreview({src:src});
+	});
   // Chosen Select
   $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
  

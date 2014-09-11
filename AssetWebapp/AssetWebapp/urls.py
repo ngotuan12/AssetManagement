@@ -6,7 +6,7 @@ from myapp.views import Home, \
 User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
 , EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset\
-,CardAsset,UpgradeAsset
+,UpgradeAsset
 
 
 admin.autodiscover()
@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^home/$', Home.index),
     
     url(r'^$', Home.index),
+    url(r'^invoice/$', Home.invoice),
     
     url(r'^admin/', include(admin.site.urls)),
 #     url(r'^accounts/', include(registration.backends.default.urls)),

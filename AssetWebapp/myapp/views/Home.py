@@ -12,3 +12,7 @@ from django.template.context import RequestContext
 def index(request):
 	context={}
 	return render_to_response("index.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+def invoice(request):
+	context={}
+	return render_to_response("invoice.html", context, RequestContext(request))
