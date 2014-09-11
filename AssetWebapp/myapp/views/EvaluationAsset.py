@@ -36,14 +36,12 @@ def index(request):
         context.update({'states':List.objects.filter(list_type='4')})
         if request.POST: 
             # Get parameter
-            
             username = request.user.username
-            dtEvalution = request.POST["dt_evalution"]
             serial_id = request.POST["slSerial"]
             state_id = request.POST["slState"]
             note = request.POST["txtNote"]
-            remain_amount = request.POST["txtRemainAmount"]
-            
+            remain_amount = request.POST["hd_cost_amount"]
+            interval = request.POST["txtInterval"]
             stockAssetSerial = StockAssetSerial.objects.get(id=serial_id)
             
             p_serial = stockAssetSerial.serial
@@ -62,15 +60,13 @@ def index(request):
                             #p_remain_amount
                             remain_amount,
                             #p_interval
-                            None,
+                            interval,
                             #p_state_id
                             state_id,
                             #p_note
                             note,
                             #p_username
                             username
-#                             #p_check_date
-#                             dtEvalution
                         ))
 #             print(p_error.getvalue())
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  

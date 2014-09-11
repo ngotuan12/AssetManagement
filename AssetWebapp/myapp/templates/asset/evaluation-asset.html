@@ -13,14 +13,8 @@
 			<form method="post" novalidate="novalidate" id="evaluationAsset">
 				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
 				{% csrf_token %}
+				<input type="hidden" name="hd_cost_amount" id="hd_cus_amount">
 				<div class="panel-body">
-						<div id="alert-success" class="alert alert-success">
-							<button type="button" class="close" data-dismiss="alert"
-								aria-hidden="true">×</button>
-							<strong>Well done!</strong> You successfully read this <a href="#"
-								class="alert-link">important alert message</a>.
-						</div>
-					
 					{% if has_error %}
 						<div class="panel">
 							<label class="error">{{ has_error }}</label>
@@ -70,7 +64,7 @@
 							</div>
 							
 							<div class="row">
-							<div class="col-lg-4">
+							<div class="col-lg-3">
 								<div class="form-group">
 									<label class="control-label"> Giá trị còn lại</label>
 									<input type="text" name="txtRemainAmount" id="remain-amount" 
@@ -78,7 +72,12 @@
 								</div>
 							</div>
 							
-							<div class="col-lg-4">
+							<div class="col-lg-3">
+								<label>Thời gian sử dụng</label>
+								<input type="text" name="txtInterval" placeholder="Thời gian sử dụng..." class="form-control numberic" required maxlength="2">
+							</div>
+							
+							<div class="col-lg-3">
 								<div class="form-group">
 									<label class="control-label"> Trạng thái</label>
 									<select id="slState" name="slState"class="form-control chosen-select"
@@ -91,7 +90,7 @@
 								</div>
 							</div>
 							
-							<div class="col-lg-4">
+							<div class="col-lg-3">
 								<div class="form-group">
 									<label class="control-label">Ngày đánh giá lại tài sản</label>
 									<div class="input-group">
@@ -149,6 +148,8 @@
 <script src="/js/jquery.validate.min.js"></script>
 <script src="/js/jquery.numeric.js"></script>
 
+<script src="/js/jquery.formatCurrency.vi-VN.js"></script>
+<script src="/js/jquery.formatCurrency-1.4.0.js"></script>
 
 <script src="/js/custom.js"></script>
 
@@ -180,6 +181,8 @@ $(document).ready(function(){
 		var state_id = $(this).find('option:selected').attr('state-id');
 		$("#original-amount").val(original);
 		$("#remain-amount").val(remain);
+		$("#hd_cus_amount").val(remain);
+		$("#remain-amount").formatCurrency();
 		$("#txtAssetID").val(asset_id);
 		
 		//checked slState
@@ -189,6 +192,19 @@ $(document).ready(function(){
 		$('#slState').chosen();
 	});
 	tid = setTimeout(hideNotification, 2000);
+	
+	$('#remain-amount').blur(function()
+	{
+		$(this).attr('maxlength','20');
+		var temp=($(this).val()).toString();
+		$("#hd_cus_amount").val(temp);
+		$(this).formatCurrency();
+	});
+	$('#remain-amount').focus(function() 
+	{
+		$(this).attr('maxlength','10');
+		$(this).val($("#hd_cus_amount").val());
+	}); 
 });
 
 function hideNotification()
@@ -261,10 +277,6 @@ function onGetStock(dept_id)
 		$('#slStock').prop("selectedIndex", -1);
 		$('#slStock').chosen();
 	});
-}
-
-function onGetSerial(stock_id)
-{
 }
 
 jQuery(window).load(function(){ 
