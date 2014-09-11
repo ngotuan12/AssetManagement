@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="contentpanel no-padding" style="background: #828283">
+	<div class="col-md">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">NÂNG CẤP TÀI SẢN</h4>
+			</div>
+			<form method="post" novalidate="novalidate" id="upgradeAsset">
+				{% csrf_token %}
+				<input type="hidden" name="hd_cost_amount" id="hd_cus_amount">
+				<div class="panel-body">
+					{% if has_error %}
+						<div class="panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+					<div class="row row-pad-5">
+						<div class="alert alert-info">
+							<div class="row">
+								<div class="col-lg-4">
+									<label>Bộ phận</label>
+									<select id="slDept" class="form-control chosen-select"
+										data-placeholder="Bộ phận" style="display: none;"
+										name = "slDept">
+										<option value=""></option>
+										{% for dept in depts %}
+											<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+										{% endfor%}
+									</select>
+								</div>
+								<div class="col-lg-4">
+									<label>Kho</label>
+									<select id="slStock" class="form-control chosen-select"
+										data-placeholder="Kho" style="display: none;"
+										name = "slStock" disabled="disabled">
+										<option value=""></option>
+									</select>
+								</div>
+								<div class="col-lg-4">
+									<label>Số thẻ TSCĐ</label>
+									<select id="slSerial" class="form-control chosen-select"
+										data-placeholder="Số thẻ TSCĐ"
+										style="display: none;"
+										name = "slSerial" disabled="disabled">
+										<option value=""></option>
+										<option value="United States">TTVTT</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-3">
+									<label>Chi phí nâng cấp</label>
+									<input type="text" name="txtCostAmount" id="cost-amount"
+										placeholder="Chi phí nâng cấp ..." class="form-control numberic" required maxlength="10">
+								</div>
+								
+								<div class="col-lg-3">
+									<label>Thời gian sử dụng</label>
+									<input type="text" name="txtInterval" placeholder="Thời gian sử dụng..." class="form-control numberic" required maxlength="2">
+								</div>
+								
+								<div class="col-lg-3">
+									<label>Trạng thái</label>
+									<select id="slState" name="slState"class="form-control chosen-select"
+										data-placeholder="Trạng thái ..." style="display: ;">
+										<option value=""></option>
+										{% for state in states%}
+											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
+										{% endfor %}
+									</select>
+								</div>
+								
+								<div class="col-lg-3">
+									<label>Mực đích.</label>
+									<select id="slGoal" name="slGoal"class="form-control chosen-select"
+										data-placeholder="Mục đích ..." style="display: ;">
+										<option value=""></option>
+										{% for goal in goals%}
+											<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
+										{% endfor %}
+									</select>
+								</div>
+								
+							</div>
+							
+							<div class="row">
+								<div class="col-lg">
+									<textarea class="form-control" name="txtNote" rows="4"
+										placeholder="Ghi chú" required></textarea>
+								</div>
+							</div>
+							
+							<!--row-->
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm col-sm-offset-5">
+							<!-- <button class="btn btn-primary">In biên bản</button> -->
+							<button class="btn btn-primary" onclick="return onSubmitFormUpgrade();">Thực hiện</button>
+						</div>
+					</div>
+				</div>
+				<!-- panel body-->
+			</form>
+		</div>
+		<!-- panel -->
+	</div>
+</div>
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+
+<script src="/js/jquery.formatCurrency.vi-VN.js"></script>
+<script src="/js/jquery.formatCurrency-1.4.0.js"></script>
+
+<script src="/js/custom.js"></script>
+
+<script>
+$(document).ready(function(){
+// Chosen Select
+	$(".chosen-select").chosen({
+		'width' : '100%',
+		'white-space' : 'nowrap'
+	});
+	// Date Picker
+	$('#dtUpgradeDate').datepicker({
+		dateFormat : 'dd/mm/yy',
+	});
+	$("#dtUpgradeDate").datepicker("setDate",new Date());
+	// Input Masks
+	$('#dtUpgradeDate').mask("99/99/9999");
+	
+	$( "#slDept" ).change(function() {
+		onGetStock($(this).find('option:selected').val());
+	});
+	
+	$( "#slStock" ).change(function() {
+		onGetCode($(this).find('option:selected').val());
+	});
+	$( "#slSerial" ).change(function() {
+		var original = $(this).find('option:selected').attr('original-value');
+		var remain = $(this).find('option:selected').attr('remain-value');
+		var asset_id = $(this).find('option:selected').attr('asset-id');
+		$("#original-amount").val(original);
+		$("#remain-amount").val(remain);
+		$("#txtAssetID").val(asset_id);
+	});
+	
+	
+	$('#cost-amount').blur(function()
+	{
+		$(this).attr('maxlength','20');
+		var temp=($(this).val()).toString();
+		$("#hd_cus_amount").val(temp);
+		$(this).formatCurrency();
+	});
+	$('#cost-amount').focus(function() 
+	{
+		$(this).attr('maxlength','10');
+		$(this).val($("#hd_cus_amount").val());
+	}); 
+});
+function onSubmitFormUpgrade()
+{
+	var $valid = jQuery('#upgradeAsset').valid();
+	if(!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#upgradeAsset').submit();
+}
+function onGetCode(stock_id)
+{
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-serial"+"/"+stock_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		serials = data.serials;
+		if(stocks.length>0)
+			$('#slSerial').prop("disabled", false);
+		$('#slSerial option[value!=""]').remove();
+		for(var i=0;i<serials.length ;i++)
+		{
+			serial = serials[i];
+			option = $("<option></option>")
+			option.attr("value",serial.serial)
+			option.attr("original-value",serial.original_value)
+			option.attr("remain-value",serial.remain_value)
+			option.attr("asset-id",serial.asset)
+			option.text(serial.serial)
+			$('#slSerial').append(option)
+		}
+		$('#slSerial').chosen('destroy');
+		$('#slSerial').prop("selectedIndex", -1);
+		$('#slSerial').chosen();
+	});
+}
+function onGetStock(dept_id)
+{
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-stock"+"/"+dept_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		//alert(JSON.stringify(data))
+		stocks = data.stocks
+		if(stocks.length>0)
+			$('#slStock').prop("disabled", false);
+		$('#slStock option[value!=""]').remove();
+		for(var i=0;i<stocks.length ;i++)
+		{
+			stock = stocks[i];
+			option = $("<option></option>")
+			option.attr("value",stock.id)
+			option.text(stock.name)
+			$('#slStock').append(option)
+		}
+		$('#slStock').chosen('destroy');
+		$('#slStock').prop("selectedIndex", -1);
+		$('#slStock').chosen();
+	});
+}
+jQuery(window).load(function(){ 
+	$(".numberic").numeric();
+});
+</script>
+{% endblock scripts%}

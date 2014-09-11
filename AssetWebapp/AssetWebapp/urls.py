@@ -3,9 +3,10 @@ from django.contrib import admin
 
 from AssetWebapp import settings
 from myapp.views import Home, \
- User, Error, Group, Reason, IncrementAsset, DecrementAsset\
+User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
-, EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset
+, EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset\
+,CardAsset,UpgradeAsset
 
 
 admin.autodiscover()
@@ -41,6 +42,8 @@ urlpatterns = patterns('',
     url(r'^increment-asset/$', IncrementAsset.index, name='increment-asset'),
     # view Asset
     url(r'^view-asset/$', ViewAsset.index),
+    # upgrade asset
+    url(r'^upgrade-asset/$', UpgradeAsset.index),
     # increment asset
     url(r'^decrement-asset/$', DecrementAsset.index, name='decrement-asset'),
     url(r'^get-list-stock/(?P<dept_id>\w+)/$', DecrementAsset.getListStock, name='get-list-stock'),
