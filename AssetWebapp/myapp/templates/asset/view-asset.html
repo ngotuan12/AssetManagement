@@ -97,10 +97,12 @@
 								<thead>
 									<tr>
 										<th>STT</th>
-										<th style="width: 10%;">MÃ TÀI SẢN </th>
-										<th style="width: 40%;">TÊN TÀI SẢN </th>
+										<th style="width: 12%;">MÃ TÀI SẢN </th>
+										<th style="width: 30%;">TÊN TÀI SẢN </th>
 										<th>NGUYÊN GIÁ</th>
 										<th>GIÁ TRỊ CÒN LẠI</th>
+										<th>TRẠNG THÁI</th>
+										<th>XUẤT XỨ</th>
 										<th>NGÀY TẠO</th> 
 									</tr>
 								</thead>
@@ -112,11 +114,9 @@
 										<td>{{ asset.name }}</td>
 										<td class="currency" style="text-align: right;">{{ asset.original_value }}</td>
 										<td class="currency" style="text-align: right;">{{ asset.remain_value }}</td>
+										<td >{{ asset.state.name }}</td>
+										<td >{{ asset.country.name }}</td>
 										<td style="text-align: center;"> {{ asset.import_date|date:'d-m-Y' }}</td>
-										<!-- <td class="table-action">
-											<a href="#"><i class="fa fa-pencil"></i></a>
-											<a href="#" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
-										</td> -->
 									</tr>
 									{% endfor %}
 								</tbody>
