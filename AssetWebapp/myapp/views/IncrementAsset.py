@@ -42,6 +42,7 @@ def index(request):
 		context.update({'stocks':Stock.objects.all()})
 		context.update({'goals':List.objects.filter(list_type='2')})
 		context.update({'states':List.objects.filter(list_type='4')})
+		context.update({'projects':List.objects.filter(list_type='7')})
 		context.update({'units':ApDomain.objects.filter(type='UNIT')})
 		context.update({'sources':ApDomain.objects.filter(type='SOURCE')})
 		context.update({'parents':StockAssetSerial.objects.filter(parent_serial__isnull=True)})
@@ -74,6 +75,13 @@ def index(request):
 			document_status = request.POST["slDocumentStatus"]
 			interval = request.POST["txtInterval"]
 			parent_serial = None
+			
+			project_id = request.POST["slProject"]
+			decision_date = request.POST["dtDecision"]
+			quantity = request.POST["txtQuantity"]
+			model = request.POST["txtModel"]
+			product_seri = request.POST["txtProductSeri"]
+			
 			if request.POST.get("ckChildAsset"):
 				parent_serial = request.POST["slParent"]
 			cursor = connection.cursor()
@@ -127,7 +135,7 @@ def index(request):
 							#p_amortize_date
 							atrophy_date,
 							#p_project_id
-							None, 
+							project_id,
 							#p_unit
 							unit_code,
 							#p_product_date
@@ -146,6 +154,14 @@ def index(request):
 							interval,
 							#p_parent_serial
 							parent_serial,
+							#p_decision_date
+							decision_date,
+							#p_quantity
+							quantity,
+							#p_model
+							model,
+							#p_product_seri
+							product_seri
 						))
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
