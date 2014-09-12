@@ -18,10 +18,6 @@ def invoice(request):
 	return render_to_response("invoice.html", context, RequestContext(request))
 @login_required(login_url='/login/')
 def print_asset(request,asset_id):
-		print(asset_id)
 		stockAssetSerial = StockAssetSerial.objects.get(id=asset_id)
-		print(stockAssetSerial.name)
-		print(stockAssetSerial.id)
-		print(stockAssetSerial.serial)
 		context={"stockAssetSerial":stockAssetSerial,}
 		return render_to_response("invoice.html", context, RequestContext(request))
