@@ -56,3 +56,11 @@
     #print-modal-controls a.close {
         background: url(images/icon-close.png) no-repeat 50% 50%;
     }
+    .serif{
+    font-family: initial;
+    line-height: initial;
+    font-size: 11px;
+    }
+    .bolder{
+    	font-weight: bolder;
+    }
