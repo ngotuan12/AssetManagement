@@ -3,7 +3,7 @@ Created on Sep 8, 2014
 
 @author: TuanNA
 '''
-from myapp.models import UserProfile as UserActivity
+from myapp.models.UserProfile import UserProfile as UserActivity
 from datetime import datetime
 from django.conf import settings
 import re

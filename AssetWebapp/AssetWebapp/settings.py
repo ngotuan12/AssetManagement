@@ -46,7 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'myapp.util.middleware.LastActivityMiddleware',
+#     'myapp.util.middleware.LastActivityMiddleware',
 )
 
 ROOT_URLCONF = 'AssetWebapp.urls'
