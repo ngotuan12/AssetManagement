@@ -46,6 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'myapp.util.middleware.LastActivityMiddleware',
 )
 
 ROOT_URLCONF = 'AssetWebapp.urls'
@@ -62,7 +63,7 @@ DATABASES = {
         'NAME': 'db',
         'USER': 'ASSET',
         'PASSWORD': 'asset',
-        'HOST': '10.0.2.103',
+        'HOST': '10.0.3.10',
         'PORT': '1521',
         'EXTRAS': {'min':1,  # start number of connections
                     'max':20,  # max number of connections

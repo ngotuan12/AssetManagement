@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     
     url(r'^$', Home.index),
     url(r'^invoice/$', Home.invoice),
+    url(r'^tree/$', Home.tree),
     url(r'^invoice/(?P<asset_id>\w+)/$', Home.print_asset, name='print_asset'),
     
     url(r'^admin/', include(admin.site.urls)),
