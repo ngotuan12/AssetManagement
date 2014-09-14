@@ -1,4 +1,12 @@
 eclipse.preferences.version=1
+encoding//myapp/models/ModulePermission.py=utf-8
 encoding//myapp/templates/group/add-group.html=UTF-8
+encoding//myapp/views/AmortizeAsset.py=utf-8
+encoding//myapp/views/AssetType.py=utf-8
+encoding//myapp/views/DecrementAsset.py=utf-8
 encoding//myapp/views/Home.py=utf-8
+encoding//myapp/views/IncrementAsset.py=utf-8
+encoding//myapp/views/JoinReleaseAsset.py=utf-8
+encoding//myapp/views/Report.py=utf-8
+encoding//myapp/views/User.py=utf-8
 encoding/<project>=UTF-8

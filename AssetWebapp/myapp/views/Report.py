@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on Apr 3, 2014
 
@@ -9,9 +10,11 @@ from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+import requests
 
 from myapp.models.List import List
 from myapp.util import client
+import xmlrpclib
 
 
 @login_required(login_url='/login')
@@ -35,37 +38,47 @@ def view_reason_report(request):
 @login_required(login_url='/login/')
 @permission_required('myapp.summarize_inventorry_asset_report', login_url='/permission-error/')
 def view_Asset_Inventory_report(request):
-	context = {}
-	capitals = List.objects.filter(list_type="3")
-	context.update({'capitals':capitals})
-	if request.POST :
-		capital_id = request.POST['optCapital']
-		authorization = client.getAuthorization(request.user.username)
-		params_object = {
-							"p_capital_id":capital_id
-						}
-		fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetInventory_Summarize", params_object,"EXCEL")
-		return HttpResponseRedirect('/report/' + fileOut)
-	context.update(csrf(request))
-	
-	return render_to_response("report/verify-asset-report.html", context, RequestContext(request))
+	try:
+		context = {}
+		capitals = List.objects.filter(list_type="3")
+		context.update({'capitals':capitals})
+		if request.POST :
+			capital_id = request.POST['optCapital']
+			authorization = client.getAuthorization(request.user.username)
+			params_object = {
+								"p_capital_id":capital_id
+							}
+			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetInventory_Summarize", params_object,"EXCEL")
+			return HttpResponseRedirect('/report/' + fileOut)
+		context.update(csrf(request))
+	except Exception as ex:
+		context.update({'has_error':str(ex)})
+	finally:	
+		return render_to_response("report/report-verify-asset-summarize.html", context, RequestContext(request))
 @login_required(login_url='/login/')
 @permission_required('myapp.inventory_asset_report', login_url='/permission-error/')
 def verify_asset_report(request):
-	capitals = List.objects.filter(list_type="3")
-	statuses = List.objects.filter(list_type="4")
-	context = {'capitals':capitals,'statuses':statuses}
-	if request.POST :
-		capital_id = request.POST['optCapital']
-		use_date = request.POST['dtUseDate']
-		status = request.POST['optStatus']
-		authorization = client.getAuthorization(request.user.username)
-		params_object = {
-							"p_capital_id":capital_id,
-							"p_use_date":use_date,
-							"p_status":status
-						}
-		fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetInventory", params_object,"EXCEL")
-		return HttpResponseRedirect('/report/' + fileOut)
+	context = {}
+	try:
+		capitals = List.objects.filter(list_type="3")
+		statuses = List.objects.filter(list_type="4")
+		context.update({'capitals':capitals,'statuses':statuses})
+		if request.POST :
+			capital_id = request.POST['optCapital']
+			use_date = request.POST['dtUseDate']
+			status = request.POST['optStatus']
+			authorization = client.getAuthorization(request.user.username)
+			params_object = {
+								"p_capital_id":capital_id,
+								"p_use_date":use_date,
+								"p_status":status
+							}
+			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetInventory", params_object,"EXCEL")
+			return HttpResponseRedirect('/report/' + fileOut)
+	except xmlrpclib.ProtocolError:
+		context.update({'has_error':'Không kết nối được server report'})
+	except Exception as ex:
+		context.update({'has_error':str(ex)})
 	context.update(csrf(request))
-	return render_to_response("report/asset-inventory-report.html", context, RequestContext(request))
+	return render_to_response("report/report-verify-asset.html", context, RequestContext(request))
+		

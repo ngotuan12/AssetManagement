@@ -13,7 +13,15 @@
 					style="text-align: center; line-height: 10px">Báo cáo tài sản cố định</h4>
 			</div>
 			<div class="panel-body">
-				<div class="alert alert-warning">
+				{% if has_error %}
+					<script>
+						alert("Lỗi rồi");
+					</script>
+					<div class="panel">
+						<label id="error-text" class="error">{{ has_error }}</label>
+					</div>
+				{% endif %}
+				<div class="alert alert-info">
 					<div class="row row-pad-5">
 						<div class="form-group ">
 							<label class="col-sm-2 control-label">Nguồn vốn</label>

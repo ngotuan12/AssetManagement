@@ -1,0 +1,411 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+	<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css"
+	type="text/css">
+	
+<style>
+.ztree {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	height: 460px;
+	overflow-y: scroll;
+	overflow-x: auto;
+}
+</style>
+{% endblock %} 
+{% block content %}
+	<div class="col-md">
+	  <div class="panel panel-primary">
+		<div class="panel-heading">
+		  <h4 class="panel-title" style="text-align:center;line-height:10px">DANH MỤC LOẠI TÀI SẢN CỐ ĐỊNH</h4>
+		</div>
+		
+		<div class="panel-body">
+		{% if has_error %}
+			<div class="panel">
+				<label id="error-text" class="error">{{ has_error }}</label>
+			</div>
+		{% endif %}
+		<div class="row row-pad-0" id="asset-search">
+			<div class="col-sm-5" >
+					<input type="text" class="form-control" id="keySearch" value="" placeholder="Tìm kiếm nội dung .." />
+			</div>
+			 
+			<div class="col-sm-7">
+				<div class="col-lg-12">
+				<div class="input-group">
+					<button id="btn-asset-add" class="btn btn-primary" onclick="return false;">Thêm tài sản</button>
+				</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="row row-pad-0">
+			<div class="col-sm-5" id="div-asset-tree">
+				<ul id="assetTree" class="ztree"></ul>
+			</div>
+			  
+			<form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="form-asset-type">
+			{% csrf_token %}
+			<div class="col-sm-7" id="asset-detail">
+				 <input type="hidden" id="asset-id" name="asset_id">
+				 <input type="hidden" id="asset-action-type" name="action_type">
+				<div class="col-lg-4">
+				  <input type="text" id="asset-code" name="asset_code" placeholder="Mã tài sản" class="form-control" required disabled="disabled">
+				</div>
+				<div class="col-lg-8" style="margin-bottom:2%;">
+				  <input type="text" id="asset-name" name="asset_name" placeholder="Tên tài sản" class="form-control" required disabled="disabled">
+				</div>
+
+				<div class="col-lg-12" style="margin-bottom:2%;">
+					
+				 <select id="asset-parent" class="form-control chosen-select"
+								data-placeholder="Tài sản cấp cha" style="display: none;"
+								name = "asset_parent" disabled="disabled" required>
+								<option value=""></option>
+								{% for asset in asset_parents%}
+									<option value="{{ asset.id }}" >{{ asset.code }} - {{ asset.name }}</option>
+								{% endfor%}
+							</select>
+				</div>
+				<div class="col-lg-12"  style="margin-bottom:2%;">
+				  <textarea  class="form-control" id="asset-description" name="asset_description" rows="10" placeholder="Mô tả" disabled="disabled"></textarea>
+				</div>
+				<div class="col-lg-12">
+					<button id="btn-asset-edit" class="btn btn-primary" onclick=" return false;" >Sửa</button>
+					<button id="btn-asset-delete" class="btn btn-primary" onclick=" return false;" >Xóa</button>
+					<button id="btn-asset-save" class="btn btn-primary" onclick=" return onSave();" >Lưu</button>
+					<button id="btn-asset-cancel" class="btn btn-primary" onclick=" return false;" >Hủy</button>
+				</div>
+			</div>
+			</form>
+			
+		</div>
+		
+		  </div><!-- panel-body -->
+		
+	  </div><!-- panel body-->
+	</div>
+	<div id="dialog-confirm" title="Xóa loại tài sản?" >
+  		<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa tài sản này, các tài sản cấp con cũng bị xóa.Bạn có chắc chắn muốn xóa không?</p>
+	</div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js" ></script>
+
+<script type="text/javascript" src="/tree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.exedit-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.excheck-3.5.js"></script>
+
+<script src="/js/custom.js"></script>
+<script>
+var keySearch;
+var nodeList=[];
+var setting = {
+		data: {
+			key: {
+				title: "Press any keyword for filter data"
+			},
+			simpleData: {
+				enable: true
+			}
+		},
+		view: {
+			fontCss: getFontCss,
+			selectedMulti: false
+		},
+		callback:{
+			onClick: loadData,
+		}
+		
+	};
+var zNodes ={{ data|safe }};
+$(document).ready(function()
+{
+	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+	$.fn.zTree.init($("#assetTree"), setting,zNodes);
+	$('#btn-asset-edit').hide();
+	$('#btn-asset-delete').hide();
+	$('#btn-asset-save').hide();
+	$('#btn-asset-cancel').hide();
+	$('#asset-code').prop("disabled",true);
+	$('#asset-name').prop("disabled",true);
+	$('#asset-parent').prop("disabled",true).trigger("chosen:updated");
+	$('#asset-description').prop("disabled",true);
+	$('#asset-search').prop("disabled",false);
+	$('#div-asset-tree').prop("disabled",false);
+	$('#btn-asset-add').click(function(){beforeAdd();});
+	$('#btn-asset-edit').click(function(){beforeEdit();});
+	$('#btn-asset-cancel').click(function(){onCancel();});
+	$('#btn-asset-delete').click(function(){onDelete();});
+	$("#dialog-confirm" ).dialog({
+		 autoOpen: false, 
+		resizable: false,
+		height:200,
+		modal: true,
+		buttons: {
+			"Có": function() {
+				$('#asset-action-type').val('delete');
+				$('#form-asset-type').submit();
+				$( this ).dialog( "close" );
+			},
+			"Không": function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});
+	
+	keySearch = $("#keySearch");
+	keySearch.bind("focus", focusKey)
+	.bind("blur", blurKey)
+	.bind("propertychange", searchNode)
+	.bind("input", searchNode);
+	
+});
+
+function focusKey(e) {
+	if (keySearch.hasClass("empty")) {
+		keySearch.removeClass("empty");
+	}
+}
+
+function blurKey(e) {
+	if (keySearch.get(0).value === "") {
+		keySearch.addClass("empty");
+	}
+}
+var lastValue='';
+function searchNode(e) {
+	var zTree = $.fn.zTree.getZTreeObj("assetTree");
+	var value = $.trim(keySearch.get(0).value);
+	var keyType = "";
+	
+	keyType = "name";
+	if (keySearch.hasClass("empty")) {
+		value = "";
+	}
+	if (lastValue === value) return;
+	lastValue = value;
+	//xoa high light cac node da search truoc do
+	resetSearch();
+	if(value==="") return;
+	nodeList = zTree.getNodesByParamFuzzy(keyType, value);
+	highlightNodes();
+	
+}
+
+function highlightNodes() {
+	try
+	{
+		var zTree = $.fn.zTree.getZTreeObj("assetTree");
+		var length=nodeList.length;
+		
+		for( var i=0;i<length; i++) {
+			nodeList[i].highlight = true;
+			zTree.updateNode(nodeList[i]);
+			highlightToParent(nodeList[i],true);
+			
+		}
+	}catch(err)
+	{
+		alert(err.message);
+	}
+}
+
+function highlightToParent(node,highlight)
+{
+	
+	var zTree = $.fn.zTree.getZTreeObj("assetTree");
+	var parentNode=node.getParentNode();
+	if(parentNode)
+	{
+		parentNode.highlight=highlight;
+		zTree.updateNode(parentNode);
+		if(parentNode){
+			highlightToParent(parentNode,highlight);
+		}
+	}
+	
+}
+function highlightToChild(node,highlight)
+{
+	try {
+		var zTree = $.fn.zTree.getZTreeObj("assetTree");
+		var childNodes=node.children;
+		
+		var child;
+		if(childNodes)
+		{
+			for(var i=0;i<childNodes.length;i++)
+			{
+				
+				child=childNodes[i];
+				child.highlight=highlight;
+				zTree.updateNode(child);
+				
+				if(child.isParent)
+				{
+					highlightToChild(child,highlight);
+					
+				}
+			}
+		}
+		
+	}
+	catch(err)
+	{
+		alert(err.message);
+	}
+}
+
+function resetSearch()
+{
+	var zTree = $.fn.zTree.getZTreeObj("assetTree");
+	nodeList = zTree.getNodes();
+	for(var i=0;i<nodeList.length;i++)
+	{
+		nodeList[i].highlight=false;
+		zTree.updateNode(nodeList[i]);
+		highlightToChild(nodeList[i],false);
+		
+	}
+}
+
+function getFontCss(treeId, treeNode) {
+	return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+}
+function loadData(event, treeId, treeNode, clickFlag)
+{
+	loadAssetDetail(treeNode);
+	
+}
+function loadAssetDetail(treeNode)
+{
+	$('#asset-code').prop("disabled",true);
+	$('#asset-name').prop("disabled",true);
+	$('#asset-parent').prop("disabled",true).trigger("chosen:updated");
+	$('#asset-description').prop("disabled",true);
+	$('#asset-search').prop("disabled",false);
+	$('#div-asset-tree').prop("disabled",false);
+	$('#btn-asset-edit').hide();
+	$('#btn-asset-delete').hide();
+	$('#btn-asset-save').hide();
+	$('#btn-asset-cancel').hide();
+	var assetId=treeNode.id;
+	var csrftoken=$.cookie('csrftoken');
+	var posting=$.post("/load-asset-detail"+"/"+assetId+"/",{
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data){
+		var asset_detail=data.asset_detail[0];
+		
+		var error=data.error;
+		if(asset_detail)
+		{
+			$('#btn-asset-edit').show();
+			$('#btn-asset-delete').show();
+			$('#asset-code').val(asset_detail.code);
+			$('#asset-name').val(asset_detail.name);
+			$('#asset-parent').val(asset_detail.parent_id).trigger('chosen:updated');
+			$('#asset-description').val(asset_detail.description);
+			$('#asset-id').val(asset_detail.id);
+		}	
+		else
+		{
+			$('#btn-asset-edit').hide();
+			$('#btn-asset-delete').hide();
+			$('#asset-code').val('');
+			$('#asset-name').val('');
+			$('#asset-parent').val('').trigger("chosen:updated");
+			$('#asset-description').val('');
+			$('#asset-id').val('');
+			 if(error){
+				 alert(error);
+			 }
+		}
+		
+	});
+	
+}
+
+function beforeAdd()
+{
+	$('#asset-code').prop("disabled",false);
+	$('#asset-name').prop("disabled",false);
+	$('#asset-parent').prop("disabled",false).trigger("chosen:updated");
+	$('#asset-description').prop("disabled",false);
+	$('#asset-search').prop("disabled",true);
+	$('#div-asset-tree').prop("disabled",true);
+	$('#btn-asset-edit').hide();
+	$('#btn-asset-delete').hide();
+	$('#btn-asset-save').show();
+	$('#btn-asset-cancel').show();
+	$('#asset-code').val('');
+	$('#asset-name').val('');
+	$('#asset-description').val('');
+	$('#asset-id').val('');
+	$('#asset-action-type').val('add');
+	
+}
+function beforeEdit()
+{
+	$('#asset-code').prop("disabled",false);
+	$('#asset-name').prop("disabled",false);
+	$('#asset-parent').prop("disabled",false).trigger("chosen:updated");
+	$('#asset-description').prop("disabled",false);
+	$('#asset-search').prop("disabled",true);
+	$('#div-asset-tree').prop("disabled",true);
+	$('#btn-asset-edit').hide();
+	$('#btn-asset-delete').hide();
+	$('#btn-asset-save').show();
+	$('#btn-asset-cancel').show();
+	$('#asset-action-type').val('edit');
+	
+}
+function clearDetail()
+{
+	
+}
+
+function onCancel()
+{	
+	var zTree = $.fn.zTree.getZTreeObj("assetTree"),
+	nodes = zTree.getSelectedNodes(),
+	treeNode = nodes[0];
+	loadAssetDetail(treeNode);
+	$('#asset-action-type').val('');
+}
+function onSave()
+{
+	var $valid = jQuery('#form-asset-type').valid();
+	if (!$valid)
+	{
+		
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#form-asset-type').submit();
+}
+function onDelete()
+{
+	
+	$("#dialog-confirm" ).dialog('open');
+}
+</script>
+{% endblock scripts%}
