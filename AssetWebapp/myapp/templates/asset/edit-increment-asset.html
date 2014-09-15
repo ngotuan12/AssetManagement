@@ -35,13 +35,13 @@
 										{% endif %}
 									{% endfor%}
 								</select>
-								<label for="slReason" class="error" style="display: none;">Trường này không được để trống</label>
+								<label for="slReason" class="error" >Trường này không được để trống</label>
 							</div>
 						
 							<div class="col-lg-3">
 								<label>Mã nhận diện</label>
 								<select id="slAsset" class="form-control chosen-select"
-									data-placeholder="Mã nhận diện ..." style="display: none;"
+									data-placeholder="Mã nhận diện ..." 
 									name = "slAsset" required>
 									<option value=""></option>
 									{% for asset in assets%}
@@ -52,7 +52,7 @@
 										{% endif %}
 									{% endfor%}
 								</select>
-								<label for="slAsset" class="error" style="display: none;">Trường này không được để trống</label>
+								<label for="slAsset" class="error" >Trường này không được để trống</label>
 							</div>
 							<div class="col-lg-6">
 								
@@ -71,7 +71,7 @@
 								<div class="col-lg-4">
 									<label>Dự án</label>
 									<select id="slProject" class="form-control chosen-select"
-										data-placeholder="Dự án" style="display: none;"
+										data-placeholder="Dự án" 
 										name = "slProject" required>
 										<option value=""></option>
 										{% for project in projects %}
@@ -82,7 +82,7 @@
 											{% endif %}
 										{% endfor%}
 									</select>
-									<label for="slProject" class="error" style="display: none;">Trường này không được để trống</label>
+									<label for="slProject" class="error" >Trường này không được để trống</label>
 								</div>
 								
 							</div>
@@ -95,7 +95,7 @@
 							<div class="col-lg-3">
 								<label>Nguồn vốn</label>
 								<select id="slCapital" class="form-control chosen-select"
-									data-placeholder="Nguồn vốn" style="display: none;"
+									data-placeholder="Nguồn vốn" 
 									name = "slCapital" required>
 									<option value=""></option>
 									{% for capital in capitals %}
@@ -106,14 +106,14 @@
 										{% endif %}
 									{% endfor%}
 								</select>
-								<label for="slCapital" class="error" style="display: none;">Trường này không được để trống</label>
+								<label for="slCapital" class="error" >Trường này không được để trống</label>
 							</div>
 							
 							
 							<div class="col-lg-3">
 								<label>Mục đích sử dụng</label>
 								<select id="slGoal" class="form-control chosen-select"
-									data-placeholder="Mục đích sử dụng" style="display: none;"
+									data-placeholder="Mục đích sử dụng" 
 									name = "slGoal" required>
 									<option value=""></option>
 									{% for goal in goals %}
@@ -124,13 +124,13 @@
 										{% endif %}
 									{% endfor%}
 								</select>
-								<label for="slGoal" class="error" style="display: none;">Trường này không được để trống</label>
+								<label for="slGoal" class="error" >Trường này không được để trống</label>
 							</div>
 							<div class="col-lg-6">
 								<div class="col-lg-4">
 									<label>Hiện trạng sử dụng</label>
 									<select id="slState" class="form-control chosen-select"
-										data-placeholder="Hiện trạng sử dụng" style="display: none;"
+										data-placeholder="Hiện trạng sử dụng" 
 										name = "slState" required>
 										<option value=""></option>
 										{% for state in states %}
@@ -141,13 +141,13 @@
 											{% endif %}
 										{% endfor%}
 									</select>
-									<label for="slState" class="error" style="display: none;">Trường này không được để trống</label>
+									<label for="slState" class="error" >Trường này không được để trống</label>
 								</div>
 								
 								<div class="col-lg-4">
 									<label>Phương pháp tính</label>
 									<select id="slMethod" class="form-control chosen-select"
-										data-placeholder="Phương pháp tính" style="display: none;"
+										data-placeholder="Phương pháp tính" 
 										name = "slMethod" required>
 										<option value=""></option>
 										{% for method in methods %}
@@ -158,7 +158,7 @@
 											{% endif %}
 										{% endfor%}
 									</select>
-									<label for="slMethod" class="error" style="display: none;">Trường này không được để trống</label>
+									<label for="slMethod" class="error" >Trường này không được để trống</label>
 								</div>
 								
 								<div class="col-lg-4">
@@ -222,7 +222,7 @@
 							<div class="col-lg-1">
 								<label>Nguồn gốc</label>
 								<select id="slSource" class="form-control chosen-select"
-									data-placeholder="Nguồn gốc" style="display: none;"
+									data-placeholder="Nguồn gốc" 
 									name = "slSource" required>
 									<option value=""></option>
 									{% for source in sources %}
@@ -233,7 +233,7 @@
 										{% endif %}
 									{% endfor%}
 								</select>
-								<label for="slSource" class="error" style="display: none;">Trường này không được để trống</label>
+								<label for="slSource" class="error" >Trường này không được để trống</label>
 							</div>
 
 						</div>
@@ -243,7 +243,7 @@
 							<div class="col-lg-2">
 								<label>Bộ phận</label>
 								<select id="slDept" class="form-control chosen-select"
-									data-placeholder="Bộ phận" style="display: none;"
+									data-placeholder="Bộ phận" 
 									name = "slDept" required>
 									<option value=""></option>
 									{% for dept in depts %}
@@ -254,14 +254,14 @@
 										{% endif %}
 									{% endfor%}
 								</select>
-								<label for="slDept" class="error" style="display: none;">Trường này không được để trống</label>
+								<label for="slDept" class="error" >Trường này không được để trống</label>
 							</div>
 						
 
 							<div class="col-lg-2">
 								<label>Kho</label>
 								<select id="slStock" class="form-control chosen-select"
-									data-placeholder="Kho" style="display: none;"
+									data-placeholder="Kho" 
 									name = "slStock" required>
 									<option value=""></option>
 									{% for stock in stocks %}
@@ -272,7 +272,7 @@
 										{% endif %}
 									{% endfor%}
 								</select>
-								<label for="slStock" class="error" style="display: none;">Trường này không được để trống</label>
+								<label for="slStock" class="error" >Trường này không được để trống</label>
 							</div>
 							
 							<div class="col-lg-2">
@@ -286,7 +286,7 @@
 								<div class="col-lg-4">
 									<label>Đơn vị tính</label>
 									<select id="slUnit" class="form-control chosen-select"
-										data-placeholder="Đơn vị tính" style="display: none;"
+										data-placeholder="Đơn vị tính" 
 										name = "slUnit" required>
 										<option value=""></option>
 										{% for unit in units %}
@@ -297,13 +297,13 @@
 											{% endif %}
 										{% endfor%}
 									</select>
-									<label for="slUnit" class="error" style="display: none;">Trường này không được để trống</label>
+									<label for="slUnit" class="error" >Trường này không được để trống</label>
 								</div>
 								
 								<div class="col-lg-4">
 									<label>Xuất sứ</label>
 									<select id="slCountry" class="form-control chosen-select"
-										data-placeholder="Xuất sứ" style="display: none;"
+										data-placeholder="Xuất sứ" 
 										name = "slCountry" required>
 										<option value=""></option>
 										{% for country in countries %}
@@ -314,13 +314,13 @@
 											{% endif %}
 										{% endfor%}
 									</select>
-									<label for="slCountry" class="error" style="display: none;">Trường này không được để trống</label>
+									<label for="slCountry" class="error" >Trường này không được để trống</label>
 								</div>
 								
 								<div class="col-lg-4">
 									<label>Nhà cung cấp</label>
 									<select id="slSupplier" class="form-control chosen-select"
-										data-placeholder="Nhà cung cấp" style="display: none;"
+										data-placeholder="Nhà cung cấp" 
 										name = "slSupplier" required>
 										<option value=""></option>
 										{% for supplier in suppliers %}
@@ -331,7 +331,7 @@
 											{% endif %}
 										{% endfor%}
 									</select>
-									<label for="slSupplier" class="error" style="display: none;">Trường này không được để trống</label>
+									<label for="slSupplier" class="error" >Trường này không được để trống</label>
 								</div>
 								
 							</div>
@@ -428,7 +428,7 @@
 						<div class="col-lg-2">
 							<label>Tài sản cha</label>
 							<select id = "slParent" class="form-control chosen-select"
-								data-placeholder="Chọn TS cha" style="display: none;"
+								data-placeholder="Chọn TS cha" 
 								name = "slParent" {% if stockAssetSerial.parent_serial %} {% else %} disabled="disabled" {% endif %}>
 								<option value=""></option>
 								{% for parent in parents %}

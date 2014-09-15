@@ -28,7 +28,7 @@ def index(request):
 	try:
 		context.update({'depts':Dept.objects.all()})
 		context.update({'reasons':Reason.objects.filter(group_code = '2')})
-		if request.POST: 
+		if request.POST:
 			# Get parameter
 			dept_id = request.POST["slDept"]
 			stock_id = request.POST["slStock"]
