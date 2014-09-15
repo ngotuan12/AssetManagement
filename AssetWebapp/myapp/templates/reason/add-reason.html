@@ -3,67 +3,53 @@
 	<link href="../../css/style.default.css" rel="stylesheet">
 {% endblock styles %}
 
-{% block content-header %} 
-	<div class="pageheader">
-	<h2>
-		<i class="fa fa-home"></i>Lý do<span>Thêm lý do</span>
-	</h2>
-	<div class="breadcrumb-wrapper">
-		<ol class="breadcrumb">
-			<li><a href="/reason">Lý do</a></li>
-			<li class="active">Thêm lý do</li>
-		</ol>
-	</div>
-</div>
-{% endblock %}
+
 			
 {% block content %}
-<div class="contentpanel">
-	<form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="formReason">
-		{% csrf_token %}
-		<div class="panel">
-			<div class="panel-body">
-			
-				<div class="form-group ">
-					<label class="col-sm-2 control-label">Mã lý do</label>
-					<div class="col-sm-8">
-						<input name= "txtReasonCode" type="text" placeholder="Mã lý do" class="form-control" value="" required maxlength="10">
-					</div>
-				</div>
-				<div class="form-group ">
-					<label class="col-sm-2 control-label">Tên lý do</label>
-					<div class="col-sm-8">
-						<input name= "txtReasonName" type="text" placeholder="Tên lý do" class="form-control" value="" required maxlength="200">
-					</div>
-				</div>
-				<div class="form-group ">
-					<label class="col-sm-2 control-label">Trạng thái</label>
-					<div class="col-sm-8">
-						<select  name="optStatus" class="form-control" required="required">
-							<option value="1" selected>Hiệu lực</option>
-							<option value="0">Hết hiệu lực</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group ">
-					<label class="col-sm-2 control-label">Mô tả</label>
-					<div class="col-sm-8">
-						<input name= "txtDescription" type="text" placeholder="Mô tả" class="form-control" value="" maxlength="500">
-					</div>
-				</div>
-			</div>
-			
-			
+<div class="col-md">
+	  <div class="panel panel-primary">
+		<div class="panel-heading">
+		  <h4 class="panel-title" style="text-align:center;line-height:10px">THÊM MỚI LÝ DO</h4>
 		</div>
-		
-		<div class="row">
-				<div class="col-sm-6 col-sm-offset-3">
-					<button class="btn btn-primary" onclick="return onValidate();">Lưu</button>&nbsp;
-					<a class="btn btn-default" href="/reason">Thoát</a>
-				</div>
-			 </div>
-	</form>
-	
+		<div class="panel-body">
+			<form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="formReason">
+				{% csrf_token %}
+						<div class="form-group ">
+							<label class="col-sm-2 control-label">Mã lý do</label>
+							<div class="col-sm-8">
+								<input name= "txtReasonCode" type="text" placeholder="Mã lý do" class="form-control" value="" required maxlength="10">
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="col-sm-2 control-label">Tên lý do</label>
+							<div class="col-sm-8">
+								<input name= "txtReasonName" type="text" placeholder="Tên lý do" class="form-control" value="" required maxlength="200">
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="col-sm-2 control-label">Trạng thái</label>
+							<div class="col-sm-8">
+								<select  name="optStatus" class="form-control" required="required">
+									<option value="1" selected>Hiệu lực</option>
+									<option value="0">Hết hiệu lực</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group ">
+							<label class="col-sm-2 control-label">Mô tả</label>
+							<div class="col-sm-8">
+								<input name= "txtDescription" type="text" placeholder="Mô tả" class="form-control" value="" maxlength="500">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 col-sm-offset-3">
+								<button class="btn btn-primary" onclick="return onValidate();">Lưu</button>&nbsp;
+								<a class="btn btn-default" href="/reason/">Thoát</a>
+							</div>
+						 </div>
+			</form>
+	</div>
+	</div>
 </div>
 {% endblock content %}
 {% block scripts %}

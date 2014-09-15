@@ -6,7 +6,7 @@ from myapp.views import Home, \
 User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
 , EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset\
-,UpgradeAsset,EditIncrementAsset
+,UpgradeAsset,EditIncrementAsset, AssetType
 
 
 admin.autodiscover()
@@ -85,6 +85,8 @@ urlpatterns = patterns('',
     url(r'^join-asset/$', JoinReleaseAsset.join_asset, name='join-asset'),
     url(r'^get-child-asset/(?P<asset_parent_id>\w+)/$', JoinReleaseAsset.load_child_asset, name='get-child-asset'),
     url(r'^amortize-asset/$', AmortizeAsset.index, name='amortize-asset'),
+    url(r'^asset-type/$', AssetType.index, name='asset-type'),
+    url(r'^load-asset-detail/(?P<asset_id>\w+)/$', AssetType.load_asset_detail, name='load-asset-detail'),
     # Report
     url(r'^report/asset-inventory-report$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
     url(r'^report/verify-asset-report$', Report.verify_asset_report , name='verify-asset-report'),

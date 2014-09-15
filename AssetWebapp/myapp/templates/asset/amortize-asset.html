@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 	<div class="contentpanel no-padding" >
-		<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="amortize-asset">
 		
-		{% csrf_token %}
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
@@ -16,11 +14,12 @@
 						<label id="error-text" class="error">{{ has_error }}</label>
 					</div>
 				{% endif %}
-				 
+			<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="amortize-asset">
+		
+		{% csrf_token %}
 				<div class="alert alert-info">
-				<div class="form-group">
 					<div class = "row row-pad-5">
-						<label class="col-sm-2 control-label">Tháng tính khấu hao</label>
+						<label class="col-lg-4 control-label">Tháng tính khấu hao</label>
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
@@ -31,38 +30,29 @@
 						</div>
 						
 					</div>
-					
-				</div>
+				
 				<!-- row -->
-				<div class="form-group">
 					<div class = "row row-pad-5">
-						<label class="col-sm-2 control-label">Số thẻ tài sản</label>
+						<label class="col-lg-4 control-label">Số thẻ tài sản</label>
 						<div class="col-lg-6">
 							<input type="text" name="txtSerial" placeholder="Số thẻ tài sản"
 								class="form-control">
 						</div>
 						
 					</div>
-					
-				</div>
-			</div>
-			<div class="row">
+					</div>
+					<input type="hidden" name="submitForm" value="calculate"/>
+					</form>
+					<div class="row">
 						<div class="col-sm col-sm-offset-5" >
 							<div class="panel-footer" style="border-top: none;">
 								<button class="btn btn-primary" onclick=" return onCalculate();">Thực hiện</button>
 							</div>
 						</div>
 					</div>
-			
+			</div>
 			</div>
 		
-			
-		
-		</div>
-		<input type="hidden" name="submitForm" value="calculate"/>
-		</form>
-		<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="approve-amortize-asset">
-			{% csrf_token %}
 			<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
@@ -70,6 +60,8 @@
 			</div>
 			
 			<div class="panel-body">
+			<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="approve-amortize-asset">
+			{% csrf_token %}
 				<div class="alert alert-info">
 					<div class="form-group">
 						<div class="col-sm" >
@@ -118,6 +110,11 @@
 					</div>
 					<!-- row -->
 				</div>
+				<input type="hidden" name="submitForm" value="approved"/>
+			<select id="choosen-asset" style="display:none ">
+					</select>
+					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  />
+				</form>
 				<div class="row">
 						<div class="col-sm col-sm-offset-5" >
 							<div class="panel-footer" style="border-top: none;">
@@ -128,13 +125,11 @@
 			
 			</div>
 			</div>
-			<input type="hidden" name="submitForm" value="approved"/>
-			<select id="choosen-asset" style="display:none ">
-					</select>
-					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  />
-		</form>
+			
+		
 		<!-- panel body-->
 	</div>
+	
 {% endblock content %}
 
 {% block scripts %}

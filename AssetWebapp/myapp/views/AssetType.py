@@ -14,6 +14,7 @@ from django.template.context import RequestContext
 
 from myapp.util.DateEncoder import DateEncoder
 from myapp.models.Asset import Asset
+from datetime import datetime
 
 @login_required(login_url='/login/')
 @permission_required('myapp.asset_type', login_url='/permission-error/')
@@ -23,6 +24,10 @@ def index(request):
         if request.POST:
             action_type=request.POST['action_type'].strip()
             asset_type_id=request.POST['asset_id'].strip()
+            asset_type_code=request.POST['asset_code'].strip()
+            asset_type_name=request.POST['asset_name'].strip()
+            asset_type_parent=request.POST['asset_parent'].strip()
+            asset_type_description=request.POST['asset_description'].strip()
             if(action_type=='delete'):
                 current = Asset.objects.get(id=asset_type_id)
                 childrends=Asset.objects.filter(parent_id=current)
@@ -30,29 +35,45 @@ def index(request):
                     child.delete()
                 current.delete()
                 context.update({"has_success":"Xóa thành công!"})
+            elif action_type=='add':
+                check_asset=Asset.objects.filter(code=asset_type_code).count()
+                if(check_asset>0):
+                    context.update({'has_error':'Mã tài sản đã tồn tại'})
+                else:
+                    asset=Asset()
+                    asset.code=asset_type_code
+                    asset.name=asset_type_name
+                    asset.user_name=request.user.username
+                    if (asset_type_parent!=''):
+                        asset_parent=Asset.objects.get(id=int(asset_type_parent))
+                        if(asset_parent is not None):
+                            asset.parent_id=asset_parent
+                            asset.parent_code=asset_parent.code
+                    asset.description=asset_type_description
+                    asset.save()
+                    context.update({"has_success":"Thêm mới thành công!"})
             else:
-                asset_type_code=request.POST['asset_code'].strip()
+                asset_type_id=asset_type_id.strip()
                 check_asset=Asset.objects.filter(code=asset_type_code).exclude(id=asset_type_id).count()
                 if(check_asset>0):
                     context.update({'has_error':'Mã tài sản đã tồn tại'})
                 else:
-                    asset_type_name=request.POST['asset_name'].strip()
-                    asset_type_parent=request.POST['asset_parent'].strip()
-                    asset_type_description=request.POST['asset_description'].strip()
-                    asset=Asset()
+                    asset=Asset.objects.get(id=asset_type_id)
                     asset.code=asset_type_code
                     asset.name=asset_type_name
-                    asset_parent=Asset.objects.get(id=int(asset_type_parent))
-                    if(asset_parent is not None):
-                        asset.parent_id=asset_parent
-                    asset.description=asset_type_description
-                    if(asset_type_id.strip()!=''):
-                        asset.id=asset_type_id.strip
-                    asset.save()
-                    if(action_type=='add'):
-                        context.update({"has_success":"Thêm mới thành công!"})
+                    if (asset_type_parent==''):
+                        asset.parent_id=None
+                        asset.parent_code=None
                     else:
-                        context.update({"has_success":"Cập nhật thông tin thành công!"})
+                        asset_parent=Asset.objects.get(id=int(asset_type_parent))
+                        asset.parent_id=asset_parent
+                        if(asset_parent is not None):
+                            asset.parent_code=asset_parent.code
+                        else:
+                            asset.parent_code=None
+                    asset.description=asset_type_description
+                    asset.save()
+                    context.update({"has_success":"Cập nhật thông tin thành công!"})
         assets=Asset.objects.all().order_by("name")
         infors=[]
         for asset in assets:
