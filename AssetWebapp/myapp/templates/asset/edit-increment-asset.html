@@ -1,0 +1,573 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="contentpanel no-padding" style="background: #828283">
+	<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="editIncrementAsset">
+		{% csrf_token %}
+		<div class="panel panel-primary">
+			<div class="panel-body">
+				{% if has_error %}
+					<div class="panel">
+						<label class="error">{{ has_error }}</label>
+					</div>
+				{% endif %}
+				<div class="alert alert-info" style="padding: 10px;">
+				<input type="hidden" name="hd_stock_asset_serial_id" id="hd_stock_asset_serial_id" value="{{ stockAssetSerial.id}}">
+				<input type="hidden" id="hd_import_date" value="{{ stockAssetSerial.import_date|date:'d/m/Y' }}">
+				<input type="hidden" id="hd_use_date" value="{{ stockAssetSerial.use_date|date:'d/m/Y' }}">
+				<input type="hidden" id="hd_change_date" value="{{ stockAssetSerial.change_date|date:'d/m/Y' }}">
+				<input type="hidden" id="hd_product_date" value="{{ stockAssetSerial.product_date|date:'d/m/Y' }}">
+				<input type="hidden" id="hd_decision_date" value="{{ stockAssetSerial.decision_date|date:'d/m/Y' }}">
+					<div class="form-group">
+						<div class = "row row-pad-5">
+							<div class="col-lg-3">
+								<label>Lý do</label>
+								<select id="slReason" class="form-control chosen-select"
+									data-placeholder="Lý do" name = "slReason" required>
+									<option value></option>
+									{% for reason in reasons %}
+										{% if stockAssetSerial.reason.id|truncatechars:100 == reason.id|truncatechars:100 %}
+											<option value="{{ reason.id }}" selected>{{ reason.code }} - {{ reason.name }}</option>
+										{% else %}
+											<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
+										{% endif %}
+									{% endfor%}
+								</select>
+								<label for="slReason" class="error" style="display: none;">Trường này không được để trống</label>
+							</div>
+						
+							<div class="col-lg-3">
+								<label>Mã nhận diện</label>
+								<select id="slAsset" class="form-control chosen-select"
+									data-placeholder="Mã nhận diện ..." style="display: none;"
+									name = "slAsset" required>
+									<option value=""></option>
+									{% for asset in assets%}
+										{% if stockAssetSerial.asset.id|truncatechars:100 == asset.id|truncatechars:100 %}
+											<option value="{{ asset.id }}" selected>{{ asset.code }} - {{ asset.name }}</option>
+										{% else %}
+											<option value="{{ asset.id }}">{{ asset.code }} - {{ asset.name }}</option>
+										{% endif %}
+									{% endfor%}
+								</select>
+								<label for="slAsset" class="error" style="display: none;">Trường này không được để trống</label>
+							</div>
+							<div class="col-lg-6">
+								
+								<div class="col-lg-4">
+									<label>Tên tài sản</label>
+									<input type="text" name="txtAssetName" placeholder="Tên tài sản"
+										value="{{ stockAssetSerial.name }}" class="form-control" required>
+								</div>
+								
+								<div class="col-lg-4">
+									<label>Số thẻ TSCĐ</label>
+									<input type="text" name="txtSerial" placeholder="Số thẻ TSCĐ"
+										value="{{ stockAssetSerial.serial }}" class="form-control" required>
+								</div>
+								
+								<div class="col-lg-4">
+									<label>Dự án</label>
+									<select id="slProject" class="form-control chosen-select"
+										data-placeholder="Dự án" style="display: none;"
+										name = "slProject" required>
+										<option value=""></option>
+										{% for project in projects %}
+											{% if stockAssetSerial.project_id|truncatechars:100 == project.id|truncatechars:100 %}
+												<option value="{{ project.id }}" selected>{{ project.name }}</option>
+											{% else %}
+												<option value="{{ project.id }}">{{ project.name }}</option>
+											{% endif %}
+										{% endfor%}
+									</select>
+									<label for="slProject" class="error" style="display: none;">Trường này không được để trống</label>
+								</div>
+								
+							</div>
+							
+						</div>
+						<!-- --------------------------------END OF ROW PAD 5-------------------------------------- -->
+						
+						<div class = "row row-pad-5">
+							
+							<div class="col-lg-3">
+								<label>Nguồn vốn</label>
+								<select id="slCapital" class="form-control chosen-select"
+									data-placeholder="Nguồn vốn" style="display: none;"
+									name = "slCapital" required>
+									<option value=""></option>
+									{% for capital in capitals %}
+										{% if stockAssetSerial.capital.id|truncatechars:100 == capital.id|truncatechars:100 %}
+											<option value="{{ capital.id }}" selected>{{ capital.code }} - {{ capital.name }}</option>
+										{% else %}
+											<option value="{{ capital.id }}">{{ capital.code }} - {{ capital.name }}</option>
+										{% endif %}
+									{% endfor%}
+								</select>
+								<label for="slCapital" class="error" style="display: none;">Trường này không được để trống</label>
+							</div>
+							
+							
+							<div class="col-lg-3">
+								<label>Mục đích sử dụng</label>
+								<select id="slGoal" class="form-control chosen-select"
+									data-placeholder="Mục đích sử dụng" style="display: none;"
+									name = "slGoal" required>
+									<option value=""></option>
+									{% for goal in goals %}
+										{% if stockAssetSerial.goal.id|truncatechars:100 == goal.id|truncatechars:100 %}
+											<option value="{{ goal.id }}" selected>{{ goal.code }} - {{ goal.name }}</option>
+										{% else %}
+											<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
+										{% endif %}
+									{% endfor%}
+								</select>
+								<label for="slGoal" class="error" style="display: none;">Trường này không được để trống</label>
+							</div>
+							<div class="col-lg-6">
+								<div class="col-lg-4">
+									<label>Hiện trạng sử dụng</label>
+									<select id="slState" class="form-control chosen-select"
+										data-placeholder="Hiện trạng sử dụng" style="display: none;"
+										name = "slState" required>
+										<option value=""></option>
+										{% for state in states %}
+											{% if stockAssetSerial.state.id|truncatechars:100 == state.id|truncatechars:100 %}
+												<option value="{{ state.id }}" selected>{{ state.code }} - {{ state.name }}</option>
+											{% else %}
+												<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
+											{% endif %}
+										{% endfor%}
+									</select>
+									<label for="slState" class="error" style="display: none;">Trường này không được để trống</label>
+								</div>
+								
+								<div class="col-lg-4">
+									<label>Phương pháp tính</label>
+									<select id="slMethod" class="form-control chosen-select"
+										data-placeholder="Phương pháp tính" style="display: none;"
+										name = "slMethod" required>
+										<option value=""></option>
+										{% for method in methods %}
+											{% if stockAssetSerial.amortize.id|truncatechars:100 == method.id|truncatechars:100 %}
+												<option value="{{ method.id }}" selected>{{ method.code }} - {{ method.name }}</option>
+											{% else %}
+												<option value="{{ method.id }}">{{ method.code }} - {{ method.name }}</option>
+											{% endif %}
+										{% endfor%}
+									</select>
+									<label for="slMethod" class="error" style="display: none;">Trường này không được để trống</label>
+								</div>
+								
+								<div class="col-lg-4">
+									<label>Số năm khấu hao</label>
+									<input type="text" name="txtInterval" placeholder="Số năm khấu hao"
+										value="{{ stockAssetSerial.interval }}" class="form-control numberic" maxlength="2">
+								</div>
+								
+							</div>
+						</div>
+
+						<!-- --------------------------------END OF ROW PAD 5-------------------------------------- -->
+
+						<div class = "row row-pad-5">
+
+							<div class="col-lg-2">
+								<label>Nguyên Giá</label>
+								<input type="text" name="txtOriginPrice" placeholder="Nguyên Giá"
+									value="{{ stockAssetSerial.original_value }}" class="form-control numberic" required maxlength="15">
+							</div>
+							
+							<div class="col-lg-2">
+								<label>Giá trị còn lại</label>
+								<input type="text" name="txtRemainAmount"
+									placeholder="Giá trị còn lại" value="{{ stockAssetSerial.remain_value }}" class="form-control numberic" required maxlength="15">
+							</div>
+							
+							<div class="col-lg-2">
+								<label>Model</label>
+								<input type="text" name="txtModel" value="{{ stockAssetSerial.model }}" placeholder="Model"
+									class="form-control" required>
+							</div>
+							
+							<div class="col-lg-2">
+								<label>Công xuất</label>
+								<input type="text" name="txtPower" placeholder="Công xuất"
+									class="form-control numberic" value="{{ stockAssetSerial.power }}" maxlength="10" required>
+							</div>
+							
+							<div class="col-lg-2">
+								<label>Số quyết định</label>
+								<input type="text" name="txtDecisionNo" value="{{ stockAssetSerial.decision_no }}" placeholder="Số quyết định"
+									class="form-control" required>
+							</div>
+							
+							<div class="col-lg-1">
+								<label>TT tài liệu</label>
+								<select id="slDocumentStatus" class="form-control chosen-select"
+									data-placeholder="Tài liệu" 
+									name = "slDocumentStatus" >
+									{% if stockAssetSerial.status|truncatechars:100 == '1' %}
+										<option value="1" selected>Có</option>
+										<option value="0">Không</option>
+									{% else %}
+										<option value="1" >Có</option>
+										<option value="0" selected>Không</option>
+									{% endif %}
+								</select>
+							</div>
+							
+							<div class="col-lg-1">
+								<label>Nguồn gốc</label>
+								<select id="slSource" class="form-control chosen-select"
+									data-placeholder="Nguồn gốc" style="display: none;"
+									name = "slSource" required>
+									<option value=""></option>
+									{% for source in sources %}
+										{% if stockAssetSerial.source|truncatechars:100 == source.code|truncatechars:100 %}
+											<option value="{{ source.code }}" selected> {{ source.name }}</option>
+										{% else %}
+											<option value="{{ source.code }}">{{ source.name }}</option>
+										{% endif %}
+									{% endfor%}
+								</select>
+								<label for="slSource" class="error" style="display: none;">Trường này không được để trống</label>
+							</div>
+
+						</div>
+						<!-- --------------------------------END OF ROW PAD 5-------------------------------------- -->
+						<div class = "row row-pad-5">
+						
+							<div class="col-lg-2">
+								<label>Bộ phận</label>
+								<select id="slDept" class="form-control chosen-select"
+									data-placeholder="Bộ phận" style="display: none;"
+									name = "slDept" required>
+									<option value=""></option>
+									{% for dept in depts %}
+										{% if stockAssetSerial.stock.dept.id|truncatechars:100 == dept.id|truncatechars:100 %}
+											<option value="{{ dept.id }}" selected>{{ dept.code }} - {{ dept.name }}</option>
+										{% else %}
+											<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+										{% endif %}
+									{% endfor%}
+								</select>
+								<label for="slDept" class="error" style="display: none;">Trường này không được để trống</label>
+							</div>
+						
+
+							<div class="col-lg-2">
+								<label>Kho</label>
+								<select id="slStock" class="form-control chosen-select"
+									data-placeholder="Kho" style="display: none;"
+									name = "slStock" required>
+									<option value=""></option>
+									{% for stock in stocks %}
+										{% if stockAssetSerial.stock.id|truncatechars:100 == stock.id|truncatechars:100 %}
+											<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}" selected>{{ stock.code }} - {{ stock.name }}</option>
+										{% else %}
+											<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
+										{% endif %}
+									{% endfor%}
+								</select>
+								<label for="slStock" class="error" style="display: none;">Trường này không được để trống</label>
+							</div>
+							
+							<div class="col-lg-2">
+								<label>Số lượng</label>
+								<input type="text" name="txtQuantity" value="{{ stockAssetSerial.quantity }}" placeholder="Số lượng"
+									class="form-control" required maxlength="3">
+							</div>
+							
+							<div class="col-lg-6">
+							
+								<div class="col-lg-4">
+									<label>Đơn vị tính</label>
+									<select id="slUnit" class="form-control chosen-select"
+										data-placeholder="Đơn vị tính" style="display: none;"
+										name = "slUnit" required>
+										<option value=""></option>
+										{% for unit in units %}
+											{% if stockAssetSerial.unit|truncatechars:100 == unit.name|truncatechars:100 %}
+												<option value="{{ unit.name }}" selected>{{ unit.code }} - {{ unit.name }}</option>
+											{% else  %}
+												<option value="{{ unit.name }}">{{ unit.code }} - {{ unit.name }}</option>
+											{% endif %}
+										{% endfor%}
+									</select>
+									<label for="slUnit" class="error" style="display: none;">Trường này không được để trống</label>
+								</div>
+								
+								<div class="col-lg-4">
+									<label>Xuất sứ</label>
+									<select id="slCountry" class="form-control chosen-select"
+										data-placeholder="Xuất sứ" style="display: none;"
+										name = "slCountry" required>
+										<option value=""></option>
+										{% for country in countries %}
+											{% if stockAssetSerial.country.id|truncatechars:100 == country.id|truncatechars:100 %}
+												<option value="{{ country.id }}" selected>{{ country.code }} - {{ country.name }}</option>
+											{% else %}
+												<option value="{{ country.id }}">{{ country.code }} - {{ country.name }}</option>
+											{% endif %}
+										{% endfor%}
+									</select>
+									<label for="slCountry" class="error" style="display: none;">Trường này không được để trống</label>
+								</div>
+								
+								<div class="col-lg-4">
+									<label>Nhà cung cấp</label>
+									<select id="slSupplier" class="form-control chosen-select"
+										data-placeholder="Nhà cung cấp" style="display: none;"
+										name = "slSupplier" required>
+										<option value=""></option>
+										{% for supplier in suppliers %}
+											{% if stockAssetSerial.supplier.id|truncatechars:100 == supplier.id|truncatechars:100 %}
+												<option value="{{ supplier.id }}" selected>{{ supplier.code }} - {{ supplier.name }}</option>
+											{% else %}
+												<option value="{{ supplier.id }}">{{ supplier.code }} - {{ supplier.name }}</option>
+											{% endif %}
+										{% endfor%}
+									</select>
+									<label for="slSupplier" class="error" style="display: none;">Trường này không được để trống</label>
+								</div>
+								
+							</div>
+							
+						</div>
+						<!-- -----------------------END OF ROW PAD 5 -->
+					</div>
+				</div>
+				<div class="alert alert-info" style="padding: 10px;">
+					<div class = "row row-pad-5">
+						
+						<div class="col-lg-2">
+							<label>Ngày sản xuất</label>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày sản xuất" id="product_date"
+									name = "dtProductDate" required> <span
+									class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<label>Ngày tính hao mòn</label>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tính hao mòn" id="atrophy_date"
+									name = "dtAtrophyDate" required>
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<label>Ngày ghi tăng</label>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày ghi tăng" id="up_date"
+									name = "dtUpDate" required>
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<label>Ngày mua</label>
+							<div class="input-group">
+								
+								<input type="text" class="form-control"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày mua" id="buy_date"
+									name = "dtBuyDate" required> <span
+									class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<label>Ngày bắt đầu sử dụng</label>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày bắt đầu sử dụng" id="start_use_date"
+									name = "dtStartUseDate" required>
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<label>Ngày quyết định</label>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									data-provide="datepicker" data-date-format="dd/mm/yy"  placeholder="Ngày quyết định" id="dtDecision"
+									name = "dtDecision" required>
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+						
+					</div> 
+					<!-- ---------END OF ROW PAD 5 ------------------- -->
+					<div class = "row row-pad-5">	
+						
+						<div class="col-lg-2">
+							<label> Số seri</label>
+							<input type="text" name="txtProductSeri" value="{{ stockAssetSerial.seri }}" placeholder="Số seri..."
+								class="form-control" required>
+						</div>
+						
+						<div class="col-lg-2">
+							<div class="ckbox ckbox-default" style="margin-top: 20%;">
+								{% if stockAssetSerial.parent_serial %}
+									<input type="checkbox" name="ckChildAsset" id="ckChildAsset" checked>
+								{% else %}
+									<input type="checkbox" name="ckChildAsset" id="ckChildAsset">
+								{% endif %}
+								<label for="ckChildAsset">Tài sản con</label>
+							</div>
+						</div>
+						
+						<div class="col-lg-2">
+							<label>Tài sản cha</label>
+							<select id = "slParent" class="form-control chosen-select"
+								data-placeholder="Chọn TS cha" style="display: none;"
+								name = "slParent" {% if stockAssetSerial.parent_serial %} {% else %} disabled="disabled" {% endif %}>
+								<option value=""></option>
+								{% for parent in parents %}
+									{% if stockAssetSerial.parent_serial|truncatechars:100 == parent.serial|truncatechars:100 %}
+										<option value="{{ parent.serial }}" selected>{{ parent.serial }} - {{ parent.name }}</option>
+									{% else %}
+										<option value="{{ parent.serial }}">{{ parent.serial }} - {{ parent.name }}</option>
+									{% endif %}
+								{% endfor%}
+							</select>
+						</div>
+						
+						<div class="col-lg-4">
+							<textarea class="form-control" name="txtNote" rows="3" placeholder="Ghi chú" required>{{ stockAssetSerial.note }}</textarea>
+						</div>
+
+						<div class="col-lg-2">
+							<button class="btn btn-primary  btn-block" style="min-height: 76px;" onclick=" return onSUbmitFormEditIncrement();">Thực hiện</button>
+						</div>
+
+					</div>
+					<!-- row -->
+				</div>
+				
+			</div>
+			<!-- panel-body -->
+		</div>
+		<!-- panel body-->
+	</form>
+</div>
+
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+
+<script src="/js/custom.js"></script>
+
+<script>
+$(document).ready(function(){
+  // Chosen Select
+  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+  // Date Picker
+  $('#dtDecision').datepicker({dateFormat: 'dd/mm/yy',});
+  $("#dtDecision").datepicker("setDate",$("#hd_decision_date").val());
+  
+  $('#buy_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $("#buy_date").datepicker("setDate",$("#hd_use_date").val());
+  
+  $('#start_use_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $("#start_use_date").datepicker("setDate",$("#hd_use_date").val());
+  
+  $('#up_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $("#up_date").datepicker("setDate",$("#hd_change_date").val());
+  
+  $('#atrophy_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $("#atrophy_date").datepicker("setDate",$("#hd_use_date").val());
+  
+  $('#product_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $("#product_date").datepicker("setDate",$("#hd_product_date").val());
+  
+  // Input Masks
+  $("#dtDecision").mask("99/99/9999");
+  $("#datepicker").mask("99/99/9999");
+  $('#buy_date').mask("99/99/9999");
+  $('#start_use_date').mask("99/99/9999");
+  $('#up_date').mask("99/99/9999");
+  $('#atrophy_date').mask("99/99/9999");
+  $('#product_date').mask("99/99/9999");
+  //Validation with select boxes
+  $("#ckChildAsset").change(function() {
+	if (this.checked)
+			{
+				$("#slParent").attr('disabled', false);
+				$("#slParent").trigger("chosen:updated");
+			} else
+			{
+				$("#slParent").attr('disabled', true);
+				$("#slParent").trigger("chosen:updated");
+			}
+
+		});
+	});
+	//change slDept
+	$('#slDept').change(function()
+	{
+		var dept_id = $(this).find('option:selected').val();
+
+		$("#slStock option[dept_id][dept_id='" + dept_id + "']")
+				.show();
+		$("#slStock option[dept_id][dept_id='" + dept_id + "']")
+				.css("display", "block");
+		$(
+				"#slStock option[dept_id][dept_id!='" + dept_id
+						+ "']").hide();
+
+		$('#slStock').chosen('destroy');
+		$('#slStock').prop("selectedIndex", -1);
+		$('#slStock').chosen();
+
+	});
+	jQuery(window).load(function()
+	{
+		$(".numberic").numeric();
+	});
+	function onSUbmitFormEditIncrement()
+	{
+		var isTrue = false;
+		jQuery('.chosen-select').each(function(i){
+			
+			var id = $(this).attr("id");
+			if(!jQuery('#'+id).valid())
+				isTrue = true;
+		});
+		if(isTrue)
+			return false;
+		var $valid = jQuery('#editIncrementAsset').valid();
+		if (!$valid)
+		{
+			$validator.focusInvalid();
+			return false;
+		} else
+		{
+			
+			jQuery('#editIncrementAsset').submit();
+		}
+	}
+</script>
+{% endblock scripts%}

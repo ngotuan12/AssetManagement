@@ -6,7 +6,7 @@ from myapp.views import Home, \
 User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
 , EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset\
-,UpgradeAsset
+,UpgradeAsset,EditIncrementAsset
 
 
 admin.autodiscover()
@@ -43,6 +43,8 @@ urlpatterns = patterns('',
     url(r'^function-list$', FunctionList.index, name='function-list'),
     # increment asset
     url(r'^increment-asset/$', IncrementAsset.index, name='increment-asset'),
+    # edit increment asset
+    url(r'^edit-increment-asset/(?P<asset_id>\w+)/$', EditIncrementAsset.index),
     # view Asset
     url(r'^view-asset/$', ViewAsset.index),
     # upgrade asset

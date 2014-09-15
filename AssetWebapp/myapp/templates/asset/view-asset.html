@@ -104,7 +104,7 @@
 										<th>GIÁ TRỊ CÒN LẠI</th>
 										<th>TRẠNG THÁI</th>
 										<th>XUẤT XỨ</th>
-										<th style="width: 10%;">NGÀY TẠO</th> 
+										<th style="width: 8%;"></th> 
 										<th></th> 
 									</tr>
 								</thead>
@@ -118,10 +118,10 @@
 										<td class="currency" style="text-align: right;">{{ asset.remain_value }}</td>
 										<td >{{ asset.state.name }}</td>
 										<td >{{ asset.country.name }}</td>
-										<td style="text-align: center;"> {{ asset.import_date|date:'d-m-Y' }}</td>
-										<!-- <td class="table-action">
-											<a href="#" id="btn-print" serial="{{ asset.serial }}"><i class="fa fa-print mr5"></i></a>
-										</td> -->
+										<td class="table-action">
+											<a href="/edit-increment-asset/{{ asset.id }}/"><i class="fa fa-pencil"></i></a>
+											<a href="#" class="delete-row"><i class="fa fa-trash-o"></i></a>
+										</td>
 										<td class="table-action">
 											<a onclick="onPrint('{{ asset.id }}');"><i class="fa fa-print mr5"></i></a>
 										</td>

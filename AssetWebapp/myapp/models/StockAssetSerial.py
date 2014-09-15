@@ -12,7 +12,7 @@ from myapp.models.List import List
 from myapp.models.Stock import Stock
 from myapp.util.sequence import update_id
 from myapp.models.Supplier import Supplier
-
+from myapp.models.Reason import Reason
 
 # Create your models here.
 class StockAssetSerial(models.Model):
@@ -25,6 +25,8 @@ class StockAssetSerial(models.Model):
     import_date = models.DateField(db_column="import_date")
     use_date = models.DateField(db_column="use_date")
     change_date = models.DateField(db_column="change_date")
+    product_date = models.DateField(db_column="product_date")
+    decision_date = models.DateField(db_column="decision_date")
     state = models.ForeignKey(List,db_column="state_id")
     goal = models.ForeignKey(List,db_column="goal_id")
     country = models.ForeignKey(Country,db_column="country_id")
@@ -32,7 +34,7 @@ class StockAssetSerial(models.Model):
     capital = models.ForeignKey(List,db_column="capital_id")
     amortize = models.ForeignKey(List,db_column="amortize_id")
     project_id = models.CharField(max_length=100,db_column="project_id")
-    reason = models.ForeignKey(List,db_column="reason_id")
+    reason = models.ForeignKey(Reason,db_column="reason_id")
     unit = models.CharField(max_length=100,db_column="unit")
     product_date = models.DateTimeField(db_column="product_date")
     power = models.IntegerField(db_column="power")
@@ -45,6 +47,9 @@ class StockAssetSerial(models.Model):
     name = models.CharField(max_length=50,db_column="name")
     note =  models.CharField(max_length=50,db_column="note")
     status = models.CharField(max_length=50,db_column="status")
+    seri = models.CharField(max_length=50,db_column="seri")
+    model = models.CharField(max_length=50,db_column="model")
+    quantity = models.IntegerField(max_length=10,db_column="quantity")
     class Meta:
         db_table = 'stock_asset_serial'
         app_label = 'myapp'

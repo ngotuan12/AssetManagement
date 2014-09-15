@@ -29,5 +29,6 @@ class ModulePermission(models.Model):
             ("inventory_asset_report", "Có thể xuất báo cáo kiểm kê tài sản"),
             ("summarize_inventorry_asset_report", "Có thể xuất báo cáo tổng hợp kiểm kê tài sản"),
             ("upgrade_asset", "Có thể nâng cấp tài sản"),
-            ("asset_type", "Có thể quản lý loại tài sản")
+            ("asset_type", "Có thể quản lý loại tài sản"),
+            ("edit_increment_asset", "Có thể sửa thông tin tài sản"),
         )

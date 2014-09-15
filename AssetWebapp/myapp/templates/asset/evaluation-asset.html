@@ -27,13 +27,13 @@
 									<div class="form-group">
 										<label class="control-label"> Đơn vị </label>
 										<select id="slDept" class="form-control chosen-select"
-											data-placeholder="Đơn vị" style="display: none;"
-											name = "slDept">
+											data-placeholder="Đơn vị" name = "slDept" required>
 											<option value=""></option>
 											{% for dept in depts %}
 												<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 											{% endfor%}
 										</select>
+										<label for="slDept" class="error" style="display: none;">Trường này không được để trống</label>
 									</div>
 									
 								</div>
@@ -42,9 +42,10 @@
 										<label class="control-label"> Kho </label>
 										<select id="slStock" class="form-control chosen-select"
 											data-placeholder="Kho" style="display: none;"
-											name = "slStock" disabled="disabled">
+											name = "slStock" disabled="disabled" required>
 											<option value=""></option>
 										</select>
+										<label for="slStock" class="error" style="display: none;">Trường này không được để trống</label>
 									</div>
 									
 								</div>
@@ -54,10 +55,11 @@
 										<select id="slSerial" class="form-control chosen-select"
 											data-placeholder="Số thẻ TSCĐ"
 											style="display: none;"
-											name = "slSerial" disabled="disabled">
+											name = "slSerial" disabled="disabled" required>
 											<option value=""></option>
 											<option value="United States">TTVTT</option>
 										</select>
+										<label for="slSerial" class="error" style="display: none;">Trường này không được để trống</label>
 									</div>
 									
 								</div>
@@ -81,12 +83,13 @@
 								<div class="form-group">
 									<label class="control-label"> Trạng thái</label>
 									<select id="slState" name="slState"class="form-control chosen-select"
-										data-placeholder="Trạng thái ..." style="display: ;">
+										data-placeholder="Trạng thái ..." required>
 										<option value=""></option>
 										{% for state in states%}
 											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 										{% endfor %}
 									</select>
+									<label for="slState" class="error" style="display: none;">Trường này không được để trống</label>
 								</div>
 							</div>
 							
@@ -215,6 +218,15 @@ function hideNotification()
 }
 function onSubmitFormEvaluation()
 {
+	var isTrue = false;
+	jQuery('.chosen-select').each(function(i){
+		
+		var id = $(this).attr("id");
+		if(!jQuery('#'+id).valid())
+			isTrue = true;
+	});
+	if(isTrue)
+		return false;
 	var $valid = jQuery('#evaluationAsset').valid();
 	if(!$valid) 
 	{
@@ -222,6 +234,7 @@ function onSubmitFormEvaluation()
 		return false;
 	}
 	jQuery('#evaluationAsset').submit();
+	
 }
 function onGetCode(stock_id)
 {
