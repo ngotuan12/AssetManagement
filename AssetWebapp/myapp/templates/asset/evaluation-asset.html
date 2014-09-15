@@ -33,7 +33,7 @@
 												<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 											{% endfor%}
 										</select>
-										<label for="slDept" class="error" style="display: none;">Trường này không được để trống</label>
+										<label for="slDept" class="error" >Trường này không được để trống</label>
 									</div>
 									
 								</div>
@@ -41,11 +41,11 @@
 									<div class="form-group">
 										<label class="control-label"> Kho </label>
 										<select id="slStock" class="form-control chosen-select"
-											data-placeholder="Kho" style="display: none;"
+											data-placeholder="Kho" 
 											name = "slStock" disabled="disabled" required>
 											<option value=""></option>
 										</select>
-										<label for="slStock" class="error" style="display: none;">Trường này không được để trống</label>
+										<label for="slStock" class="error" >Trường này không được để trống</label>
 									</div>
 									
 								</div>
@@ -53,13 +53,12 @@
 									<div class="form-group">
 										<label class="control-label"> Số thẻ TSCD </label>
 										<select id="slSerial" class="form-control chosen-select"
-											data-placeholder="Số thẻ TSCĐ"
-											style="display: none;"
+											data-placeholder="Số thẻ TSCĐ" 
 											name = "slSerial" disabled="disabled" required>
 											<option value=""></option>
 											<option value="United States">TTVTT</option>
 										</select>
-										<label for="slSerial" class="error" style="display: none;">Trường này không được để trống</label>
+										<label for="slSerial" class="error" >Trường này không được để trống</label>
 									</div>
 									
 								</div>
@@ -89,7 +88,7 @@
 											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 										{% endfor %}
 									</select>
-									<label for="slState" class="error" style="display: none;">Trường này không được để trống</label>
+									<label for="slState" class="error" >Trường này không được để trống</label>
 								</div>
 							</div>
 							
@@ -218,7 +217,7 @@ function hideNotification()
 }
 function onSubmitFormEvaluation()
 {
-	var isTrue = false;
+	/* var isTrue = false;
 	jQuery('.chosen-select').each(function(i){
 		
 		var id = $(this).attr("id");
@@ -226,7 +225,7 @@ function onSubmitFormEvaluation()
 			isTrue = true;
 	});
 	if(isTrue)
-		return false;
+		return false; */
 	var $valid = jQuery('#evaluationAsset').valid();
 	if(!$valid) 
 	{
