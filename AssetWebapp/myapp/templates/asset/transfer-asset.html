@@ -51,10 +51,11 @@
 										<label class="control-label"> Số thẻ TSCD </label>
 										<select id="slSerialSource" class="form-control chosen-select"
 											data-placeholder="Số thẻ TSCĐ" 
-											name = "slSerialSource" disabled="disabled">
+											name = "slSerialSource" disabled="disabled" required="required">
 											<option value=""></option>
 											<option value="United States">TTVTT</option>
 										</select>
+										<label for="slSerialSource" class="error" style="display: none;">Trường không được để trống</label>
 									</div>
 									
 								</div>
@@ -64,12 +65,13 @@
 										<label class="control-label"> Người chuyển </label>
 											<select id="slStaff" class="form-control chosen-select"
 												data-placeholder="Người chuyển..." 
-												name = "slStaff">
+												name = "slStaff" required="required">
 												<option value=""></option>
 												{% for staff in staffs %}
 													<option value="{{ staff.id }}">{{ staff.name }}</option>
 												{% endfor %}
 											</select>
+											<label for="slStaff" class="error" style="display: none;">Trường không được để trống</label>
 									</div>
 								</div>
 								
@@ -121,9 +123,10 @@
 										<label class="control-label"> Kho chuyển đến </label>
 											<select id="slStockDes" class="form-control chosen-select"
 												data-placeholder="chuyển đến" 
-												name = "slStockDes" disabled="disabled">
+												name = "slStockDes" disabled="disabled" required="required">
 												<option value=""></option>
 											</select>
+											<label for="slStockDes" class="error" style="display: none;">Trường không được để trống</label>
 									</div>
 								</div>
 								
@@ -185,21 +188,27 @@ $(document).ready(function(){
 	var endDate=new Date();
 	$('#dt_transfer').datepicker({
 		dateFormat: 'dd/mm/yy',
+		maxDate: '0',
 		});
 	$("#dt_transfer").datepicker("setDate",new Date());
 	// Input Masks
 	$("#dt_transfer").mask("99/99/9999");
 	$( "#slDeptSoure" ).change(function() {
+		clearVal();
 		var dept_id =$(this).find('option:selected').val()
 		var id_name ='slStockSource';
 		onGetStock(dept_id,id_name);
 	});
-	
+	$("#slStaff").change(function()
+	{
+		$(".error[for][for='slStaff']").hide();
+	});
 	$( "#slStockSource" ).change(function() {
 		var id_name ='slSerialSource';
 		onGetCode($(this).find('option:selected').val(),id_name);
 	});
 	$( "#slSerialSource" ).change(function() {
+		$(".error[for][for='slSerialSource']").hide();
 	});
 	
 	$( "#slDeptDes" ).change(function() {
@@ -209,12 +218,22 @@ $(document).ready(function(){
 	});
 	
 	$("#slStockDes" ).change(function() {
+		$(".error[for][for='slStockDes']").hide();
 		var id_name ='slSerialDes';
 		onGetCode($(this).find('option:selected').val(),id_name);
 	});
 });
 function onSubmitFormTransfer()
 {
+	var isTrue = false;
+	jQuery('.chosen-select').each(function(i){
+		var id = $(this).attr("id");
+		if(!jQuery('#'+id).valid())
+			isTrue = true;
+	});
+	if(isTrue)
+		return false;
+	
 	var $valid = jQuery('#transferAsset').valid();
 	if(!$valid) 
 	{
@@ -276,8 +295,15 @@ function onGetStock(dept_id,id_name)
 				if($("#slStockSource").val().toString() != stock.id.toString())
 					$('#'+id_name).append(option);
 			}
+				else if(id_name == "slStockSource")
+				{
+					if($("#slStockDes").val().toString() != stock.id.toString())
+						$('#'+id_name).append(option);
+				}
 			else
+			{
 				$('#'+id_name).append(option);
+			}
 		}
 		$('#'+id_name).chosen('destroy');
 		$('#'+id_name).prop("selectedIndex", -1);
@@ -285,6 +311,12 @@ function onGetStock(dept_id,id_name)
 	});
 }
 
+function clearVal()
+{
+		$('#slSerialSource').prop("disabled", true);
+		$('#slSerialSource option[value!=""]').remove();
+		$("#slSerialSource").prop("selectedIndex", -1).chosen('destroy').chosen();
+}
 
 function onGetSerial(stock_id)
 {
