@@ -97,7 +97,7 @@
 										<label class="control-label">Giá trị còn lại</label>
 											<input type="text" 
 												name = "txtRemainAmount"class="form-control numberic" value="{{ serial.remain_value }}"
-												required maxlength="10">
+												required maxlength="20">
 									</div>
 								</div>
 								
@@ -138,12 +138,13 @@
 									<div class="form-group">
 										<label class="control-label">Người chuyển</label>
 										<select id="slStaff" name="slStaff" class="form-control chosen-select"
-											data-placeholder="Người kiểm kê" >
+											data-placeholder="Người kiểm kê" required="required">
 											<option value=""></option>
 											{% for staff in staffs %}
 												<option value="{{ staff.code }}">{{ staff.name }}</option>
 											{% endfor %}
 										</select>
+										<label for="slStaff" class="error" style="display: none;">Trường không được để trống</label>
 									</div>
 								</div>
 								
@@ -194,13 +195,26 @@
 		  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 		  
 		// Date Picker
-		  $('#dt_verify').datepicker({dateFormat: 'dd/mm/yy',});
+		  $('#dt_verify').datepicker({dateFormat: 'dd/mm/yy',maxDate: '0',});
 		//set default date now
 		 $("#dt_verify").datepicker("setDate",new Date());
 		  // Input Masks
 		  $("#dt_verify").mask("99/99/9999");
+		  $( "#slStaff" ).change(function() {
+			  $(".error[for][for='slStaff']").hide();
+		  });
 	});
 	function onValidate() {
+		
+		var isTrue = false;
+		jQuery('.chosen-select').each(function(i){
+			var id = $(this).attr("id");
+			if(!jQuery('#'+id).valid())
+				isTrue = true;
+		});
+		if(isTrue)
+			return false;
+		
 		var $valid = jQuery('#form-verify-asset-edit').validate();
 		if (!$valid) {
 			$validator.focusInvalid();
