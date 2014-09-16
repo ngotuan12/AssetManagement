@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+	<link href="/css/print-preview.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="contentpanel no-padding" style="background: #828283">
+	<form class="form-horizontal form-bordered" method="post" id="viewAsset">
+		{% csrf_token %}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">DANH SÁCH DỰ ÁN</h4>
+			</div>
+			
+			<div class="panel-body">
+				{% if has_error %}
+					<div class="panel">
+						<label class="error">{{ has_error }}</label>
+					</div>
+				{% endif %}
+				<div class="form-group">
+					<div class="col-sm" >
+						<div class="table-responsive">
+							<table class="table table-bordered" id="assetTable">
+								<thead>
+									<tr>
+										<th>STT</th>
+										<th style="width: 12%;">MÃ TÀI SẢN </th>
+										<th style="width: 25%;">TÊN TÀI SẢN </th>
+										<th>NGUYÊN GIÁ</th>
+										<th>GIÁ TRỊ CÒN LẠI</th>
+										<th>TRẠNG THÁI</th>
+										<th>XUẤT XỨ</th>
+										<th style="width: 8%;"></th> 
+										<th></th> 
+									</tr>
+								</thead>
+								<tbody>
+									{% for asset in stockeAssets %}
+									<tr class="odd gradeX" asset_id ="{{ asset.asset.id }}" asset_code="{{ asset.asset.code }}">
+										<td>{{ forloop.counter }}</td>
+										<td>{{ asset.serial }}</td>
+										<td>{{ asset.name }}</td>
+										<td class="currency" style="text-align: right;">{{ asset.original_value }}</td>
+										<td class="currency" style="text-align: right;">{{ asset.remain_value }}</td>
+										<td >{{ asset.state.name }}</td>
+										<td >{{ asset.country.name }}</td>
+										<td class="table-action">
+											<a href="/edit-increment-asset/{{ asset.id }}/"><i class="fa fa-pencil"></i></a>
+											<a href="#" class="delete-row"><i class="fa fa-trash-o"></i></a>
+										</td>
+										<td class="table-action">
+											<a onclick="onPrint('{{ asset.id }}');"><i class="fa fa-print mr5"></i></a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<!-- table-responsive -->
+					</div> <!--row-->
+				</div>
+			</div>
+			<!-- panel-body -->
+		</div>
+		<!-- panel body-->
+	</form>
+</div>
+
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.datatables.min.js"></script>
+
+<script src="/js/print.js"></script>
+<script src="/js/custom.js"></script>
+
+<script>
+$(document).ready(function(){
+  // Chosen Select
+  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+ 
+  $('#assetTable').dataTable({
+		"sPaginationType" : "full_numbers"
+	});
+  $(".table-responsive  select").chosen({
+		'min-width' : '150px',
+		'white-space' : 'nowrap',
+		disable_search_threshold : 10
+	});
+});
+</script>
+{% endblock scripts%}

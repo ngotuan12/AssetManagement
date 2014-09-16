@@ -6,7 +6,8 @@ from myapp.views import Home, \
 User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
 , EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset\
-, UpgradeAsset, EditIncrementAsset, AssetType, Department
+, UpgradeAsset, EditIncrementAsset, AssetType, Department\
+,ListProject
 
 
 admin.autodiscover()
@@ -64,6 +65,8 @@ urlpatterns = patterns('',
     url(r'^evaluation-asset/$', EvaluationAsset.index),
     # evaluation asset
     url(r'^transfer-asset/$', TransferAsset.index),
+    # list project
+    url(r'^list-project/$', ListProject.index),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 
