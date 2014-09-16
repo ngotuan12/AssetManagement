@@ -26,41 +26,43 @@
 									<label>Bộ phận</label>
 									<select id="slDept" class="form-control chosen-select"
 										data-placeholder="Bộ phận" 
-										name = "slDept">
+										name = "slDept" required="required">
 										<option value=""></option>
 										{% for dept in depts %}
 											<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 										{% endfor%}
 									</select>
+									<label for="slDept" class="error" style="display: none;">Trường không được để trống</label>
 								</div>
 								<div class="col-lg-4">
 									<label>Kho</label>
 									<select id="slStock" class="form-control chosen-select"
 										data-placeholder="Kho" 
-										name = "slStock" disabled="disabled">
+										name = "slStock" disabled="disabled" required="required">
 										<option value=""></option>
 									</select>
+									<label for="slStock" class="error" style="display: none;">Trường không được để trống</label>
 								</div>
 								<div class="col-lg-4">
 									<label>Số thẻ TSCĐ</label>
 									<select id="slSerial" class="form-control chosen-select"
 										data-placeholder="Số thẻ TSCĐ" 
-										name = "slSerial" disabled="disabled">
+										name = "slSerial" disabled="disabled" required="required">
 										<option value=""></option>
-										<option value="United States">TTVTT</option>
 									</select>
+									<label for="slSerial" class="error" style="display: none;">Trường không được để trống</label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-3">
 									<label>Chi phí nâng cấp</label>
 									<input type="text" name="txtCostAmount" id="cost-amount"
-										placeholder="Chi phí nâng cấp ..." class="form-control numberic" required maxlength="10">
+										placeholder="Chi phí nâng cấp ..." class="form-control numberic" required maxlength="15">
 								</div>
 								
 								<div class="col-lg-3">
 									<label>Thời gian sử dụng</label>
-									<input type="text" name="txtInterval" placeholder="Thời gian sử dụng..." class="form-control numberic" required maxlength="2">
+									<input type="text" id="txtInterval" name="txtInterval" placeholder="Thời gian sử dụng..." class="form-control numberic" required maxlength="2">
 								</div>
 								
 								<div class="col-lg-3">
@@ -89,7 +91,7 @@
 							
 							<div class="row">
 								<div class="col-lg">
-									<textarea class="form-control" name="txtNote" rows="4"
+									<textarea class="form-control" id="txtNote" name="txtNote" rows="4"
 										placeholder="Ghi chú" required></textarea>
 								</div>
 							</div>
@@ -150,19 +152,26 @@ $(document).ready(function(){
 	$('#dtUpgradeDate').mask("99/99/9999");
 	
 	$( "#slDept" ).change(function() {
+		$(".error[for][for='slDept']").hide();
+		clearVal('dept');
 		onGetStock($(this).find('option:selected').val());
 	});
 	
 	$( "#slStock" ).change(function() {
+		$(".error[for][for='slStock']").hide();
+		clearVal('stock');
 		onGetCode($(this).find('option:selected').val());
 	});
 	$( "#slSerial" ).change(function() {
-		var original = $(this).find('option:selected').attr('original-value');
-		var remain = $(this).find('option:selected').attr('remain-value');
+		$(".error[for][for='slSerial']").hide();
+		clearVal('serial');
 		var asset_id = $(this).find('option:selected').attr('asset-id');
-		$("#original-amount").val(original);
-		$("#remain-amount").val(remain);
+		var state_id = $(this).find('option:selected').attr('state_id');
+		var goad_id = $(this).find('option:selected').attr('goal_id')
+		
 		$("#txtAssetID").val(asset_id);
+		$("#slState").val(state_id).chosen('destroy').chosen();
+		$("#slGoal").val(goad_id).chosen('destroy').chosen();
 	});
 	
 	
@@ -181,6 +190,12 @@ $(document).ready(function(){
 });
 function onSubmitFormUpgrade()
 {
+	if(!jQuery('#slDept').valid())
+		return false;
+	if(!jQuery('#slStock').valid())
+		return false;
+	if(!jQuery('#slSerial').valid())
+		return false;
 	var $valid = jQuery('#upgradeAsset').valid();
 	if(!$valid) 
 	{
@@ -206,16 +221,34 @@ function onGetCode(stock_id)
 			serial = serials[i];
 			option = $("<option></option>")
 			option.attr("value",serial.serial)
-			option.attr("original-value",serial.original_value)
-			option.attr("remain-value",serial.remain_value)
 			option.attr("asset-id",serial.asset)
-			option.text(serial.serial)
+			option.attr("state_id",serial.state)
+			option.attr("goal_id",serial.goal)
+			
+			option.text(serial.serial +"-" + serial.name)
 			$('#slSerial').append(option)
 		}
 		$('#slSerial').chosen('destroy');
 		$('#slSerial').prop("selectedIndex", -1);
 		$('#slSerial').chosen();
 	});
+}
+function clearVal( slName ){
+	
+	if(slName == "dept")
+	{
+		$('#slSerial').prop("disabled", true);
+		$('#slSerial option[value!=""]').remove();
+		$("#slSerial").prop("selectedIndex", -1).chosen('destroy').chosen();
+	}
+	$("#slState").prop("selectedIndex", -1).chosen('destroy').chosen();
+	$("#slGoal").prop("selectedIndex", -1).chosen('destroy').chosen();
+	
+	$("#txtAssetID").val('');
+	$("#txtInterval").val('');
+	$("#cost-amount").val('');
+	$("#hd_cus_amount").val('');
+	$("#txtNote").val('');
 }
 function onGetStock(dept_id)
 {
