@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="contentpanel no-padding" style="background: #828283">
+	<div class="col-md">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">THAY ĐÔI THÔNG TIN DỰ ÁN</h4>
+			</div>
+			<form method="post" novalidate="novalidate" id="editProject">
+				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
+				{% csrf_token %}
+				<div class="panel-body">
+					{% if has_error %}
+						<div class="panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+					<div class="row row-pad-5">
+						<div class="alert alert-info">
+							<div class="row">
+								<input type="hidden" name="hd_project_id" value="{{ project.id }}">
+								<input type="hidden" name="hd_dt_project" id="hd_dt_project" value="{{ project.create_datetime|date:'d/m/Y' }}">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> Mã dự án</label>
+										<input type="text" name="txtCode" class="form-control" value="{{ project.code }}" placeholder="Mã dự án" required="required" maxlength="50">
+									</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> Tên dự án</label>
+										<input type="text" name="txtName" class="form-control" value="{{ project.name }}" placeholder="Tên dự án ..." required="required" maxlength="100">
+									</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label">Ngày chuyển</label>
+										<div class="input-group">
+											<input type="text" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tạo" id="dt_project"
+												name = "dt_project" required>
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class="col-lg">
+									<div class="form-group">
+											<textarea class="form-control" name="txtDescription" rows="5"
+												placeholder="Mô tả" required>{{ project.description }}</textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm col-sm-offset-5">
+							<!-- <button class="btn btn-primary">In biên bản</button> -->
+							<button class="btn btn-primary" onclick="return onSubmitFormEditProject();">Thực hiện</button>
+						</div>
+					</div>
+				</div>
+				<!-- panel body-->
+			</form>
+		</div>
+		<!-- panel -->
+	</div>
+</div>
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+
+
+<script src="/js/custom.js"></script>
+
+<script>
+$(document).ready(function(){
+// Chosen Select
+	$(".chosen-select").chosen({
+		'width' : '100%',
+		'white-space' : 'nowrap'
+	});
+	// Date Picker
+	var endDate=new Date();
+	$('#dt_project').datepicker({
+		dateFormat: 'dd/mm/yy',
+		maxDate: '0',
+		});
+	var current_date = $("#hd_dt_project").val();
+	$("#dt_project").datepicker("setDate",current_date);
+	// Input Masks
+	$("#dt_project").mask("99/99/9999");
+	
+});
+function onSubmitFormEditProject()
+{
+	var $valid = jQuery('#editProject').valid();
+	if(!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#editProject').submit();
+}
+function onGetCode(stock_id,id_name)
+{
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-serial"+"/"+stock_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		serials = data.serials;
+		if(stocks.length>0)
+			$('#'+id_name).prop("disabled", false);
+		$('#'+ id_name +' option[value!=""]').remove();
+		for(var i=0;i<serials.length ;i++)
+		{
+			serial = serials[i];
+			option = $("<option></option>")
+			option.attr("value",serial.id)
+			option.attr("original-value",serial.original_value)
+			option.attr("remain-value",serial.remain_value)
+			option.attr("asset-id",serial.asset)
+			option.attr("state-id",serial.state)
+			option.text(serial.serial)
+			$('#'+id_name).append(option)
+		}
+		$('#'+ id_name).chosen('destroy');
+		$('#'+ id_name).prop("selectedIndex", -1);
+		$('#'+ id_name).chosen();
+	});
+}
+
+jQuery(window).load(function(){ 
+});
+</script>
+{% endblock scripts%}

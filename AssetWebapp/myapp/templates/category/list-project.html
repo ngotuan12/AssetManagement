@@ -43,7 +43,7 @@
 										<td >{{ project.create_datetime|date:'d-m-Y' }}</td>
 										<td class="table-action">
 											<a href="/edit-project/{{ project.id }}/"><i class="fa fa-pencil"></i></a>
-											<a href="#" class="delete-row"><i class="fa fa-trash-o"></i></a>
+											<a href="#" onclick="DeleteProject();" class="delete-row"><i class="fa fa-trash-o"></i></a>
 										</td>
 									</tr>
 									{% endfor %}
@@ -52,6 +52,11 @@
 						</div>
 						<!-- table-responsive -->
 					</div> <!--row-->
+				</div>
+				<div class="row">
+					<div class="breadcrumb-wrapper">
+						<a class="btn btn-success" href="/project/add/">Thêm dự án</a>
+					</div>
 				</div>
 			</div>
 			<!-- panel-body -->
@@ -76,6 +81,7 @@
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/jquery-ui-1.10.3.min.js"></script>
 <script src="/js/jquery.datatables.min.js"></script>
+<script src="js/jquery.confirm.js"></script>
 
 <script src="/js/print.js"></script>
 <script src="/js/custom.js"></script>
@@ -94,5 +100,21 @@ $(document).ready(function(){
 		disable_search_threshold : 10
 	});
 });
+function DeleteProject()
+{
+	alert();
+	$.confirm({
+		text : "Xóa bản ghi?",
+		confirm : function(button)
+		{
+			//
+		},
+		cancel : function(button)
+		{
+
+		}
+	});
+}
+
 </script>
 {% endblock scripts%}
