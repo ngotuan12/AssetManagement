@@ -190,12 +190,16 @@ $(document).ready(function(){
 });
 function onSubmitFormUpgrade()
 {
-	if(!jQuery('#slDept').valid())
+	var isTrue = false;
+	jQuery('.chosen-select').each(function(i){
+		
+		var id = $(this).attr("id");
+		if(!jQuery('#'+id).valid())
+			isTrue = true;
+	});
+	if(isTrue)
 		return false;
-	if(!jQuery('#slStock').valid())
-		return false;
-	if(!jQuery('#slSerial').valid())
-		return false;
+	
 	var $valid = jQuery('#upgradeAsset').valid();
 	if(!$valid) 
 	{
