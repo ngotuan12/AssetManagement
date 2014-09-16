@@ -67,6 +67,8 @@ urlpatterns = patterns('',
     url(r'^transfer-asset/$', TransferAsset.index),
     # list project
     url(r'^list-project/$', ListProject.index),
+        # edit project
+    url(r'^edit-project/(?P<project_id>\w+)/$', ListProject.edit_project),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 

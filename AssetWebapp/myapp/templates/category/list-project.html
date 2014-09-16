@@ -25,33 +25,25 @@
 							<table class="table table-bordered" id="assetTable">
 								<thead>
 									<tr>
-										<th>STT</th>
-										<th style="width: 12%;">MÃ TÀI SẢN </th>
-										<th style="width: 25%;">TÊN TÀI SẢN </th>
-										<th>NGUYÊN GIÁ</th>
-										<th>GIÁ TRỊ CÒN LẠI</th>
-										<th>TRẠNG THÁI</th>
-										<th>XUẤT XỨ</th>
-										<th style="width: 8%;"></th> 
-										<th></th> 
+										<th style="width: 5%;">STT</th>
+										<th style="width: 10%;">MÃ TÀI SẢN </th>
+										<th style="width: 35%;">TÊN TÀI SẢN </th>
+										<th >MÔ TẢ</th>
+										<th style="width: 10%;">NGÀY TẠO</th>
+										<th style="width: 10%;"></th> 
 									</tr>
 								</thead>
 								<tbody>
-									{% for asset in stockeAssets %}
+									{% for project in projects %}
 									<tr class="odd gradeX" asset_id ="{{ asset.asset.id }}" asset_code="{{ asset.asset.code }}">
 										<td>{{ forloop.counter }}</td>
-										<td>{{ asset.serial }}</td>
-										<td>{{ asset.name }}</td>
-										<td class="currency" style="text-align: right;">{{ asset.original_value }}</td>
-										<td class="currency" style="text-align: right;">{{ asset.remain_value }}</td>
-										<td >{{ asset.state.name }}</td>
-										<td >{{ asset.country.name }}</td>
+										<td>{{ project.code }}</td>
+										<td>{{ project.name }}</td>
+										<td >{{ project.description }}</td>
+										<td >{{ project.create_datetime|date:'d-m-Y' }}</td>
 										<td class="table-action">
-											<a href="/edit-increment-asset/{{ asset.id }}/"><i class="fa fa-pencil"></i></a>
+											<a href="/edit-project/{{ project.id }}/"><i class="fa fa-pencil"></i></a>
 											<a href="#" class="delete-row"><i class="fa fa-trash-o"></i></a>
-										</td>
-										<td class="table-action">
-											<a onclick="onPrint('{{ asset.id }}');"><i class="fa fa-print mr5"></i></a>
 										</td>
 									</tr>
 									{% endfor %}
