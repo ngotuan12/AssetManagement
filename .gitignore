@@ -1,9 +1,9 @@
 /.metadata
-
 *.pyc
 *.class
 sqlnet.log
 /AssetWebapp/log
+/AssetWebapp/.settings
 /AssetWebapp/sqlnet.log
 /AssetServer/build
 /AssetServer/jar

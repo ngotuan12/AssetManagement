@@ -8,29 +8,35 @@
 	margin-bottom: 10px;
 	border: 1px solid #617775;
 	background: #f0f6e4;
-	height: 500px;
+	height: 520px;
 	overflow-y: scroll;
 	overflow-x: auto;
+}
+
+.ztree li span.button.add {
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle
 }
 </style>
 {% endblock %} 
 {% block content %}
-
 <div class="contentpanel">
 	<div class="panel panel-primary">
 		<div class="panel-body" style="padding: 0 10px;">
 			<div class="row row-pad-0">
-				<div class="col-md-4" style="BORDER-RIGHT: #999999 1px dashed;">
+				<div class="col-md-5" style="BORDER-RIGHT: #999999 1px dashed;">
 					<p >Danh sách phòng ban</p>
 						<ul id="treeDemo" class="ztree"></ul>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-7">
 					<p> Chi tiết</p>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 <!-- contentpanel -->
 {% endblock %} 
@@ -47,13 +53,23 @@
 <script src="/js/jquery.datatables.min.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="/tree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.excheck-3.5.js"></script>
+	<script type="text/javascript" src="/tree/js/jquery.ztree.exedit-3.5.js"></script>
 <script src="/js/custom.js"></script>
 <script>
 jQuery(document).ready(function() {
 	var zNodes = {{ data|safe }};
-	alert(JSON.stringify(zNodes));
 	var setting = {
 		view: {
+			addHoverDom: addHoverDom,
+			removeHoverDom: removeHoverDom,
+			selectedMulti: false
+		},
+		edit: {
+			enable: true,
+			editNameSelectAll: true,
+			showRemoveBtn: true,
+			showRenameBtn: true,
 		},
 		data : {
 			simpleData : {
@@ -63,6 +79,25 @@ jQuery(document).ready(function() {
 	};
 	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 });
-
+var newCount = 1;
+function addHoverDom(treeId, treeNode) {
+	var sObj = $("#" + treeNode.tId + "_span");
+	if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+	var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+		+ "' title='add node' onfocus='this.blur();'></span>";
+	sObj.after(addStr);
+	var btn = $("#addBtn_"+treeNode.tId);
+	if (btn) btn.bind("click", function(){
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+		return false;
+	});
+};
+function removeHoverDom(treeId, treeNode) {
+	$("#addBtn_"+treeNode.tId).unbind().remove();
+};
+function showRemoveBtn(treeId, treeNode) {
+	return !treeNode.isFirstNode;
+}
 </script>
 {% endblock scripts%}

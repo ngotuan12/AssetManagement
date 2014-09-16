@@ -7,13 +7,11 @@ Created on Apr 3, 2014
 import json
 
 from django.contrib.auth.decorators import login_required
-from django.forms.models import model_to_dict
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 from myapp.models.Asset import Asset
 from myapp.models.StockAssetSerial import StockAssetSerial
-from myapp.util.DateEncoder import DateEncoder
 
 
 @login_required(login_url='/login/')
@@ -36,7 +34,6 @@ def tree(request):
 									"start with parent_id is null "+
 									"connect by prior id = parent_id ORDER BY code ")
 		infors =[]
-		
 		for asset in assets:
 			try:
 				infors.append({'id':asset.id,'pId':asset.parent_id.id,'name':asset.name})
