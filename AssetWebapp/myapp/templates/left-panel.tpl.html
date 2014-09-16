@@ -68,12 +68,14 @@
 				</ul></li> 
 			{% if user.is_superuser %}
 			<li class="nav-parent"><a href="#"><i class="fa fa-cogs"></i>
-					<span>CẤU HÌNH</span></a>
+					<span>Tài khoản/Phòng ban</span></a>
 				<ul class="children">
 					<li><a href="/user/"><i class="fa fa-caret-right"></i>
 							Quản lý tài khoản </a></li>
+					<li><a href="/department/"><i class="fa fa-caret-right"></i>
+							Quản lý phòng ban </a></li>
 					<li><a href="/group/"><i class="fa fa-caret-right"></i>
-							Danh sách phòng ban</a></li>
+							Danh sách nhóm quyền </a></li>
 			</ul></li> 
 			{% endif %}
 			<li><a href="/logout/"><i class="fa fa-sign-out"></i> <span>ĐĂNG
@@ -84,28 +86,28 @@
 				<ul>
 					<li>
 						<div class="datainfo">
-							<span class="text-muted">Average Users</span>
-							<h4>1, 332, 801</h4>
+							<span class="text-muted">Số lượng tài sản</span>
+							<h4>10,000</h4>
 						</div>
 						<div id="sidebar-chart2" class="chart"></div>
 					</li>
 					<li>
 						<div class="datainfo">
-							<span class="text-muted">Disk Usage</span>
+							<span class="text-muted">Tổng nguyên giá</span>
 							<h4>82.2%</h4>
 						</div>
 						<div id="sidebar-chart3" class="chart"></div>
 					</li>
 					<li>
 						<div class="datainfo">
-							<span class="text-muted">CPU Usage</span>
+							<span class="text-muted">Giá trị hiện tại</span>
 							<h4>140.05 - 32</h4>
 						</div>
 						<div id="sidebar-chart4" class="chart"></div>
 					</li>
 					<li>
 						<div class="datainfo">
-							<span class="text-muted">Memory Usage</span>
+							<span class="text-muted">Số tài sản đang sử dụng</span>
 							<h4>32.2%</h4>
 						</div>
 						<div id="sidebar-chart5" class="chart"></div>
