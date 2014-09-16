@@ -6,7 +6,7 @@ from myapp.views import Home, \
 User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
 , EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset\
-,UpgradeAsset,EditIncrementAsset, AssetType
+, UpgradeAsset, EditIncrementAsset, AssetType, Department
 
 
 admin.autodiscover()
@@ -39,6 +39,8 @@ urlpatterns = patterns('',
                   name='password_reset_confirm'),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'signin.html'}, name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': 'login'}),
+    # Department
+    url(r'^department/$', Department.index, name='department'),
     # Function List
     url(r'^function-list$', FunctionList.index, name='function-list'),
     # increment asset

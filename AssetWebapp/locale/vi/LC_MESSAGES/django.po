@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-05 17:01+0700\n"
+"POT-Creation-Date: 2014-09-16 16:21+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,13 +22,76 @@ msgstr ""
 msgid "Test"
 msgstr "Thử"
 
-#: .\myapp\templates\change-password.html:16
+#: .\myapp\models\ModulePermission.py:19
+msgid "Có thể tăng tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:20
+msgid "Có thể giảm tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:21
+msgid "Có thể đánh giá lại tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:22
+msgid "Có thể chuyển đổi tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:23
+msgid "Có thể kiểm kê tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:24
+msgid "Có thể sửa kiểm kê tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:25
+msgid "Có thể tra cứu tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:26
+msgid "Có thể tách tài sản"
+msgstr ""
+
+#: .\myapp\templates\change-password-done.html:8
+msgid "Your password was changed."
+msgstr ""
+
+#: .\myapp\templates\change-password-done.html:9
+msgid "Back"
+msgstr "Quay lại"
+
+#: .\myapp\templates\change-password.html:9
+msgid "Password change"
+msgstr ""
+
+#: .\myapp\templates\change-password.html:10
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: .\myapp\templates\change-password.html:13
 msgid "Please correct the error below."
 msgstr "Hãy sửa những lỗi sau."
 
-#: .\myapp\templates\change-password.html:18
+#: .\myapp\templates\change-password.html:13
 msgid "Please correct the errors below."
 msgstr "Hãy sửa những lỗi sau."
 
-msgid "Back"
-msgstr "Quay lại"
+#: .\myapp\templates\change-password.html:26
+msgid "Old password"
+msgstr ""
+
+#: .\myapp\templates\change-password.html:39
+msgid "New password"
+msgstr ""
+
+#: .\myapp\templates\change-password.html:52
+msgid "Password (again)"
+msgstr ""
+
+#: .\myapp\templates\change-password.html:61
+msgid "Change my password"
+msgstr ""

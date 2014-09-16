@@ -4,7 +4,7 @@ Created on Aug 15, 2014
 
 @author: DienND
 '''
-
+from django.utils.translation import ugettext as _
 from django.db import models
 
 
@@ -16,19 +16,23 @@ class ModulePermission(models.Model):
         db_table = 'module_permission'
         app_label = 'myapp'
         permissions = (
-            ("increment_asset", "Có thể tăng tài sản"),
-            ("decrement_asset", "Có thể giảm tài sản"),
-            ("evaluation_asset", "Có thể đánh giá lại tài sản"),
-            ("transfer_asset", "Có thể chuyển đổi tài sản"),
-            ("verify_asset", "Có thể kiểm kê tài sản"),
-            ("verify_asset_edit", "Có thể sửa kiểm kê tài sản"),
-            ("view_asset", "Có thể tra cứu tài sản"),
-            ("release_asset", "Có thể tách tài sản"),
-            ("join_asset", "Có thể gộp tài sản"),
-            ("amortize_asset", "Có thể tính khấu hao tài sản"),
-            ("inventory_asset_report", "Có thể xuất báo cáo kiểm kê tài sản"),
-            ("summarize_inventorry_asset_report", "Có thể xuất báo cáo tổng hợp kiểm kê tài sản"),
-            ("upgrade_asset", "Có thể nâng cấp tài sản"),
-            ("asset_type", "Có thể quản lý loại tài sản"),
-            ("edit_increment_asset", "Có thể sửa thông tin tài sản"),
+            ("increment_asset", _(u"Có thể tăng tài sản")),
+            ("decrement_asset", _(u"Có thể giảm tài sản")),
+            ("evaluation_asset", _(u"Có thể đánh giá lại tài sản")),
+            ("transfer_asset", _(u"Có thể chuyển đổi tài sản")),
+            ("verify_asset", _(u"Có thể kiểm kê tài sản")),
+            ("verify_asset_edit", _(u"Có thể sửa kiểm kê tài sản")),
+            ("view_asset", _(u"Có thể tra cứu tài sản")),
+            ("release_asset", _(u"Có thể tách tài sản")),
+            ("join_asset", _(u"Có thể gộp tài sản")),
+            ("amortize_asset", _(u"Có thể tính khấu hao tài sản")),
+            ("inventory_asset_report", _(u"Có thể xuất báo cáo kiểm kê tài sản")),
+            ("summarize_inventorry_asset_report", _(u"Có thể xuất báo cáo tổng hợp kiểm kê tài sản")),
+            ("upgrade_asset", _(u"Có thể nâng cấp tài sản")),
+            ("asset_type", _(u"Có thể quản lý loại tài sản")),
+            ("edit_increment_asset", _(u"Có thể sửa thông tin tài sản")),
+            ("view_department", _(u"Xem thông tin phòng ban")),
+            ("add_department", _(u"Có thể sửa thông tin tài sản")),
+            ("edit_department", _(u"Có thể sửa thông tin tài sản")),
+            ("delete_department", _(u"Có thể sửa thông tin tài sản")),
         )
