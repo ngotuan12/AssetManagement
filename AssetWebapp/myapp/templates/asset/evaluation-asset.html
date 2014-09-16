@@ -33,7 +33,7 @@
 												<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 											{% endfor%}
 										</select>
-										<label for="slDept" class="error" >Trường này không được để trống</label>
+										<label for="slDept" class="error" style="display: none;">Trường không được để trống</label>
 									</div>
 									
 								</div>
@@ -45,7 +45,7 @@
 											name = "slStock" disabled="disabled" required>
 											<option value=""></option>
 										</select>
-										<label for="slStock" class="error" >Trường này không được để trống</label>
+										<label for="slStock" class="error" style="display: none;">Trường không được để trống</label>
 									</div>
 									
 								</div>
@@ -58,7 +58,7 @@
 											<option value=""></option>
 											<option value="United States">TTVTT</option>
 										</select>
-										<label for="slSerial" class="error" >Trường này không được để trống</label>
+										<label for="slSerial" class="error" style="display: none;">Trường không được để trống</label>
 									</div>
 									
 								</div>
@@ -69,26 +69,25 @@
 								<div class="form-group">
 									<label class="control-label"> Giá trị còn lại</label>
 									<input type="text" name="txtRemainAmount" id="remain-amount" 
-										placeholder="Giá trị còn lại" class="form-control numberic" required maxlength="10">
+										placeholder="Giá trị còn lại" class="form-control numberic" required maxlength="15">
 								</div>
 							</div>
 							
 							<div class="col-lg-3">
 								<label>Thời gian sử dụng</label>
-								<input type="text" name="txtInterval" placeholder="Thời gian sử dụng..." class="form-control numberic" required maxlength="2">
+								<input type="text" id="txtInterval" name="txtInterval" placeholder="Thời gian sử dụng..." class="form-control numberic" required maxlength="2">
 							</div>
 							
 							<div class="col-lg-3">
 								<div class="form-group">
 									<label class="control-label"> Trạng thái</label>
 									<select id="slState" name="slState"class="form-control chosen-select"
-										data-placeholder="Trạng thái ..." required>
+										data-placeholder="Trạng thái ...">
 										<option value=""></option>
 										{% for state in states%}
 											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 										{% endfor %}
 									</select>
-									<label for="slState" class="error" >Trường này không được để trống</label>
 								</div>
 							</div>
 							
@@ -109,7 +108,7 @@
 							<div class="col-lg">
 								<div class="form-group">
 										<label class="control-label"> Trạng thái</label>
-										<textarea class="form-control" name="txtNote" rows="5"
+										<textarea class="form-control" id="txtNote" name="txtNote" rows="5"
 											placeholder="Ghi chú" required></textarea>
 								</div>
 							</div>
@@ -164,27 +163,34 @@ $(document).ready(function(){
 		'white-space' : 'nowrap'
 	});
 	// Date Picker
-	$('#dt_evalution').datepicker({dateFormat: 'dd/mm/yy',});
+	$('#dt_evalution').datepicker({dateFormat: 'dd/mm/yy',maxDate: '0',});
 	$("#dt_evalution").datepicker("setDate",new Date());
 	// Input Masks
 	$("#dt_evalution").mask("99/99/9999");
 	
 	$( "#slDept" ).change(function() {
+		$(".error[for][for='slDept']").hide();
+		clearVal('dept');
 		onGetStock($(this).find('option:selected').val());
 	});
 	
 	$( "#slStock" ).change(function() {
+		$(".error[for][for='slStock']").hide();
+		clearVal('stock');
 		onGetCode($(this).find('option:selected').val());
 	});
 	$( "#slSerial" ).change(function() {
+		$(".error[for][for='slSerial']").hide();
+		clearVal('serial');
 		var original = $(this).find('option:selected').attr('original-value');
 		var remain = $(this).find('option:selected').attr('remain-value');
 		var asset_id = $(this).find('option:selected').attr('asset-id');
 		var state_id = $(this).find('option:selected').attr('state-id');
-		$("#original-amount").val(original);
+		var interval = $(this).find('option:selected').attr('interval');
 		$("#remain-amount").val(remain);
 		$("#hd_cus_amount").val(remain);
 		$("#remain-amount").formatCurrency();
+		$("#txtInterval").val(interval);
 		$("#txtAssetID").val(asset_id);
 		
 		//checked slState
@@ -217,15 +223,14 @@ function hideNotification()
 }
 function onSubmitFormEvaluation()
 {
-	/* var isTrue = false;
+	var isTrue = false;
 	jQuery('.chosen-select').each(function(i){
-		
 		var id = $(this).attr("id");
 		if(!jQuery('#'+id).valid())
 			isTrue = true;
 	});
 	if(isTrue)
-		return false; */
+		return false;
 	var $valid = jQuery('#evaluationAsset').valid();
 	if(!$valid) 
 	{
@@ -256,6 +261,7 @@ function onGetCode(stock_id)
 			option.attr("remain-value",serial.remain_value)
 			option.attr("asset-id",serial.asset)
 			option.attr("state-id",serial.state)
+			option.attr("interval",serial.interval)
 			option.text(serial.serial)
 			$('#slSerial').append(option)
 		}
@@ -290,7 +296,21 @@ function onGetStock(dept_id)
 		$('#slStock').chosen();
 	});
 }
-
+function clearVal( slName ){
+	
+	if(slName == "dept")
+	{
+		$('#slSerial').prop("disabled", true);
+		$('#slSerial option[value!=""]').remove();
+		$("#slSerial").prop("selectedIndex", -1).chosen('destroy').chosen();
+	}
+	$("#slState").prop("selectedIndex", -1).chosen('destroy').chosen();
+	$("#txtAssetID").val('');
+	$("#txtInterval").val('');
+	$("#remain-amount").val('');
+	$("#hd_cus_amount").val('');
+	$("#txtNote").val('');
+}
 jQuery(window).load(function(){ 
 	$(".numberic").numeric();
 });
