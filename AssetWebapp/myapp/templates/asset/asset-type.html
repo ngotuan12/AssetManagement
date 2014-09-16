@@ -67,7 +67,7 @@
 				 <select id="asset-parent" class="form-control chosen-select"
 								data-placeholder="Tài sản cấp cha" 
 								name = "asset_parent" disabled="disabled" required>
-								<option value=""></option>
+								<option value="">-----Không-----</option>
 								{% for asset in asset_parents%}
 									<option value="{{ asset.id }}" >{{ asset.code }} - {{ asset.name }}</option>
 								{% endfor%}

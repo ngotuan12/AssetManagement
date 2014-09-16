@@ -27,9 +27,9 @@
 							<label class="col-sm-2 control-label">Nguồn vốn</label>
 							<div class="col-sm-8">
 								<select id="" class="form-control chosen-select"
-									data-placeholder="Nguồn vốn" 
+									data-placeholder="Nguồn vốn"
 									name="optCapital">
-									<option value="">Tất cả nguồn vốn</option> 
+									<option value="">------Tất cả nguồn vốn-------</option> 
 									{% for capital in capitals%}
 										<option value="{{capital.id}}">{{capital.name}}</option> 
 									{% endfor %}

@@ -44,7 +44,7 @@
 						<select id="" class="form-control chosen-select"
 							data-placeholder="Nguồn vốn" 
 							name="optCapital">
-							<option value="">Tất cả nguồn vốn</option> 
+							<option value="">-----Tất cả nguồn vốn------</option> 
 							{% for capital in capitals%}
 								<option value="{{capital.id}}">{{capital.name}}</option> 
 							{% endfor %}
@@ -67,7 +67,7 @@
 					<label class="col-sm-2 control-label">Hiện trạng</label>
 					<div class="col-sm-8">
 						<select  name="optStatus" class="form-control chosen-select" data-placeholder="Nguồn vốn" >
-							<option value="">Tất cả hiện trạng</option>
+							<option value="">------Tất cả hiện trạng-------</option>
 							{% for status  in statuses %}
 							<option value={{status.id}}>{{status.name}}</option>
 							{% endfor %}
