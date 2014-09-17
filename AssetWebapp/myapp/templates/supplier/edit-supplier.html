@@ -172,6 +172,10 @@ $(document).ready(function(){
 		if (event.keyCode < 48 || event.keyCode > 57)
 		return false;
 	});
+	
+	$( "#slContactPerson" ).change(function() {
+		$(".error[for][for='slContactPerson']").hide();
+	});
 });
 function onSubmitFormEditsupplier()
 {
