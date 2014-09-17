@@ -27,24 +27,26 @@
 								<thead>
 									<tr>
 										<th style="width: 5%;">STT</th>
-										<th style="width: 12%;">MÃ DỰ ÁN </th>
-										<th style="width: 35%;">TÊN DỰ ÁN </th>
-										<th >MÔ TẢ</th>
+										<th style="width: 15%;">MÃ NHÀ CUNG CẤP </th>
+										<th style="width: 20%;">TÊN NHÀ CUNG CẤP </th>
+										<th style="width: 15%;">NGƯỜI LIÊN HỆ</th>
+										<th >ĐỊA CHỈ</th>
 										<th style="width: 10%;">NGÀY TẠO</th>
 										<th style="width: 10%;">SỬA/XÓA</th> 
 									</tr>
 								</thead>
 								<tbody>
-									{% for project in projects %}
-									<tr class="odd gradeX" asset_id ="{{ asset.asset.id }}" asset_code="{{ asset.asset.code }}">
+									{% for supplier in suppliers %}
+									<tr class="odd gradeX">
 										<td>{{ forloop.counter }}</td>
-										<td>{{ project.code }}</td>
-										<td>{{ project.name|truncatechars:100 }}</td>
-										<td>{{ project.description|truncatechars:100 }}</td>
-										<td>{{ project.create_datetime|date:'d-m-Y' }}</td>
+										<td>{{ supplier.code }}</td>
+										<td>{{ supplier.name|truncatechars:100 }}</td>
+										<td>{{ supplier.contact_person|truncatechars:100 }}</td>
+										<td>{{ supplier.address|truncatechars:100 }}</td>
+										<td>{{ supplier.create_datetime|date:'d-m-Y' }}</td>
 										<td class="table-action">
-											<a href="/edit-project/{{ project.id }}/"><i class="fa fa-pencil"></i></a>
-											<a href="#" class="delete-row" onclick="onDelete('{{ project.id }}');"><i class="fa fa-trash-o"></i></a>
+											<a href="/edit-supplier/{{ supplier.id }}/"><i class="fa fa-pencil"></i></a>
+											<a href="#" class="delete-row" onclick="onDelete('{{ supplier.id }}');"><i class="fa fa-trash-o"></i></a>
 										</td>
 									</tr>
 									{% endfor %}
@@ -56,15 +58,15 @@
 				</div>
 				<div class="row">
 					<div class="breadcrumb-wrapper">
-						<a class="btn btn-success" href="/project/add/">Thêm dự án</a>
+						<a class="btn btn-success" href="/supplier/add/">Thêm nhà cung cấp</a>
 					</div>
 				</div>
 			</div>
 			<!-- panel-body -->
 		</div>
 		<input type="hidden" id="hd_project_id" value="">
-		<div id="dialog-confirm" title="Xóa dự án ?" >
-			<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa dự án này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?</p>
+		<div id="dialog-confirm" title="Xóa nhà cung cấp ?" >
+			<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa nhà cung cấp này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?</p>
 		</div>
 		<!-- panel body-->
 	</form>

@@ -77,13 +77,17 @@ urlpatterns = patterns('',
     # edit project
     url(r'^edit-project/(?P<project_id>\w+)/$', ListProject.edit_project),
     #delete project
+    url(r'^project/delete/(?P<project_id>\w+)/$', ListProject.delete_project),
     # list supplier
     url(r'^list-supplier/$', ListSupplier.index),
-    url(r'^project/delete/(?P<project_id>\w+)/$', ListProject.delete_project),
+    #add supplier
+    url(r'^supplier/add/$', ListSupplier.add_supplier),
+    # edit supplier
+    url(r'^edit-supplier/(?P<supplier_id>\w+)/$', ListSupplier.edit_supplier),
+    #delete supplier
+    url(r'^project/delete/(?P<supplier_id>\w+)/$', ListSupplier.delete_supplier),
     #AssetState
     url(r'^asset-state/$', AssetState.index,name='asset-state'),
-    #load asset state detail by id
-    url(r'^load-state-detail/(?P<state_id>\w+)/$', AssetState.load_state_detail, name='load-state-detail'),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 
