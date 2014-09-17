@@ -2,13 +2,14 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from AssetWebapp import settings
-from myapp.views import Home, User, Error, Group, Reason, IncrementAsset, DecrementAsset, FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset, EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset, UpgradeAsset, EditIncrementAsset, AssetType, Department, ListProject
+from myapp.views import Home, User, Error, Group, Reason, IncrementAsset, DecrementAsset, FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset, EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset, UpgradeAsset, EditIncrementAsset, AssetType, Department, ListProject,\
+ListSupplier
 from myapp.views import AssetState
 User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
 , EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset\
 , UpgradeAsset, EditIncrementAsset, AssetType, Department\
-,ListProject,AssetState
+,ListProject,AssetState,ListSupplier
 
 
 admin.autodiscover()
@@ -76,9 +77,13 @@ urlpatterns = patterns('',
     # edit project
     url(r'^edit-project/(?P<project_id>\w+)/$', ListProject.edit_project),
     #delete project
+    # list supplier
+    url(r'^list-supplier/$', ListSupplier.index),
     url(r'^project/delete/(?P<project_id>\w+)/$', ListProject.delete_project),
     #AssetState
     url(r'^asset-state/$', AssetState.index,name='asset-state'),
+    #load asset state detail by id
+    url(r'^load-state-detail/(?P<state_id>\w+)/$', AssetState.load_state_detail, name='load-state-detail'),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 

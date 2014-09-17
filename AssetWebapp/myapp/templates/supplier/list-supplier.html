@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+	<link href="/css/print-preview.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css" type="text/css">
+{% endblock %}
+{% block content %}
+<div class="contentpanel no-padding" style="background: #828283">
+	<form class="form-horizontal form-bordered" method="post" id="viewAsset">
+		{% csrf_token %}
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">DANH MỤC NHÀ CUNG CẤP</h4>
+			</div>
+			
+			<div class="panel-body">
+				{% if has_error %}
+					<div class="panel">
+						<label class="error">{{ has_error }}</label>
+					</div>
+				{% endif %}
+				<div class="form-group">
+					<div class="col-sm" >
+						<div class="table-responsive">
+							<table class="table table-bordered" id="assetTable">
+								<thead>
+									<tr>
+										<th style="width: 5%;">STT</th>
+										<th style="width: 12%;">MÃ DỰ ÁN </th>
+										<th style="width: 35%;">TÊN DỰ ÁN </th>
+										<th >MÔ TẢ</th>
+										<th style="width: 10%;">NGÀY TẠO</th>
+										<th style="width: 10%;">SỬA/XÓA</th> 
+									</tr>
+								</thead>
+								<tbody>
+									{% for project in projects %}
+									<tr class="odd gradeX" asset_id ="{{ asset.asset.id }}" asset_code="{{ asset.asset.code }}">
+										<td>{{ forloop.counter }}</td>
+										<td>{{ project.code }}</td>
+										<td>{{ project.name|truncatechars:100 }}</td>
+										<td>{{ project.description|truncatechars:100 }}</td>
+										<td>{{ project.create_datetime|date:'d-m-Y' }}</td>
+										<td class="table-action">
+											<a href="/edit-project/{{ project.id }}/"><i class="fa fa-pencil"></i></a>
+											<a href="#" class="delete-row" onclick="onDelete('{{ project.id }}');"><i class="fa fa-trash-o"></i></a>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<!-- table-responsive -->
+					</div> <!--row-->
+				</div>
+				<div class="row">
+					<div class="breadcrumb-wrapper">
+						<a class="btn btn-success" href="/project/add/">Thêm dự án</a>
+					</div>
+				</div>
+			</div>
+			<!-- panel-body -->
+		</div>
+		<input type="hidden" id="hd_project_id" value="">
+		<div id="dialog-confirm" title="Xóa dự án ?" >
+			<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa dự án này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?</p>
+		</div>
+		<!-- panel body-->
+	</form>
+</div>
+
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="js/jquery.confirm.js"></script>
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.datatables.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js" ></script> 
+
+<script src="/js/custom.js"></script>
+
+<script>
+$(document).ready(function(){
+  // Chosen Select
+  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+ 
+  $('#assetTable').dataTable({
+		"sPaginationType" : "full_numbers"
+	});
+  $(".table-responsive  select").chosen({
+		'min-width' : '150px',
+		'white-space' : 'nowrap',
+		disable_search_threshold : 10
+	});
+	$("#dialog-confirm" ).dialog({
+		 autoOpen: false, 
+		resizable: false,
+		height:200,
+		modal: true,
+		buttons: {
+			"Có": function() {
+				window.location.href = "/project/delete/"+$("#hd_project_id").val()+"/";;
+				$( this ).dialog( "close" );
+			},
+			"Không": function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});
+});
+function onDelete(project_id)
+{
+	$("#hd_project_id").val(project_id);
+	$("#dialog-confirm" ).dialog('open');
+}
+</script>
+{% endblock scripts%}

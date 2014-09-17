@@ -17,7 +17,7 @@ class List(models.Model):
     code = models.CharField(max_length=10,db_column="code")
     name = models.CharField(max_length=200,db_column="name")
     description = models.CharField(max_length=500,db_column="description")
-    parent_id = models.ForeignKey('self',db_column='parent_id')
+    parent_id = models.ForeignKey('self',db_column='parent_id',null=True)
     list_level = models.CharField(max_length=1,db_column="list_level")
     status = models.CharField(max_length=1,db_column="status")
     interval = models.CharField(max_length=10,db_column="interval")
