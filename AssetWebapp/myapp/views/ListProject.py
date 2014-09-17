@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on Apr 3, 2014
 
@@ -42,8 +43,12 @@ def edit_project(request,project_id):
 				project.name=project_name
 				project.description=project_desciption
 				project.create_datetime = project_createDate
-				project.save()
-				return HttpResponseRedirect("/list-project/")
+				check_project=List.objects.exclude(id = project_id).filter(code=project_code.lower,list_type='7')
+				if(len(check_project) > 0):
+					context.update({'has_error':'Mã dự án đã tồn tại'})
+				else:
+					project.save()
+					return HttpResponseRedirect("/list-project/")
 			except Exception as ex:
 				context.update({'has_error':ex})
 		context.update(csrf(request))
@@ -61,13 +66,18 @@ def add_project(request):
 				project_createDate = datetime.strptime(request.POST['dt_project'],'%d/%M/%Y')
 				
 				project = List()
-				project.code = project_code
+				project.code = project_code.lower()
 				project.name=project_name
 				project.description=project_desciption
 				project.create_datetime = project_createDate
 				project.list_type = '7'
-				project.save()
-				return HttpResponseRedirect("/list-project/")
+				check_project=List.objects.filter(code=project_code.lower,list_type='7')
+				if(len(check_project) > 0):
+					context.update({'has_error':'Mã dự án đã tồn tại'})
+					context.update({'project':project})
+				else:
+					project.save()
+					return HttpResponseRedirect("/list-project/")
 			except Exception as ex:
 				context.update({'has_error':ex})
 		context.update(csrf(request))
@@ -78,7 +88,6 @@ def add_project(request):
 def delete_project(request,project_id):
 	try:
 		project = List.objects.get(id=project_id)
-		print(project.name)
 		project.delete()
 		return HttpResponseRedirect("/list-project/")
 	except List.DoesNotExist:

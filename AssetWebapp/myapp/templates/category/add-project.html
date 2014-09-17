@@ -22,17 +22,29 @@
 					<div class="row row-pad-5">
 						<div class="alert alert-info">
 							<div class="row">
+							<input type="hidden" name="hd_dt_project" id="hd_dt_project"
+							{% if has_error %}
+								 value="{{ project.create_datetime|date:'d/m/Y' }}"
+							 {% endif %}>
 								<div class="col-lg-4">
 									<div class="form-group">
 										<label class="control-label"> Mã dự án</label>
-										<input type="text" name="txtCode" class="form-control" value="" placeholder="Mã dự án" required="required" maxlength="50">
+										<input type="text" name="txtCode" class="form-control" 
+										{% if has_error %}
+											value="{{ project.code }}" 
+										{% endif %}
+										placeholder="Mã dự án" required="required" maxlength="50">
 									</div>
 								</div>
 								
 								<div class="col-lg-4">
 									<div class="form-group">
 										<label class="control-label"> Tên dự án</label>
-										<input type="text" name="txtName" class="form-control" value="{{ project.name }}" placeholder="Tên dự án ..." required="required" maxlength="100">
+										<input type="text" name="txtName" class="form-control" 
+										{% if has_error %}
+											value="{{ project.name }}" 
+										{% endif %}
+										placeholder="Tên dự án ..." required="required" maxlength="100">
 									</div>
 								</div>
 								
@@ -53,7 +65,7 @@
 								<div class="col-lg">
 									<div class="form-group">
 											<textarea class="form-control" name="txtDescription" rows="5"
-												placeholder="Ghi chú" required></textarea>
+												placeholder="Ghi chú" required>{% if has_error %}{{ project.description }}{% endif %}</textarea>
 									</div>
 								</div>
 							</div>
@@ -107,7 +119,7 @@ $(document).ready(function(){
 		dateFormat: 'dd/mm/yy',
 		maxDate: '0',
 		});
-	var current_date = new Date();
+	var current_date = $("#hd_dt_project").val();
 	$("#dt_project").datepicker("setDate",current_date);
 	// Input Masks
 	$("#dt_project").mask("99/99/9999");
