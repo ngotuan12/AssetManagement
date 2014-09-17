@@ -8,9 +8,9 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">THAY ĐỔI THÔNG TIN NHÀ CUNG CẤP</h4>
+					style="text-align: center; line-height: 10px">THÊM NHÀ CUNG CẤP</h4>
 			</div>
-			<form method="post" novalidate="novalidate" id="editProject">
+			<form method="post" novalidate="novalidate" id="editsupplier">
 				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
 				{% csrf_token %}
 				<div class="panel-body">
@@ -22,43 +22,97 @@
 					<div class="row row-pad-5">
 						<div class="alert alert-info">
 							<div class="row">
-								<input type="hidden" name="hd_project_id" value="{{ project.id }}">
-								<input type="hidden" name="hd_dt_project" id="hd_dt_project" value="{{ project.create_datetime|date:'d/m/Y' }}">
-								<div class="col-lg-4">
+								<input type="hidden" name="hd_supplier_id" value="{{ supplier.id }}">
+								<input type="hidden" name="hd_dt_supplier" id="hd_dt_supplier" value="{{ supplier.create_datetime|date:'d/m/Y' }}">
+								<div class="col-lg-6">
 									<div class="form-group">
-										<label class="control-label"> Mã dự án</label>
-										<input type="text" name="txtCode" class="form-control" value="{{ project.code }}" placeholder="Mã dự án" required="required" maxlength="50">
+										<label class="control-label"> Mã nhà cung cấp</label>
+										<input type="text" name="txtCode" class="form-control" value="{{ supplier.code }}" placeholder="Mã nhà cung cấp..." required="required" maxlength="50">
 									</div>
 								</div>
 								
-								<div class="col-lg-4">
+								<div class="col-lg-6">
 									<div class="form-group">
-										<label class="control-label"> Tên dự án</label>
-										<input type="text" name="txtName" class="form-control" value="{{ project.name }}" placeholder="Tên dự án ..." required="required" maxlength="100">
+										<label class="control-label"> Tên nhà cung cấp</label>
+										<input type="text" name="txtName" class="form-control" value="{{ supplier.name }}" placeholder="Tên nhà cung cấp ..." required="required" maxlength="100">
 									</div>
 								</div>
-								
-								<div class="col-lg-4">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="control-label"> Địa chỉ</label>
+										<input type="text" name="txtAddress" class="form-control" value="{{ supplier.address }}" placeholder="Địa chỉ ..." required="required" maxlength="100">
+									</div>
+								</div>
+								<div class="col-lg-6">
 									<div class="form-group">
 										<label class="control-label">Ngày tạo</label>
 										<div class="input-group">
 											<input type="text" class="form-control"
-												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tạo" id="dt_project"
-												name = "dt_project" required>
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tạo" id="dt_supplier"
+												name = "dt_supplier" required>
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
 									</div>
 								</div>
 								
 							</div>
+							
 							<div class="row">
-								<div class="col-lg">
+								<input type="hidden" name="hd_supplier_id" value="{{ supplier.id }}">
+								<input type="hidden" name="hd_dt_supplier" id="hd_dt_supplier" value="{{ supplier.create_datetime|date:'d/m/Y' }}">
+								
+								<div class="col-lg-3">
 									<div class="form-group">
-										<label class="control-label"> Mô tả</label>
-										<textarea class="form-control" name="txtDescription" rows="5"
-											placeholder="Mô tả" required maxlength="100">{{ project.description }}</textarea>
+										<label class="control-label"> Số điện thoại</label>
+										<input type="text" name="txtPhone" class="form-control numberic" value="{{ supplier.tel }}" placeholder="Số điện thoại ..." required="required" maxlength="20">
 									</div>
 								</div>
+								
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label">Fax</label>
+										<input type="text" name="txtFax" class="form-control numberic" value="{{ supplier.fax }}" placeholder="Số Fax ..." required="required" maxlength="20">
+									</div>
+								</div>
+								
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label"> Tên người liên hệ</label>
+										<select id="slContactPerson" class="form-control chosen-select"
+											data-placeholder="Tên người liên hệ" 
+											name = "slContactPerson" required="required">
+											<option value=""></option>
+											{% for staff in staffs %}
+												{% if supplier.contact_person|truncatechars:100 == staff.name|truncatechars:100 %}
+													<option value="{{ staff.name }}" selected>{{ staff.code }} - {{ staff.name }}</option>
+												{% else %}
+													<option value="{{ staff.name }}">{{ staff.code }} - {{ staff.name }}</option>
+												{% endif %}
+											{% endfor%}
+										</select>
+										<label for="slContactPerson" class="error" style="display: none;">Trường không được để trống</label>
+									</div>
+								</div>
+								
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label">Trạng thái</label>
+										<select id="slStatus" class="form-control chosen-select"
+											data-placeholder="Kho" 
+											name = "slStatus" required="required">
+											{% if supplier.status == '1' %}
+												<option value="0" selected="selected">A</option>
+												<option value="1" >B</option>
+											{% else %}
+												<option value="0">A</option>
+												<option value="1" selected="selected">B</option>
+											{% endif %}
+											
+										</select>
+										<label for="slStatus" class="error" style="display: none;">Trường không được để trống</label>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -66,7 +120,7 @@
 					<div class="row">
 						<div class="col-sm col-sm-offset-5">
 							<!-- <button class="btn btn-primary">In biên bản</button> -->
-							<button class="btn btn-primary" onclick="return onSubmitFormEditProject();">Thực hiện</button>
+							<button class="btn btn-primary" onclick="return onSubmitFormEditsupplier();">Thực hiện</button>
 						</div>
 					</div>
 				</div>
@@ -94,7 +148,6 @@
 <script src="/js/jquery.validate.min.js"></script>
 <script src="/js/jquery.numeric.js"></script>
 
-
 <script src="/js/custom.js"></script>
 
 <script>
@@ -106,25 +159,39 @@ $(document).ready(function(){
 	});
 	// Date Picker
 	var endDate=new Date();
-	$('#dt_project').datepicker({
+	$('#dt_supplier').datepicker({
 		dateFormat: 'dd/mm/yy',
 		maxDate: '0',
 		});
-	var current_date = $("#hd_dt_project").val();
-	$("#dt_project").datepicker("setDate",current_date);
+	var current_date = $("#hd_dt_supplier").val();
+	$("#dt_supplier").datepicker("setDate",current_date);
 	// Input Masks
-	$("#dt_project").mask("99/99/9999");
+	$("#dt_supplier").mask("99/99/9999");
 	
+	$('.numberic').on('keypress', function(event){
+		if (event.keyCode < 48 || event.keyCode > 57)
+		return false;
+	});
 });
-function onSubmitFormEditProject()
+function onSubmitFormEditsupplier()
 {
-	var $valid = jQuery('#editProject').valid();
+	var isTrue = false;
+	jQuery('.chosen-select').each(function(i){
+		
+		var id = $(this).attr("id");
+		if(!jQuery('#'+id).valid())
+			isTrue = true;
+	});
+	if(isTrue)
+		return false;
+	
+	var $valid = jQuery('#editsupplier').valid();
 	if(!$valid) 
 	{
 		$validator.focusInvalid();
 		return false;
 	}
-	jQuery('#editProject').submit();
+	jQuery('#editsupplier').submit();
 }
 function onGetCode(stock_id,id_name)
 {
@@ -156,7 +223,8 @@ function onGetCode(stock_id,id_name)
 	});
 }
 
-jQuery(window).load(function(){ 
+jQuery(window).load(function(){
+	$(".numberic").numeric();
 });
 </script>
 {% endblock scripts%}

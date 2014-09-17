@@ -64,7 +64,7 @@
 			</div>
 			<!-- panel-body -->
 		</div>
-		<input type="hidden" id="hd_project_id" value="">
+		<input type="hidden" id="hd_supplier_id" value="">
 		<div id="dialog-confirm" title="Xóa nhà cung cấp ?" >
 			<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa nhà cung cấp này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?</p>
 		</div>
@@ -113,7 +113,7 @@ $(document).ready(function(){
 		modal: true,
 		buttons: {
 			"Có": function() {
-				window.location.href = "/project/delete/"+$("#hd_project_id").val()+"/";;
+				window.location.href = "/supplier/delete/"+$("#hd_supplier_id").val()+"/";;
 				$( this ).dialog( "close" );
 			},
 			"Không": function() {
@@ -124,7 +124,7 @@ $(document).ready(function(){
 });
 function onDelete(project_id)
 {
-	$("#hd_project_id").val(project_id);
+	$("#hd_supplier_id").val(project_id);
 	$("#dialog-confirm" ).dialog('open');
 }
 </script>

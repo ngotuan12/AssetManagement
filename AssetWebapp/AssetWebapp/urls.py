@@ -85,7 +85,7 @@ urlpatterns = patterns('',
     # edit supplier
     url(r'^edit-supplier/(?P<supplier_id>\w+)/$', ListSupplier.edit_supplier),
     #delete supplier
-    url(r'^project/delete/(?P<supplier_id>\w+)/$', ListSupplier.delete_supplier),
+    url(r'^supplier/delete/(?P<supplier_id>\w+)/$', ListSupplier.delete_supplier),
     #AssetState
     url(r'^asset-state/$', AssetState.index,name='asset-state'),
     # User
