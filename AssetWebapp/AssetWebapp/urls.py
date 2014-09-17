@@ -42,6 +42,9 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': 'login'}),
     # Department
     url(r'^department/$', Department.index, name='department'),
+    url(r'^department/add/(?P<parent_id>\w+)/$', Department.index, name='department'),
+    url(r'^department/edit/(?P<dept_id>\w+)/$', Department.index, name='department'),
+    url(r'^department/delete/(?P<dept_id>\w+)/$', Department.index, name='department'),
     # Function List
     url(r'^function-list$', FunctionList.index, name='function-list'),
     # increment asset

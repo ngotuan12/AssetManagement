@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-16 16:21+0700\n"
+"POT-Creation-Date: 2014-09-16 16:43+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,6 +54,39 @@ msgstr ""
 msgid "Có thể tách tài sản"
 msgstr ""
 
+#: .\myapp\models\ModulePermission.py:27
+msgid "Có thể gộp tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:28
+msgid "Có thể tính khấu hao tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:29
+msgid "Có thể xuất báo cáo kiểm kê tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:30
+msgid "Có thể xuất báo cáo tổng hợp kiểm kê tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:31
+msgid "Có thể nâng cấp tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:32
+msgid "Có thể quản lý loại tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:33 .\myapp\models\ModulePermission.py:35
+#: .\myapp\models\ModulePermission.py:36 .\myapp\models\ModulePermission.py:37
+msgid "Có thể sửa thông tin tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:34
+msgid "Xem thông tin phòng ban"
+msgstr ""
+
 #: .\myapp\templates\change-password-done.html:8
 msgid "Your password was changed."
 msgstr ""
@@ -73,7 +106,9 @@ msgid ""
 msgstr ""
 
 #: .\myapp\templates\change-password.html:13
-msgid "Please correct the error below."
+#, fuzzy
+#| msgid "Please correct the error below."
+msgid "Hãy correct the error below."
 msgstr "Hãy sửa những lỗi sau."
 
 #: .\myapp\templates\change-password.html:13

@@ -57,9 +57,40 @@
 		<div class="mainpanel">
 			<div class="headerbar">
 				<a class="menutoggle"><i class="fa fa-bars"></i></a>
-				{% block tool-bar-header %}
-					{% include 'tool-bar-header.tpl.html' %}
-				{% endblock %}
+				<div class="header-right">
+					<ul class="headermenu">
+					{% block tool-bar-title %}
+						<li style="display: none">
+							<div>
+									<ol class="breadcrumb" style="margin: 5px 10px 5px 0px;background-color: transparent;">
+										<li><a href="/home/">Trang chủ</a></li>
+										<li class="active">Dashboard</li>
+									</ol>
+							</div>
+						</li>
+					{% endblock %}
+					
+					{% block tool-bar-right %}
+						<li>
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle"
+									data-toggle="dropdown">
+									<i class="glyphicon glyphicon-cog"></i> Setting <span
+										class="caret"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+									<li><a href="/password/change/"><i
+											class="glyphicon glyphicon-cog"></i> Đổi mật khẩu</a></li>
+									<li><a href="#"><i
+											class="glyphicon glyphicon-question-sign"></i> Help</a></li>
+									<li><a href="/logout/"><i
+											class="glyphicon glyphicon-log-out"></i> Thoát</a></li>
+								</ul>
+							</div>
+						</li>
+					{% endblock %}
+					</ul>
+				</div>
 			</div>
 			{% block content %}
 				{% include 'main-panel-content.tpl.html' %}

@@ -1,6 +1,5 @@
 {% extends "base.html" %} 
 {% block styles %}
-<link href="/css/increment-asset.css" rel="stylesheet">
 <link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
 <style>
@@ -22,21 +21,18 @@
 	*vertical-align: middle
 }
 </style>
-{% endblock %}
-
+{% endblock %} 
 {% block content %}
-<div class="contentpanel no-padding">
+<div class="contentpanel">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h4 class="panel-title"
-				style="text-align: center; line-height: 10px">DANH SÁCH PHÒNG BAN</h4>
-		</div>
 		<div class="panel-body" style="padding: 0 10px;">
 			<div class="row row-pad-0">
 				<div class="col-md-5" style="BORDER-RIGHT: #999999 1px dashed;">
+					<p >Danh sách phòng ban</p>
 						<ul id="treeDemo" class="ztree"></ul>
 				</div>
 				<div class="col-md-7">
+					<p> Thông tin chi tiết</p>
 				</div>
 			</div>
 		</div>
@@ -63,7 +59,6 @@
 <script>
 jQuery(document).ready(function() {
 	var zNodes = {{ data|safe }};
-	alert(JSON.stringify(zNodes));
 	var setting = {
 		view: {
 			addHoverDom: addHoverDom,
@@ -82,10 +77,7 @@ jQuery(document).ready(function() {
 		},
 		data : {
 			simpleData : {
-				enable : true,
-				idKey: 'id',
-				pIdKey: 'parent_id',
-				rootPId:null,
+				enable : true
 			}
 		}
 	};
@@ -110,7 +102,7 @@ function removeHoverDom(treeId, treeNode) {
 	$("#addBtn_"+treeNode.tId).unbind().remove();
 };
 function showRemoveBtn(treeId, treeNode) {
-	return treeNode.parent_id !=null;
+	return treeNode.pId !=null;
 }
 function beforeDrag(treeId, treeNodes) {
 	return false;
