@@ -1,5 +1,6 @@
 {% extends "base.html" %} 
 {% block styles %}
+<link href="/css/increment-asset.css" rel="stylesheet">
 <link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
 <style>
@@ -21,19 +22,92 @@
 	*vertical-align: middle
 }
 </style>
-{% endblock %} 
+{% endblock %}
+
 {% block content %}
-<div class="contentpanel">
+<div class="contentpanel no-padding">
 	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title"
+				style="text-align: center; line-height: 10px">SỬA PHÒNG BAN</h4>
+		</div>
 		<div class="panel-body" style="padding: 0 10px;">
-			<div class="row row-pad-0">
-				<div class="col-md-5" style="BORDER-RIGHT: #999999 1px dashed;">
-					<p >Danh sách phòng ban</p>
-						<ul id="treeDemo" class="ztree"></ul>
-				</div>
-				<div class="col-md-7">
-					<p> Thông tin chi tiết</p>
-				</div>
+			<div class="row row-pad-5">
+				<form class="form-horizontal form-bordered" method="post" id="formDepartment" novalidate="novalidate" >
+					{% csrf_token %}
+					{% if has_error %}
+						<div class="col-sm panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+					<div class="row row-pad-5">
+						<div class="col-lg">
+							<label>Trực thuộc</label>
+							<select class="form-control chosen-select"
+								data-placeholder="Trực thuộc" name = "slParent" required>
+								{% for parent in parents %}
+									{% if parent.id == dept.parent_id.id %}
+										<option selected="selected" value="{{ parent.id }}">{{ parent.code }} - {{ parent.name }}</option>
+									{% else %}
+										<option value="{{ parent.id }}">{{ parent.code }} - {{ parent.name }}</option>
+									{% endif %}
+								{% endfor%}
+							</select>
+							<label for="slParent" class="error" style="display: none;">Trường không được để trống</label>
+						</div>
+					</div>
+					<div class="row row-pad-5">
+						<div class="col-lg-6">
+							<label>Mã phòng ban</label> <input type="text" value="{{ dept.code }}"
+								id="txtCode" name="txtCode" placeholder="Mã phòng ban"
+								class="form-control" required maxlength="40">
+						</div>
+						<div class="col-lg-6">
+							<label>Tên phòng ban</label> <input type="text" value="{{ dept.name }}"
+								id="txtName" name="txtName" placeholder="Tên phòng ban"
+								class="form-control" required maxlength="150">
+						</div>
+					</div>
+					<div class="row row-pad-5">
+						<div class="col-lg">
+							<label>Địa chỉ</label> <input type="text" value="{{ dept.address }}"
+								id="txtAddress" name="txtAddress" placeholder="Địa chỉ"
+								class="form-control" required maxlength="300">
+						</div>
+					</div>
+					<div class="row row-pad-5">
+						<div class="col-lg-6">
+							<label>Tel</label> <input type="text" value="{{ dept.tel }}"
+								id="txtTel" name="txtTel" placeholder="Tel"
+								class="form-control" maxlength="11">
+						</div>
+						<div class="col-lg-6">
+							<label>Fax</label> <input type="text" value="{{ dept.fax }}"
+								id="txtFax" name="txtFax" placeholder="Fax"
+								class="form-control" maxlength="11">
+						</div>
+					</div>
+					<div class="row row-pad-5">
+						<div class="ckbox ckbox-default">
+							{% if dept.status == '0' %}
+							<input id="ckStatus" type="checkbox" name="ckStatus"
+								> <label for="ckStatus">Kích
+								hoạt </label>
+							{% elif dept.status == '1' %}
+							<input id="ckStatus" type="checkbox" name="ckStatus"
+								checked="checked" > <label for="ckStatus">Kích
+								hoạt </label>
+							{% endif %}
+						</div>
+					</div>
+					<div class="row row-pad-5">
+						<div class="col-sm col-sm-offset-5">
+							<button class="btn btn-primary" onclick="return onSubmit();">Thực
+								hiện</button>
+							&nbsp; <a class="btn btn-default" href="/department/">Thoát</a>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -50,66 +124,25 @@
 <script src="/js/retina.min.js"></script>
 <script src="/js/jquery.cookies.js"></script>
 
-<script src="/js/jquery.datatables.min.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="/tree/js/jquery.ztree.core-3.5.js"></script>
-<script type="text/javascript" src="/tree/js/jquery.ztree.excheck-3.5.js"></script>
-	<script type="text/javascript" src="/tree/js/jquery.ztree.exedit-3.5.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+
 <script src="/js/custom.js"></script>
+
 <script>
 jQuery(document).ready(function() {
-	var zNodes = {{ data|safe }};
-	var setting = {
-		view: {
-			addHoverDom: addHoverDom,
-			removeHoverDom: removeHoverDom,
-			selectedMulti: false
-		},
-		edit: {
-			enable: true,
-			//editNameSelectAll: true,
-			showRemoveBtn: showRemoveBtn,
-			showRenameBtn: true,
-		},
-		callback: {
-			beforeDrag: beforeDrag,
-			beforeEditName: beforeEditName,
-		},
-		data : {
-			simpleData : {
-				enable : true
-			}
-		}
-	};
-	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	// Chosen Select
+	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 });
-var newCount = 1;
-function addHoverDom(treeId, treeNode) 
-{
-	var sObj = $("#" + treeNode.tId + "_span");
-	if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
-	var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
-		+ "' title='add node' onfocus='this.blur();'></span>";
-	sObj.after(addStr);
-	var btn = $("#addBtn_"+treeNode.tId);
-	if (btn) btn.bind("click", function()
+function onSubmit() {
+	var $valid = jQuery('#formDepartment').validate();
+	if (!$valid) 
 	{
-		window.location.href  = "/department/add/"+treeNode.id+"/";
-	}); 
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#formDepartment').submit();
 };
-
-function removeHoverDom(treeId, treeNode) {
-	$("#addBtn_"+treeNode.tId).unbind().remove();
-};
-function showRemoveBtn(treeId, treeNode) {
-	return treeNode.pId !=null;
-}
-function beforeDrag(treeId, treeNodes) {
-	return false;
-}
-
-function beforeEditName(treeId, treeNode) {
-	window.location.href  = "/department/edit/"+treeNode.id+"/";
-}
 </script>
 {% endblock scripts%}
