@@ -7,7 +7,7 @@ User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
 , EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset\
 , UpgradeAsset, EditIncrementAsset, AssetType, Department\
-,ListProject
+,ListProject,State
 
 
 admin.autodiscover()
@@ -76,6 +76,8 @@ urlpatterns = patterns('',
     url(r'^edit-project/(?P<project_id>\w+)/$', ListProject.edit_project),
     #delete project
     url(r'^project/delete/(?P<project_id>\w+)/$', ListProject.delete_project),
+    #State
+    url(r'^asset-state/$', State.index,name='state'),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 
