@@ -212,6 +212,11 @@ $(document).ready(function(){
 		$(this).attr('maxlength','10');
 		$(this).val($("#hd_cus_amount").val());
 	}); 
+	
+	$('.numberic').on('keypress', function(event){
+		if (event.keyCode < 48 || event.keyCode > 57)
+		return false;
+	});
 });
 
 function hideNotification()
