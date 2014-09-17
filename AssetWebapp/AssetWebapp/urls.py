@@ -2,12 +2,13 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from AssetWebapp import settings
-from myapp.views import Home, \
+from myapp.views import Home, User, Error, Group, Reason, IncrementAsset, DecrementAsset, FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset, EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset, UpgradeAsset, EditIncrementAsset, AssetType, Department, ListProject
+from myapp.views import AssetState
 User, Error, Group, Reason, IncrementAsset, DecrementAsset\
 , FunctionList, VerifyAsset, RevaluateAsset, Report, ViewAsset\
 , EvaluationAsset, TransferAsset, JoinReleaseAsset, AmortizeAsset\
 , UpgradeAsset, EditIncrementAsset, AssetType, Department\
-,ListProject,State
+,ListProject,AssetState
 
 
 admin.autodiscover()
@@ -76,8 +77,8 @@ urlpatterns = patterns('',
     url(r'^edit-project/(?P<project_id>\w+)/$', ListProject.edit_project),
     #delete project
     url(r'^project/delete/(?P<project_id>\w+)/$', ListProject.delete_project),
-    #State
-    url(r'^asset-state/$', State.index,name='state'),
+    #AssetState
+    url(r'^asset-state/$', AssetState.index,name='asset-state'),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 
