@@ -2,6 +2,7 @@
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 	<link href="/css/print-preview.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css" type="text/css">
 {% endblock %}
 {% block content %}
 <div class="contentpanel no-padding" style="background: #828283">
@@ -26,7 +27,7 @@
 								<thead>
 									<tr>
 										<th style="width: 5%;">STT</th>
-										<th style="width: 10%;">MÃ TÀI SẢN </th>
+										<th style="width: 12%;">MÃ TÀI SẢN </th>
 										<th style="width: 35%;">TÊN TÀI SẢN </th>
 										<th >MÔ TẢ</th>
 										<th style="width: 10%;">NGÀY TẠO</th>
@@ -43,7 +44,7 @@
 										<td >{{ project.create_datetime|date:'d-m-Y' }}</td>
 										<td class="table-action">
 											<a href="/edit-project/{{ project.id }}/"><i class="fa fa-pencil"></i></a>
-											<a href="#" onclick="DeleteProject();" class="delete-row"><i class="fa fa-trash-o"></i></a>
+											<a href="#" class="delete-row" onclick="onDelete('{{ project.id }}');"><i class="fa fa-trash-o"></i></a>
 										</td>
 									</tr>
 									{% endfor %}
@@ -61,6 +62,10 @@
 			</div>
 			<!-- panel-body -->
 		</div>
+		<input type="hidden" id="hd_project_id" value="">
+		<div id="dialog-confirm" title="Xóa loại tài sản?" >
+			<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa tài sản này, các tài sản cấp con cũng bị xóa.Bạn có chắc chắn muốn xóa không?</p>
+		</div>
 		<!-- panel body-->
 	</form>
 </div>
@@ -76,14 +81,14 @@
 <script src="/js/retina.min.js"></script>
 <script src="/js/jquery.cookies.js"></script>
 
+<script src="js/jquery.confirm.js"></script>
 <script src="/js/jquery.autogrow-textarea.js"></script>
 <script src="/js/jquery.maskedinput.min.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/jquery-ui-1.10.3.min.js"></script>
 <script src="/js/jquery.datatables.min.js"></script>
-<script src="js/jquery.confirm.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js" ></script> 
 
-<script src="/js/print.js"></script>
 <script src="/js/custom.js"></script>
 
 <script>
@@ -99,22 +104,26 @@ $(document).ready(function(){
 		'white-space' : 'nowrap',
 		disable_search_threshold : 10
 	});
-});
-function DeleteProject()
-{
-	alert();
-	$.confirm({
-		text : "Xóa bản ghi?",
-		confirm : function(button)
-		{
-			//
-		},
-		cancel : function(button)
-		{
-
+	$("#dialog-confirm" ).dialog({
+		 autoOpen: false, 
+		resizable: false,
+		height:200,
+		modal: true,
+		buttons: {
+			"Có": function() {
+				window.location.href = "/project/delete/"+$("#hd_project_id").val()+"/";;
+				$( this ).dialog( "close" );
+			},
+			"Không": function() {
+				$( this ).dialog( "close" );
+			}
 		}
 	});
+});
+function onDelete(project_id)
+{
+	$("#hd_project_id").val(project_id);
+	$("#dialog-confirm" ).dialog('open');
 }
-
 </script>
 {% endblock scripts%}

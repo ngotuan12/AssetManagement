@@ -74,6 +74,8 @@ urlpatterns = patterns('',
     url(r'^project/add/$', ListProject.add_project),
     # edit project
     url(r'^edit-project/(?P<project_id>\w+)/$', ListProject.edit_project),
+    #delete project
+    url(r'^project/delete/(?P<project_id>\w+)/$', ListProject.delete_project),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 

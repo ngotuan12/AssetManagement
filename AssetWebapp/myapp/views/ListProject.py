@@ -75,11 +75,11 @@ def add_project(request):
 	except List.DoesNotExist:
 		return HttpResponseRedirect("/notfound-error")
 @login_required(login_url='/login/')
-def delete_reason(request,project_id):
+def delete_project(request,project_id):
 	try:
-		if request.POST:
-			project = List.objects.get(id=project_id)
-			project.delete()
+		project = List.objects.get(id=project_id)
+		print(project.name)
+		project.delete()
 		return HttpResponseRedirect("/list-project/")
 	except List.DoesNotExist:
 			return HttpResponseRedirect("/notfound-error")
