@@ -11,7 +11,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">DANH SÁCH DỰ ÁN</h4>
+					style="text-align: center; line-height: 10px">DANH MỤC DỰ ÁN</h4>
 			</div>
 			
 			<div class="panel-body">
@@ -27,11 +27,11 @@
 								<thead>
 									<tr>
 										<th style="width: 5%;">STT</th>
-										<th style="width: 12%;">MÃ TÀI SẢN </th>
-										<th style="width: 35%;">TÊN TÀI SẢN </th>
+										<th style="width: 12%;">MÃ DỰ ÁN </th>
+										<th style="width: 35%;">TÊN DỰ ÁN </th>
 										<th >MÔ TẢ</th>
 										<th style="width: 10%;">NGÀY TẠO</th>
-										<th style="width: 10%;"></th> 
+										<th style="width: 10%;">SỬA/XÓA</th> 
 									</tr>
 								</thead>
 								<tbody>
@@ -39,9 +39,9 @@
 									<tr class="odd gradeX" asset_id ="{{ asset.asset.id }}" asset_code="{{ asset.asset.code }}">
 										<td>{{ forloop.counter }}</td>
 										<td>{{ project.code }}</td>
-										<td>{{ project.name }}</td>
-										<td >{{ project.description }}</td>
-										<td >{{ project.create_datetime|date:'d-m-Y' }}</td>
+										<td>{{ project.name|truncatechars:100 }}</td>
+										<td>{{ project.description|truncatechars:100 }}</td>
+										<td>{{ project.create_datetime|date:'d-m-Y' }}</td>
 										<td class="table-action">
 											<a href="/edit-project/{{ project.id }}/"><i class="fa fa-pencil"></i></a>
 											<a href="#" class="delete-row" onclick="onDelete('{{ project.id }}');"><i class="fa fa-trash-o"></i></a>

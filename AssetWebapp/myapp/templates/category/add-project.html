@@ -8,7 +8,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">THAY ĐÔI THÔNG TIN DỰ ÁN</h4>
+					style="text-align: center; line-height: 10px">THÊM DỰ ÁN</h4>
 			</div>
 			<form method="post" novalidate="novalidate" id="editProject">
 				
@@ -64,8 +64,9 @@
 							<div class="row">
 								<div class="col-lg">
 									<div class="form-group">
-											<textarea class="form-control" name="txtDescription" rows="5"
-												placeholder="Ghi chú" required maxlength="100">{% if has_error %}{{ project.description }}{% endif %}</textarea>
+										<label class="control-label">Mô tả</label>
+										<textarea class="form-control" name="txtDescription" rows="5"
+											placeholder="Ghi chú" required maxlength="100">{% if has_error %}{{ project.description }}{% endif %}</textarea>
 									</div>
 								</div>
 							</div>
