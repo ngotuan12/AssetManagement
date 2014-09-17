@@ -48,8 +48,8 @@ def change_reason(request,reason_id):
                 reason_name = request.POST['txtReasonName']
                 reason_status = request.POST['optStatus']
                 description = request.POST['txtDescription']
-                current_reason.reason = reason_name
-                current_reason.reason=reason_status
+                current_reason.name = reason_name
+                current_reason.status=reason_status
                 current_reason.description = description
                 current_reason.save()
                 return HttpResponseRedirect("/reason/")

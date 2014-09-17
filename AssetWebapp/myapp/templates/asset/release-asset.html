@@ -1,15 +1,23 @@
 {% extends "base.html" %}
+{% block styles %}
+	<style>
+		.no-padding
+		{
+			padding: 0px;
+		}
+	</style>
+{% endblock %}
 {% block content %}
-	<div class="contentpanel no-padding" >
-		<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="release-asset">
-		
-		{% csrf_token %}
+	<div class="contentpanel no-padding" style="background: #828283">
+		<div class="col-md">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
 					style="text-align: center; line-height: 10px">TÁCH TÀI SẢN</h4>
 			</div>
-			
+			<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="release-asset">
+		
+			{% csrf_token %}
 			<div class="panel-body">
 				{% if has_error %}
 					<div class="panel">
@@ -20,10 +28,8 @@
 					</select>
 					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  /> 
 				<div class="alert alert-info">
-				<div class="form-group">
 					<div class = "row row-pad-5">
-						<label class="col-sm-2 control-label">Tài sản</label>
-						<div class="col-lg-9">
+						<div class="col-lg-6">
 							<select id="slAsset" class="form-control chosen-select"
 								data-placeholder="Tài sản" 
 								name = "slAsset">
@@ -33,67 +39,55 @@
 								{% endfor%}
 							</select>
 						</div>
+						<div class="col-lg-6">
+							<input type="text" name="txtNote" placeholder="Chi chú"
+								class="form-control"  style="padding-bottom: 6px;">
+						</div>
 						
 					</div>
-					
-				</div>
-					
-				<div class="form-group" >
-					<div class="col-sm" >
-						<div class="table-responsive">
-							<table class="table table-bordered" id="childAssetTable">
-								<thead>
-									<tr>
-										<th width='30'>Chọn</th>
-										<th width='150'>Số thẻ tài sản </th>
-										<th>Tên tài sản </th>
-									</tr>
-								</thead>
-								<tbody id="child-asset-table-body">
-									{% for asset in child_assets %}
-									<tr class="odd gradeX" >
-										<td width='30'><input type="checkbox" id='{{ "child-asset-id-"|add:asset.SERIAL }}' value='{{ asset.SERIAL }}' onClick="chooseAsset(this.id,this.checked)"></td>
-										<td width='100'>{{ asset.SERIAL }}</td>
-										<td>{{ asset.NAME }}</td>
-										
-									</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
-						<!-- table-responsive -->
+					<div class="form-group">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="childAssetTable" style="width:100%">
+									<thead>
+										<tr>
+											<th width='30' style="text-align:center">CHỌN</th>
+											<th width='150' style="text-align:center">SỐ THẺ TÀI SẢN</th>
+											<th style="text-align:center">TÊN TÀI SẢN</th>
+										</tr>
+									</thead>
+									<tbody id="child-asset-table-body">
+										{% for asset in child_assets %}
+										<tr class="odd gradeX" >
+											<td width='30' style="text-align:center"><input type="checkbox" id='{{ "child-asset-id-"|add:asset.SERIAL }}' value='{{ asset.SERIAL }}' onClick="chooseAsset(this.id,this.checked)"></td>
+											<td width='100'>{{ asset.SERIAL }}</td>
+											<td>{{ asset.NAME }}</td>
+											
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+							<!-- table-responsive -->
 					</div>
 					<!-- panel-body -->
-			
-				</div>
-				<span id="error-validate" class="error" style="color:red"></span>						
-				<!-- row -->
-				<div class="form-group">
-					<div class = "row row-pad-5">
-						<label class="col-sm-2 control-label">Ghi chú</label>
-						<div class="col-lg-9">
-							<input type="text" name="txtNote" placeholder="Chi chú"
-								class="form-control">
-						</div>
-						
-					</div>
-			
-				</div>
+				
+				
+				<span id="error-validate" class="error" style="color:red"></span>
 			</div>
+			
 			<div class="row">
 				<div class="col-sm col-sm-offset-5" >
-					<div class="panel-footer" style="border-top: none;">
 						<button class="btn btn-primary" onclick=" return onSubmitForm();">Thực hiện</button>
-					</div>
 				</div>
 			</div>
 			</div>
-		
+		</form>
 			
 		
 		</div>
-		</form>
+		
 		<!-- panel body-->
+		</div>
 	</div>
 {% endblock content %}
 
@@ -172,7 +166,6 @@ function onSubmitForm()
 		return true;
 	}
 }
-
 function onChangeParent(parent_id)
 {
 	
@@ -190,21 +183,13 @@ function onChangeParent(parent_id)
 		assets = data.child_assets;
 		$('#childAssetTable').dataTable().fnDestroy();
 		$('#choosen-asset').empty();
-		$('#childAssetTable').empty();
-		$('#childAssetTable').append("<thead>"
-				+"<tr>"
-					+"<th width='30'>Chọn</th>"
-					+"<th width='150'>Số thẻ tài sản </th>"
-					+"<th>Tên tài sản </th>"
-				+"</tr>"
-			+"</thead>");
-			$('#childAssetTable').append("<tbody></tbody");
+		$('#childAssetTable tbody').empty();
 		for(var i=0;i<assets.length ;i++)
 		{
 			asset = assets[i];
 			row = $("<tr class=\"odd gradeX\" ></tr>");
 			
-			chooseCol=$("<td width='30'></td>");
+			chooseCol=$("<td width='30' style='text-align:center'></td>");
 			chk=$("<input type=\"checkbox\" id=\"child-asset-id-"+asset.SERIAL+"\" value=\"\" onClick=\"chooseAsset(this.id,this.checked)\">");
 			chk.attr("value",asset.SERIAL);
 			chooseCol.append(chk);
@@ -218,9 +203,10 @@ function onChangeParent(parent_id)
 			row.append(assetNameCol);
 			$('#childAssetTable tbody').append(row);
 		}
-		
+		$('#childAssetTable').css("width","100%");
 		$('#childAssetTable').dataTable({
-			"sPaginationType" : "full_numbers"
+			"sPaginationType" : "full_numbers",
+			"bAutoWidth":false
 		});
 		 $(".table-responsive  select").chosen({
 				'min-width' : '150px',

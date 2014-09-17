@@ -1,4 +1,12 @@
 {% extends "base.html" %}
+{% block styles %}
+	<style>
+		.no-padding
+		{
+			padding: 0px;
+		}
+	</style>
+{% endblock %}
 {% block content %}
 	<div class="contentpanel no-padding" >
 		
@@ -19,7 +27,6 @@
 		{% csrf_token %}
 				<div class="alert alert-info">
 					<div class = "row row-pad-5">
-						<label class="col-lg-4 control-label">Tháng tính khấu hao</label>
 						<div class="col-lg-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
@@ -28,26 +35,21 @@
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
-						
-					</div>
-				
-				<!-- row -->
-					<div class = "row row-pad-5">
-						<label class="col-lg-4 control-label">Số thẻ tài sản</label>
 						<div class="col-lg-6">
 							<input type="text" name="txtSerial" placeholder="Số thẻ tài sản"
 								class="form-control">
 						</div>
-						
 					</div>
+				
+				<!-- row -->
+						
+						
 					</div>
 					<input type="hidden" name="submitForm" value="calculate"/>
 					</form>
 					<div class="row">
 						<div class="col-sm col-sm-offset-5" >
-							<div class="panel-footer" style="border-top: none;">
 								<button class="btn btn-primary" onclick=" return onCalculate();">Thực hiện</button>
-							</div>
 						</div>
 					</div>
 			</div>
@@ -69,12 +71,12 @@
 								<table class="table table-bordered" id="childAssetTable">
 									<thead>
 										<tr>
-											<th width='30'>Chọn</th>
-											<th width='150'>Số thẻ tài sản </th>
-											<th>Tháng </th>
-											<th>Số tiền </th>
-											<th>Phương pháp tính </th>
-											<th>Trạng thái</th>
+											<th width='30' style='text-align:center'>CHỌN</th>
+											<th width='150' style='text-align:center'>SỐ THẺ TÀI SẢN </th>
+											<th style='text-align:center'>THÁNG </th>
+											<th style='text-align:center'>SỐ TIỀN </th>
+											<th style='text-align:center'>PHƯƠNG PHÁP TÍNH </th>
+											<th style='text-align:center'>TRẠNG THÁI</th>
 										</tr>
 									</thead>
 									<tbody id="child-asset-table-body">
@@ -117,9 +119,7 @@
 				</form>
 				<div class="row">
 						<div class="col-sm col-sm-offset-5" >
-							<div class="panel-footer" style="border-top: none;">
 								<button class="btn btn-primary" onclick=" return onApproved();">Thực hiện</button>
-							</div>
 						</div>
 					</div>
 			

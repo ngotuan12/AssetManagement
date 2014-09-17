@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block styles %}
 	<link href="css/custom.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css"
+	type="text/css">
 {% endblock styles %}
 
 {% block content %}
@@ -20,12 +22,12 @@
 				<table class="table table-bordered" id="reasontable">
 					<thead>
 						<tr>
-							<th>STT</th>
-							<th>Mã lý do</th>
-							<th>Tên lý do</th>
-							<th>Trạng thái</th>
-							<th>Mô tả</th>
-							<th>Sửa/Xóa</th>
+							<th style='text-align:center'>STT</th>
+							<th style='text-align:center'>MÃ LÝ DO</th>
+							<th style='text-align:center'>TÊN LÝ DO</th>
+							<th style='text-align:center'>TRẠNG THÁI</th>
+							<th style='text-align:center'>MÔ TẢ</th>
+							<th style='text-align:center'>SỬA/XÓA</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -59,6 +61,9 @@
 	</div>
 	<!-- panel -->
 </div>
+<div id="dialog-confirm" title="Xóa lý do?" >
+  		<p><span style="float:left; margin:0 7px 20px 0;"></span>Bạn có chắc chắn muốn xóa lý do này không?</p>
+	</div>
 {% endblock content %}
 
 {% block scripts %}
@@ -90,21 +95,27 @@
 			'white-space' : 'nowrap',
 			disable_search_threshold : 10
 		});
+		$("#dialog-confirm" ).dialog({
+			 autoOpen: false, 
+			resizable: false,
+			height:200,
+			modal: true,
+			buttons: {
+				"Có": function() {
+					var id=$("#dialog-confirm" ).data("id");
+					$('#deleteReason' + id).submit();
+					$( this ).dialog( "close" );
+				},
+				"Không": function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
 	});
 	
 	function deleteReason(reason_id)
 	{
-		$.confirm({
-			text : "Bạn thực sự muốn xoá lý do",
-			confirm : function(button)
-			{
-				jQuery('#deleteReason' + reason_id).submit();
-			},
-			cancel : function(button)
-			{
-
-			}
-		});
+		$("#dialog-confirm" ).data("id",reason_id).dialog('open');
 	}
 </script>
 {% endblock scripts%}
