@@ -65,7 +65,7 @@
 								<div class="col-lg">
 									<div class="form-group">
 											<textarea class="form-control" name="txtDescription" rows="5"
-												placeholder="Ghi chú" required>{% if has_error %}{{ project.description }}{% endif %}</textarea>
+												placeholder="Ghi chú" required maxlength="200">{% if has_error %}{{ project.description }}{% endif %}</textarea>
 									</div>
 								</div>
 							</div>
