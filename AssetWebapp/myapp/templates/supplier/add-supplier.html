@@ -62,9 +62,6 @@
 							</div>
 							
 							<div class="row">
-								<input type="hidden" name="hd_supplier_id" value="{{ supplier.id }}">
-								<input type="hidden" name="hd_dt_supplier" id="hd_dt_supplier" value="{{ supplier.create_datetime|date:'d/m/Y' }}">
-								
 								<div class="col-lg-3">
 									<div class="form-group">
 										<label class="control-label"> Số điện thoại</label>
@@ -167,7 +164,7 @@ $(document).ready(function(){
 		dateFormat: 'dd/mm/yy',
 		maxDate: '0',
 		});
-	var current_date = $("#hd_dt_supplier").val();
+	var current_date = new Date();
 	$("#dt_supplier").datepicker("setDate",current_date);
 	// Input Masks
 	$("#dt_supplier").mask("99/99/9999");
