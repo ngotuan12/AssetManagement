@@ -1,0 +1,123 @@
+{% extends "base.html" %} 
+{% block styles %}
+<link href="/css/increment-asset.css" rel="stylesheet">
+<link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<style>
+.ztree {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	height: 520px;
+	overflow-y: scroll;
+	overflow-x: auto;
+}
+
+.ztree li span.button.add {
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contentpanel no-padding">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title"
+				style="text-align: center; line-height: 10px">THÊM MỤC ĐÍCH SỬ DỤNG</h4>
+		</div>
+		<div class="panel-body" style="padding: 0 10px;">
+			<div class="row row-pad-5">
+				<form class="form-horizontal form-bordered" method="post" id="formAssetState" novalidate="novalidate" >
+					{% csrf_token %}
+					{% if has_error %}
+						<div class="col-sm panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+					<div class="row row-pad-5">
+						<div class="alert alert-info">
+							<div class="row">
+								<div class="col-lg">
+									<label>Trực thuộc</label> <input type="text" value="{{ parent_name }}"
+										id = "txtParentName" placeholder="Trực thuộc"
+										class="form-control" disabled>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-lg-6">
+									<label>Mã hiện trạng tài sản</label> <input type="text"
+										id="txtCode" name="txtCode" value="{{ goal.code }}" placeholder="Mã hiện trạng tài sản"
+										class="form-control" required maxlength="50">
+								</div>
+								<div class="col-lg-6">
+									<label>Tên hiện trạng tài sản</label> <input type="text"
+										id="txtName" name="txtName" value="{{ goal.name }}" placeholder="Tên hiện trạng tài sản"
+										class="form-control" required maxlength="100">
+								</div>
+								<div class="col-lg-12">
+									<label class="control-label">Mô tả</label>
+									<textarea  class="form-control" rows="5" name="txtDescription" id="txtDescription" placeholder="Mô tả" maxlength="100" required="required">{{ goal.description }}</textarea>
+								</div>
+							</div>
+							
+							<div class="row row-pad-5">
+								<div class="ckbox ckbox-default">
+									{% if goal.status == '1' %}
+										<input id="ckStatus" type="checkbox" name="ckStatus" checked="checked" > 
+									{% else %}
+										<input id="ckStatus" type="checkbox" name="ckStatus"> 
+									{% endif %}
+									<label for="ckStatus">Kích hoạt </label>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="row row-pad-5">
+						<div class="col-sm col-sm-offset-5">
+							<button class="btn btn-primary" onclick="return onSubmit();">Thực
+								hiện</button>
+							&nbsp; <a class="btn btn-default" href="/goal/">Thoát</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- contentpanel -->
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/custom.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script>
+jQuery(document).ready(function() {
+});
+function onSubmit() {
+	var $valid = jQuery('#formAssetState').validate();
+	if (!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#formAssetState').submit();
+}
+</script>
+{% endblock scripts%}
