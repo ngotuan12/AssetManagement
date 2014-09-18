@@ -3,7 +3,8 @@ from django.conf.urls import patterns, url
 from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	EditIncrementAsset, ViewAsset, UpgradeAsset, DecrementAsset, VerifyAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
-	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error
+	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error\
+	,Goal,AssetVolatility
 
 
 urlpatterns = patterns('',
@@ -61,6 +62,16 @@ urlpatterns = patterns('',
     url(r'^state/add/(?P<parent_id>\w+)/$', AssetState.add, name='asset-state'),
     url(r'^state/edit/(?P<state_id>\w+)/$', AssetState.edit, name='asset-state'),
     url(r'^state/delete/(?P<state_id>\w+)/$', AssetState.delete, name='asset-state'),
+    #Goal
+	url(r'^goal/$', Goal.index,name='goal'),
+	url(r'^goal/add/(?P<parent_id>\w+)/$', Goal.add, name='goal'),
+	url(r'^goal/edit/(?P<goal_id>\w+)/$', Goal.edit, name='goal'),
+	url(r'^goal/delete/(?P<goal_id>\w+)/$', Goal.delete, name='goal'),
+	#AssetVolatility
+	url(r'^asset-volatility/$', AssetVolatility.index,name='asset-volatility'),
+	url(r'^volatility/add/(?P<parent_id>\w+)/$', AssetVolatility.add, name='asset-volatility'),
+	url(r'^volatility/edit/(?P<volatility_id>\w+)/$', AssetVolatility.edit, name='asset-volatility'),
+	url(r'^volatility/delete/(?P<volatility_id>\w+)/$', AssetVolatility.delete, name='asset-volatility'),
     # Reason
     url(r'^reason/$', Reason.view_reason , name='reason'),
     url(r'^reason/add/$', Reason.add_reason, name='add-reason'),
