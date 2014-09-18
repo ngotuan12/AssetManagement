@@ -88,6 +88,9 @@ urlpatterns = patterns('',
     url(r'^supplier/delete/(?P<supplier_id>\w+)/$', ListSupplier.delete_supplier),
     #AssetState
     url(r'^asset-state/$', AssetState.index,name='asset-state'),
+    url(r'^state/add/(?P<parent_id>\w+)/$', AssetState.add, name='asset-state'),
+    url(r'^state/edit/(?P<state_id>\w+)/$', AssetState.edit, name='asset-state'),
+    url(r'^state/delete/(?P<state_id>\w+)/$', AssetState.delete, name='asset-state'),
     # User
     url(r'^user/$', User.list_user, name='user'),
     # add user 

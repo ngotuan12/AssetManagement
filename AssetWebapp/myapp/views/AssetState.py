@@ -1,99 +1,132 @@
 # -*- coding: utf-8 -*-
-'''
-Created on Sep 12, 2014
 
-@author: vinhndq
-'''
 import json
 
 from django.contrib.auth.decorators import login_required, permission_required
-from django.forms.models import model_to_dict
-from django.http.response import HttpResponse
+from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
+from myapp.models.List import List
 from myapp.util.DateEncoder import DateEncoder
-from myapp.models.Asset import Asset
-from datetime import datetime
+from django.http.response import HttpResponseRedirect
+
 
 @login_required(login_url='/login/')
-@permission_required('myapp.state', login_url='/permission-error/')
+@permission_required('myapp.view_department',login_url='/permission-error/')
 def index(request):
-    context={}
+    context = {}
     try:
-        if request.POST:
-            action_type=request.POST['action_type'].strip()
-            asset_type_id=request.POST['asset_id'].strip()
-            asset_type_code=request.POST['asset_code'].strip()
-            asset_type_name=request.POST['asset_name'].strip()
-            asset_type_parent=request.POST['asset_parent'].strip()
-            asset_type_description=request.POST['asset_description'].strip()
-            if(action_type=='delete'):
-                current = Asset.objects.get(id=asset_type_id)
-                childrends=Asset.objects.filter(parent_id=current)
-                for child in childrends:
-                    child.delete()
-                current.delete()
-                context.update({"has_success":"Xóa thành công!"})
-            elif action_type=='add':
-                check_asset=Asset.objects.filter(code=asset_type_code).count()
-                if(check_asset>0):
-                    context.update({'has_error':'Mã tài sản đã tồn tại'})
-                else:
-                    asset=Asset()
-                    asset.code=asset_type_code
-                    asset.name=asset_type_name
-                    asset.user_name=request.user.username
-                    if (asset_type_parent!=''):
-                        asset_parent=Asset.objects.get(id=int(asset_type_parent))
-                        if(asset_parent is not None):
-                            asset.parent_id=asset_parent
-                            asset.parent_code=asset_parent.code
-                    asset.description=asset_type_description
-                    asset.save()
-                    context.update({"has_success":"Thêm mới thành công!"})
-            else:
-                asset_type_id=asset_type_id.strip()
-                check_asset=Asset.objects.filter(code=asset_type_code).exclude(id=asset_type_id).count()
-                if(check_asset>0):
-                    context.update({'has_error':'Mã tài sản đã tồn tại'})
-                else:
-                    asset=Asset.objects.get(id=asset_type_id)
-                    asset.code=asset_type_code
-                    asset.name=asset_type_name
-                    if (asset_type_parent==''):
-                        asset.parent_id=None
-                        asset.parent_code=None
-                    else:
-                        asset_parent=Asset.objects.get(id=int(asset_type_parent))
-                        asset.parent_id=asset_parent
-                        if(asset_parent is not None):
-                            asset.parent_code=asset_parent.code
-                        else:
-                            asset.parent_code=None
-                    asset.description=asset_type_description
-                    asset.save()
-                    context.update({"has_success":"Cập nhật thông tin thành công!"})
-        assets=Asset.objects.all().order_by("name")
-        infors=[]
-        for asset in assets:
-            if asset.parent_id is not None:
-                infors.append({"id":asset.id,"pId":asset.parent_id.id,"name":asset.name})
-            else:
-                infors.append({"id":asset.id,"pId":None,"name":asset.name})
-        context.update({"data":json.dumps(infors)})
-        context.update({"asset_parents":assets})
+        states_qs = List.objects.raw("""
+                                SELECT id,name,code,description,list_level,status,list_type,
+                                    create_datetime,user_name,parent_id,connect_by_isleaf is_leaf
+                                FROM list 
+                                WHERE list_type='4' 
+                                START WITH parent_id IS NULL 
+                                CONNECT BY PRIOR id = parent_id 
+                                ORDER SIBLINGS BY parent_id 
+                                """)
+        states = []
+        for state in states_qs:
+            row = {}
+            row.update({'id':state.id})
+            row.update({'code':state.code})
+            row.update({'name':state.name})
+            row.update({'description':state.description})
+            row.update({'list_level':state.list_level})
+            row.update({'status':state.status})
+            row.update({'create_date':state.create_datetime.strftime('%Y-%m-%d %H:%M:%S')})
+            row.update({'user_name':state.user_name})
+            try:
+                row.update({'parent_id':state.parent_id.id})
+                row.update({'parent_name':state.parent_id.name})
+                if(state.is_leaf == 1):
+                    row.update({'icon':'/tree/css/zTreeStyle/img/diy/8.png'})
+            except:
+                row.update({'open':True,'iconOpen':'/tree/css/zTreeStyle/img/diy/1_open.png', 'iconClose':'/tree/css/zTreeStyle/img/diy/1_close.png'})
+            states.append(row)
+        context.update({'data':json.dumps(states,cls=DateEncoder)})
     except Exception as ex:
         context.update({'has_error':str(ex)})
-    return render_to_response("asset/asset-state.html",context,RequestContext(request))
+    finally:
+        context.update(csrf(request))
+    return render_to_response("asset/asset-state.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.asset_type', login_url='/permission-error/')
-def load_asset_detail(request,asset_id):
+@permission_required('myapp.add_department',login_url='/permission-error/')
+def add(request,parent_id):
+    context = {}
     try:
-        assets=Asset.objects.filter(id=asset_id)
-        infors=[]
-        for asset in assets:
-            infors.append(model_to_dict(asset))
-        return HttpResponse(json.dumps({"asset_detail":infors},cls=DateEncoder),content_type="application/json")
+        parent = List.objects.get(id=parent_id,list_type='4')
+        context.update({'parent_name':parent.name})
+        if request.POST:
+            code = request.POST["txtCode"]
+            name = request.POST["txtName"]
+            description = request.POST["txtDescription"]
+            asset_state = List()
+            asset_state.code = code
+            asset_state.name = name
+            asset_state.description = description
+            asset_state.list_type = '4'
+            if request.POST.get('ckStatus'):
+                asset_state.status = "1"
+            else:
+                asset_state.status = "0"
+            asset_state.parent_id = parent
+            asset_state.user_name = request.user.username
+            check_asset_state = List.objects.filter(code = code,parent_id = parent_id,list_type='4')
+            if len(check_asset_state) > 0:
+                context.update({'has_error':'Mã hiện trạng tài sản đã tồn tại'})
+                context.update({'asset_state':asset_state})
+            else:
+                asset_state.save()
+                return HttpResponseRedirect("/asset-state/")
     except Exception as ex:
-        return HttpResponse(json.dumps({"error":str(ex)},cls=DateEncoder),content_type="application/json")
+        context.update({'has_error':str(ex)})
+    finally:
+        context.update(csrf(request))
+    return render_to_response("asset/add-asset-state.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.edit_department',login_url='/permission-error/')
+def edit(request,state_id):
+    context = {}
+    try:
+        asset_state = List.objects.get(id=state_id,list_type='4')
+        context.update({'parents':List.objects.exclude(id=state_id).filter(list_type='4')})
+        context.update({'asset_state':asset_state})
+        if request.POST:
+            parent_id = request.POST["slParent"]
+            code = request.POST["txtCode"]
+            name = request.POST["txtName"]
+            description = request.POST["txtDescription"]
+            #update
+            asset_state.code = code
+            asset_state.name = name
+            asset_state.description = description
+            if request.POST.get('ckStatus'):
+                asset_state.status = "1"
+            else:
+                asset_state.status = "0"
+            asset_state.parent_id = List.objects.get(id=parent_id,list_type='4')
+            check_asset_state = List.objects.exclude(id=state_id).filter(code = code,parent_id = parent_id,list_type='4')
+            if len(check_asset_state) >0 :
+                context.update({'has_error':'Mã hiện trạng tài sản đã tồn tại'})
+            else:
+                asset_state.save()
+                return HttpResponseRedirect("/asset-state/")
+    except Exception as ex:
+        context.update({'has_error':str(ex)})
+    finally:
+        context.update(csrf(request))
+    return render_to_response("asset/edit-asset-state.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.delete_department',login_url='/permission-error/')
+def delete(request,state_id):
+    context = {}
+    try:
+        if request.POST:
+            asset_state = List.objects.get(id=state_id,list_type='4')
+            asset_state.delete()
+            return HttpResponseRedirect("/asset-state/")
+    except Exception as ex:
+        context.update({'has_error':str(ex)})
+        return HttpResponseRedirect("/asset-state/")
