@@ -9,12 +9,13 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
 
 from myapp.models.List import List
-from myapp.models.Supplier import Supplier
 from myapp.models.Staff import Staff
+from myapp.models.Supplier import Supplier
+
 
 @login_required(login_url='/login/')
 @permission_required('myapp.view_area', login_url='/permission-erro/r')
@@ -59,7 +60,7 @@ def edit_supplier(request,supplier_id):
 					context.update({'has_error':'Mã nhà sản xuất đã tồn tại'})
 				else:
 					supplier.save()
-					return HttpResponseRedirect("/list-supplier/")
+					return HttpResponseRedirect(resolve_url("supplier"))
 			except Exception as ex:
 				context.update({'has_error':ex})
 		context.update(csrf(request))
@@ -97,7 +98,7 @@ def add_supplier(request):
 					context.update({'supplier':supplier})
 				else:
 					supplier.save()
-					return HttpResponseRedirect("/list-supplier/")
+					return HttpResponseRedirect(resolve_url("supplier"))
 			except Exception as ex:
 				context.update({'has_error':ex})
 		context.update(csrf(request))
@@ -109,6 +110,6 @@ def delete_supplier(request,supplier_id):
 	try:
 		supplier = Supplier.objects.get(id=supplier_id)
 		supplier.delete()
-		return HttpResponseRedirect("/list-supplier/")
+		return HttpResponseRedirect(resolve_url("supplier"))
 	except List.DoesNotExist:
 			return HttpResponseRedirect("/notfound-error")

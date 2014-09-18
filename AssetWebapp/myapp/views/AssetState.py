@@ -4,12 +4,12 @@ import json
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
-from django.shortcuts import render_to_response
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
 
 from myapp.models.List import List
 from myapp.util.DateEncoder import DateEncoder
-from django.http.response import HttpResponseRedirect
 
 
 @login_required(login_url='/login/')
@@ -79,7 +79,7 @@ def add(request,parent_id):
                 context.update({'asset_state':asset_state})
             else:
                 asset_state.save()
-                return HttpResponseRedirect("/asset-state/")
+                return HttpResponseRedirect(resolve_url("asset-state"))
     except Exception as ex:
         context.update({'has_error':str(ex)})
     finally:
@@ -112,7 +112,7 @@ def edit(request,state_id):
                 context.update({'has_error':'Mã hiện trạng tài sản đã tồn tại'})
             else:
                 asset_state.save()
-                return HttpResponseRedirect("/asset-state/")
+                return HttpResponseRedirect(resolve_url("asset-state"))
     except Exception as ex:
         context.update({'has_error':str(ex)})
     finally:
@@ -126,7 +126,7 @@ def delete(request,state_id):
         if request.POST:
             asset_state = List.objects.get(id=state_id,list_type='4')
             asset_state.delete()
-            return HttpResponseRedirect("/asset-state/")
+            return HttpResponseRedirect(resolve_url("asset-state"))
     except Exception as ex:
         context.update({'has_error':str(ex)})
-        return HttpResponseRedirect("/asset-state/")
+        return HttpResponseRedirect(resolve_url("asset-state"))

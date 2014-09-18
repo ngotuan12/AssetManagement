@@ -35,7 +35,7 @@ urlpatterns = patterns('',
     url(r'^get-list-stock/(?P<dept_id>\w+)/$', DecrementAsset.getListStock, name='get-list-stock'),
     url(r'^get-list-serial/(?P<stock_id>\w+)/$', DecrementAsset.getListSerial, name='get-list-serial'),
     # verify asset
-    url(r'^verify-asset/$', VerifyAsset.index),
+    url(r'^verify-asset/$', VerifyAsset.index,name='verify-asset'),
     url(r'^verify-asset/(?P<serial_id>\w+)/$', VerifyAsset.verify),
     # revaluate asset
     url(r'^revaluate-asset/$', RevaluateAsset.index),
@@ -44,36 +44,36 @@ urlpatterns = patterns('',
     # evaluation asset
     url(r'^transfer-asset/$', TransferAsset.index),
     # list project
-    url(r'^list-project/$', ListProject.index),
+    url(r'^list-project/$', ListProject.index,name='list-project'),
     #add project
-    url(r'^project/add/$', ListProject.add_project),
+    url(r'^project/add/$', ListProject.add_project,name='add-project'),
     # edit project
-    url(r'^edit-project/(?P<project_id>\w+)/$', ListProject.edit_project),
+    url(r'^edit-project/(?P<project_id>\w+)/$', ListProject.edit_project,name='edit-project'),
     #delete project
-    url(r'^project/delete/(?P<project_id>\w+)/$', ListProject.delete_project),
+    url(r'^project/delete/(?P<project_id>\w+)/$', ListProject.delete_project,name='delete-project'),
     # list supplier
-    url(r'^list-supplier/$', ListSupplier.index),
+    url(r'^list-supplier/$', ListSupplier.index,name='supplier'),
     #add supplier
-    url(r'^supplier/add/$', ListSupplier.add_supplier),
+    url(r'^supplier/add/$', ListSupplier.add_supplier,name='add-supplier'),
     # edit supplier
-    url(r'^edit-supplier/(?P<supplier_id>\w+)/$', ListSupplier.edit_supplier),
+    url(r'^edit-supplier/(?P<supplier_id>\w+)/$', ListSupplier.edit_supplier,name='edit-supplier'),
     #delete supplier
-    url(r'^supplier/delete/(?P<supplier_id>\w+)/$', ListSupplier.delete_supplier),
+    url(r'^supplier/delete/(?P<supplier_id>\w+)/$', ListSupplier.delete_supplier,name='delete-supplier'),
     #AssetState
     url(r'^asset-state/$', AssetState.index,name='asset-state'),
-    url(r'^state/add/(?P<parent_id>\w+)/$', AssetState.add, name='asset-state'),
-    url(r'^state/edit/(?P<state_id>\w+)/$', AssetState.edit, name='asset-state'),
-    url(r'^state/delete/(?P<state_id>\w+)/$', AssetState.delete, name='asset-state'),
+    url(r'^state/add/(?P<parent_id>\w+)/$', AssetState.add, name='add-asset-state'),
+    url(r'^state/edit/(?P<state_id>\w+)/$', AssetState.edit, name='edit-asset-state'),
+    url(r'^state/delete/(?P<state_id>\w+)/$', AssetState.delete, name='delete-asset-state'),
     #Goal
 	url(r'^goal/$', Goal.index,name='goal'),
-	url(r'^goal/add/(?P<parent_id>\w+)/$', Goal.add, name='goal'),
-	url(r'^goal/edit/(?P<goal_id>\w+)/$', Goal.edit, name='goal'),
-	url(r'^goal/delete/(?P<goal_id>\w+)/$', Goal.delete, name='goal'),
+	url(r'^goal/add/(?P<parent_id>\w+)/$', Goal.add, name='add-goal'),
+	url(r'^goal/edit/(?P<goal_id>\w+)/$', Goal.edit, name='edit-goal'),
+	url(r'^goal/delete/(?P<goal_id>\w+)/$', Goal.delete, name='delete-goal'),
 	#AssetVolatility
 	url(r'^asset-volatility/$', AssetVolatility.index,name='asset-volatility'),
-	url(r'^volatility/add/(?P<parent_id>\w+)/$', AssetVolatility.add, name='asset-volatility'),
-	url(r'^volatility/edit/(?P<volatility_id>\w+)/$', AssetVolatility.edit, name='asset-volatility'),
-	url(r'^volatility/delete/(?P<volatility_id>\w+)/$', AssetVolatility.delete, name='asset-volatility'),
+	url(r'^volatility/add/(?P<parent_id>\w+)/$', AssetVolatility.add, name='add-asset-volatility'),
+	url(r'^volatility/edit/(?P<volatility_id>\w+)/$', AssetVolatility.edit, name='edit-asset-volatility'),
+	url(r'^volatility/delete/(?P<volatility_id>\w+)/$', AssetVolatility.delete, name='delete-asset-volatility'),
     # Reason
     url(r'^reason/$', Reason.view_reason , name='reason'),
     url(r'^reason/add/$', Reason.add_reason, name='add-reason'),

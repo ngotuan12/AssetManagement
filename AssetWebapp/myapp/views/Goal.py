@@ -4,12 +4,12 @@ import json
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
-from django.shortcuts import render_to_response
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
 
 from myapp.models.List import List
 from myapp.util.DateEncoder import DateEncoder
-from django.http.response import HttpResponseRedirect
 
 
 @login_required(login_url='/login/')
@@ -79,7 +79,7 @@ def add(request,parent_id):
                 context.update({'goal':goal})
             else:
                 goal.save()
-                return HttpResponseRedirect("/goal/")
+                return HttpResponseRedirect(resolve_url("goal"))
     except Exception as ex:
         context.update({'has_error':str(ex)})
     finally:
@@ -112,7 +112,7 @@ def edit(request,goal_id):
                 context.update({'has_error':'Mã mục đích sử dụng đã tồn tại'})
             else:
                 goal.save()
-                return HttpResponseRedirect("/goal/")
+                return HttpResponseRedirect(resolve_url("goal"))
     except Exception as ex:
         context.update({'has_error':str(ex)})
     finally:
@@ -126,7 +126,7 @@ def delete(request,goal_id):
         if request.POST:
             goal = List.objects.get(id=goal_id,list_type='2')
             goal.delete()
-            return HttpResponseRedirect("/goal/")
+            return HttpResponseRedirect(resolve_url("goal"))
     except Exception as ex:
         context.update({'has_error':str(ex)})
-        return HttpResponseRedirect("/goal/")
+        return HttpResponseRedirect(resolve_url("goal"))

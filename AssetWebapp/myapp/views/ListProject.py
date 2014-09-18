@@ -9,7 +9,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
 
 from myapp.models.List import List
@@ -48,7 +48,7 @@ def edit_project(request,project_id):
 					context.update({'has_error':'Mã dự án đã tồn tại'})
 				else:
 					project.save()
-					return HttpResponseRedirect("/list-project/")
+					return HttpResponseRedirect(resolve_url("list-project"))
 			except Exception as ex:
 				context.update({'has_error':ex})
 		context.update(csrf(request))
@@ -77,7 +77,7 @@ def add_project(request):
 					context.update({'project':project})
 				else:
 					project.save()
-					return HttpResponseRedirect("/list-project/")
+					return HttpResponseRedirect(resolve_url("list-project"))
 			except Exception as ex:
 				context.update({'has_error':ex})
 		context.update(csrf(request))
@@ -89,6 +89,6 @@ def delete_project(request,project_id):
 	try:
 		project = List.objects.get(id=project_id)
 		project.delete()
-		return HttpResponseRedirect("/list-project/")
+		return HttpResponseRedirect(resolve_url("list-project"))
 	except List.DoesNotExist:
 			return HttpResponseRedirect("/notfound-error")
