@@ -53,23 +53,23 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<label>Mã biến động tài sản</label> <input type="text"
-										id="txtCode" name="txtCode" value="{{ asset_state.code }}" placeholder="Mã biến động tài sản"
+										id="txtCode" name="txtCode" value="{{ asset_volatility.code }}" placeholder="Mã biến động tài sản"
 										class="form-control" required maxlength="50">
 								</div>
 								<div class="col-lg-6">
 									<label>Tên biến động tài sản</label> <input type="text"
-										id="txtName" name="txtName" value="{{ asset_state.name }}" placeholder="Tên biến động tài sản"
+										id="txtName" name="txtName" value="{{ asset_volatility.name }}" placeholder="Tên biến động tài sản"
 										class="form-control" required maxlength="100">
 								</div>
 								<div class="col-lg-12">
 									<label class="control-label">Mô tả</label>
-									<textarea  class="form-control" rows="5" name="txtDescription" id="txtDescription" placeholder="Mô tả" maxlength="100" required="required">{{ asset_state.description }}</textarea>
+									<textarea  class="form-control" rows="5" name="txtDescription" id="txtDescription" placeholder="Mô tả" maxlength="100" required="required">{{ asset_volatility.description }}</textarea>
 								</div>
 							</div>
 							
 							<div class="row row-pad-5">
 								<div class="ckbox ckbox-default">
-									{% if asset_state.status == '1' %}
+									{% if asset_volatility.status == '1' %}
 										<input id="ckStatus" type="checkbox" name="ckStatus" checked="checked" > 
 									{% else %}
 										<input id="ckStatus" type="checkbox" name="ckStatus"> 

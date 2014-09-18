@@ -49,13 +49,13 @@ def index(request):
         context.update({'has_error':str(ex)})
     finally:
         context.update(csrf(request))
-    return render_to_response("asset/asset-state.html", context, RequestContext(request))
+    return render_to_response("asset/asset-volatility.html", context, RequestContext(request))
 @login_required(login_url='/login/')
 @permission_required('myapp.add_department',login_url='/permission-error/')
 def add(request,parent_id):
     context = {}
     try:
-        parent = List.objects.get(id=parent_id,list_type='4')
+        parent = List.objects.get(id=parent_id,list_type='5')
         context.update({'parent_name':parent.name})
         if request.POST:
             code = request.POST["txtCode"]
@@ -73,7 +73,7 @@ def add(request,parent_id):
                 asset_volatility.status = "0"
             asset_volatility.parent_id = parent
             asset_volatility.user_name = request.user.username
-            check_asset_volatility = List.objects.filter(code = code,parent_id = parent_id,list_type='4')
+            check_asset_volatility = List.objects.filter(code = code,parent_id = parent_id,list_type='5')
             if len(check_asset_volatility) > 0:
                 context.update({'has_error':'Mã biến động tài sản đã tồn tại'})
                 context.update({'asset_volatility':asset_volatility})
@@ -84,7 +84,7 @@ def add(request,parent_id):
         context.update({'has_error':str(ex)})
     finally:
         context.update(csrf(request))
-    return render_to_response("asset/add-asset-state.html", context, RequestContext(request))
+    return render_to_response("asset/add-asset-volatility.html", context, RequestContext(request))
 @login_required(login_url='/login/')
 @permission_required('myapp.edit_department',login_url='/permission-error/')
 def edit(request,volatility_id):
@@ -117,16 +117,16 @@ def edit(request,volatility_id):
         context.update({'has_error':str(ex)})
     finally:
         context.update(csrf(request))
-    return render_to_response("asset/edit-asset-state.html", context, RequestContext(request))
+    return render_to_response("asset/edit-asset-volatility.html", context, RequestContext(request))
 @login_required(login_url='/login/')
 @permission_required('myapp.delete_department',login_url='/permission-error/')
-def delete(request,state_id):
+def delete(request,volatility_id):
     context = {}
     try:
         if request.POST:
-            asset_state = List.objects.get(id=state_id,list_type='4')
-            asset_state.delete()
-            return HttpResponseRedirect("/asset-state/")
+            asset_volatility = List.objects.get(id=volatility_id,list_type='5')
+            asset_volatility.delete()
+            return HttpResponseRedirect("/asset-volatility/")
     except Exception as ex:
         context.update({'has_error':str(ex)})
         return HttpResponseRedirect("/asset-state/")
