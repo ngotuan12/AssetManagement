@@ -4,7 +4,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	EditIncrementAsset, ViewAsset, UpgradeAsset, DecrementAsset, VerifyAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error\
-	,Goal,AssetVolatility
+	,Goal,AssetVolatility,ListCountry
 
 
 urlpatterns = patterns('',
@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r'^department/add/(?P<parent_id>\w+)/$', Department.add, name='department'),
     url(r'^department/edit/(?P<dept_id>\w+)/$', Department.edit, name='department'),
     url(r'^department/delete/(?P<dept_id>\w+)/$', Department.delete, name='department'),
+    #Country
+    url(r'^country/$', ListCountry.index, name='country'),
     # Function List
     url(r'^function-list$', FunctionList.index, name='function-list'),
     # increment asset
