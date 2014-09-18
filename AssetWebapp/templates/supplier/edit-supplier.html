@@ -99,11 +99,11 @@
 											data-placeholder="Kho" 
 											name = "slStatus" required="required">
 											{% if supplier.status == '1' %}
-												<option value="0" selected="selected">A</option>
-												<option value="1" >B</option>
+												<option value="1" selected="selected">Kích hoạt</option>
+												<option value="0" >Không kích hoạt</option>
 											{% else %}
-												<option value="0">A</option>
-												<option value="1" selected="selected">B</option>
+												<option value="1">Kích hoạt</option>
+												<option value="0" selected="selected">Không kích hoạt</option>
 											{% endif %}
 											
 										</select>
