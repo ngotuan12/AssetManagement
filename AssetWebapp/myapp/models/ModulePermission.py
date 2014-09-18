@@ -4,14 +4,18 @@ Created on Aug 15, 2014
 
 @author: DienND
 '''
-from django.utils.translation import ugettext as _
+from django.contrib.auth.models import Permission
 from django.db import models
+from django.utils.translation import ugettext as _
+
+from AdminManagement.models.Module import Module
 
 
 # Create your models here.
 class ModulePermission(models.Model):
-    name = models.CharField(max_length=200)
-    permission_name = models.CharField(max_length=200)
+    id = models.IntegerField(primary_key=True,db_column="id")
+    module = models.ForeignKey(Module,db_column='module_id')
+    permission = models.ForeignKey(Permission,db_column='permission_id')
     class Meta:
         db_table = 'module_permission'
         app_label = 'myapp'

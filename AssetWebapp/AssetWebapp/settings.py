@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'AdminManagement',
     'myapp',
 )
 
@@ -113,7 +114,7 @@ STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)
 REPORT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/report"
 TEMPLATE_DEBUG = DEBUG
 TEMPLATE_DIRS = (
-                os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)), 'myapp/templates'),
+                os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)), '/templates'),
 )
 
 REPORT_SERVER = 'http://localhost:8080/AssetServer/'

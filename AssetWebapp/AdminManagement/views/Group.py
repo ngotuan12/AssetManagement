@@ -16,7 +16,7 @@ from django.template.context import RequestContext
 def view_group(request):
     groups = Group.objects.all().order_by("name")
     context ={"groups":groups}
-    return render_to_response("group/group.html",context, RequestContext(request))
+    return render_to_response("admin/group/group.html",context, RequestContext(request))
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error',redirect_field_name=None)
 def add_group(request):
     content_types = ContentType.objects.filter(app_label = "myapp")
@@ -38,7 +38,7 @@ def add_group(request):
             context.update({'has_error':ex})
     context.update({'permissions':permissions})
     context.update(csrf(request))
-    return render_to_response("group/add-group.html",context, RequestContext(request))
+    return render_to_response("admin/group/add-group.html",context, RequestContext(request))
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error',redirect_field_name=None)
 def change_group(request,group_id):
     try:

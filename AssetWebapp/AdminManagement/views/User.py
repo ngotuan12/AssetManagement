@@ -30,7 +30,7 @@ def change_password(request):
         context.update({'has_error':str(ex)})
     finally:
         context.update(csrf(request))
-        return render_to_response("change-password.html", context,RequestContext(request))
+        return render_to_response("admin/user/change-password.html", context,RequestContext(request))
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error/',redirect_field_name=None)
 def reset_password(request):
     return ""
@@ -39,13 +39,13 @@ def reset_password(request):
 def view_user(request):
     users = User.objects.all().order_by("username")
     context ={"users":users}
-    return render_to_response("user/user.html",context, RequestContext(request))
+    return render_to_response("admin/user/user.html",context, RequestContext(request))
 @login_required(login_url='/login/')
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error/',redirect_field_name=None)
 def list_user(request):
     users = User.objects.all().order_by("username")
     context ={"users":users}
-    return render_to_response("user/list-user.html",context, RequestContext(request))
+    return render_to_response("admin/user/list-user.html",context, RequestContext(request))
 @login_required(login_url='/login/')
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error/',redirect_field_name=None)
 def add_user(request):
@@ -92,7 +92,7 @@ def add_user(request):
             context.update({"has_error":str(ex)})
     context.update({'permissions':permissions,'groups':groups})
     context.update(csrf(request))
-    return render_to_response("user/add-user.html",context, RequestContext(request))
+    return render_to_response("admin/user/add-user.html",context, RequestContext(request))
 @login_required(login_url='/login/')
 @user_passes_test(lambda u: u.is_superuser,login_url='/permission-error/',redirect_field_name=None)
 def change_user(request,user_id):
@@ -140,7 +140,7 @@ def change_user(request,user_id):
             except Exception as ex:
                 context.update({"has_error":str(ex)})
         context.update(csrf(request))
-        return render_to_response("user/change-user.html",context, RequestContext(request))
+        return render_to_response("admin/user/change-user.html",context, RequestContext(request))
     except User.DoesNotExist:
         return HttpResponseRedirect("/notfound-error/")
 @login_required(login_url='/login/')
