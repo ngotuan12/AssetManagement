@@ -126,6 +126,7 @@ def delete(request,goal_id):
         if request.POST:
             goal = List.objects.get(id=goal_id,list_type='2')
             goal.delete()
+            context.update({'has_success':"Xóa tài sản thành công"})
             return HttpResponseRedirect(resolve_url("goal"))
     except Exception as ex:
         context.update({'has_error':str(ex)})

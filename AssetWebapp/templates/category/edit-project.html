@@ -27,7 +27,7 @@
 								<div class="col-lg-4">
 									<div class="form-group">
 										<label class="control-label"> Mã dự án</label>
-										<input type="text" name="txtCode" class="form-control" value="{{ project.code }}" placeholder="Mã dự án" required="required" maxlength="50">
+										<input type="text" name="txtCode" class="form-control" value="{{ project.code }}" placeholder="Mã dự án" required="required" maxlength="10">
 									</div>
 								</div>
 								
@@ -56,7 +56,7 @@
 									<div class="form-group">
 										<label class="control-label"> Mô tả</label>
 										<textarea class="form-control" name="txtDescription" rows="5"
-											placeholder="Mô tả" required maxlength="100">{{ project.description }}</textarea>
+											placeholder="Mô tả" required maxlength="200">{{ project.description }}</textarea>
 									</div>
 								</div>
 							</div>
