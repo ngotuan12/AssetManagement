@@ -97,7 +97,7 @@
 										<label class="control-label">Giá trị còn lại</label>
 											<input type="text" 
 												name = "txtRemainAmount"class="form-control numberic" value="{{ serial.remain_value }}"
-												required maxlength="20">
+												required maxlength="15">
 									</div>
 								</div>
 								
@@ -130,7 +130,7 @@
 										<label class="control-label">Số biên bản</label>
 										<input type="text" 
 											name = "txtCheckNo"class="form-control" value="" placeholder="Số biên bản"
-											required maxlength="20">
+											required maxlength="10">
 									</div>
 								</div>
 								
@@ -152,7 +152,7 @@
 									<div class="form-group">
 										<label class="control-label">Ghi Chú</label>
 											<textarea class="form-control" name="txtNote" rows="3"
-												placeholder="Ghi chú" required></textarea>
+												placeholder="Ghi chú" required maxlength="200"></textarea>
 									</div>
 								</div>	
 							</div>
@@ -228,6 +228,7 @@
 		$("#slState").val(state_id);
 		$('#slState').chosen('destroy');
 		$('#slState').chosen();
+		$("form:not(.filter) :input:visible:enabled:first").focus();
 	});
 </script>
 {% endblock scripts%}

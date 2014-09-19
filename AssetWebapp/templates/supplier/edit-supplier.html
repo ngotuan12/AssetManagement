@@ -27,14 +27,14 @@
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label class="control-label"> Mã nhà cung cấp</label>
-										<input type="text" name="txtCode" class="form-control" value="{{ supplier.code }}" placeholder="Mã nhà cung cấp..." required="required" maxlength="50">
+										<input type="text" name="txtCode" class="form-control" value="{{ supplier.code }}" placeholder="Mã nhà cung cấp..." required="required" maxlength="10">
 									</div>
 								</div>
 								
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label class="control-label"> Tên nhà cung cấp</label>
-										<input type="text" name="txtName" class="form-control" value="{{ supplier.name }}" placeholder="Tên nhà cung cấp ..." required="required" maxlength="100">
+										<input type="text" name="txtName" class="form-control" value="{{ supplier.name }}" placeholder="Tên nhà cung cấp ..." required="required" maxlength="50">
 									</div>
 								</div>
 								<div class="col-lg-6">
@@ -227,6 +227,7 @@ function onGetCode(stock_id,id_name)
 
 jQuery(window).load(function(){
 	$(".numberic").numeric();
+	$("form:not(.filter) :input:visible:enabled:first").focus();
 });
 </script>
 {% endblock scripts%}
