@@ -155,8 +155,8 @@ function onGetCode(stock_id,id_name)
 		$('#'+ id_name).chosen();
 	});
 }
-
-jQuery(window).load(function(){ 
+jQuery(window).load(function(){
+	$("form:not(.filter) :input:visible:enabled:first").focus();
 });
 </script>
 {% endblock scripts%}

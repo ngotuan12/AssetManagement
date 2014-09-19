@@ -321,8 +321,9 @@ function onGetSerial(stock_id)
 {
 }
 
-jQuery(window).load(function(){ 
+jQuery(window).load(function(){
 	$(".numberic").numeric();
+	$("form:not(.filter) :input:visible:enabled:first").focus();
 });
 </script>
 {% endblock scripts%}

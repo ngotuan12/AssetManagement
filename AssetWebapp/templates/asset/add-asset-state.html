@@ -119,5 +119,8 @@ function onSubmit() {
 	}
 	jQuery('#formAssetState').submit();
 }
+jQuery(window).load(function(){
+	$("form:not(.filter) :input:visible:enabled:first").focus();
+});
 </script>
 {% endblock scripts%}
