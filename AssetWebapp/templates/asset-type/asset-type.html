@@ -1,19 +1,25 @@
 {% extends "base.html" %}
 {% block styles %}
+<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css" type="text/css">
 <link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
 	type="text/css">
-	<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css"
-	type="text/css">
-	
 <style>
 .ztree {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	border: 1px solid #617775;
 	background: #f0f6e4;
-	height: 460px;
+	height: 520px;
 	overflow-y: scroll;
 	overflow-x: auto;
+}
+
+.ztree li span.button.add {
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle
 }
 </style>
 {% endblock %} 
@@ -31,10 +37,11 @@
 			</div>
 		{% endif %}
 		<div class="row row-pad-0" id="asset-search">
-			<div class="col-sm-5" >
+			<div class="col-md-5"  style="BORDER-RIGHT: #999999 1px dashed;">
 					<input type="text" class="form-control" id="keySearch" value="" placeholder="Tìm kiếm nội dung .." />
+					<ul id="assetTree" class="ztree"></ul>
 			</div>
-			 
+			 <!-- 
 			<div class="col-sm-7">
 				<div class="col-lg-12">
 				<div class="input-group">
@@ -42,55 +49,80 @@
 				</div>
 				</div>
 			</div>
-			
-		</div>
-		
-		<div class="row row-pad-0">
-			<div class="col-sm-5" id="div-asset-tree">
-				<ul id="assetTree" class="ztree"></ul>
-			</div>
-			  
-			<form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="form-asset-type">
-			{% csrf_token %}
-			<div class="col-sm-7" id="asset-detail">
-				 <input type="hidden" id="asset-id" name="asset_id">
-				 <input type="hidden" id="asset-action-type" name="action_type">
-				<div class="col-lg-4">
-				  <input type="text" id="asset-code" name="asset_code" placeholder="Mã tài sản" class="form-control" required disabled="disabled">
+			 -->
+			<!--  <form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="form-asset-type">
+			{% csrf_token %} -->
+			<div class="col-md-7" id="asset-detail">
+				 <!-- <input type="hidden" id="asset-id" name="asset_id">
+				 <input type="hidden" id="asset-action-type" name="action_type">-->
+				 <div class="row row-pad-5">
+					<div class="col-lg-6">
+						<label>Mã tài sản</label>
+						<input type="text" id="asset-code" name="asset_code" placeholder="Mã tài sản" class="form-control" required disabled="disabled">
+					</div>
+					<div class="col-lg-6" style="margin-bottom:2%;">
+						<label>Tên tài sản</label>
+						<input type="text" id="asset-name" name="asset_name" placeholder="Tên tài sản" class="form-control" required disabled="disabled">
+					</div>
 				</div>
-				<div class="col-lg-8" style="margin-bottom:2%;">
-				  <input type="text" id="asset-name" name="asset_name" placeholder="Tên tài sản" class="form-control" required disabled="disabled">
+				<div class="row row-pad-5">
+					<div class="col-lg-12" style="margin-bottom:2%;">
+						<label>Thuộc loại tài sản</label>
+						<input type="text" id="asset-parent" name="parent_name" placeholder="Thuộc loại tài sản" class="form-control" required disabled="disabled">
+						<!-- <select id="asset-parent" class="form-control chosen-select"
+										data-placeholder="Tài sản cấp cha" 
+										name = "asset_parent" disabled="disabled" required>
+							<option value="">-----Không-----</option>
+							{% for asset in asset_parents%}
+								<option value="{{ asset.id }}" >{{ asset.code }} - {{ asset.name }}</option>
+							{% endfor%}
+						</select> -->
+					</div>
 				</div>
-
-				<div class="col-lg-12" style="margin-bottom:2%;">
+				<div class="row row-pad-5">
+					<div class="col-lg-12"  style="margin-bottom:2%;">
+						<label class="col-lg">Mô tả</label>
+						<textarea  class="form-control" id="asset-description" name="asset_description" rows="10" placeholder="Mô tả" disabled="disabled"></textarea>
+					</div>
+				</div>
+				<div class="row row-pad-5">
+					<div class="col-lg-6">
+						<label>Ngày tạo</label> 
+						<p id="create-date"> </p>
+					</div>
 					
-				 <select id="asset-parent" class="form-control chosen-select"
-								data-placeholder="Tài sản cấp cha" 
-								name = "asset_parent" disabled="disabled" required>
-								<option value="">-----Không-----</option>
-								{% for asset in asset_parents%}
-									<option value="{{ asset.id }}" >{{ asset.code }} - {{ asset.name }}</option>
-								{% endfor%}
-							</select>
+					<div class="col-lg-6">
+						<label>Người tạo</label> 
+						<p id="create-user"> </p>
+					</div>
 				</div>
-				<div class="col-lg-12"  style="margin-bottom:2%;">
-				  <textarea  class="form-control" id="asset-description" name="asset_description" rows="10" placeholder="Mô tả" disabled="disabled"></textarea>
+						
+				<div class="row row-pad-5">
+					<div class="ckbox ckbox-default">
+						<input id="ckStatus" type="checkbox"
+							checked="checked" disabled="disabled"> <label for="ckStatus">Kích
+							hoạt </label>
+					</div>
 				</div>
-				<div class="col-lg-12">
+				<!-- <div class="col-lg-12">
 					<button id="btn-asset-edit" class="btn btn-primary" onclick=" return false;" >Sửa</button>
 					<button id="btn-asset-delete" class="btn btn-primary" onclick=" return false;" >Xóa</button>
 					<button id="btn-asset-save" class="btn btn-primary" onclick=" return onSave();" >Lưu</button>
 					<button id="btn-asset-cancel" class="btn btn-primary" onclick=" return false;" >Hủy</button>
-				</div>
+				</div> -->
 			</div>
-			</form>
-			
+			<!-- </form>-->
 		</div>
+		
 		
 		  </div><!-- panel-body -->
 		
 	  </div><!-- panel body-->
 	</div>
+	<form method="post" id="formAssetType">
+		<input type="hidden" id= "txtID" name="txtID"/>
+		{% csrf_token %}
+	</form>
 	<div id="dialog-confirm" title="Xóa loại tài sản?" >
   		<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa tài sản này, các tài sản cấp con cũng bị xóa.Bạn có chắc chắn muốn xóa không?</p>
 	</div>
@@ -118,42 +150,52 @@
 var keySearch;
 var nodeList=[];
 var setting = {
-		data: {
-			key: {
-				title: "Press any keyword for filter data"
-			},
-			simpleData: {
-				enable: true
-			}
-		},
 		view: {
+			addHoverDom: addHoverDom,
+			removeHoverDom: removeHoverDom,
 			fontCss: getFontCss,
 			selectedMulti: false
 		},
-		callback:{
+		edit: {
+			enable: true,
+			showRemoveBtn: showBtn,
+			showRenameBtn: showBtn,
+		},
+		callback: {
+			beforeEditName: beforeEditName,
+			beforeRemove: beforeRemove,
 			onClick: loadData,
+		},
+		data : {
+			simpleData : {
+				enable : true,
+				idKey: 'id',
+				pIdKey: 'parent_id',
+				rootPId: null,
+			}
 		}
 		
 	};
 var zNodes ={{ data|safe }};
 $(document).ready(function()
 {
-	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
-	$.fn.zTree.init($("#assetTree"), setting,zNodes);
-	$('#btn-asset-edit').hide();
-	$('#btn-asset-delete').hide();
-	$('#btn-asset-save').hide();
-	$('#btn-asset-cancel').hide();
-	$('#asset-code').prop("disabled",true);
-	$('#asset-name').prop("disabled",true);
-	$('#asset-parent').prop("disabled",true).trigger("chosen:updated");
-	$('#asset-description').prop("disabled",true);
-	$('#asset-search').prop("disabled",false);
-	$('#div-asset-tree').prop("disabled",false);
-	$('#btn-asset-add').click(function(){beforeAdd();});
-	$('#btn-asset-edit').click(function(){beforeEdit();});
-	$('#btn-asset-cancel').click(function(){onCancel();});
-	$('#btn-asset-delete').click(function(){onDelete();});
+	//$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+	var tree=$.fn.zTree.init($("#assetTree"), setting,zNodes);
+	tree.expandNode(tree.getNodes()[0]);
+	//$('#btn-asset-edit').hide();
+	//$('#btn-asset-delete').hide();
+	//$('#btn-asset-save').hide();
+	//$('#btn-asset-cancel').hide();
+	//$('#asset-code').prop("disabled",true);
+	//$('#asset-name').prop("disabled",true);
+	//$('#asset-parent').prop("disabled",true).trigger("chosen:updated");
+	//$('#asset-description').prop("disabled",true);
+	//$('#asset-search').prop("disabled",false);
+	//$('#div-asset-tree').prop("disabled",false);
+	//$('#btn-asset-add').click(function(){beforeAdd();});
+	//$('#btn-asset-edit').click(function(){beforeEdit();});
+	//$('#btn-asset-cancel').click(function(){onCancel();});
+	//$('#btn-asset-delete').click(function(){onDelete();});
 	$("#dialog-confirm" ).dialog({
 		 autoOpen: false, 
 		resizable: false,
@@ -161,8 +203,7 @@ $(document).ready(function()
 		modal: true,
 		buttons: {
 			"Có": function() {
-				$('#asset-action-type').val('delete');
-				$('#form-asset-type').submit();
+				$('#formAssetType').submit();
 				$( this ).dialog( "close" );
 			},
 			"Không": function() {
@@ -292,12 +333,28 @@ function getFontCss(treeId, treeNode) {
 }
 function loadData(event, treeId, treeNode, clickFlag)
 {
-	loadAssetDetail(treeNode);
-	
+	//loadAssetDetail(treeNode);
+	$('#asset-code').val(treeNode.code);
+	$('#asset-name').val(treeNode.name);
+	if(treeNode.parent_id==null)
+	{
+		$('#asset-parent').val('---Không thuộc loại tài sản nào---');
+	}
+	else
+	{
+		$('#asset-parent').val(treeNode.parent_name);
+	}
+	$('#asset-description').val(treeNode.description);
+	if(treeNode.status==='0')
+		$("#ckStatus").attr('checked', false);
+	else if(treeNode.status==='1')
+		$("#ckStatus").attr('checked', 'checked');
+	$("#create-date").html(treeNode.create_date);
+	$("#create-user").html(treeNode.user_name);
 }
 function loadAssetDetail(treeNode)
 {
-	$('#asset-code').prop("disabled",true);
+	/*$('#asset-code').prop("disabled",true);
 	$('#asset-name').prop("disabled",true);
 	$('#asset-parent').prop("disabled",true).trigger("chosen:updated");
 	$('#asset-description').prop("disabled",true);
@@ -340,11 +397,11 @@ function loadAssetDetail(treeNode)
 			 }
 		}
 		
-	});
+	});*/
 	
 }
 
-function beforeAdd()
+/*function beforeAdd()
 {
 	$('#asset-code').prop("disabled",false);
 	$('#asset-name').prop("disabled",false);
@@ -401,11 +458,52 @@ function onSave()
 		return false;
 	}
 	jQuery('#form-asset-type').submit();
-}
-function onDelete()
+}*/
+/*function onDelete()
 {
 	
 	$("#dialog-confirm" ).dialog('open');
+}*/
+function addHoverDom(treeId, treeNode) 
+{
+	var sObj = $("#" + treeNode.tId + "_span");
+	if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+	var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+		+ "' onfocus='this.blur();'></span>";
+	sObj.after(addStr);
+	var btn = $("#addBtn_"+treeNode.tId);
+	if (btn) btn.bind("click", function()
+	{
+		var asset_id;
+		if(treeNode.id==null)
+		{
+			asset_id=0;
+			
+		}
+		else
+		{
+			asset_id=treeNode.id;
+		}
+		window.location.href  = "/asset-type/add/"+asset_id+"/";
+	}); 
+};
+
+function removeHoverDom(treeId, treeNode) {
+	$("#addBtn_"+treeNode.tId).unbind().remove();
+};
+function showBtn(treeId, treeNode) {
+	return (treeNode.id !=null);
+}
+function beforeEditName(treeId, treeNode) {
+	window.location.href  = "/asset-type/edit/"+treeNode.id+"/";
+	return false;
+}
+function beforeRemove(treeId, treeNode) {
+	$("#txtID").val(treeNode.id);
+	$("#formAssetType").attr("action","/asset-type/delete/"+treeNode.id+"/");
+	$("#dialog-confirm" ).html("<p> Bạn thực sự muốn xoá <strong >"+treeNode.name+ " </strong>(Y/N)?</p>");
+	$("#dialog-confirm" ).dialog('open');
+	return false;
 }
 </script>
 {% endblock scripts%}

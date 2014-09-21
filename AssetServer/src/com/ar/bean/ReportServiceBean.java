@@ -59,15 +59,17 @@ public class ReportServiceBean extends AppProcessor {
 		case "VerifyAssetReport":
 			response.put("FileOut", exportVerifyAssetReport());
 			break;
+		case "AssetByProjectReport":
+			response.put("FileOut", exportAssetByProjectReport());
+			break;
 		}
 
 	}
-	private String exportVerifyAssetReport()throws Exception
-	{
+
+	private String exportVerifyAssetReport() throws Exception {
 		ResultSet rs = null;
 		PreparedStatement pstm = null;
-		try
-		{
+		try {
 			// template path
 			String excelTemplatePath = AppServer.getParam("ExcelTemplatePath");
 			String templatePath = AppServer.getParam("TemplatePath");
@@ -99,30 +101,26 @@ public class ReportServiceBean extends AppProcessor {
 			// createRealFile(strFileOut);
 			// return link
 			return strFileOut + ".xls";
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw ex;
-		}
-		finally
-		{
+		} finally {
 			Database.closeObject(rs);
 			Database.closeObject(pstm);
 			close();
 		}
 	}
+
 	private String createReportByJasper() throws Exception {
 		try {
 			open();
 			String excelTemplatePath = AppServer.getParam("ExcelTemplatePath");
 			String strFileType = request.getString("file_type");
-			String strTemplateName = request.getString("template_name")
-					+ ".jasper";
-			String strReportOut = AppServer.getParam("ReportOut");
-			String strFileOut = strTemplateName
+			String strTemplateName = request.getString("template_name");
+			String strFileOut = strTemplateName + "_"
 					+ StringUtil.format(new Date(), "yyyyMMddhhmmss");
-
+			strTemplateName += ".jasper";
+			String strReportOut = AppServer.getParam("ReportOut");
 			JSONObject objJson = request.getJSONObject("params_object");
 			HashMap<String, Object> jasperParams = new HashMap<String, Object>();
 			Iterator<String> paramKeys = objJson.keys();
@@ -372,6 +370,49 @@ public class ReportServiceBean extends AppProcessor {
 			strSQL = strSQL.replaceAll("<%p_area_id%>", strAreaSQL);
 			strSQL = strSQL.replaceAll("<%p_from_date%>", strFromDateSQL);
 			strSQL = strSQL.replaceAll("<%p_to_date%>", strToDateSQL);
+			// prepare statement
+			pstm = mcnMain.prepareStatement(strSQL);
+			// execute query
+			rs = pstm.executeQuery();
+			// create report
+			Report report = new Report(rs, excelTemplatePath + strFileName
+					+ ".xls", strReportOut + strFileOut + ".xls");
+			report.setParameter("$Report_Date",
+					StringUtil.format(new Date(), "yyyy-MM-dd"));
+			// fill data
+			report.fillDataToExcel();
+			// create file
+			// createRealFile(strFileOut);
+			// return link
+			return strFileOut + ".xls";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+		} finally {
+			Database.closeObject(rs);
+			Database.closeObject(pstm);
+			close();
+		}
+	}
+	private String exportAssetByProjectReport() throws Exception {
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try {
+			// template path
+			String excelTemplatePath = AppServer.getParam("ExcelTemplatePath");
+			String templatePath = AppServer.getParam("TemplatePath");
+			String strReportOut = AppServer.getParam("ReportOut");
+			String strFileName = "TemplateAssetByProjectReport";
+			String strFileOut = strFileName
+					+ StringUtil.format(new Date(), "yyyyMMddhhmmss");
+			String strProjectId=request.getString("project_id");
+			// String strFileOut = "dev_report";
+			// read sql file
+			String strSQL = new ReadSQLFile(templatePath + strFileName + ".sql")
+					.getSQLQuery();
+			// open connection
+			open();
+			// get parameter
 			// prepare statement
 			pstm = mcnMain.prepareStatement(strSQL);
 			// execute query

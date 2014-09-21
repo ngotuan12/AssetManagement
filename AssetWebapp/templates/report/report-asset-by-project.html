@@ -10,7 +10,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">Báo cáo tài sản cố định</h4>
+					style="text-align: center; line-height: 10px">Báo cáo tài sản theo dự án</h4>
 			</div>
 			<div class="panel-body">
 				{% if has_error %}
@@ -21,14 +21,14 @@
 				<div class="alert alert-info">
 					<div class="row row-pad-5">
 						<div class="form-group ">
-							<label class="col-sm-2 control-label">Nguồn vốn</label>
+							<label class="col-sm-2 control-label">Dự án</label>
 							<div class="col-sm-8">
 								<select id="" class="form-control chosen-select"
-									data-placeholder="Nguồn vốn"
-									name="optCapital">
-									<option value="">------Tất cả nguồn vốn-------</option> 
-									{% for capital in capitals%}
-										<option value="{{capital.id}}">{{capital.name}}</option> 
+									data-placeholder="Dự án"
+									name="slProject">
+									<option value="">------Tất cả dự án-------</option> 
+									{% for project in projects%}
+										<option value="{{project.id}}">{{project.name}}</option> 
 									{% endfor %}
 								</select>
 		
@@ -38,7 +38,7 @@
 							<div class="col-sm col-sm-offset-5">
 								<!-- <button class="btn btn-primary">In biên bản</button> -->
 								<button class="btn btn-primary" onclick="return onSubmitFormDecrement();">Thực hiện</button>&nbsp;
-					<a class="btn btn-default" href="/home">Thoát</a>
+								<a class="btn btn-default" href="/home">Thoát</a>
 							</div>
 						</div>
 					</div>

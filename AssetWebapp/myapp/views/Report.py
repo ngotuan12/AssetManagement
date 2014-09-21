@@ -81,4 +81,21 @@ def verify_asset_report(request):
 		context.update({'has_error':str(ex)})
 	context.update(csrf(request))
 	return render_to_response("report/report-verify-asset.html", context, RequestContext(request))
-		
+@login_required(login_url='/login/')
+@permission_required('myapp.asset_project_report', login_url='/permission-error/')
+def asset_project_report(request):
+	context={}
+	try:
+		projects=List.objects.filter(list_type="")
+		context.update({"projects":projects})
+		if request.POST:
+			project_id=request.POST['slProject']
+			authorization = client.getAuthorization(request.user.username)
+			fileOut = client.exportAssetByProjectReport(authorization, project_id, request.user.username)
+			return HttpResponseRedirect('/report/' + fileOut)
+	except xmlrpclib.ProtocolError:
+		context.update({'has_error':'Không kết nối được server report'})
+	except Exception as ex:
+		context.update({'has_error':str(ex)})
+	context.update(csrf(request))
+	return render_to_response("report/report-asset-by-project.html", context, RequestContext(request))
