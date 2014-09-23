@@ -43,6 +43,6 @@ def exportAssetByProjectReport(authorization,project_id,user_name):
     return fileout
 def processResponse(dataResponse):
     response = dataResponse.json()
-    if response.handle == "on_error":
-        raise Exception(response.message)
+    if response['handle'] == "on_error":
+        raise Exception(response['message'])
     return response
