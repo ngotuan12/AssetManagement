@@ -4,6 +4,7 @@ Created on Apr 3, 2014
 
 @author: TuanNA
 '''
+import cx_Oracle
 import json
 
 from django.contrib.auth.decorators import login_required, permission_required
@@ -15,19 +16,28 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 from myapp.models.Dept import Dept
-from myapp.models.Reason import Reason
+from myapp.models.List import List
 from myapp.models.Stock import Stock
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.util.DateEncoder import DateEncoder
-import cx_Oracle
+
 
 @login_required(login_url='/login/')
 @permission_required('myapp.decrement_asset',login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:
+		reasons = List.objects.raw("""
+									SELECT id, name, code
+									FROM list
+									WHERE CONNECT_BY_ISLEAF = 1 AND list_type = '5'
+									START WITH parent_id = (SELECT id
+									FROM list
+									WHERE code = '20' AND list_type = '5')
+									CONNECT BY PRIOR id = parent_id
+									""")
 		context.update({'depts':Dept.objects.all()})
-		context.update({'reasons':Reason.objects.filter(group_code = '2')})
+		context.update({'reasons':reasons})
 		if request.POST:
 			# Get parameter
 			dept_id = request.POST["slDept"]

@@ -308,7 +308,7 @@ function removeHoverDom(treeId, treeNode) {
 	$("#addPermission_"+treeNode.tId).unbind().remove();
 };
 function showBtn(treeId, treeNode) {
-	return treeNode.type !== "R";
+	return treeNode.type !== "R" && treeNode.ord !== 0;
 }
 function beforeDrag(treeId, treeNodes) {
 	return false;

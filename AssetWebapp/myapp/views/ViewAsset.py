@@ -5,7 +5,6 @@ Created on Apr 3, 2014
 '''
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
-from django.db import connection
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 

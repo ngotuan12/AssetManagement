@@ -3,6 +3,8 @@
 Created on Sep 18, 2014
 
 @author: TuanNA
+@version: 1.0
+
 '''
 import json
 
@@ -46,6 +48,7 @@ def index(request):
 			row.update({'url':module.url})
 			row.update({'create_date':module.create_date.strftime('%Y-%m-%d %H:%M:%S')})
 			row.update({'user_name':module.user_name})
+			row.update({'ord':module.ord})
 # 			type
 			module_type = _(u"unknown")
 			icon = None

@@ -10,17 +10,8 @@
 	var mask, size, print_modal, print_controls;
 	var print_src = "";
 	var print_frame_ref;
-	$.fn.printPreview = function(options)
+	$.fn.printPreview = function()
 	{
-		// options
-		if (typeof options === 'undefined')
-		{
-			options = {};
-		} else
-		{
-			if (typeof options.src != 'undefined')
-				print_src = options.src;
-		}
 		this.each(function()
 		{
 			$(this).bind('click', function(e)
@@ -28,6 +19,7 @@
 				e.preventDefault();
 				if (!$('#print-modal').length)
 				{
+					print_src = $(this).attr("print-src");
 					$.printPreview.loadPrintPreview();
 				}
 			});
@@ -45,7 +37,7 @@
 					'<div id="print-modal-controls">'
 							+ '<a href="#" class="print" title="Print page">Print page</a>'
 							+ '<a href="#" class="close" title="Close print preview">Close</a>'
-							+ '</div>').hide();
+							+ '</div>');
 			print_modal.append(print_controls);
 			// print frame
 			print_frame = $('<iframe id="print-modal-content" name="print-modal-content" scrolling="no" border="0" frameborder="0" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:150%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="150%" width="100%"> </iframe>');
@@ -102,7 +94,6 @@
 				top : $(window).scrollTop()
 			}, 400, 'linear', function()
 			{
-				print_controls.fadeIn('slow').focus();
 			});
 			// Load mask
 			$.printPreview.loadMask();

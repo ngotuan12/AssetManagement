@@ -105,7 +105,6 @@
 										<th>TRẠNG THÁI</th>
 										<th>XUẤT XỨ</th>
 										<th style="width: 8%;"></th> 
-										<th></th> 
 									</tr>
 								</thead>
 								<tbody>
@@ -119,11 +118,9 @@
 										<td >{{ asset.state.name }}</td>
 										<td >{{ asset.country.name }}</td>
 										<td class="table-action">
-											<a href="/edit-increment-asset/{{ asset.id }}/"><i class="fa fa-pencil"></i></a>
-											<a href="#" class="delete-row"><i class="fa fa-trash-o"></i></a>
-										</td>
-										<td class="table-action">
-											<a onclick="onPrint('{{ asset.id }}');"><i class="fa fa-print mr5"></i></a>
+											<a href="/edit-increment-asset/{{ asset.id }}/" title="Sửa" ><i class="fa fa-pencil"></i></a>
+											<a href="#" title="In" id="btn-print" print-src="/invoice/{{ asset.id }}/"><i class="fa fa-print mr5"></i></a>
+											<a href="#" title="Lịch sử"><i class="fa fa-list-alt"></i></a>
 										</td>
 									</tr>
 									{% endfor %}
@@ -165,42 +162,36 @@
 <script src="/js/custom.js"></script>
 
 <script>
-$(document).ready(function(){
+$(document).ready(function()
+{
 	$("a[id^='btn-print']").each(function(){
-		var src = "/invoice/";
-		$(this).printPreview({src:src});
+		$(this).printPreview();
 	});
-  // Chosen Select
-  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
- 
-  // Date Picker
-  $('#buy_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#start_use_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#up_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#atrophy_date').datepicker({dateFormat: 'dd/mm/yy',});
-  
-  // Input Masks
-  $("#datepicker").mask("99/99/9999");
-  $('#buy_date').mask("99/99/9999");
-  $('#start_use_date').mask("99/99/9999");
-  $('#up_date').mask("99/99/9999");
-  $('#atrophy_date').mask("99/99/9999");
-  
-  $('#assetTable').dataTable({
-		"sPaginationType" : "full_numbers"
+	// Chosen Select
+	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+	
+	// Date Picker
+	$('#buy_date').datepicker({dateFormat: 'dd/mm/yy',});
+	$('#start_use_date').datepicker({dateFormat: 'dd/mm/yy',});
+	$('#up_date').datepicker({dateFormat: 'dd/mm/yy',});
+	$('#atrophy_date').datepicker({dateFormat: 'dd/mm/yy',});
+	// Input Masks
+	$("#datepicker").mask("99/99/9999");
+	$('#buy_date').mask("99/99/9999");
+	$('#start_use_date').mask("99/99/9999");
+	$('#up_date').mask("99/99/9999");
+	$('#atrophy_date').mask("99/99/9999");
+	$('#assetTable').dataTable({
+		"sPaginationType" : "full_numbers",
+		aoColumnDefs: [{bSortable: false,aTargets: [-1,-2]}],
+		"oLanguage": { "oPaginate": {"sNext": ">","sPrevious": "<"}},
 	});
-  $(".table-responsive  select").chosen({
+	$(".table-responsive  select").chosen({
 		'min-width' : '150px',
 		'white-space' : 'nowrap',
 		disable_search_threshold : 10
 	});
 });
-//on click print
-function onPrint(asset_id)
-{
-	var src = "/invoice/"+ asset_id +"/";
-	$(this).printPreview({src:src});
-}
 //change slDept
 $('#slDept').change(function(){
 	

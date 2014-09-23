@@ -17,7 +17,6 @@ from myapp.models.Asset import Asset
 from myapp.models.Country import Country
 from myapp.models.Dept import Dept
 from myapp.models.List import List
-from myapp.models.Reason import Reason
 from myapp.models.Stock import Stock
 from myapp.models.Supplier import Supplier
 from myapp.models.StockAssetSerial import StockAssetSerial
@@ -33,7 +32,16 @@ def index(request):
 									"WHERE connect_by_isleaf = 1 "+
 									"start with parent_id is null "+
 									"connect by prior id = parent_id ORDER BY code ")
-		context.update({'assets':assets, 'reasons':Reason.objects.filter(group_code='1'), 'methods':List.objects.filter(list_type='6'), 
+		reasons = List.objects.raw("""
+									SELECT id, name, code
+									FROM list
+									WHERE CONNECT_BY_ISLEAF = 1 AND list_type = '5'
+									START WITH parent_id = (SELECT id
+									FROM list
+									WHERE code = '10' AND list_type = '5')
+									CONNECT BY PRIOR id = parent_id
+									""")
+		context.update({'assets':assets, 'reasons':reasons, 'methods':List.objects.filter(list_type='6'), 
 					'capitals':List.objects.filter(list_type='3')})
 		
 		context.update({'countries':Country.objects.all()})

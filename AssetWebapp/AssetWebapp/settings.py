@@ -54,7 +54,6 @@ ROOT_URLCONF = 'AssetWebapp.urls'
 
 WSGI_APPLICATION = 'AssetWebapp.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
