@@ -4,10 +4,12 @@ Created on Aug 15, 2014
 
 @author: DienND
 '''
+import datetime
+
 from django.db import models
 
-from myapp.util.sequence import update_id
 from AdminManagement.models.App import App
+from myapp.util.sequence import update_id
 
 
 # Create your models here.
@@ -21,8 +23,11 @@ class Module(models.Model):
     app = models.ForeignKey(App,db_column='app_id')
     parent = models.ForeignKey('self',db_column='parent_id',null=True)
     action = models.CharField(max_length=100,db_column="action")
-    icon = models.CharField(max_length=200,db_column="icon")
+    icon_class = models.CharField(max_length=200,db_column="icon_class")
     url = models.CharField(max_length=200,db_column="url")
+    create_date = models.DateTimeField(default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),db_column="create_date")
+    user_name = models.CharField(max_length=20,db_column="user_name")
+    ord = models.IntegerField(db_column="ord",default=1)
     class Meta:
         db_table = 'module'
         app_label = 'AdminManagement'

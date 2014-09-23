@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from AdminManagement.views import User, Group
+from AdminManagement.views import User, Group, Module
 
 
 urlpatterns = patterns('',
@@ -22,12 +22,19 @@ urlpatterns = patterns('',
 			name='password_reset_confirm'),
 	# User
 	url(r'^user/$', User.list_user, name='user'),
-	url(r'^user/add/$', User.add_user, name='delete-user'),
-	url(r'^user/delete/(?P<user_id>\w+)/$', User.delete_user, name='add-user'),
+	url(r'^user/add/$', User.add_user, name='add-user'),
+	url(r'^user/delete/(?P<user_id>\w+)/$', User.delete_user, name='delete-user'),
 	url(r'^user/(?P<user_id>\w+)/$', User.change_user, name='change-user'),
 	# Group
 	url(r'^group/$', Group.view_group, name='user'),
 	url(r'^group/add/$', Group.add_group, name='add-group'),
+	url(r'^group/delete/(?P<group_id>\w+)/$', Group.delete_group, name='delete-group'),
+	url(r'^group/(?P<group_id>\w+)/$', Group.change_group, name='change-group'),
+	# Module
+	url(r'^module/$', Module.index, name='module'),
+	url(r'^module/add-group/(?P<parent_id>\w+)/$', Module.add_group, name='add-module-group'),
+	url(r'^module/add-module/(?P<parent_id>\w+)/$', Module.add_module, name='add-module-module'),
+	url(r'^module/add-permission/(?P<parent_id>\w+)/$', Module.add_permission, name='add-module-permission'),
 	url(r'^group/delete/(?P<group_id>\w+)/$', Group.delete_group, name='delete-group'),
 	url(r'^group/(?P<group_id>\w+)/$', Group.change_group, name='change-group'),
 	#login

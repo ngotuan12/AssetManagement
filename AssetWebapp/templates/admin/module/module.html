@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block styles %}
+<link href="/css/increment-asset.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<style>
+.ztree {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	height: 520px;
+	overflow-y: scroll;
+	overflow-x: auto;
+}
+
+.ztree li span.button.add {
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle;
+}
+
+.ztree li span.button.add-group 
+{
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle;
+	background: url(/images/module/add-group.png) 0 0 no-repeat;
+}
+.ztree li span.button.add-module 
+{
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle;
+	background: url(/images/module/add-module.png) 0 0 no-repeat;
+}
+.ztree li span.button.add-permission 
+{
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle;
+	background: url(/images/module/add-permission.png) 0 0 no-repeat;
+}
+.ztree li a{
+	height: 23px;
+	padding: 2px;
+}
+.ztree li a.curSelectedNode{
+	height: 23px;
+	padding: 2px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contentpanel no-padding">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title"
+				style="text-align: center; line-height: 10px">{% trans 'Danh sách chức năng' %}</h4>
+		</div>
+		<div class="panel-body" style="padding: 0 10px;">
+			<div class="row row-pad-0">
+				<div class="col-md-5" style="BORDER-RIGHT: #999999 1px dashed;">
+						<ul id="treeDemo" class="ztree"></ul>
+				</div>
+				<div class="col-md-7">
+					{% if has_error %}
+						<div class="col-sm panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+						<div class="row row-pad-5">
+							<div class="col-lg-6">
+								<label>{% trans 'Mã' %}</label> <input type="text"
+									id="txtCode" placeholder="{% trans 'Mã' %}"
+									class="form-control" disabled required>
+							</div>
+							<div class="col-lg-6">
+								<label>{% trans 'Tên' %}</label> <input type="text"
+									id="txtName" placeholder="{% trans 'Tên' %}"
+									class="form-control" disabled required>
+							</div>
+						</div>
+						<div class="row row-pad-5">
+							<div class="col-lg-6">
+								<label>{% trans 'Chức năng cha' %}</label> <input type="text"
+									id = "txtParentName" placeholder="{% trans 'Chức năng cha' %}"
+									class="form-control" disabled required>
+							</div>
+							
+							<div class="col-lg-6">
+								<label>{% trans 'Loại' %}</label> <input type="text"
+									id = "txtType" placeholder="{% trans 'Loại' %}"
+									class="form-control" disabled required>
+							</div>
+						</div>
+						<div class="row row-pad-5">
+							<div class="col-lg-4">
+								<label>{% trans 'Action' %}</label> <input type="text"
+									id="txtAction" placeholder="{% trans 'Action' %}"
+									class="form-control" disabled required>
+							</div>
+							
+							<div class="col-lg-4">
+								<label>{% trans 'Icon' %}</label> <input type="text"
+									id="txtIcon" placeholder="{% trans 'Icon' %}"
+									class="form-control" disabled required>
+							</div>
+							
+							<div class="col-lg-4">
+								<label>{% trans 'url' %}</label> <input type="text"
+									id="txtUrl" placeholder="{% trans 'url' %}"
+									class="form-control" disabled required>
+							</div>
+						</div>
+						<div class="row row-pad-5">
+							<div class="col-lg-6">
+								<label>{% trans 'Ngày tạo' %}</label> 
+								<p id="txtCreateDate"> </p>
+							</div>
+							
+							<div class="col-lg-6">
+								<label>{% trans 'Người tạo' %}</label> 
+								<p id="txtUserName"> </p>
+							</div>
+						</div>
+						
+						<div class="row row-pad-5">
+							<div class="ckbox ckbox-default">
+								<input id="ckStatus" type="checkbox"
+									checked="checked" disabled="disabled"> <label for="ckStatus">
+									{% trans 'Kích hoạt' %}</label>
+							</div>
+						</div>
+						<div class="row row-pad-5" style="display: none">
+							<div class="col-sm col-sm-offset-5">
+								<button class="btn btn-primary" onclick="return onSubmit();">{% trans 'Thực hiện' %}</button>
+								&nbsp; <a class="btn btn-default" href="/home">{% trans 'Thoát' %}</a>
+							</div>
+						</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<form method="post" id="formModule">
+		<input type="hidden" id= "txtID" name="txtID"/>
+		{% csrf_token %}
+</form>
+<div id="dialog-confirm" title="{% trans 'Xoá phòng ban' %}">
+	
+	<p>
+		{% trans 'Bạn thực sự muốn xoá phòng ban' %}
+	</p>
+</div>
+<!-- contentpanel -->
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script type="text/javascript" src="/tree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.exedit-3.5.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js" ></script> 
+<script src="/js/jquery.confirm.js"></script>
+
+<script src="/js/custom.js"></script>
+
+<script>
+jQuery(document).ready(function() {
+	var zNodes = {{ data|safe }};
+	var setting = {
+		view: {
+			addHoverDom: addHoverDom,
+			removeHoverDom: removeHoverDom,
+			selectedMulti: false,
+			showLine: false,
+		},
+		edit: {
+			enable: true,
+			editNameSelectAll: true,
+			showRemoveBtn: showBtn,
+			showRenameBtn: showBtn,
+		},
+		callback: {
+			beforeDrag: beforeDrag,
+			beforeEditName: beforeEditName,
+			beforeRemove: beforeRemove,
+			onClick: onClick,
+		},
+		data : {
+			key : {
+				url: "",
+			},
+			simpleData : {
+				enable : true,
+				idKey: 'id',
+				pIdKey: 'parent_id',
+				rootPId: null,
+			}
+		}
+	};
+	var tree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	tree.selectNode(tree.getNodes()[0]);
+	fillData(tree.getNodes()[0]);
+	$("#dialog-confirm" ).dialog({
+		 autoOpen: false, 
+		resizable: true,
+		height:200,
+		width: 500,
+		modal: true,
+		buttons: {
+			"Có": function() {
+				$("#formModule").submit();
+			},
+			"Không": function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});
+});
+var newCount = 1;
+function addHoverDom(treeId, treeNode) 
+{
+	if(treeNode.type === "P")
+	{
+		return;
+	}
+	if(treeNode.type === "R" || treeNode.type === "G")
+	{
+		var sObj = $("#" + treeNode.tId + "_span");
+		if (treeNode.editNameFlag || $("#addGroup_"+treeNode.tId).length>0) return;
+		var addStr = "<span class='button add-module' title = 'add module' id='addModule_" + treeNode.tId
+		+ "' onfocus='this.blur();'></span>";
+		sObj.after(addStr);
+		btn = $("#addModule_"+treeNode.tId);
+		if (btn) btn.bind("click", function()
+		{
+			window.location.href  = "/module/add-module/"+treeNode.id+"/";
+		}); 
+		
+		addStr = "<span class='button add-group' title = 'add group' id='addGroup_" + treeNode.tId
+			+ "' onfocus='this.blur();'></span>";
+		sObj.after(addStr);
+		var btn = $("#addGroup_"+treeNode.tId);
+		if (btn) btn.bind("click", function()
+		{
+			window.location.href  = "/module/add-group/"+treeNode.id+"/";
+		});
+		
+		
+		/* var sObj = $("#" + treeNode.tId + "_a");
+		if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+		var addStr = "<div class='btn-group' id='addBtn_" + treeNode.tId +"'>"+
+					"<button type='button' class='btn btn-xs btn-primary'>Add</button>"+
+					"<button type='button' class='btn btn-xs btn-primary dropdown-toggle' data-toggle='dropdown'>"+
+					"<span class='caret'></span>"+
+					"<span class='sr-only'>Toggle Dropdown</span>"+
+					"</button>"+
+					"<ul class='dropdown-menu' role='menu'>"+
+					"<li><a href='/module/add/'>Group</a></li>"+
+					"<li><a href='/module/add/'>Module</a></li>"+
+					"</ul>"+
+					"</div>";
+		sObj.after(addStr); */
+		return;
+		
+	}	
+	
+	if(treeNode.type === "M")
+	{
+		var sObj = $("#" + treeNode.tId + "_span");
+		if (treeNode.editNameFlag || $("#addPermission_"+treeNode.tId).length>0) return;
+		var addStr = "<span class='button add-permission' title = 'add permission' id='addPermission_" + treeNode.tId
+		+ "' onfocus='this.blur();'></span>";
+		sObj.after(addStr);
+		btn = $("#addPermission_"+treeNode.tId);
+		if (btn) btn.bind("click", function()
+		{
+			window.location.href  = "/module/add-permission/"+treeNode.id+"/";
+		});
+		return;
+	}
+};
+
+function removeHoverDom(treeId, treeNode) {
+	$("#addGroup_"+treeNode.tId).unbind().remove();
+	$("#addModule_"+treeNode.tId).unbind().remove();
+	$("#addPermission_"+treeNode.tId).unbind().remove();
+};
+function showBtn(treeId, treeNode) {
+	return treeNode.type !== "R";
+}
+function beforeDrag(treeId, treeNodes) {
+	return false;
+}
+function onClick(event, treeId, treeNode, clickFlag) {
+	fillData(treeNode);
+}
+
+function fillData(treeNode)
+{
+	
+	$("#txtName").val(treeNode.name);
+	$("#txtCode").val(treeNode.code);
+	
+	$("#txtParentName").val(treeNode.parent_name);
+	$("#txtType").val(treeNode.module_type);
+	
+	$("#txtAction").val(treeNode.action);
+	$("#txtIcon").val(treeNode.icon_class);
+	$("#txtUrl").val(treeNode.url);
+	
+	$("#txtCreateDate").html(treeNode.create_date);
+	$("#txtUserName").html(treeNode.user_name);
+	
+	if(treeNode.status==='0')
+		$("#ckStatus").attr('checked', false);
+	else if(treeNode.status==='1')
+		$("#ckStatus").attr('checked', 'checked');
+}
+
+function beforeEditName(treeId, treeNode) {
+	window.location.href  = "/module/edit/"+treeNode.id+"/";
+	return false;
+}
+function beforeRemove(treeId, treeNode) {
+	$("#txtID").val(treeNode.id);
+	$("#formModule").attr("action","/module/delete/"+treeNode.id+"/");
+	$("#dialog-confirm" ).html("<p> Bạn thực sự muốn xoá <strong >"+treeNode.name+ " </strong>(Y/N)?</p>");
+	$("#dialog-confirm" ).dialog('open');
+	return false;
+}
+</script>
+{% endblock scripts%}
