@@ -70,6 +70,20 @@
 						</div>
 					</div>
 					<div class="row row-pad-5">
+						<div class="col-lg-6">
+							<label>Tài khoản hạch toán</label>
+							<input type="text" id="account-no" name="txtAccountNo"  value="{{ asset.account_no }}" 
+								placeholder="Tài khoản hạch toán" 
+								class="form-control" required >
+						</div>
+						<div class="col-lg-6" style="margin-bottom:2%;">
+							<label>Thời gian khấu hao</label>
+							<input type="text" id="asset_interval" name="txtInterval"  value="{{ asset.interval }}" 
+								placeholder="Thời gian khấu hao" class="form-control" 
+								required >
+						</div>
+					</div>
+					<div class="row row-pad-5">
 						<div class="col-lg">
 							<label>Mô tả</label> <input type="text" value="{{ asset.description }}"
 								id="txtDescription" name="txtDescription" placeholder="Mô tả"

@@ -78,7 +78,7 @@ def index(request):
         '''
         assets=Asset.objects.raw("""
                                 SELECT id,name,code,nvl(status,'1') status,parent_code,
-                                    description,create_datetime,user_name,
+                                    description,create_datetime,user_name,interval,account_no,
                                     parent_id,connect_by_isleaf is_leaf 
                                 FROM asset 
                                 START WITH parent_id IS NULL 
@@ -96,6 +96,8 @@ def index(request):
             row.update({'description':asset.description})
             row.update({'create_date':asset.create_datetime})
             row.update({'user_name':asset.user_name})
+            row.update({'account_no':asset.account_no})
+            row.update({'interval':asset.interval})
             if asset.parent_id is not None:
                 row.update({'parent_id':asset.parent_id.id})
                 row.update({'parent_name':asset.parent_id.name})
@@ -127,6 +129,8 @@ def add_asset_type(request,parent_id):
             asset_code = request.POST["txtCode"]
             name = request.POST["txtName"]
             description = request.POST["txtDescription"]
+            account_no = request.POST["txtAccountNo"]
+            interval = request.POST["txtInterval"]
             check_asset=Asset.objects.filter(code=asset_code).count()
             if(check_asset>0):
                 context.update({'has_error':'Mã tài sản đã tồn tại'})
@@ -135,6 +139,8 @@ def add_asset_type(request,parent_id):
                 asset.code = asset_code
                 asset.name = name
                 asset.description = description
+                asset.account_no = account_no
+                asset.interval = interval
                 if request.POST.get('ckStatus'):
                     asset.status = "1"
                 else:
@@ -163,6 +169,8 @@ def edit_asset_type(request,asset_id):
             asset_code = request.POST["txtCode"]
             name = request.POST["txtName"]
             description = request.POST["txtDescription"]
+            account_no = request.POST["txtAccountNo"]
+            interval = request.POST["txtInterval"]
             check_asset=Asset.objects.filter(code=asset_code).exclude(id=asset_id).count()
             if(check_asset>0):
                 context.update({'has_error':'Mã tài sản đã tồn tại'})
@@ -170,6 +178,8 @@ def edit_asset_type(request,asset_id):
                 current.code = asset_code
                 current.name = name
                 current.description = description
+                current.account_no = account_no
+                current.interval = interval
                 if request.POST.get('ckStatus'):
                     current.status = "1"
                 else:

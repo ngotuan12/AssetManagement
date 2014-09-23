@@ -86,7 +86,7 @@ def verify_asset_report(request):
 def asset_project_report(request):
 	context={}
 	try:
-		projects=List.objects.filter(list_type="")
+		projects=List.objects.filter(list_type="7")
 		context.update({"projects":projects})
 		if request.POST:
 			project_id=request.POST['slProject']

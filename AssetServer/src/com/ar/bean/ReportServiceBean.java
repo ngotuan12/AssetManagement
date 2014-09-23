@@ -406,10 +406,17 @@ public class ReportServiceBean extends AppProcessor {
 			String strFileOut = strFileName
 					+ StringUtil.format(new Date(), "yyyyMMddhhmmss");
 			String strProjectId=request.getString("project_id");
+			
+			if(strProjectId.equals(""))
+			{
+				strProjectId="null";
+			}
+			
 			// String strFileOut = "dev_report";
 			// read sql file
 			String strSQL = new ReadSQLFile(templatePath + strFileName + ".sql")
 					.getSQLQuery();
+			strSQL=strSQL.replaceAll("<%p_project_id%>", strProjectId);
 			// open connection
 			open();
 			// get parameter

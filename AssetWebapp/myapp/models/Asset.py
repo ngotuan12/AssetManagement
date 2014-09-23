@@ -25,6 +25,7 @@ class Asset(models.Model):
     create_datetime = models.DateTimeField(default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),db_column="create_datetime")
     user_name = models.CharField(max_length=20,db_column="user_name")
     parent_code = models.CharField(max_length=40,db_column="parent_code")
+    account_no = models.CharField(max_length=40,db_column="account_no")
     class Meta:
         db_table = 'asset'
         app_label = 'myapp'
