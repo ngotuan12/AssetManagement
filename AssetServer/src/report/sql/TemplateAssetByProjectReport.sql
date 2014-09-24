@@ -2,7 +2,7 @@ SELECT d.code asset_code, a.serial, a.original_value,
        a.remain_value, a.import_date, to_char(a.use_date,'mm') use_month, to_char(a.use_date,'yyyy') use_year, a.change_date,
        a.state_id, a.goal_id, a.country_id, a.supplier_id, a.capital_id,
        nvl(a.project_id,-1) project_id,(select name from list where list_type='7' and id=a.project_id) project_name,a.unit, to_char(a.product_date,'yyyy') product_date,
-       a.power,  a.source, decode(a.document_status,'1','Có','Không') document_status,
+       a.power,  (select name from ap_domain where type='SOURCE' and code=a.source) source, decode(a.document_status,'1','Có','Không') document_status,
        a.name, a.note, decode(a.status,'1','X','') status,
        a.quantity, a.model, a.seri,d.interval,a.decision_no,to_char(a.decision_date,'yyyy') decision_date,
        d.account_no,b.name place,c.dept_name
