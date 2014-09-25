@@ -27,12 +27,12 @@
 							<table class="table table-bordered" id="assetTable">
 								<thead>
 									<tr>
-										<th style="width: 5%;">STT</th>
-										<th style="width: 15%;">MÃ ỨNG DỤNG </th>
-										<th style="width: 20%;">TÊN ỨNG DỤNG </th>
-										<th style="width: 15%;">LOẠI ỨNG DỤNG</th>
-										<th style="width: 10%;">TRẠNG THÁI</th>
-										<th style="width: 10%;">SỬA/XÓA</th> 
+										<th style="width: 5%;">{% trans 'STT' %}</th>
+										<th style="width: 15%;">{% trans 'MÃ ỨNG DỤNG' %} </th>
+										<th style="width: 20%;">{% trans 'TÊN ỨNG DỤNG' %} </th>
+										<th style="width: 15%;">{% trans 'LOẠI ỨNG DỤNG' %}</th>
+										<th style="width: 10%;">{% trans 'TRẠNG THÁI' %}</th>
+										<th style="width: 10%;">{% trans 'SỬA/XÓA' %}</th> 
 									</tr>
 								</thead>
 								<tbody>
@@ -43,9 +43,9 @@
 										<td>{{ app.name|truncatechars:100 }}</td>
 										<td>{{ app.type|truncatechars:100 }}</td>
 										{% if app.status == '1' %}
-											<td> Kích hoạt </td>
+											<td> {% trans 'Kích hoạt' %} </td>
 										{% else %}
-											<td> Không kích hoạt </td>
+											<td> {% trans 'Không kích hoạt' %} </td>
 										{% endif %}
 										<td class="table-action">
 											<a href="/edit-app/{{ app.id }}/"><i class="fa fa-pencil"></i></a>
@@ -61,15 +61,15 @@
 				</div>
 				<div class="row">
 					<div class="breadcrumb-wrapper">
-						<a class="btn btn-success" href="/app/add/">Thêm ứng dụng</a>
+						<a class="btn btn-success" href="/app/add/">{% trans 'Thêm ứng dụng' %}</a>
 					</div>
 				</div>
 			</div>
 			<!-- panel-body -->
 		</div>
 		<input type="hidden" id="hd_app_id" value="">
-		<div id="dialog-confirm" title="Xóa ứng dụng ?" >
-			<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa ứng dụng này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?</p>
+		<div id="dialog-confirm" title="{% trans 'Xóa ứng dụng ?' %}" >
+			<p><span style="float:left; margin:0 7px 20px 0;"></span>{% trans 'Khi xóa ứng dụng này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?' %}</p>
 		</div>
 		<!-- panel body-->
 	</form>
