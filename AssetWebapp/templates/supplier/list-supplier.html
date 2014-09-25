@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 	<link href="/css/print-preview.css" rel="stylesheet">
@@ -11,7 +12,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">DANH MỤC NHÀ CUNG CẤP</h4>
+					style="text-align: center; line-height: 10px">{% trans 'DANH MỤC NHÀ CUNG CẤP' %}</h4>
 			</div>
 			
 			<div class="panel-body">
@@ -26,13 +27,13 @@
 							<table class="table table-bordered" id="assetTable">
 								<thead>
 									<tr>
-										<th style="width: 5%;">STT</th>
-										<th style="width: 15%;">MÃ NHÀ CUNG CẤP </th>
-										<th style="width: 20%;">TÊN NHÀ CUNG CẤP </th>
-										<th style="width: 15%;">NGƯỜI LIÊN HỆ</th>
+										<th style="width: 5%;">{% trans 'STT' %}</th>
+										<th style="width: 15%;">{% trans 'MÃ NHÀ CUNG CẤP' %} </th>
+										<th style="width: 20%;">{% trans 'TÊN NHÀ CUNG CẤP' %} </th>
+										<th style="width: 15%;">{% trans 'NGƯỜI LIÊN HỆ' %}</th>
 										<th >ĐỊA CHỈ</th>
-										<th style="width: 10%;">NGÀY TẠO</th>
-										<th style="width: 10%;">SỬA/XÓA</th> 
+										<th style="width: 10%;">{% trans 'NGÀY TẠO' %}</th>
+										<th style="width: 10%;">{% trans 'SỬA/XÓA' %}</th> 
 									</tr>
 								</thead>
 								<tbody>
@@ -58,15 +59,15 @@
 				</div>
 				<div class="row">
 					<div class="breadcrumb-wrapper">
-						<a class="btn btn-success" href="/supplier/add/">Thêm nhà cung cấp</a>
+						<a class="btn btn-success" href="/supplier/add/">{% trans 'Thêm nhà cung cấp' %}</a>
 					</div>
 				</div>
 			</div>
 			<!-- panel-body -->
 		</div>
 		<input type="hidden" id="hd_supplier_id" value="">
-		<div id="dialog-confirm" title="Xóa nhà cung cấp ?" >
-			<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa nhà cung cấp này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?</p>
+		<div id="dialog-confirm" title="{% trans 'Xóa nhà cung cấp ?' %}" >
+			<p><span style="float:left; margin:0 7px 20px 0;"></span>{% trans 'Khi xóa nhà cung cấp này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?' %}</p>
 		</div>
 		<!-- panel body-->
 	</form>

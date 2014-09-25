@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 {% endblock %}
@@ -8,7 +9,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">THÊM NHÀ CUNG CẤP</h4>
+					style="text-align: center; line-height: 10px">THÊM NHÀ CUNG CẤP' %}</h4>
 			</div>
 			<form method="post" novalidate="novalidate" id="editsupplier">
 				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
@@ -26,29 +27,29 @@
 								<input type="hidden" name="hd_dt_supplier" id="hd_dt_supplier" value="{{ supplier.create_datetime|date:'d/m/Y' }}">
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label class="control-label"> Mã nhà cung cấp</label>
-										<input type="text" name="txtCode" class="form-control" value="{{ supplier.code }}" placeholder="Mã nhà cung cấp..." required="required" maxlength="10">
+										<label class="control-label"> {% trans 'Mã nhà cung cấp' %}</label>
+										<input type="text" name="txtCode" class="form-control" value="{{ supplier.code }}" placeholder="{% trans 'Mã nhà cung cấp...' %}" required="required" maxlength="10">
 									</div>
 								</div>
 								
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label class="control-label"> Tên nhà cung cấp</label>
-										<input type="text" name="txtName" class="form-control" value="{{ supplier.name }}" placeholder="Tên nhà cung cấp ..." required="required" maxlength="50">
+										<label class="control-label"> {% trans 'Tên nhà cung cấp' %}</label>
+										<input type="text" name="txtName" class="form-control" value="{{ supplier.name }}" placeholder="{% trans 'Tên nhà cung cấp ...' %}" required="required" maxlength="50">
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label class="control-label"> Địa chỉ</label>
-										<input type="text" name="txtAddress" class="form-control" value="{{ supplier.address }}" placeholder="Địa chỉ ..." required="required" maxlength="100">
+										<label class="control-label"> {% trans 'Địa chỉ' %}</label>
+										<input type="text" name="txtAddress" class="form-control" value="{{ supplier.address }}" placeholder="{% trans 'Địa chỉ ...' %}" required="required" maxlength="100">
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label class="control-label">Ngày tạo</label>
+										<label class="control-label">{% trans 'Ngày tạo' %}</label>
 										<div class="input-group">
 											<input type="text" class="form-control"
-												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tạo" id="dt_supplier"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày tạo' %}" id="dt_supplier"
 												name = "dt_supplier" required>
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
@@ -61,23 +62,23 @@
 								
 								<div class="col-lg-3">
 									<div class="form-group">
-										<label class="control-label"> Số điện thoại</label>
-										<input type="text" name="txtPhone" class="form-control numberic" value="{{ supplier.tel }}" placeholder="Số điện thoại ..." required="required" maxlength="20">
+										<label class="control-label"> {% trans 'Số điện thoại' %}</label>
+										<input type="text" name="txtPhone" class="form-control numberic" value="{{ supplier.tel }}" placeholder="{% trans 'Số điện thoại ...' %}" required="required" maxlength="20">
 									</div>
 								</div>
 								
 								<div class="col-lg-3">
 									<div class="form-group">
-										<label class="control-label">Fax</label>
-										<input type="text" name="txtFax" class="form-control numberic" value="{{ supplier.fax }}" placeholder="Số Fax ..." required="required" maxlength="20">
+										<label class="control-label">{% trans 'Fax' %}</label>
+										<input type="text" name="txtFax" class="form-control numberic" value="{{ supplier.fax }}" placeholder="{% trans 'Số Fax ...' %}" required="required" maxlength="20">
 									</div>
 								</div>
 								
 								<div class="col-lg-3">
 									<div class="form-group">
-										<label class="control-label"> Tên người liên hệ</label>
+										<label class="control-label"> {% trans 'Tên người liên hệ' %}</label>
 										<select id="slContactPerson" class="form-control chosen-select"
-											data-placeholder="Tên người liên hệ" 
+											data-placeholder="{% trans 'Tên người liên hệ' %}" 
 											name = "slContactPerson" required="required">
 											<option value=""></option>
 											{% for staff in staffs %}
@@ -88,26 +89,26 @@
 												{% endif %}
 											{% endfor%}
 										</select>
-										<label for="slContactPerson" class="error" style="display: none;">Trường không được để trống</label>
+										<label for="slContactPerson" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
 								
 								<div class="col-lg-3">
 									<div class="form-group">
-										<label class="control-label">Trạng thái</label>
+										<label class="control-label">{% trans 'Trạng thái' %}</label>
 										<select id="slStatus" class="form-control chosen-select"
-											data-placeholder="Kho" 
+											data-placeholder="{% trans 'Trạng thái' %}" 
 											name = "slStatus" required="required">
 											{% if supplier.status == '1' %}
-												<option value="1" selected="selected">Kích hoạt</option>
-												<option value="0" >Không kích hoạt</option>
+												<option value="1" selected="selected">{% trans 'Kích hoạt' %}</option>
+												<option value="0" >{% trans 'Không kích hoạt' %}</option>
 											{% else %}
-												<option value="1">Kích hoạt</option>
-												<option value="0" selected="selected">Không kích hoạt</option>
+												<option value="1">{% trans 'Kích hoạt' %}</option>
+												<option value="0" selected="selected">{% trans 'Không kích hoạt' %}</option>
 											{% endif %}
 											
 										</select>
-										<label for="slStatus" class="error" style="display: none;">Trường không được để trống</label>
+										<label for="slStatus" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
 								
@@ -118,7 +119,7 @@
 					<div class="row">
 						<div class="col-sm col-sm-offset-5">
 							<!-- <button class="btn btn-primary">In biên bản</button> -->
-							<button class="btn btn-primary" onclick="return onSubmitFormEditsupplier();">Thực hiện</button>
+							<button class="btn btn-primary" onclick="return onSubmitFormEditsupplier();">{% trans 'Thực hiện' %}</button>
 						</div>
 					</div>
 				</div>
