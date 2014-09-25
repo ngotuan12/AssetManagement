@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
   <meta name="author" content="">
   <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
 
-  <title>Bracket Responsive Bootstrap3 Admin</title>
+  <title></title>
 
   <link href="/css/style.default.css" rel="stylesheet">
 
@@ -30,7 +31,8 @@
   <div class="notfoundpanel">
     <h2>Lỗi xảy ra!</h2>
     <h3>{{ has_error }}</h3>
-    <h4>The page you are looking for might have been removed, had its name changed, or unavailable. <br /><a href="/home">Quay lại trang chủ</a></h4>
+    <h4>{% trans 'Các trang web mà bạn đang tìm kiếm có thể đã được gỡ bỏ, đã thay đổi tên, hoặc không có.' %} <br /><a href="/home/">
+    {% trans 'Quay lại trang chủ' %}</a></h4>
   </div>
   <!-- notfoundpanel -->
   
