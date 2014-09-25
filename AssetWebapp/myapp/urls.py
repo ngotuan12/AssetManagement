@@ -4,7 +4,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	EditIncrementAsset, ViewAsset, UpgradeAsset, DecrementAsset, VerifyAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error\
-	,Goal,AssetVolatility,ListCountry
+	,Goal,AssetVolatility,ListCountry,BarCode,App
 
 
 urlpatterns = patterns('',
@@ -20,6 +20,11 @@ urlpatterns = patterns('',
     url(r'^department/delete/(?P<dept_id>\w+)/$', Department.delete, name='department'),
     #Country
     url(r'^country/$', ListCountry.index, name='country'),
+	# App
+	url(r'^list-app/$', App.index,name='app'),
+	url(r'^app/add/$', App.add_app,name='add-app'),
+	url(r'^edit-app/(?P<app_id>\w+)/$', App.edit_app,name='edit-app'),
+	url(r'^app/delete/(?P<app_id>\w+)/$', App.delete_app,name='delete-app'),
     # Function List
     url(r'^function-list$', FunctionList.index, name='function-list'),
     # increment asset
@@ -59,6 +64,8 @@ urlpatterns = patterns('',
     url(r'^edit-supplier/(?P<supplier_id>\w+)/$', ListSupplier.edit_supplier,name='edit-supplier'),
     #delete supplier
     url(r'^supplier/delete/(?P<supplier_id>\w+)/$', ListSupplier.delete_supplier,name='delete-supplier'),
+    #Bar code
+	url(r'^bar-code/$', BarCode.index,name='bar-code'),
     #AssetState
     url(r'^asset-state/$', AssetState.index,name='asset-state'),
     url(r'^state/add/(?P<parent_id>\w+)/$', AssetState.add, name='add-asset-state'),
@@ -84,16 +91,11 @@ urlpatterns = patterns('',
     url(r'^join-asset/$', JoinReleaseAsset.join_asset, name='join-asset'),
     url(r'^get-child-asset/(?P<asset_parent_id>\w+)/$', JoinReleaseAsset.load_child_asset, name='get-child-asset'),
     url(r'^amortize-asset/$', AmortizeAsset.index, name='amortize-asset'),
-    #asset-type
     url(r'^asset-type/$', AssetType.index, name='asset-type'),
-	url(r'^asset-type/add/(?P<parent_id>\w+)/$', AssetType.add_asset_type, name='add-asset-type'),
-    url(r'^asset-type/delete/(?P<asset_id>\w+)/$', AssetType.delete, name='delete-asset-type'),
-    url(r'^asset-type/edit/(?P<asset_id>\w+)/$', AssetType.edit_asset_type, name='edit-asset-type'),
     url(r'^load-asset-detail/(?P<asset_id>\w+)/$', AssetType.load_asset_detail, name='load-asset-detail'),
     # Report
-    url(r'^report/asset-inventory-report/$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
-    url(r'^report/verify-asset-report/$', Report.verify_asset_report , name='verify-asset-report'),
-    url(r'^report/asset-by-project-report/$', Report.asset_project_report, name='asset-by-project-report'),
+    url(r'^report/asset-inventory-report$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
+    url(r'^report/verify-asset-report$', Report.verify_asset_report , name='verify-asset-report'),
     # Error page
     url(r'^permission-error/$', Error.permission_error, name='permission-error'),
     url(r'^notfound-error/$', Error.notfound_error, name='notfound-error'),

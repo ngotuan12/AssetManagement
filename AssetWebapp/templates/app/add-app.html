@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="contentpanel no-padding" style="background: #828283">
+	<div class="col-md">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">{% trans 'THÊM ỨNG DỤNG' %}</h4>
+			</div>
+			<form method="post" novalidate="novalidate" id="editapp">
+				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
+				{% csrf_token %}
+				<div class="panel-body">
+					{% if has_error %}
+						<div class="panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+					<div class="row row-pad-5">
+						<div class="alert alert-info">
+							<div class="row">
+								<input type="hidden" name="hd_app_id" value="{{ app.id }}">
+								<input type="hidden" name="hd_dt_app" id="hd_dt_app" value="{{ app.create_datetime|date:'d/m/Y' }}">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="control-label"> {% trans 'Mã ứng dụng' %}</label>
+										<input type="text" name="txtCode" class="form-control" 
+										{% if has_error %}
+											value="{{ app.code }}" 
+										{% endif %}
+										placeholder="{% trans 'Mã ứng dụng...' %}" required="required" maxlength="10">
+									</div>
+								</div>
+								
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="control-label"> {% trans 'Tên ứng dụng' %} </label>
+										<input type="text" name="txtName" class="form-control" value="{{ app.name }}" placeholder="{% trans 'Tên ứng dụng...' %}" required="required" maxlength="50">
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="control-label"> {% trans 'Trạng thái' %} </label>
+										<select id="slStatus" class="form-control chosen-select"
+											data-placeholder="{% trans 'Trạng thái' %}" 
+											name = "slStatus" required="required">
+											{% if app.status == '0' %}
+												<option value="1" >Kích hoạt</option>
+												<option value="0" selected="selected">Không kích hoạt</option>
+											{% else %}
+												<option value="1" selected="selected">Kích hoạt</option>
+												<option value="0" >Không kích hoạt</option>
+											{% endif %}
+											
+										</select>
+										<label for="slStatus" class="error" style="display: none;">Trường không được để trống</label>
+									</div>
+								</div>
+								
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="control-label"> {% trans 'Ngày tạo' %} </label>
+										<div class="input-group">
+											<input type="text" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày tạo' %}" id="dt_app"
+												name = "dt_app" required>
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm col-sm-offset-5">
+							<!-- <button class="btn btn-primary">In biên bản</button> -->
+							<button class="btn btn-primary" onclick="return onSubmitFormEditapp();">Thực hiện</button>
+						</div>
+					</div>
+				</div>
+				<!-- panel body-->
+			</form>
+		</div>
+		<!-- panel -->
+	</div>
+</div>
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+
+<script src="/js/custom.js"></script>
+
+<script>
+$(document).ready(function(){
+// Chosen Select
+	$(".chosen-select").chosen({
+		'width' : '100%',
+		'white-space' : 'nowrap'
+	});
+	// Date Picker
+	var endDate=new Date();
+	$('#dt_app').datepicker({
+		dateFormat: 'dd/mm/yy',
+		maxDate: '0',
+		});
+	var current_date = new Date();
+	$("#dt_app").datepicker("setDate",current_date);
+	// Input Masks
+	$("#dt_app").mask("99/99/9999");
+	
+	$('.numberic').on('keypress', function(event){
+		if (event.keyCode < 48 || event.keyCode > 57)
+		return false;
+	});
+	$( "#slContactPerson" ).change(function() {
+		$(".error[for][for='slContactPerson']").hide();
+	});
+});
+function onSubmitFormEditapp()
+{
+	var isTrue = false;
+	jQuery('.chosen-select').each(function(i){
+		
+		var id = $(this).attr("id");
+		if(!jQuery('#'+id).valid())
+			isTrue = true;
+	});
+	if(isTrue)
+		return false;
+	
+	var $valid = jQuery('#editapp').valid();
+	if(!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#editapp').submit();
+}
+function onGetCode(stock_id,id_name)
+{
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-serial"+"/"+stock_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		serials = data.serials;
+		if(stocks.length>0)
+			$('#'+id_name).prop("disabled", false);
+		$('#'+ id_name +' option[value!=""]').remove();
+		for(var i=0;i<serials.length ;i++)
+		{
+			serial = serials[i];
+			option = $("<option></option>")
+			option.attr("value",serial.id)
+			option.attr("original-value",serial.original_value)
+			option.attr("remain-value",serial.remain_value)
+			option.attr("asset-id",serial.asset)
+			option.attr("state-id",serial.state)
+			option.text(serial.serial)
+			$('#'+id_name).append(option)
+		}
+		$('#'+ id_name).chosen('destroy');
+		$('#'+ id_name).prop("selectedIndex", -1);
+		$('#'+ id_name).chosen();
+	});
+}
+
+jQuery(window).load(function(){
+	$(".numberic").numeric();
+	$("form:not(.filter) :input:visible:enabled:first").focus();
+});
+</script>
+{% endblock scripts%}
