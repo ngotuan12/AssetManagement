@@ -32,7 +32,7 @@
 			<h4 class="panel-title"
 				style="text-align: center; line-height: 10px">{{ title }}</h4>
 		</div>
-		<div class="panel-body" style="padding: 0 10px;">
+		<div class="panel-body" style="padding: 5px 10px;">
 			<div class="row row-pad-5">
 				<form class="form-horizontal form-bordered" method="post" id="formDepartment" novalidate="novalidate" >
 					{% csrf_token %}
@@ -42,24 +42,15 @@
 						</div>
 					{% endif %}
 					<div class="row row-pad-5">
-						<div class="col-lg">
+						<div class="col-lg-6">
 							<label>{% trans 'Hệ thống' %}</label> <input type="text" value ="{{ app_name }}"
 								id = "txtParentName" placeholder="{% trans 'Hệ thống' %}"
 								class="form-control" disabled required>
 						</div>
-					</div>
-					
-					<div class="row row-pad-5">
 						<div class="col-lg-6">
 							<label>{% trans 'Chức năng cha' %}</label> <input type="text" value ="{{ parent_name }}"
 								id = "txtParentName" placeholder="{% trans 'Chức năng cha' %}"
 								class="form-control" disabled required>
-						</div>
-						
-						<div class="col-lg-6">
-							<label>{% trans 'Độ ưu tiên' %}</label> <input type="text" value="1"
-								id="txtOrd" name="txtOrd" placeholder="{% trans 'Độ ưu tiên' %}"
-								class="form-control" required>
 						</div>
 					</div>
 					<div class="row row-pad-5">
@@ -76,34 +67,44 @@
 					</div>
 					
 					<div class="row row-pad-5">
-						<div class="col-lg-4">
+						<div class="col-lg-6">
+							<label>{% trans 'Độ ưu tiên' %}</label> <input type="text" value="1"
+								id="txtOrd" name="txtOrd" placeholder="{% trans 'Độ ưu tiên' %}"
+								class="form-control" required>
+						</div>
+						
+						<div class="col-lg-6">
 							<label>{% trans 'Action' %}</label> <input type="text"
 								id="txtAction" name="txtAction" placeholder="{% trans 'Action' %}"
 								class="form-control" required>
 						</div>
+					</div>
+					
+					
+					<div class="row row-pad-5">
 						
-						<div class="col-lg-4">
+						<div class="col-lg-6">
 							<label>{% trans 'Icon' %}</label> <input type="text"
 								id="txtIcon" name="txtIcon" placeholder="{% trans 'Icon' %}"
 								class="form-control" required>
 						</div>
 						
-						<div class="col-lg-4">
+						<div class="col-lg-6">
 							<label>{% trans 'url' %}</label> <input type="text"
 								id="txtUrl" name="txtUrl" placeholder="{% trans 'url' %}"
 								class="form-control" required>
 						</div>
 						
 					</div>
-					
 					<div class="row row-pad-5">
-						<div class="ckbox ckbox-default">
-							<input id="ckStatus" name="ckStatus" type="checkbox"
-								checked="checked"> <label for="ckStatus">
-								{% trans 'Hiệu lực' %}</label>
+						<div class="col-lg-4">
+							<div class="ckbox ckbox-default">
+								<input id="ckStatus" name="ckStatus" type="checkbox"
+									checked="checked"> <label for="ckStatus">
+									{% trans 'Hiệu lực' %}</label>
+							</div>
 						</div>
 					</div>
-					
 					<div class="row row-pad-5">
 						<div class="col-sm col-sm-offset-5">
 							<button class="btn btn-primary" onclick="return onSubmit();">{% trans 'Thực hiện' %}</button>

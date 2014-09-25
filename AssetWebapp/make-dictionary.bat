@@ -1,3 +1,3 @@
 @echo off
-call django-admin.py makemessages -l vi -e html,py
+call django-admin.py makemessages -l en -e html,py
 pause

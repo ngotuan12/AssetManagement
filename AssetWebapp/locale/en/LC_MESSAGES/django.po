@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-05 17:21+0700\n"
+"POT-Creation-Date: 2014-09-25 10:42+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,251 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: .\AdminManagement\views\Ajax.py:56 .\AdminManagement\views\Module.py:57
+msgid "unknown"
+msgstr ""
+
+#: .\AdminManagement\views\Ajax.py:59 .\AdminManagement\views\Module.py:60
+msgid "Cha"
+msgstr ""
+
+#: .\AdminManagement\views\Ajax.py:62 .\AdminManagement\views\Module.py:63
+msgid "Nhóm module"
+msgstr ""
+
+#: .\AdminManagement\views\Ajax.py:65 .\AdminManagement\views\Module.py:66
+msgid "Module"
+msgstr ""
+
+#: .\AdminManagement\views\Ajax.py:68 .\AdminManagement\views\Module.py:69
+msgid "Quyền hạn"
+msgstr ""
+
+#: .\AdminManagement\views\Module.py:107
+msgid "THÊM NHÓM MODULE"
+msgstr ""
+
+#: .\AdminManagement\views\Module.py:109
+msgid "THÊM MODULE"
+msgstr ""
+
+#: .\AdminManagement\views\Module.py:111
+msgid "THÊM QUYỀN"
+msgstr ""
+
 #: .\myapp\dictionary.py:9
 msgid "Test"
 msgstr ""
 
-#: .\myapp\templates\change-password.html:15
-msgid "Hãy sửa những lỗi sau."
-msgstr "Please fix error"
+#: .\myapp\models\ModulePermission.py:23
+msgid "Có thể tăng tài sản"
+msgstr ""
 
-#: .\myapp\templates\change-password.html:29
-msgid "Mật khẩu cũ"
-msgstr "Old password"
+#: .\myapp\models\ModulePermission.py:24
+msgid "Có thể giảm tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:25
+msgid "Có thể đánh giá lại tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:26
+msgid "Có thể chuyển đổi tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:27
+msgid "Có thể kiểm kê tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:28
+msgid "Có thể sửa kiểm kê tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:29
+msgid "Có thể tra cứu tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:30
+msgid "Có thể tách tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:31
+msgid "Có thể gộp tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:32
+msgid "Có thể tính khấu hao tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:33
+msgid "Có thể xuất báo cáo kiểm kê tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:34
+msgid "Có thể xuất báo cáo tổng hợp kiểm kê tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:35
+msgid "Có thể nâng cấp tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:36
+msgid "Có thể quản lý loại tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:37 .\myapp\models\ModulePermission.py:39
+#: .\myapp\models\ModulePermission.py:40 .\myapp\models\ModulePermission.py:41
+msgid "Có thể sửa thông tin tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:38
+msgid "Xem thông tin phòng ban"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:46
+#: .\templates\admin\module\add-module.html:47
+#: .\templates\admin\module\module.html:76
+#: .\templates\admin\module\module.html:92
+#: .\templates\admin\module\module.html:93
+msgid "Hệ thống"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:54
+#: .\templates\admin\module\add-module.html:55
+#: .\templates\admin\module\module.html:111
+#: .\templates\admin\module\module.html:112
+msgid "Chức năng cha"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:60
+#: .\templates\admin\module\add-module.html:61
+#: .\templates\admin\module\module.html:141
+#: .\templates\admin\module\module.html:142
+msgid "Độ ưu tiên"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:67
+#: .\templates\admin\module\add-module.html:68
+#: .\templates\admin\module\module.html:99
+#: .\templates\admin\module\module.html:100
+msgid "Mã"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:72
+#: .\templates\admin\module\add-module.html:73
+#: .\templates\admin\module\module.html:104
+#: .\templates\admin\module\module.html:105
+msgid "Tên"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:80
+#: .\templates\admin\module\add-module.html:81
+#: .\templates\admin\module\module.html:124
+#: .\templates\admin\module\module.html:125
+msgid "Action"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:86
+#: .\templates\admin\module\add-module.html:87
+#: .\templates\admin\module\module.html:130
+#: .\templates\admin\module\module.html:131
+msgid "Icon"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:92
+#: .\templates\admin\module\add-module.html:93
+#: .\templates\admin\module\module.html:136
+#: .\templates\admin\module\module.html:137
+msgid "url"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:103
+msgid "Hiệu lực"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:109
+#: .\templates\admin\module\module.html:168
+msgid "Thực hiện"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:110
+#: .\templates\admin\module\module.html:169
+msgid "Thoát"
+msgstr ""
+
+#: .\templates\admin\module\module.html:70
+msgid "Danh sách chức năng"
+msgstr ""
+
+#: .\templates\admin\module\module.html:117
+#: .\templates\admin\module\module.html:118
+msgid "Loại"
+msgstr ""
+
+#: .\templates\admin\module\module.html:149
+msgid "Ngày tạo"
+msgstr ""
+
+#: .\templates\admin\module\module.html:154
+msgid "Người tạo"
+msgstr ""
+
+#: .\templates\admin\module\module.html:163
+msgid "Kích hoạt"
+msgstr ""
+
+#: .\templates\admin\module\module.html:182
+msgid "Xoá phòng ban"
+msgstr ""
+
+#: .\templates\admin\module\module.html:185
+msgid "Bạn thực sự muốn xoá phòng ban"
+msgstr ""
+
+#: .\templates\admin\user\change-password-done.html:8
+msgid "Your password was changed."
+msgstr ""
+
+#: .\templates\admin\user\change-password-done.html:9
+msgid "Back"
+msgstr ""
+
+#: .\templates\admin\user\change-password.html:9
+msgid "Password change"
+msgstr ""
+
+#: .\templates\admin\user\change-password.html:10
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: .\templates\admin\user\change-password.html:13
+msgid "Please correct the error below."
+msgstr ""
+
+#: .\templates\admin\user\change-password.html:13
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\templates\admin\user\change-password.html:26
+msgid "Old password"
+msgstr ""
+
+#: .\templates\admin\user\change-password.html:39
+msgid "New password"
+msgstr ""
+
+#: .\templates\admin\user\change-password.html:52
+msgid "Password (again)"
+msgstr ""
+
+#: .\templates\admin\user\change-password.html:61
+msgid "Change my password"
+msgstr ""
+
+#~ msgid "Hãy sửa những lỗi sau."
+#~ msgstr "Please fix error"
+
+#~ msgid "Mật khẩu cũ"
+#~ msgstr "Old password"
