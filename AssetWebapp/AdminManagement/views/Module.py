@@ -9,7 +9,10 @@ Created on Sep 18, 2014
 import json
 
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core.context_processors import csrf
+from django.db import transaction
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
@@ -112,25 +115,54 @@ def on_add_module(request,module_type,parent_id):
 			title = _(u"THÊM QUYỀN")
 		context.update({'title':title})
 		if request.POST:
+			#auto commit
+			transaction.set_autocommit(False)
+			#parameter
 			code = request.POST["txtCode"]
 			name = request.POST["txtName"]
 			action = request.POST["txtAction"]
 			url = request.POST["txtUrl"]
+			icon = request.POST["txtIcon"]
+			ord_num = request.POST["txtOrd"]
+			#new Module
 			module = Module()
 			module.code = code
 			module.name = name
 			module.action = action
 			module.url = url
 			module.type = module_type
+			module.icon_class = icon
+			module.ord = ord_num
 			if request.POST.get('ckStatus'):
 				module.status = "1"
 			else:
 				module.status = "0"
 			module.parent = parent
+			module.app = parent.app
 			module.user_name = request.user.username
+			if module_type=="M":
+				#Insert content type
+				content_type = ContentType()
+				content_type.app_label = parent.app.code
+				content_type.model = code
+				content_type.name = name
+				content_type.save()
+				module.content_type = content_type
+			elif module_type=="P":
+				#Insert permission
+				permission = Permission()
+				permission.content_type = parent.content_type
+				permission.name = name
+				permission.codename = code
+				permission.save()
+				module.permission = permission
+			#save module
 			module.save()
-			return HttpResponseRedirect(resolve_url("module"))
+			#commit
+			transaction.commit()
+			return HttpResponseRedirect(str("%s?app_id="+str(parent.app.id)) % resolve_url("module"))
 	except Exception as ex:
+		transaction.rollback()
 		context.update({'has_error':str(ex)})
 	finally:
 		context.update(csrf(request))
@@ -139,11 +171,68 @@ def on_add_module(request,module_type,parent_id):
 @permission_required('admin.edit_module',login_url='/permission-error/')
 def edit_module(request,module_id):
 	context = {}
+	try:
+		module = Module.objects.get(id=module_id)
+		context.update({'parent_name':module.parent.name})
+		context.update({'app_name':module.app.name})
+		context.update({'module':module})
+		if request.POST:
+			#auto commit
+			transaction.set_autocommit(False)
+			#parameter
+			code = request.POST["txtCode"]
+			name = request.POST["txtName"]
+			action = request.POST["txtAction"]
+			url = request.POST["txtUrl"]
+			icon = request.POST["txtIcon"]
+			ord_num = request.POST["txtOrd"]
+			#new Module
+			module.code = code
+			module.name = name
+			module.action = action
+			module.url = url
+			module.icon_class = icon
+			module.ord = ord_num
+			if request.POST.get('ckStatus'):
+				module.status = "1"
+			else:
+				module.status = "0"
+			if module.type == "M":
+				#Insert content type
+				module.content_type.model = code
+				module.content_type.name = name
+				module.content_type.save()
+			elif module.type=="P":
+				#Insert permission
+				module.permission.name = name
+				module.permission.codename = code
+				module.permission.save()
+			#save module
+			module.save()
+			#commit
+			transaction.commit()
+			return HttpResponseRedirect(str("%s?app_id="+str(module.app.id)) % resolve_url("module"))
+	except Exception as ex:
+		transaction.rollback()
+		context.update({'has_error':str(ex)})
+	finally:
+		context.update(csrf(request))
 	return render_to_response("admin/module/edit-module.html", context, RequestContext(request))
 @login_required(login_url='/login/')
 @permission_required('admin.delete_module',login_url='/permission-error/')
 @require_http_methods(["POST",])
 def delete_module(request,module_id):
-	if request.POST :
-		return HttpResponseRedirect(resolve_url("module"))
-	return HttpResponseRedirect(resolve_url("module"))
+	try:
+		module = Module.objects.get(id=module_id)
+		if request.POST :
+			transaction.set_autocommit(False)
+			if module.type == "M":
+				module.content_type.delete()
+			elif module.type=="P":
+				module.permission.delete()
+			module.delete();
+			transaction.commit()
+			return HttpResponseRedirect(str("%s?app_id="+str(module.app.id)) % resolve_url("module"))
+	except Exception as ex:
+		transaction.rollback()
+		return HttpResponseRedirect("%s?error=%s" % (resolve_url("error-page"),str(ex)))

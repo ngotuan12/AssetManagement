@@ -97,6 +97,4 @@ urlpatterns = patterns('',
     url(r'^report/asset-inventory-report$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
     url(r'^report/verify-asset-report$', Report.verify_asset_report , name='verify-asset-report'),
     # Error page
-    url(r'^permission-error/$', Error.permission_error, name='permission-error'),
-    url(r'^notfound-error/$', Error.notfound_error, name='notfound-error'),
 )

@@ -75,7 +75,11 @@
 						<select class="form-control chosen-select"
 							data-placeholder="{% trans 'Hệ thống' %}" name="slApp" id="slApp">
 							{% for app in apps %}
-								<option value="{{ app.id }}">{{ app.name }}</option>
+								{% if app.id|stringformat:"s" == app_id %}
+									<option selected value="{{ app.id }}">{{ app.name }}</option>
+								{% else %}
+									<option value="{{ app.id }}">{{ app.name }}</option>
+								{% endif %}
 							{% endfor%}
 						</select>
 						<ul id="treeDemo" class="ztree"></ul>
