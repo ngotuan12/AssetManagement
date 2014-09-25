@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 	<link href="/css/print-preview.css" rel="stylesheet">
@@ -11,7 +12,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">DANH MỤC NƯỚC SẢN XUẤT</h4>
+					style="text-align: center; line-height: 10px">{% trans 'DANH MỤC NƯỚC SẢN XUẤT' %}</h4>
 			</div>
 			
 			<div class="panel-body">
@@ -26,10 +27,10 @@
 							<table class="table table-bordered" id="assetTable">
 								<thead>
 									<tr>
-										<th style="width: 5%;">STT</th>
-										<th style="width: 15%;">MÃ NƯỚC SẢN XUẤT </th>
-										<th style="width: 20%;">TÊN NƯỚC SẢN XUẤT </th>
-										<th style="width: 10%;">NGÀY TẠO</th>
+										<th style="width: 5%;">{% trans 'STT' %}</th>
+										<th style="width: 15%;">{% trans 'MÃ NƯỚC SẢN XUẤT' %} </th>
+										<th style="width: 20%;">{% trans 'TÊN NƯỚC SẢN XUẤT' %} </th>
+										<th style="width: 10%;">{% trans 'NGÀY TẠO' %}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -55,8 +56,8 @@
 			<!-- panel-body -->
 		</div>
 		<input type="hidden" id="hd_country_id" value="">
-		<div id="dialog-confirm" title="Xóa nhà cung cấp ?" >
-			<p><span style="float:left; margin:0 7px 20px 0;"></span>Khi xóa nhà cung cấp này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?</p>
+		<div id="dialog-confirm" title="{% trans 'Xóa nhà cung cấp ?' %}" >
+			<p><span style="float:left; margin:0 7px 20px 0;"></span>{% trans 'Khi xóa nhà cung cấp này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn muốn xóa không?' %}</p>
 		</div>
 		<!-- panel body-->
 	</form>

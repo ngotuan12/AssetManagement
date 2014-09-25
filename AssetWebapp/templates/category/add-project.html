@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 {% endblock %}
@@ -8,7 +9,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">THÊM DỰ ÁN</h4>
+					style="text-align: center; line-height: 10px">{% trans 'THÊM DỰ ÁN' %}</h4>
 			</div>
 			<form method="post" novalidate="novalidate" id="editProject">
 				
@@ -28,32 +29,32 @@
 							 {% endif %}>
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Mã dự án</label>
+										<label class="control-label"> {% trans 'Mã dự án' %}</label>
 										<input type="text" name="txtCode" class="form-control" 
 										{% if has_error %}
 											value="{{ project.code }}" 
 										{% endif %}
-										placeholder="Mã dự án" required="required" maxlength="10">
+										placeholder="{% trans 'Mã dự án' %}" required="required" maxlength="10">
 									</div>
 								</div>
 								
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Tên dự án</label>
+										<label class="control-label"> {% trans 'Tên dự án' %}</label>
 										<input type="text" name="txtName" class="form-control" 
 										{% if has_error %}
 											value="{{ project.name }}" 
 										{% endif %}
-										placeholder="Tên dự án ..." required="required" maxlength="100">
+										placeholder="{% trans 'Tên dự án ...' %}" required="required" maxlength="100">
 									</div>
 								</div>
 								
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label">Ngày tạo</label>
+										<label class="control-label">{% trans 'Ngày tạo' %}</label>
 										<div class="input-group">
 											<input type="text" class="form-control"
-												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tạo" id="dt_project"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày tạo' %}" id="dt_project"
 												name = "dt_project" required>
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
@@ -64,9 +65,9 @@
 							<div class="row">
 								<div class="col-lg">
 									<div class="form-group">
-										<label class="control-label">Mô tả</label>
+										<label class="control-label">{% trans 'Mô tả' %}</label>
 										<textarea class="form-control" name="txtDescription" rows="5"
-											placeholder="Ghi chú" required maxlength="200">{% if has_error %}{{ project.description }}{% endif %}</textarea>
+											placeholder="{% trans 'Ghi chú' %}" required maxlength="200">{% if has_error %}{{ project.description }}{% endif %}</textarea>
 									</div>
 								</div>
 							</div>
@@ -76,7 +77,7 @@
 					<div class="row">
 						<div class="col-sm col-sm-offset-5">
 							<!-- <button class="btn btn-primary">In biên bản</button> -->
-							<button class="btn btn-primary" onclick="return onSubmitFormEditProject();">Thực hiện</button>
+							<button class="btn btn-primary" onclick="return onSubmitFormEditProject();">{% trans 'Thực hiện' %}</button>
 						</div>
 					</div>
 				</div>
