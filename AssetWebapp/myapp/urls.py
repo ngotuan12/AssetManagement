@@ -94,7 +94,8 @@ urlpatterns = patterns('',
     url(r'^asset-type/$', AssetType.index, name='asset-type'),
     url(r'^load-asset-detail/(?P<asset_id>\w+)/$', AssetType.load_asset_detail, name='load-asset-detail'),
     # Report
-    url(r'^report/asset-inventory-report$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
-    url(r'^report/verify-asset-report$', Report.verify_asset_report , name='verify-asset-report'),
+    url(r'^report/asset-inventory-report/$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
+    url(r'^report/verify-asset-report/$', Report.verify_asset_report , name='verify-asset-report'),
+    url(r'^report/asset-by-project-report/$', Report.asset_project_report , name='asset-by-project-report'),
     # Error page
 )
