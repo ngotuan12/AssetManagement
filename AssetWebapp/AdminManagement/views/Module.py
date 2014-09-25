@@ -101,6 +101,7 @@ def on_add_module(request,module_type,parent_id):
 	try:
 		parent = Module.objects.get(id=parent_id)
 		context.update({'parent_name':parent.name})
+		context.update({'app_name':parent.app.name})
 		# title
 		title = ""
 		if module_type=="G":

@@ -6,10 +6,12 @@ Created on Aug 15, 2014
 '''
 import datetime
 
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 from AdminManagement.models.App import App
 from myapp.util.sequence import update_id
+from django.contrib.auth.models import Permission
 
 
 # Create your models here.
@@ -21,6 +23,8 @@ class Module(models.Model):
     status = models.CharField(max_length=1,db_column="status")
     include_menu = models.CharField(max_length=10,db_column="include_menu")
     app = models.ForeignKey(App,db_column='app_id')
+    content_type = models.ForeignKey(ContentType,db_column='content_type_id',null=True)
+    permission = models.ForeignKey(Permission,db_column='permission_id',null=True)
     parent = models.ForeignKey('self',db_column='parent_id',null=True)
     action = models.CharField(max_length=100,db_column="action")
     icon_class = models.CharField(max_length=200,db_column="icon_class")
