@@ -69,9 +69,15 @@
 			<h4 class="panel-title"
 				style="text-align: center; line-height: 10px">{% trans 'Danh sách chức năng' %}</h4>
 		</div>
-		<div class="panel-body" style="padding: 0 10px;">
+		<div id="content"class="panel-body" style="padding: 5px 10px;">
 			<div class="row row-pad-0">
 				<div class="col-md-5" style="BORDER-RIGHT: #999999 1px dashed;">
+						<select class="form-control chosen-select"
+							data-placeholder="{% trans 'Hệ thống' %}" name="slApp" id="slApp">
+							{% for app in apps %}
+								<option value="{{ app.id }}">{{ app.name }}</option>
+							{% endfor%}
+						</select>
 						<ul id="treeDemo" class="ztree"></ul>
 				</div>
 				<div class="col-md-7">
@@ -80,6 +86,14 @@
 							<label class="error">{{ has_error }}</label>
 						</div>
 					{% endif %}
+						
+						<div class="row row-pad-5">
+							<div class="col-lg">
+								<label>{% trans 'Hệ thống' %}</label> <input type="text" value ="{{ app_name }}"
+									placeholder="{% trans 'Hệ thống' %}"
+									class="form-control" disabled required>
+							</div>
+						</div>
 						<div class="row row-pad-5">
 							<div class="col-lg-6">
 								<label>{% trans 'Mã' %}</label> <input type="text"
@@ -123,7 +137,13 @@
 									id="txtUrl" placeholder="{% trans 'url' %}"
 									class="form-control" disabled required>
 							</div>
+							<div class="col-lg-4">
+								<label>{% trans 'Độ ưu tiên' %}</label> <input type="text"
+									id="txtUrl" placeholder="{% trans 'Độ ưu tiên' %}"
+									class="form-control" disabled required>
+							</div>
 						</div>
+						
 						<div class="row row-pad-5">
 							<div class="col-lg-6">
 								<label>{% trans 'Ngày tạo' %}</label> 
@@ -182,46 +202,21 @@
 <script type="text/javascript" src="/tree/js/jquery.ztree.exedit-3.5.js"></script>
 <script src="/js/jquery-ui-1.10.3.min.js" ></script> 
 <script src="/js/jquery.confirm.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
 
 <script src="/js/custom.js"></script>
-
+<script src="/js/loading.js"></script>
 <script>
-jQuery(document).ready(function() {
-	var zNodes = {{ data|safe }};
-	var setting = {
-		view: {
-			addHoverDom: addHoverDom,
-			removeHoverDom: removeHoverDom,
-			selectedMulti: false,
-			showLine: false,
-		},
-		edit: {
-			enable: true,
-			editNameSelectAll: true,
-			showRemoveBtn: showBtn,
-			showRenameBtn: showBtn,
-		},
-		callback: {
-			beforeDrag: beforeDrag,
-			beforeEditName: beforeEditName,
-			beforeRemove: beforeRemove,
-			onClick: onClick,
-		},
-		data : {
-			key : {
-				url: "",
-			},
-			simpleData : {
-				enable : true,
-				idKey: 'id',
-				pIdKey: 'parent_id',
-				rootPId: null,
-			}
-		}
-	};
-	var tree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-	tree.selectNode(tree.getNodes()[0]);
-	fillData(tree.getNodes()[0]);
+jQuery(document).ready(function() 
+{
+	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+	
+	fillModule("{{app_id}}");
+	
+	$("#slApp").on('change',function(){
+		fillModule($(this).attr("value"));
+	})
+	
 	$("#dialog-confirm" ).dialog({
 		 autoOpen: false, 
 		resizable: true,
@@ -237,8 +232,69 @@ jQuery(document).ready(function() {
 			}
 		}
 	});
+	
+	
 });
-var newCount = 1;
+
+function fillModule(app_id,call_back)
+{
+	//show loading
+	$.fn.loading.show();
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("{% url 'ajax-app-module' %}", {
+		'csrfmiddlewaretoken' : csrftoken,
+		'app_id' : app_id,
+	});
+	//posting
+	posting.done(function(data) 
+	{
+		var zNodes = data.modules;
+		var setting = {
+			view: {
+				addHoverDom: addHoverDom,
+				removeHoverDom: removeHoverDom,
+				selectedMulti: false,
+				showLine: false,
+			},
+			edit: {
+				enable: true,
+				editNameSelectAll: true,
+				showRemoveBtn: showBtn,
+				showRenameBtn: showBtn,
+			},
+			callback: {
+				beforeDrag: beforeDrag,
+				beforeEditName: beforeEditName,
+				beforeRemove: beforeRemove,
+				onClick: onClick,
+			},
+			data : {
+				key : {
+					url: "",
+				},
+				simpleData : {
+					enable : true,
+					idKey: 'id',
+					pIdKey: 'parent_id',
+					rootPId: null,
+				}
+			}
+		};
+		var tree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		//select default node
+		if(tree.getNodes().length>0)
+		{
+			tree.selectNode(tree.getNodes()[0]);
+			fillData(tree.getNodes()[0]);
+		}
+		//hide loading
+		$.fn.loading.hide();
+		//call back
+		if(typeof call_back !== 'undefined')
+			call_back.call(this,data);
+	});
+}
+
 function addHoverDom(treeId, treeNode) 
 {
 	if(treeNode.type === "P")
@@ -255,7 +311,7 @@ function addHoverDom(treeId, treeNode)
 		btn = $("#addModule_"+treeNode.tId);
 		if (btn) btn.bind("click", function()
 		{
-			window.location.href  = "/module/add-module/"+treeNode.id+"/";
+			window.location.href  = "{% url 'add-module' parent_id='p_parent_id' %}".replace("p_parent_id", treeNode.id);
 		}); 
 		
 		addStr = "<span class='button add-group' title = 'add group' id='addGroup_" + treeNode.tId
@@ -264,26 +320,9 @@ function addHoverDom(treeId, treeNode)
 		var btn = $("#addGroup_"+treeNode.tId);
 		if (btn) btn.bind("click", function()
 		{
-			window.location.href  = "/module/add-group/"+treeNode.id+"/";
+			window.location.href  = "{% url 'add-module-group' parent_id='p_parent_id' %}".replace("p_parent_id", treeNode.id);
 		});
-		
-		
-		/* var sObj = $("#" + treeNode.tId + "_a");
-		if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
-		var addStr = "<div class='btn-group' id='addBtn_" + treeNode.tId +"'>"+
-					"<button type='button' class='btn btn-xs btn-primary'>Add</button>"+
-					"<button type='button' class='btn btn-xs btn-primary dropdown-toggle' data-toggle='dropdown'>"+
-					"<span class='caret'></span>"+
-					"<span class='sr-only'>Toggle Dropdown</span>"+
-					"</button>"+
-					"<ul class='dropdown-menu' role='menu'>"+
-					"<li><a href='/module/add/'>Group</a></li>"+
-					"<li><a href='/module/add/'>Module</a></li>"+
-					"</ul>"+
-					"</div>";
-		sObj.after(addStr); */
 		return;
-		
 	}	
 	
 	if(treeNode.type === "M")
@@ -296,7 +335,7 @@ function addHoverDom(treeId, treeNode)
 		btn = $("#addPermission_"+treeNode.tId);
 		if (btn) btn.bind("click", function()
 		{
-			window.location.href  = "/module/add-permission/"+treeNode.id+"/";
+			window.location.href  = "{% url 'add-module-permission' parent_id='p_parent_id' %}".replace("p_parent_id", treeNode.id);
 		});
 		return;
 	}
@@ -308,7 +347,7 @@ function removeHoverDom(treeId, treeNode) {
 	$("#addPermission_"+treeNode.tId).unbind().remove();
 };
 function showBtn(treeId, treeNode) {
-	return treeNode.type !== "R" && treeNode.ord !== 0;
+	return treeNode.type !== "R";
 }
 function beforeDrag(treeId, treeNodes) {
 	return false;
@@ -340,12 +379,12 @@ function fillData(treeNode)
 }
 
 function beforeEditName(treeId, treeNode) {
-	window.location.href  = "/module/edit/"+treeNode.id+"/";
+	window.location.href  = "{% url 'edit-module' module_id='p_module_id' %}".replace("p_module_id", treeNode.id);
 	return false;
 }
 function beforeRemove(treeId, treeNode) {
 	$("#txtID").val(treeNode.id);
-	$("#formModule").attr("action","/module/delete/"+treeNode.id+"/");
+	$("#formModule").attr("action","{% url 'delete-module' module_id='p_module_id' %}".replace("p_module_id", treeNode.id));
 	$("#dialog-confirm" ).html("<p> Bạn thực sự muốn xoá <strong >"+treeNode.name+ " </strong>(Y/N)?</p>");
 	$("#dialog-confirm" ).dialog('open');
 	return false;

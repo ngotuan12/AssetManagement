@@ -13,11 +13,14 @@ from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
+from django.views.decorators.http import require_http_methods
 
+from AdminManagement.models.App import App
 from AdminManagement.models.Module import Module
 from myapp.util.DateEncoder import DateEncoder
 
-from django.utils.translation import ugettext as _
+
 @login_required(login_url='/login/')
 @permission_required('admin.view_module',login_url='/permission-error/')
 def index(request):
@@ -27,6 +30,7 @@ def index(request):
 		if request.GET.get("app_id"):
 			app_id = request.GET.get("app_id")
 		context.update({'app_id':app_id})
+		context.update({'apps':App.objects.all()})
 		module_qs = Module.objects.raw("""
 								SELECT id,name,code,status,parent_id,
 								connect_by_isleaf is_leaf 
@@ -130,3 +134,15 @@ def on_add_module(request,module_type,parent_id):
 	finally:
 		context.update(csrf(request))
 	return render_to_response("admin/module/add-module.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('admin.edit_module',login_url='/permission-error/')
+def edit_module(request,module_id):
+	context = {}
+	return render_to_response("admin/module/edit-module.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('admin.delete_module',login_url='/permission-error/')
+@require_http_methods(["POST",])
+def delete_module(request,module_id):
+	if request.POST :
+		return HttpResponseRedirect(resolve_url("module"))
+	return HttpResponseRedirect(resolve_url("module"))

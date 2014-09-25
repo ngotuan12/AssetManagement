@@ -7,7 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	#AdminManagement
-    url(r'^', include('AdminManagement.urls')),
+    url(r'^admin/', include('AdminManagement.urls')),
     #AssetManagement
     url(r'^', include('myapp.urls')),
     # Static directory

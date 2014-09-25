@@ -43,9 +43,23 @@
 					{% endif %}
 					<div class="row row-pad-5">
 						<div class="col-lg">
+							<label>{% trans 'Hệ thống' %}</label> <input type="text" value ="{{ app_name }}"
+								id = "txtParentName" placeholder="{% trans 'Hệ thống' %}"
+								class="form-control" disabled required>
+						</div>
+					</div>
+					
+					<div class="row row-pad-5">
+						<div class="col-lg-6">
 							<label>{% trans 'Chức năng cha' %}</label> <input type="text" value ="{{ parent_name }}"
 								id = "txtParentName" placeholder="{% trans 'Chức năng cha' %}"
 								class="form-control" disabled required>
+						</div>
+						
+						<div class="col-lg-6">
+							<label>{% trans 'Độ ưu tiên' %}</label> <input type="text" value="1"
+								id="txtOrd" name="txtOrd" placeholder="{% trans 'Độ ưu tiên' %}"
+								class="form-control" required>
 						</div>
 					</div>
 					<div class="row row-pad-5">
@@ -79,6 +93,7 @@
 								id="txtUrl" name="txtUrl" placeholder="{% trans 'url' %}"
 								class="form-control" required>
 						</div>
+						
 					</div>
 					
 					<div class="row row-pad-5">
@@ -92,7 +107,7 @@
 					<div class="row row-pad-5">
 						<div class="col-sm col-sm-offset-5">
 							<button class="btn btn-primary" onclick="return onSubmit();">{% trans 'Thực hiện' %}</button>
-							&nbsp; <a class="btn btn-default" href="/module/">{% trans 'Thoát' %}</a>
+							&nbsp; <a class="btn btn-default" href="{% url 'module' %}">{% trans 'Thoát' %}</a>
 						</div>
 					</div>
 				</form>

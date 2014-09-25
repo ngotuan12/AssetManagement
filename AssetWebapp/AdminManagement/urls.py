@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from AdminManagement.views import User, Group, Module
+from AdminManagement.views import User, Group, Module, App, Ajax
 
 
 urlpatterns = patterns('',
@@ -33,10 +33,15 @@ urlpatterns = patterns('',
 	# Module
 	url(r'^module/$', Module.index, name='module'),
 	url(r'^module/add-group/(?P<parent_id>\w+)/$', Module.add_group, name='add-module-group'),
-	url(r'^module/add-module/(?P<parent_id>\w+)/$', Module.add_module, name='add-module-module'),
+	url(r'^module/add-module/(?P<parent_id>\w+)/$', Module.add_module, name='add-module'),
 	url(r'^module/add-permission/(?P<parent_id>\w+)/$', Module.add_permission, name='add-module-permission'),
-	url(r'^group/delete/(?P<group_id>\w+)/$', Group.delete_group, name='delete-group'),
-	url(r'^group/(?P<group_id>\w+)/$', Group.change_group, name='change-group'),
+	url(r'^module/edit/(?P<module_id>\w+)/$', Module.edit_module, name='edit-module'),
+	url(r'^module/delete/(?P<module_id>\w+)/$', Module.delete_module, name='delete-module'),
+	# App
+	url(r'^app/$', App.index, name='app'),
+	# Ajax
+	url(r'^ajax-app-infor/$', Ajax.ajax_app_infor, name='ajax-app-infor'),
+	url(r'^ajax-app-module/$', Ajax.ajax_app_module, name='ajax-app-module'),
 	#login
 	url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'admin/signin.html'}, name='login'),
 	#logout
