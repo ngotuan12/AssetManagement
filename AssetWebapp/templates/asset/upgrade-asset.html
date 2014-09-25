@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 {% endblock %}
@@ -8,7 +9,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">NÂNG CẤP TÀI SẢN</h4>
+					style="text-align: center; line-height: 10px">{% trans 'NÂNG CẤP TÀI SẢN' %}</h4>
 			</div>
 			<form method="post" novalidate="novalidate" id="upgradeAsset">
 				{% csrf_token %}
@@ -23,65 +24,65 @@
 						<div class="alert alert-info">
 							<div class="row">
 								<div class="col-lg-4">
-									<label>Bộ phận</label>
+									<label>{% trans 'Bộ phận' %}</label>
 									<select id="slDept" class="form-control chosen-select"
-										data-placeholder="Bộ phận" 
+										data-placeholder="{% trans 'Bộ phận' %}" 
 										name = "slDept" required="required">
 										<option value=""></option>
 										{% for dept in depts %}
 											<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 										{% endfor%}
 									</select>
-									<label for="slDept" class="error" style="display: none;">Trường không được để trống</label>
+									<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								<div class="col-lg-4">
-									<label>Kho</label>
+									<label>{% trans 'Kho' %}</label>
 									<select id="slStock" class="form-control chosen-select"
-										data-placeholder="Kho" 
+										data-placeholder="{% trans 'Kho' %}" 
 										name = "slStock" disabled="disabled" required="required">
 										<option value=""></option>
 									</select>
-									<label for="slStock" class="error" style="display: none;">Trường không được để trống</label>
+									<label for="slStock" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								<div class="col-lg-4">
-									<label>Số thẻ TSCĐ</label>
+									<label>{% trans 'Số thẻ TSCĐ' %}</label>
 									<select id="slSerial" class="form-control chosen-select"
-										data-placeholder="Số thẻ TSCĐ" 
+										data-placeholder="{% trans 'Số thẻ TSCĐ' %}" 
 										name = "slSerial" disabled="disabled" required="required">
 										<option value=""></option>
 									</select>
-									<label for="slSerial" class="error" style="display: none;">Trường không được để trống</label>
+									<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-3">
-									<label>Chi phí nâng cấp</label>
+									<label>{% trans 'Chi phí nâng cấp' %}</label>
 									<input type="text" name="txtCostAmount" id="cost-amount"
-										placeholder="Chi phí nâng cấp ..." class="form-control numberic" required maxlength="15">
+										placeholder="{% trans 'Chi phí nâng cấp ...' %}" class="form-control numberic" required maxlength="15">
 								</div>
 								
 								<div class="col-lg-3">
-									<label>Thời gian sử dụng</label>
-									<input type="text" id="txtInterval" name="txtInterval" placeholder="Thời gian sử dụng..." class="form-control numberic" required maxlength="2">
+									<label>{% trans 'Thời gian sử dụng' %}</label>
+									<input type="text" id="txtInterval" name="txtInterval" placeholder="{% trans 'Thời gian sử dụng...' %}" class="form-control numberic" required maxlength="2">
 								</div>
 								
 								<div class="col-lg-3">
-									<label>Trạng thái</label>
+									<label>{% trans 'Trạng thái</label>
 									<select id="slState" name="slState"class="form-control chosen-select"
-										data-placeholder="Trạng thái ..." style="display: ;">
+										data-placeholder="{% trans 'Trạng thái ...' %}" style="display: ;">
 										<option value=""></option>
-										{% for state in states%}
+										{% for state in states %}
 											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 										{% endfor %}
 									</select>
 								</div>
 								
 								<div class="col-lg-3">
-									<label>Mực đích.</label>
+									<label>{% trans 'Mực đích' %}</label>
 									<select id="slGoal" name="slGoal"class="form-control chosen-select"
-										data-placeholder="Mục đích ..." style="display: ;">
+										data-placeholder="{% trans 'Mục đích ...' %}" style="display: ;">
 										<option value=""></option>
-										{% for goal in goals%}
+										{% for goal in goals %}
 											<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
 										{% endfor %}
 									</select>
@@ -92,7 +93,7 @@
 							<div class="row">
 								<div class="col-lg">
 									<textarea class="form-control" id="txtNote" name="txtNote" rows="4"
-										placeholder="Ghi chú" required></textarea>
+										placeholder="{% trans 'Ghi chú' %}" required></textarea>
 								</div>
 							</div>
 							
@@ -103,7 +104,7 @@
 					<div class="row">
 						<div class="col-sm col-sm-offset-5">
 							<!-- <button class="btn btn-primary">In biên bản</button> -->
-							<button class="btn btn-primary" onclick="return onSubmitFormUpgrade();">Thực hiện</button>
+							<button class="btn btn-primary" onclick="return onSubmitFormUpgrade();">{% trans 'Thực hiện' %}</button>
 						</div>
 					</div>
 				</div>

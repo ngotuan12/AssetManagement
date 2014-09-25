@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 {% endblock %}
@@ -8,7 +9,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">ĐIỀU CHUYỂN TÀI SẢN</h4>
+					style="text-align: center; line-height: 10px">{% trans 'ĐIỀU CHUYỂN TÀI SẢN' %}</h4>
 			</div>
 			<form method="post" novalidate="novalidate" id="transferAsset">
 				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
@@ -24,9 +25,9 @@
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Đơn vị chuyển đi</label>
+										<label class="control-label"> {% trans 'Đơn vị chuyển đi' %}</label>
 										<select id="slDeptSoure" class="form-control chosen-select"
-											data-placeholder="Đơn vị"
+											data-placeholder="{% trans 'Đơn vị' %}"
 											name = "slDeptSoure">
 											<option value=""></option>
 											{% for dept in depts %}
@@ -37,9 +38,9 @@
 								</div>
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Kho </label>
+										<label class="control-label"> {% trans 'Kho' %} </label>
 										<select id="slStockSource" class="form-control chosen-select"
-											data-placeholder="Kho" 
+											data-placeholder="{% trans 'Kho' %}" 
 											name = "slStockSource" disabled="disabled">
 											<option value=""></option>
 										</select>
@@ -48,39 +49,39 @@
 								</div>
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Số thẻ TSCD </label>
+										<label class="control-label"> {% trans 'Số thẻ TSCD' %} </label>
 										<select id="slSerialSource" class="form-control chosen-select"
-											data-placeholder="Số thẻ TSCĐ" 
+											data-placeholder="{% trans 'Số thẻ TSCĐ' %}" 
 											name = "slSerialSource" disabled="disabled" required="required">
 											<option value=""></option>
 											<option value="United States">TTVTT</option>
 										</select>
-										<label for="slSerialSource" class="error" style="display: none;">Trường không được để trống</label>
+										<label for="slSerialSource" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 									
 								</div>
 								
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Người chuyển </label>
+										<label class="control-label"> {% trans 'Người chuyển' %} </label>
 											<select id="slStaff" class="form-control chosen-select"
-												data-placeholder="Người chuyển..." 
+												data-placeholder="{% trans 'Người chuyển...' %}" 
 												name = "slStaff" required="required">
 												<option value=""></option>
 												{% for staff in staffs %}
 													<option value="{{ staff.id }}">{{ staff.name }}</option>
 												{% endfor %}
 											</select>
-											<label for="slStaff" class="error" style="display: none;">Trường không được để trống</label>
+											<label for="slStaff" class="error" style="display: none;">{% trans 'Trường không được để trống</label>
 									</div>
 								</div>
 								
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label">Ngày chuyển</label>
+										<label class="control-label">{% trans 'Ngày chuyển' %}</label>
 										<div class="input-group">
 											<input type="text" class="form-control"
-												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày chuyển" id="dt_transfer"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày chuyển' %}" id="dt_transfer"
 												name = "dt_transfer" required>
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
@@ -93,9 +94,9 @@
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Lý do chuyển</label>
+										<label class="control-label"> {% trans 'Lý do chuyển' %}</label>
 										<select id="slReason" name="slReason"class="form-control chosen-select"
-											data-placeholder="Lý do chuyển ..." style="display: ;">
+											data-placeholder="{% trans 'Lý do chuyển ...' %}" style="display: ;">
 											<option value=""></option>
 											{% for reason in reasons%}
 												<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
@@ -106,9 +107,9 @@
 								
 								<div class="col-lg-4">
 									<div class="form-group">
-											<label class="control-label"> Đơn vị chuyển đến</label>
+											<label class="control-label"> {% trans 'Đơn vị chuyển đến' %}</label>
 											<select id="slDeptDes" class="form-control chosen-select"
-												data-placeholder="Đơn vị" 
+												data-placeholder="{% trans 'Đơn vị' %}" 
 												name = "slDeptDes">
 												<option value=""></option>
 												{% for dept in depts %}
@@ -120,13 +121,13 @@
 								
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Kho chuyển đến </label>
+										<label class="control-label"> {% trans 'Kho chuyển đến' %} </label>
 											<select id="slStockDes" class="form-control chosen-select"
-												data-placeholder="chuyển đến" 
+												data-placeholder="{% trans 'chuyển đến' %}" 
 												name = "slStockDes" disabled="disabled" required="required">
 												<option value=""></option>
 											</select>
-											<label for="slStockDes" class="error" style="display: none;">Trường không được để trống</label>
+											<label for="slStockDes" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
 								
@@ -135,7 +136,7 @@
 								<div class="col-lg">
 									<div class="form-group">
 											<textarea class="form-control" name="txtNote" rows="5"
-												placeholder="Ghi chú" required maxlength="100"></textarea>
+												placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
 									</div>
 								</div>
 							</div>
@@ -145,7 +146,7 @@
 					<div class="row">
 						<div class="col-sm col-sm-offset-5">
 							<!-- <button class="btn btn-primary">In biên bản</button> -->
-							<button class="btn btn-primary" onclick="return onSubmitFormTransfer();">Thực hiện</button>
+							<button class="btn btn-primary" onclick="return onSubmitFormTransfer();">{% trans 'Thực hiện' %}</button>
 						</div>
 					</div>
 				</div>
