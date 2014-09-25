@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 {% endblock %}
@@ -8,7 +9,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">GIẢM TÀI SẢN</h4>
+					style="text-align: center; line-height: 10px">{% trans 'GIẢM TÀI SẢN' %}</h4>
 			</div>
 			<form method="post" novalidate="novalidate" id="decrementAsset">
 				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
@@ -23,9 +24,9 @@
 						<div class="alert alert-info">
 							<div class="row">
 								<div class="col-lg-4">
-									<label>Bộ phận</label>
+									<label>{% trans 'Bộ phận' %}</label>
 									<select id="slDept" class="form-control chosen-select"
-										data-placeholder="Bộ phận" 
+										data-placeholder="{% trans 'Bộ phận' %}" 
 										name = "slDept">
 										<option value=""></option>
 										{% for dept in depts %}
@@ -34,15 +35,15 @@
 									</select>
 								</div>
 								<div class="col-lg-4">
-									<label>Kho</label>
+									<label>{% trans 'Kho' %}</label>
 									<select id="slStock" class="form-control chosen-select"
-										data-placeholder="Kho" 
+										data-placeholder="{% trans 'Kho" 
 										name = "slStock" disabled="disabled">
 										<option value=""></option>
 									</select>
 								</div>
 								<div class="col-lg-4">
-									<label>Số thẻ TSCĐ</label>
+									<label>{% trans 'Số thẻ TSCĐ' %}</label>
 									<select id="slSerial" class="form-control chosen-select"
 										data-placeholder="Số thẻ TSCĐ" 
 										name = "slSerial" disabled="disabled">
@@ -53,28 +54,28 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-4">
-									<label>Nguồn Vốn</label>
+									<label>{% trans 'Nguồn Vốn' %}</label>
 									<input type="text" name="txtCapitalAmount" id="capital-amount"
-										placeholder="Nguồn Vốn" class="form-control" disabled="disabled">
+										placeholder="{% trans 'Nguồn Vốn' %}" class="form-control" disabled="disabled">
 								</div>
 
 								<div class="col-lg-4">
-									<label>Nguyên Giá</label>
+									<label>{% trans 'Nguyên Giá' %}</label>
 									<input type="text" name="txtOriginalAmount" id="original-amount" 
-										placeholder="Nguyên Giá" class="form-control" disabled="disabled">
+										placeholder="{% trans 'Nguyên Giá' %}" class="form-control" disabled="disabled">
 								</div>
 								<div class="col-lg-4">
-									<label>Giá trị còn lại</label>
+									<label>{% trans 'Giá trị còn lại' %}</label>
 									<input type="text" name="txtRemainAmount" id="remain-amount" 
-										placeholder="Giá trị còn lại" class="form-control" disabled="disabled">
+										placeholder="{% trans 'Giá trị còn lại' %}" class="form-control" disabled="disabled">
 								</div>
 							</div>
 							
 							<div class="row">
 								<div class="col-lg-6">
-									<label>Lý do giảm..</label>
+									<label>{% trans 'Lý do giảm..' %}</label>
 									<select id="slReason" name="slReason"class="form-control chosen-select"
-										data-placeholder="Lý do giảm.." style="display: ;">
+										data-placeholder="{% trans 'Lý do giảm..' %}" style="display: ;">
 										<option value=""></option>
 										{% for reason in reasons%}
 											<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
@@ -83,10 +84,10 @@
 								</div>
 								
 								<div class="col-lg-6">
-									<label>Ngày ghi giảm</label>
+									<label>{% trans 'Ngày ghi giảm' %}</label>
 									<div class="input-group">
 										<input type="text" class="form-control" name="dtDecrementDate"
-											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày ghi giảm (mm/dd/yyyy)" id="dtDecrementDate" required> <span
+											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày ghi giảm (mm/dd/yyyy)' %}" id="dtDecrementDate" required> <span
 											class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									</div>
 								</div>
@@ -95,7 +96,7 @@
 							<div class="row">
 								<div class="col-lg">
 									<textarea class="form-control" name="txtNote" rows="4"
-										placeholder="Ghi chú" required></textarea>
+										placeholder="{% trans 'Ghi chú' %}" required></textarea>
 								</div>
 							</div>
 							
@@ -106,7 +107,7 @@
 					<div class="row">
 						<div class="col-sm col-sm-offset-5">
 							<!-- <button class="btn btn-primary">In biên bản</button> -->
-							<button class="btn btn-primary" onclick="return onSubmitFormDecrement();">Thực hiện</button>
+							<button class="btn btn-primary" onclick="return onSubmitFormDecrement();">{% trans 'Thực hiện' %}</button>
 						</div>
 					</div>
 				</div>
