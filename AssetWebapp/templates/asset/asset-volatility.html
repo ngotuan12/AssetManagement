@@ -1,4 +1,5 @@
 {% extends "base.html" %} 
+{% load i18n %}
 {% block styles %}
 <link href="/css/increment-asset.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css" type="text/css">
@@ -30,7 +31,7 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h4 class="panel-title"
-				style="text-align: center; line-height: 10px">DANH MỤC BIẾN ĐỘNG TĂNG GIẢM TÀI SẢN</h4>
+				style="text-align: center; line-height: 10px">{% trans 'DANH MỤC BIẾN ĐỘNG TĂNG GIẢM TÀI SẢN' %}</h4>
 		</div>
 		<div class="panel-body" style="padding: 0 10px;">
 			<div class="row row-pad-0">
@@ -45,39 +46,39 @@
 					{% endif %}
 						<div class="row row-pad-5">
 							<div class="col-lg">
-								<label>Trực thuộc</label> <input type="text"
-									id = "txtParentName" placeholder="Trực thuộc"
+								<label>{% trans 'Trực thuộc' %}</label> <input type="text"
+									id = "txtParentName" placeholder="{% trans 'Trực thuộc' %}"
 									class="form-control" disabled required>
 							</div>
 						</div>
 						<div class="row row-pad-5">
 							<div class="col-lg-6">
-								<label>Mã biến động tài sản</label> <input type="text"
-									id="txtCode" placeholder="Mã biến động tài sản"
+								<label>{% trans 'Mã biến động tài sản' %}</label> <input type="text"
+									id="txtCode" placeholder="{% trans 'Mã biến động tài sản' %}"
 									class="form-control" disabled required>
 							</div>
 							<div class="col-lg-6">
-								<label>Tên biến động tài sản</label> <input type="text"
-									id="txtName" placeholder="Tên biến động tài sản"
+								<label>{% trans 'Tên biến động tài sản' %}</label> <input type="text"
+									id="txtName" placeholder="{% trans 'Tên biến động tài sản' %}"
 									class="form-control" disabled required>
 							</div>
 						</div>
 						<div class="row row-pad-5">
 							<div class="col-lg">
 								<div class="form-group">
-									<label class="control-label">Mô tả</label>
-									<textarea  class="form-control" rows="5" name="txtDescription" id="txtDescription" placeholder="Mô tả" disabled="disabled"></textarea>
+									<label class="control-label">{% trans 'Mô tả' %}</label>
+									<textarea  class="form-control" rows="5" name="txtDescription" id="txtDescription" placeholder="{% trans 'Mô tả' %}" disabled="disabled"></textarea>
 								</div>
 							</div>
 						</div>
 						<div class="row row-pad-5">
 							<div class="col-lg-6">
-								<label>Ngày tạo</label> 
+								<label>{% trans 'Ngày tạo' %}</label> 
 								<p id="txtCreateDate"> </p>
 							</div>
 							
 							<div class="col-lg-6">
-								<label>Người tạo</label> 
+								<label>{% trans 'Người tạo' %}</label> 
 								<p id="txtUserName"> </p>
 							</div>
 						</div>
@@ -85,15 +86,13 @@
 						<div class="row row-pad-5">
 							<div class="ckbox ckbox-default">
 								<input id="ckStatus" type="checkbox"
-									checked="checked" disabled="disabled"> <label for="ckStatus">Kích
-									hoạt </label>
+									checked="checked" disabled="disabled"> <label for="ckStatus">{% trans 'Kích hoạt' %} </label>
 							</div>
 						</div>
 						<div class="row row-pad-5" style="display: none">
 							<div class="col-sm col-sm-offset-5">
-								<button class="btn btn-primary" onclick="return onSubmit();">Thực
-									hiện</button>
-								&nbsp; <a class="btn btn-default" href="/home">Thoát</a>
+								<button class="btn btn-primary" onclick="return onSubmit();">{% trans 'Thực hiện' %}</button>
+								&nbsp; <a class="btn btn-default" href="/home">{% trans 'Thoát' %}</a>
 							</div>
 						</div>
 					
