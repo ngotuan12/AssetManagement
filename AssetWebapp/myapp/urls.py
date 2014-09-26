@@ -4,7 +4,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	EditIncrementAsset, ViewAsset, UpgradeAsset, DecrementAsset, VerifyAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error\
-	,Goal,AssetVolatility,ListCountry,App,BarCode
+	,Goal,AssetVolatility,ListCountry,App,BarCode,PrintAsset
 
 
 urlpatterns = patterns('',
@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^$', Home.index),
     url(r'^invoice/$', Home.invoice),
     url(r'^tree/$', Home.tree),
-    url(r'^invoice/(?P<asset_id>\w+)/$', Home.print_asset, name='print_asset'),
+    url(r'^invoice/(?P<asset_id>\w+)/$', PrintAsset.print_asset, name='print_asset'),
     # Department
     url(r'^department/$', Department.index, name='department'),
     url(r'^department/add/(?P<parent_id>\w+)/$', Department.add, name='department'),
