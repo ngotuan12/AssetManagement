@@ -62,17 +62,17 @@
 							
 							<div class="row">
 								<div class="col-lg-6">
-									<label>{% trans 'Mã biến động tài sản</label> <input type="text"
+									<label>{% trans 'Mã biến động tài sản' %}</label> <input type="text"
 										id="txtCode" name="txtCode" value="{{ asset_volatility.code }}" placeholder="{% trans 'Mã biến động tài sản' %}"
 										class="form-control" required maxlength="10">
 								</div>
 								<div class="col-lg-6">
-									<label>{% trans 'Tên biến động tài sản</label> <input type="text"
+									<label>{% trans 'Tên biến động tài sản' %}</label> <input type="text"
 										id="txtName" name="txtName" value="{{ asset_volatility.name }}" placeholder="{% trans 'Tên biến động tài sản' %}"
 										class="form-control" required maxlength="100">
 								</div>
 								<div class="col-lg-12">
-									<label class="control-label">{% trans 'Mô tả</label>
+									<label class="control-label">{% trans 'Mô tả' %}</label>
 									<textarea  class="form-control" rows="5" name="txtDescription" id="txtDescription" placeholder="{% trans 'Mô tả' %}" maxlength="200" required="required">{{ asset_volatility.description }}</textarea>
 								</div>
 							</div>
