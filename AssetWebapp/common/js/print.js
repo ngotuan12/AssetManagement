@@ -35,8 +35,8 @@
 			// print control
 			print_controls = $(
 					'<div id="print-modal-controls">'
-							+ '<a href="#" class="print" title="Print page">Print page</a>'
-							+ '<a href="#" class="close" title="Close print preview">Close</a>'
+							+ '<a href="#" class="print" title="In">Print page</a>'
+							+ '<a href="#" class="close" title="Đóng lại">Close</a>'
 							+ '</div>');
 			print_modal.append(print_controls);
 			// print frame

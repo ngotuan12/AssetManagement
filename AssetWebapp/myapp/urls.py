@@ -4,7 +4,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	EditIncrementAsset, ViewAsset, UpgradeAsset, DecrementAsset, VerifyAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error\
-	,Goal,AssetVolatility,ListCountry,App
+	,Goal,AssetVolatility,ListCountry,App,BarCode
 
 
 urlpatterns = patterns('',
@@ -64,8 +64,8 @@ urlpatterns = patterns('',
     url(r'^edit-supplier/(?P<supplier_id>\w+)/$', ListSupplier.edit_supplier,name='edit-supplier'),
     #delete supplier
     url(r'^supplier/delete/(?P<supplier_id>\w+)/$', ListSupplier.delete_supplier,name='delete-supplier'),
-    #Bar code
-# 	url(r'^bar-code/$', BarCode.index,name='bar-code'),
+#     Bar code
+	url(r'^bar-code/$', BarCode.barcode,name='bar-code'),
     #AssetState
     url(r'^asset-state/$', AssetState.index,name='asset-state'),
     url(r'^state/add/(?P<parent_id>\w+)/$', AssetState.add, name='add-asset-state'),
