@@ -1,7 +1,10 @@
-{% extends "base.html" %} {% block styles %}
+{% extends "base.html" %} 
+{% load i18n %}
+{% block styles %}
 <link href="/css/style.default.css" rel="stylesheet">
 <link href="/css/custom.css" rel="stylesheet">
-{% endblock styles %} {% block content-header %}
+{% endblock styles %} 
+{% block content-header %}
 <div class="pageheader">
 	<h2>
 		<i class="fa fa-home"></i> Tài khoản <span>Sửa thông tin tài
@@ -20,7 +23,7 @@
 	<div class="col-md">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h4 class="panel-title" style="text-align: center;">KIỂM KÊ TÀI SẢN</h4>
+				<h4 class="panel-title" style="text-align: center;">{% trans 'KIỂM KÊ TÀI SẢN' %}</h4>
 			</div>
 
 			<form action="" class="form form-bordered" method="post"
@@ -37,8 +40,8 @@
 							<div class="row">
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">Số thẻ TSCĐ</label> <input
-											type="text"  placeholder="Tài khoản"
+										<label class="control-label">{% trans 'Số thẻ TSCĐ' %}</label> <input
+											type="text"  placeholder="{% trans 'Tài khoản' %}"
 											class="form-control" required="required"
 											value="{{ serial.serial }}" disabled="disabled">
 									</div>
@@ -46,15 +49,15 @@
 
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">Tên tài sản</label> <input
-											type="text"  
+										<label class="control-label">{% trans 'Tên tài sản' %}</label>
+										<input type="text"  placeholder="{% trans 'Tên tài sản ...' %}"
 											class="form-control" value="{{ serial.asset.name }}"
 											disabled="disabled">
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="control-label">Nguyên giá</label>
+									<label class="control-label">{% trans 'Nguyên giá' %}</label>
 									<div class="col-sm-4">
 										<input type="text" name="txtPassWord"
 											 class="form-control"
@@ -66,8 +69,8 @@
 							<div class="row">
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">Nguồn vốn</label> <input
-											type="text"  placeholder="Tài khoản"
+										<label class="control-label">{% trans 'Nguồn vốn' %}</label> <input
+											type="text"  placeholder="{% trans 'Tài khoản' %}"
 											class="form-control" required="required"
 											value="{{ serial.capital.name }}" disabled="disabled">
 									</div>
@@ -75,7 +78,7 @@
 
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">Nhà cung cấp</label> <input
+										<label class="control-label">{% trans 'Nhà cung cấp' %}</label> <input
 											type="text" placeholder="Mật khẩu"
 											class="form-control" value="{{ serial.supplier.name }}"
 											disabled="disabled">
@@ -83,10 +86,10 @@
 								</div>
 
 								<div class="form-group">
-									<label class="control-label">Đối tác</label>
+									<label class="control-label">{% trans 'Đối tác' %}</label>
 									<div class="col-sm-4">
 										<input type="text" name="txtPassWord"
-											placeholder="Nhập lại mật khẩu" class="form-control"
+											placeholder="{% trans 'Nhập lại mật khẩu' %}" class="form-control"
 											value="{{ serial.country.name }}" disabled="disabled">
 									</div>
 								</div>
@@ -94,8 +97,8 @@
 							<div class="row">
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">Giá trị còn lại</label>
-											<input type="text" 
+										<label class="control-label">{% trans 'Giá trị còn lại' %}</label>
+											<input type="text" placeholder="{% trans 'Giá trị còn lại ' %}"
 												name = "txtRemainAmount"class="form-control numberic" value="{{ serial.remain_value }}"
 												required maxlength="15">
 									</div>
@@ -103,9 +106,9 @@
 								
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">Trạng Thái</label>
+										<label class="control-label">{% trans 'Trạng Thái' %}</label>
 										<select id="slState" name="slState"class="form-control chosen-select"
-											data-placeholder="Lý do giảm.." style="display: ;">
+											data-placeholder="{% trans 'Lý do giảm..' %}" style="display: ;">
 											<option value=""></option>
 											{% for state in states%}
 												<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
@@ -115,10 +118,10 @@
 								</div>
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">Ngày kiểm kê</label>
+										<label class="control-label">{% trans 'Ngày kiểm kê' %}</label>
 										<div class="input-group">
 											<input type="text" class="form-control"
-												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày kiểm kê" id="dt_verify"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày kiểm kê' %}" id="dt_verify"
 												name = "dtVerify" required>
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
@@ -127,38 +130,38 @@
 								
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">Số biên bản</label>
+										<label class="control-label">{% trans 'Số biên bản' %}</label>
 										<input type="text" 
-											name = "txtCheckNo"class="form-control" value="" placeholder="Số biên bản"
+											name = "txtCheckNo"class="form-control" value="" placeholder="{% trans 'Số biên bản' %}"
 											required maxlength="10">
 									</div>
 								</div>
 								
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">Người chuyển</label>
+										<label class="control-label">{% trans 'Người chuyển' %}</label>
 										<select id="slStaff" name="slStaff" class="form-control chosen-select"
-											data-placeholder="Người kiểm kê" required="required">
+											data-placeholder="{% trans 'Người kiểm kê' %}" required="required">
 											<option value=""></option>
 											{% for staff in staffs %}
 												<option value="{{ staff.code }}">{{ staff.name }}</option>
 											{% endfor %}
 										</select>
-										<label for="slStaff" class="error" style="display: none;">Trường không được để trống</label>
+										<label for="slStaff" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
 								
 								<div class="col-sm-12">
 									<div class="form-group">
-										<label class="control-label">Ghi Chú</label>
+										<label class="control-label">{% trans 'Ghi Chú' %}</label>
 											<textarea class="form-control" name="txtNote" rows="3"
-												placeholder="Ghi chú" required maxlength="200"></textarea>
+												placeholder="{% trans 'Ghi chú' %}" required maxlength="200"></textarea>
 									</div>
 								</div>	
 							</div>
 							<div class="row">
 								<div class="col-sm">
-									<button class="btn btn-primary" onclick="return onValidate();">Thực hiện &nbsp;</button>
+									<button class="btn btn-primary" onclick="return onValidate();">{% trans 'Thực hiện' %} &nbsp;</button>
 									
 								</div>
 							</div>
