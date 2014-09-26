@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 	<link href="/css/print-preview.css" rel="stylesheet">
@@ -10,7 +11,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">TRA CỨU TÀI SẢN</h4>
+					style="text-align: center; line-height: 10px">{% trans 'TRA CỨU TÀI SẢN' %}</h4>
 			</div>
 			
 			<div class="panel-body">
@@ -23,7 +24,7 @@
 					<div class = "row row-pad-5">
 						<div class="col-lg-4">
 							<select id="slAsset" class="form-control chosen-select"
-								data-placeholder="Tài sản"
+								data-placeholder="{% trans 'Tài sản' %}"
 								name = "slAsset">
 								<option value="-1"></option>
 								{% for asset in assets %}
@@ -34,7 +35,7 @@
 						
 						<div class="col-lg-4">
 							<select id="slCountry" class="form-control chosen-select"
-								data-placeholder="Xuất sứ" 
+								data-placeholder="{% trans 'Xuất sứ' %}" 
 								name = "slCountry">
 								<option value="-1"></option>
 								{% for country in countries %}
@@ -45,7 +46,7 @@
 						
 						<div class="col-lg-4">
 							<select id="slStock" class="form-control chosen-select"
-								data-placeholder="Kho" 
+								data-placeholder="{% trans 'Kho' %}" 
 								name = "slStock">
 								<option value="-1"></option>
 								{% for stock in stocks %}
@@ -58,7 +59,7 @@
 					<div class = "row row-pad-5">
 						<div class="col-lg-4">
 							<select id="slGoal" class="form-control chosen-select"
-								data-placeholder="Mục đích sử dụng" 
+								data-placeholder="{% trans 'Mục đích sử dụng' %}" 
 								name = "slGoal">
 								<option value="-1"></option>
 								{% for goal in goals %}
@@ -69,7 +70,7 @@
 						
 						<div class="col-lg-4">
 							<select id="slState" class="form-control chosen-select"
-								data-placeholder="Hiện trạng sử dụng" 
+								data-placeholder="{% trans 'Hiện trạng sử dụng' %}" 
 								name = "slState">
 								<option value="-1"></option>
 								{% for state in states %}
@@ -79,13 +80,13 @@
 						</div>
 						
 						<div class="col-lg-4">
-							<input type="text" id="txtOriginal" name="txtOriginal" placeholder="Nguyên giá" class="form-control numberic" style="padding-bottom: 6px;">
+							<input type="text" id="txtOriginal" name="txtOriginal" placeholder="{% trans 'Nguyên giá' %}" class="form-control numberic" style="padding-bottom: 6px;">
 						</div>
 						
 					</div>
 					<div class = "row row-pad-5">
 						<div class="col-lg-12">
-							<button class="btn btn-primary" onclick=" return onSearchFormAsset();" style="float: right;">Tìm Kiếm</button>
+							<button class="btn btn-primary" onclick=" return onSearchFormAsset();" style="float: right;">{% trans 'Tìm Kiếm' %}</button>
 						</div>
 					</div>
 					
@@ -97,13 +98,13 @@
 							<table class="table table-bordered" id="assetTable">
 								<thead>
 									<tr>
-										<th>STT</th>
-										<th style="width: 12%;">MÃ TÀI SẢN </th>
-										<th style="width: 25%;">TÊN TÀI SẢN </th>
-										<th>NGUYÊN GIÁ</th>
-										<th>GIÁ TRỊ CÒN LẠI</th>
-										<th>TRẠNG THÁI</th>
-										<th>XUẤT XỨ</th>
+										<th>{% trans 'STT</th>
+										<th style="width: 12%;">{% trans 'MÃ TÀI SẢN' %} </th>
+										<th style="width: 25%;">{% trans 'TÊN TÀI SẢN' %} </th>
+										<th>{% trans 'NGUYÊN GIÁ' %}</th>
+										<th>{% trans 'GIÁ TRỊ CÒN LẠI' %}</th>
+										<th>{% trans 'TRẠNG THÁI' %}</th>
+										<th>{% trans 'XUẤT XỨ' %}</th>
 										<th style="width: 8%;"></th> 
 									</tr>
 								</thead>
