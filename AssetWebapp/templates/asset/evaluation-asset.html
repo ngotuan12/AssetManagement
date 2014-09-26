@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 {% endblock %}
@@ -8,7 +9,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">ĐÁNH GIÁ LẠI TÀI SẢN</h4>
+					style="text-align: center; line-height: 10px">{% trans 'ĐÁNH GIÁ LẠI TÀI SẢN' %}</h4>
 			</div>
 			<form method="post" novalidate="novalidate" id="evaluationAsset">
 				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
@@ -25,40 +26,40 @@
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Đơn vị </label>
+										<label class="control-label"> {% trans 'Đơn vị' %} </label>
 										<select id="slDept" class="form-control chosen-select"
-											data-placeholder="Đơn vị" name = "slDept" required>
+											data-placeholder="{% trans 'Đơn vị' %}" name = "slDept" required>
 											<option value=""></option>
 											{% for dept in depts %}
 												<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 											{% endfor%}
 										</select>
-										<label for="slDept" class="error" style="display: none;">Trường không được để trống</label>
+										<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 									
 								</div>
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Kho </label>
+										<label class="control-label"> {% trans 'Kho' %} </label>
 										<select id="slStock" class="form-control chosen-select"
-											data-placeholder="Kho" 
+											data-placeholder="{% trans 'Kho' %}" 
 											name = "slStock" disabled="disabled" required>
 											<option value=""></option>
 										</select>
-										<label for="slStock" class="error" style="display: none;">Trường không được để trống</label>
+										<label for="slStock" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 									
 								</div>
 								<div class="col-lg-4">
 									<div class="form-group">
-										<label class="control-label"> Số thẻ TSCD </label>
+										<label class="control-label"> {% trans 'Số thẻ TSCD' %} </label>
 										<select id="slSerial" class="form-control chosen-select"
-											data-placeholder="Số thẻ TSCĐ" 
+											data-placeholder="{% trans 'Số thẻ TSCĐ' %}" 
 											name = "slSerial" disabled="disabled" required>
 											<option value=""></option>
 											<option value="United States">TTVTT</option>
 										</select>
-										<label for="slSerial" class="error" style="display: none;">Trường không được để trống</label>
+										<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 									
 								</div>
@@ -67,22 +68,22 @@
 							<div class="row">
 							<div class="col-lg-3">
 								<div class="form-group">
-									<label class="control-label"> Giá trị còn lại</label>
+									<label class="control-label"> {% trans 'Giá trị còn lại' %}</label>
 									<input type="text" name="txtRemainAmount" id="remain-amount" 
-										placeholder="Giá trị còn lại" class="form-control numberic" required maxlength="15">
+										placeholder="{% trans 'Giá trị còn lại' %}" class="form-control numberic" required maxlength="15">
 								</div>
 							</div>
 							
 							<div class="col-lg-3">
-								<label>Thời gian sử dụng</label>
-								<input type="text" id="txtInterval" name="txtInterval" placeholder="Thời gian sử dụng..." class="form-control numberic" required maxlength="2">
+								<label>{% trans 'Thời gian sử dụng' %}</label>
+								<input type="text" id="txtInterval" name="txtInterval" placeholder=" {% trans 'Thời gian sử dụng...' %}" class="form-control numberic" required maxlength="2">
 							</div>
 							
 							<div class="col-lg-3">
 								<div class="form-group">
-									<label class="control-label"> Trạng thái </label>
+									<label class="control-label"> {% trans 'Trạng thái' %} </label>
 									<select id="slState" name="slState"class="form-control chosen-select"
-										data-placeholder="Trạng thái ...">
+										data-placeholder="{% trans 'Trạng thái ...' %}">
 										<option value=""></option>
 										{% for state in states%}
 											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
@@ -93,10 +94,10 @@
 							
 							<div class="col-lg-3">
 								<div class="form-group">
-									<label class="control-label">Ngày đánh giá lại tài sản</label>
+									<label class="control-label">{% trans 'Ngày đánh giá lại tài sản' %}</label>
 									<div class="input-group">
 										<input type="text" class="form-control"
-											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày đánh giá lại tài sản" id="dt_evalution"
+											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày đánh giá lại tài sản' %}" id="dt_evalution"
 											name = "dt_evalution" required>
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									</div>
@@ -108,7 +109,7 @@
 							<div class="col-lg">
 								<div class="form-group">
 										<textarea class="form-control" id="txtNote" name="txtNote" rows="5"
-											placeholder="Ghi chú" required maxlength="200"></textarea>
+											placeholder="{% trans 'Ghi chú' %}" required maxlength="200"></textarea>
 								</div>
 							</div>
 						</div>
@@ -120,7 +121,7 @@
 					<div class="row">
 						<div class="col-sm col-sm-offset-5">
 							<!-- <button class="btn btn-primary">In biên bản</button> -->
-							<button class="btn btn-primary" onclick="return onSubmitFormEvaluation();">Thực hiện</button>
+							<button class="btn btn-primary" onclick="return onSubmitFormEvaluation();">{% trans 'Thực hiện' %}</button>
 						</div>
 					</div>
 				</div>
