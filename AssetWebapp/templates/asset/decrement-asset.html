@@ -27,29 +27,32 @@
 									<label>{% trans 'Bộ phận' %}</label>
 									<select id="slDept" class="form-control chosen-select"
 										data-placeholder="{% trans 'Bộ phận' %}" 
-										name = "slDept">
+										name = "slDept" required="required">
 										<option value=""></option>
 										{% for dept in depts %}
 											<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 										{% endfor%}
 									</select>
+									<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								<div class="col-lg-4">
 									<label>{% trans 'Kho' %}</label>
 									<select id="slStock" class="form-control chosen-select"
 										data-placeholder="{% trans 'Kho' %}" 
-										name = "slStock" disabled="disabled">
+										name = "slStock" disabled="disabled" required="required">
 										<option value=""></option>
 									</select>
+									<label for="slStock" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								<div class="col-lg-4">
 									<label>{% trans 'Số thẻ TSCĐ' %}</label>
 									<select id="slSerial" class="form-control chosen-select"
 										data-placeholder="Số thẻ TSCĐ" 
-										name = "slSerial" disabled="disabled">
+										name = "slSerial" disabled="disabled" required="required">
 										<option value=""></option>
 										<option value="United States">TTVTT</option>
 									</select>
+									<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 							</div>
 							<div class="row">
@@ -95,8 +98,9 @@
 							
 							<div class="row">
 								<div class="col-lg">
+									<label>{% trans 'Ghi chú' %}</label>
 									<textarea class="form-control" name="txtNote" rows="4"
-										placeholder="{% trans 'Ghi chú' %}" required></textarea>
+										placeholder="{% trans 'Ghi chú' %}" required maxlength="200"></textarea>
 								</div>
 							</div>
 							
@@ -152,13 +156,16 @@ $(document).ready(function(){
 	$('#dtDecrementDate').mask("99/99/9999");
 	
 	$( "#slDept" ).change(function() {
+		$(".error[for][for='slDept']").hide();
 		onGetStock($(this).find('option:selected').val());
 	});
 	
 	$( "#slStock" ).change(function() {
+		$(".error[for][for='slStock']").hide();
 		onGetCode($(this).find('option:selected').val());
 	});
 	$( "#slSerial" ).change(function() {
+		$(".error[for][for='slSerial']").hide();
 		var original = $(this).find('option:selected').attr('original-value');
 		var remain = $(this).find('option:selected').attr('remain-value');
 		var asset_id = $(this).find('option:selected').attr('asset-id');
@@ -169,6 +176,16 @@ $(document).ready(function(){
 });
 function onSubmitFormDecrement()
 {
+	var isTrue = false;
+	jQuery('.chosen-select').each(function(i){
+		
+		var id = $(this).attr("id");
+		if(!jQuery('#'+id).valid())
+			isTrue = true;
+	});
+	if(isTrue)
+		return false;
+	
 	var $valid = jQuery('#decrementAsset').valid();
 	if(!$valid) 
 	{
