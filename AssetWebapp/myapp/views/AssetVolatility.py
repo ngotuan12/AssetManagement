@@ -125,8 +125,43 @@ def delete(request,volatility_id):
     try:
         if request.POST:
             asset_volatility = List.objects.get(id=volatility_id,list_type='5')
-            asset_volatility.delete()
-            return HttpResponseRedirect(resolve_url("asset-volatility"))
+            childAssetVolatilities =List.objects.filter(parent_id=asset_volatility.id,list_type='5')
+            if len(childAssetVolatilities) >0:
+                context.update({'has_error':"Không được phép xóa"})
+                volatilities_qs = List.objects.raw("""
+                                SELECT id,name,code,description,list_level,status,list_type,
+                                    create_datetime,user_name,parent_id,connect_by_isleaf is_leaf
+                                FROM list 
+                                WHERE list_type='5' 
+                                START WITH parent_id IS NULL 
+                                CONNECT BY PRIOR id = parent_id 
+                                ORDER SIBLINGS BY parent_id 
+                                """)
+                volatilities = []
+                for volatility in volatilities_qs:
+                    row = {}
+                    row.update({'id':volatility.id})
+                    row.update({'code':volatility.code})
+                    row.update({'name':volatility.name})
+                    row.update({'description':volatility.description})
+                    row.update({'list_level':volatility.list_level})
+                    row.update({'status':volatility.status})
+                    row.update({'create_date':volatility.create_datetime.strftime('%Y-%m-%d %H:%M:%S')})
+                    row.update({'user_name':volatility.user_name})
+                    try:
+                        row.update({'parent_id':volatility.parent_id.id})
+                        row.update({'parent_name':volatility.parent_id.name})
+                        if(volatility.is_leaf == 1):
+                            row.update({'icon':'/tree/css/zTreeStyle/img/diy/8.png'})
+                    except:
+                        row.update({'open':True,'iconOpen':'/tree/css/zTreeStyle/img/diy/1_open.png', 'iconClose':'/tree/css/zTreeStyle/img/diy/1_close.png'})
+                    volatilities.append(row)
+                context.update({'data':json.dumps(volatilities,cls=DateEncoder)})
+                context.update(csrf(request))
+                return render_to_response("asset/asset-volatility.html", context, RequestContext(request))
+            else:
+                asset_volatility.delete()
+                return HttpResponseRedirect(resolve_url("asset-volatility"))
     except Exception as ex:
         context.update({'has_error':str(ex)})
         return HttpResponseRedirect(resolve_url("asset-volatility"))

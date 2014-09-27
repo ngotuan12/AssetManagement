@@ -125,9 +125,45 @@ def delete(request,goal_id):
     try:
         if request.POST:
             goal = List.objects.get(id=goal_id,list_type='2')
-            goal.delete()
-            context.update({'has_success':"Xóa tài sản thành công"})
-            return HttpResponseRedirect(resolve_url("goal"))
+            childGoals = List.objects.filter(parent_id=goal.id,list_type='2')
+            if len(childGoals)>0:
+                context.update({'has_error':"Không được phép xóa"})
+                #get dât
+                goals_qs = List.objects.raw("""
+                                SELECT id,name,code,description,list_level,status,list_type,
+                                    create_datetime,user_name,parent_id,connect_by_isleaf is_leaf
+                                FROM list 
+                                WHERE list_type='2' 
+                                START WITH parent_id IS NULL 
+                                CONNECT BY PRIOR id = parent_id 
+                                ORDER SIBLINGS BY parent_id 
+                                """)
+                goals = []
+                for goal in goals_qs:
+                    row = {}
+                    row.update({'id':goal.id})
+                    row.update({'code':goal.code})
+                    row.update({'name':goal.name})
+                    row.update({'description':goal.description})
+                    row.update({'list_level':goal.list_level})
+                    row.update({'status':goal.status})
+                    row.update({'create_date':goal.create_datetime.strftime('%Y-%m-%d %H:%M:%S')})
+                    row.update({'user_name':goal.user_name})
+                    try:
+                        row.update({'parent_id':goal.parent_id.id})
+                        row.update({'parent_name':goal.parent_id.name})
+                        if(goal.is_leaf == 1):
+                            row.update({'icon':'/tree/css/zTreeStyle/img/diy/8.png'})
+                    except:
+                        row.update({'open':True,'iconOpen':'/tree/css/zTreeStyle/img/diy/1_open.png', 'iconClose':'/tree/css/zTreeStyle/img/diy/1_close.png'})
+                    goals.append(row)
+                context.update({'data':json.dumps(goals,cls=DateEncoder)})
+                context.update(csrf(request))
+                return render_to_response("goal/goal.html", context, RequestContext(request))
+            else:
+                goal.delete()
+                context.update({'has_success':"Xóa tài sản thành công"})
+                return HttpResponseRedirect(resolve_url("goal"))
     except Exception as ex:
         context.update({'has_error':str(ex)})
         return HttpResponseRedirect(resolve_url("goal"))
