@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 {% endblock %}
@@ -18,51 +19,54 @@
 						<div class = "row row-pad-5">
 						
 							<div class="col-lg-3">
-								<label>Lý do</label>
+								<label>{% trans 'Lý do' %}</label>
 								<select class="form-control chosen-select"
-									data-placeholder="Lý do" name = "slReason" required>
-									<option value></option>
+									data-placeholder="{% trans 'Lý do' %}" id="slReason" name = "slReason" required="required">
+									<option value=""></option>
 									{% for reason in reasons %}
 										<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
 									{% endfor%}
 								</select>
+								<label for="slReason" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 						
 							<div class="col-lg-3">
-								<label>Mã nhận diện</label>
-								<select id="" class="form-control chosen-select"
-									data-placeholder="Mã nhận diện ..." 
-									name = "slAsset">
+								<label>{% trans 'Mã nhận diện' %}</label>
+								<select id="slAsset" class="form-control chosen-select"
+									data-placeholder="{% trans 'Mã nhận diện' %}" 
+									name = "slAsset" required="required">
 									<option value=""></option>
 									{% for asset in assets%}
 										<option value="{{ asset.id }}">{{ asset.code }} - {{ asset.name }}</option>
 									{% endfor%}
 								</select>
+								<label for="slAsset" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 							<div class="col-lg-6">
 								
 								<div class="col-lg-4">
-									<label>Tên tài sản</label>
-									<input type="text" name="txtAssetName" placeholder="Tên tài sản"
+									<label>{% trans 'Tên tài sản' %}</label>
+									<input type="text" name="txtAssetName" placeholder="{% trans 'Tên tài sản' %}"
 										class="form-control" required>
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Số thẻ TSCĐ</label>
-									<input type="text" name="txtSerial" placeholder="Số thẻ TSCĐ"
+									<label>{% trans 'Số thẻ TSCĐ' %}</label>
+									<input type="text" name="txtSerial" placeholder="{% trans 'Số thẻ TSCĐ' %}"
 										class="form-control" required>
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Dự án</label>
-									<select class="form-control chosen-select"
-										data-placeholder="Dự án" 
-										name = "slProject">
+									<label>{% trans 'Dự án' %}</label>
+									<select id="slProject" class="form-control chosen-select"
+										data-placeholder="{% trans 'Dự án' %}" 
+										name = "slProject" required>
 										<option value=""></option>
 										{% for project in projects %}
 											<option value="{{ project.id }}">{{ project.code }} - {{ project.name }}</option>
 										{% endfor%}
 									</select>
+									<label for="slProject" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								
 							</div>
@@ -73,57 +77,61 @@
 						<div class = "row row-pad-5">
 							
 							<div class="col-lg-3">
-								<label>Nguồn vốn</label>
-								<select id="" class="form-control chosen-select"
-									data-placeholder="Nguồn vốn" 
-									name = "slCapital">
+								<label>{% trans 'Nguồn vốn' %}</label>
+								<select id="slCapital" class="form-control chosen-select"
+									data-placeholder="{% trans 'Nguồn vốn' %}" 
+									name = "slCapital" required="required">
 									<option value=""></option>
 									{% for capital in capitals %}
 										<option value="{{ capital.id }}">{{ capital.code }} - {{ capital.name }}</option>
 									{% endfor%}
 								</select>
+								<label for="slCapital" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 							
 							
 							<div class="col-lg-3">
-								<label>Mục đích sử dụng</label>
-								<select id="" class="form-control chosen-select"
-									data-placeholder="Mục đích sử dụng" 
-									name = "slGoal">
+								<label>{% trans 'Mục đích sử dụng' %}</label>
+								<select id="slGoal" class="form-control chosen-select"
+									data-placeholder="{% trans 'Mục đích sử dụng' %}" 
+									name = "slGoal" required="required">
 									<option value=""></option>
 									{% for goal in goals %}
 										<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
 									{% endfor%}
 								</select>
+								<label for="slGoal" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 							<div class="col-lg-6">
 								<div class="col-lg-4">
-									<label>Hiện trạng sử dụng</label>
-									<select id="" class="form-control chosen-select"
-										data-placeholder="Hiện trạng sử dụng" 
-										name = "slState">
+									<label>{% trans 'Hiện trạng sử dụng' %}</label>
+									<select id="slState" class="form-control chosen-select"
+										data-placeholder="{% trans 'Hiện trạng sử dụng' %}" 
+										name = "slState" required="required">
 										<option value=""></option>
 										{% for state in states %}
 											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 										{% endfor%}
 									</select>
+									<label for="slState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Phương pháp tính</label>
-									<select id="" class="form-control chosen-select"
-										data-placeholder="Phương pháp tính" 
-										name = "slMethod">
+									<label>{% trans 'Phương pháp tính' %}</label>
+									<select id="slMethod" class="form-control chosen-select"
+										data-placeholder="{% trans 'Phương pháp tính' %}" 
+										name = "slMethod" required="required">
 										<option value=""></option>
 										{% for method in methods %}
 											<option value="{{ method.id }}">{{ method.code }} - {{ method.name }}</option>
 										{% endfor%}
 									</select>
+									<label for="slMethod" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Số năm khấu hao</label>
-									<input type="text" name="txtInterval" placeholder="Số năm khấu hao"
+									<label>{% trans 'Số năm khấu hao' %}</label>
+									<input type="text" name="txtInterval" placeholder="{% trans 'Số năm khấu hao' %}"
 										class="form-control numberic" maxlength="2">
 								</div>
 								
@@ -135,55 +143,57 @@
 						<div class = "row row-pad-5">
 
 							<div class="col-lg-2">
-								<label>Nguyên Giá</label>
-								<input type="text" name="txtOriginPrice" placeholder="Nguyên Giá"
+								<label>{% trans 'Nguyên Giá' %}</label>
+								<input type="text" name="txtOriginPrice" placeholder="{% trans 'Nguyên Giá' %}"
 									class="form-control numberic" required maxlength="15">
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Giá trị còn lại</label>
+								<label>{% trans 'Giá trị còn lại' %}</label>
 								<input type="text" name="txtRemainAmount"
-									placeholder="Giá trị còn lại" class="form-control numberic" required maxlength="15">
+									placeholder="{% trans 'Giá trị còn lại' %}" class="form-control numberic" required maxlength="15">
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Model</label>
-								<input type="text" name="txtModel" placeholder="Model"
-									class="form-control" required>
+								<label>{% trans 'Model' %}</label>
+								<input type="text" name="txtModel" placeholder="{% trans 'Model' %}"
+									class="form-control" required maxlength="15">
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Công xuất</label>
-								<input type="text" name="txtPower" placeholder="Công xuất"
+								<label>{% trans 'Công xuất' %}</label>
+								<input type="text" name="txtPower" placeholder="{% trans 'Công xuất' %}"
 									class="form-control numberic" maxlength="10">
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Số quyết định</label>
-								<input type="text" name="txtDecisionNo" placeholder="Số quyết định"
-									class="form-control">
+								<label>{% trans 'Số quyết định' %}</label>
+								<input type="text" name="txtDecisionNo" placeholder="{% trans 'Số quyết định' %}"
+									class="form-control" maxlength="15">
 							</div>
 							
 							<div class="col-lg-1">
-								<label>TT tài liệu</label>
-								<select  class="form-control chosen-select"
-									data-placeholder="Tài liệu" 
-									name = "slDocumentStatus" >
-										<option value="1" selected="selected">Có</option>
-										<option value="0">Không</option>
+								<label>{% trans 'TT tài liệu' %}</label>
+								<select id="slDocumentStatus" class="form-control chosen-select"
+									data-placeholder="{% trans 'TT tài liệu' %}" 
+									name = "slDocumentStatus" required="required">
+										<option value="1" selected="selected">{% trans 'Có' %}</option>
+										<option value="0">{% trans 'Không' %}</option>
 								</select>
+								<label for="slDocumentStatus" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 							
 							<div class="col-lg-1">
-								<label>Nguồn gốc</label>
-								<select class="form-control chosen-select"
-									data-placeholder="Nguồn gốc" 
-									name = "slSource">
+								<label>{% trans 'Nguồn gốc' %}</label>
+								<select id="slSource" class="form-control chosen-select"
+									data-placeholder="{% trans 'Nguồn gốc' %}" 
+									name = "slSource" required="required">
 									<option value=""></option>
 									{% for source in sources %}
 										<option value="{{ source.code }}">{{ source.code }} - {{ source.name }}</option>
 									{% endfor%}
 								</select>
+								<label for="slSource" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 
 						</div>
@@ -191,72 +201,77 @@
 						<div class = "row row-pad-5">
 						
 							<div class="col-lg-2">
-								<label>Bộ phận</label>
+								<label>{% trans 'Bộ phận' %}</label>
 								<select id="slDept" class="form-control chosen-select"
-									data-placeholder="Bộ phận" 
-									name = "slDept">
+									data-placeholder="{% trans 'Bộ phận' %}" 
+									name = "slDept" required="required">
 									<option value=""></option>
 									{% for dept in depts %}
 										<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 									{% endfor%}
 								</select>
+								<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 						
 
 							<div class="col-lg-2">
-								<label>Kho</label>
+								<label>{% trans 'Kho' %}</label>
 								<select id="slStock" class="form-control chosen-select"
-									data-placeholder="Kho" 
-									name = "slStock">
+									data-placeholder="{% trans 'Kho' %}" 
+									name = "slStock" required="required">
 									<option value=""></option>
 									{% for stock in stocks %}
 										<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
 									{% endfor%}
 								</select>
+								<label for="slStock" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Số lượng</label>
-								<input type="text" name="txtQuantity" placeholder="Số lượng"
-									class="form-control" required maxlength="3">
+								<label>{% trans 'Số lượng' %}</label>
+								<input type="text" name="txtQuantity" placeholder="{% trans 'Số lượng' %}"
+									class="form-control numberic" required maxlength="3">
 							</div>
 							
 							<div class="col-lg-6">
 							
 								<div class="col-lg-4">
-									<label>Đơn vị tính</label>
-									<select class="form-control chosen-select"
-										data-placeholder="Đơn vị tính" 
+									<label>{% trans 'Đơn vị tính' %}</label>
+									<select id="slUnit" class="form-control chosen-select"
+										data-placeholder="{% trans 'Đơn vị tính' %}" 
 										name = "slUnit">
 										<option value=""></option>
 										{% for unit in units %}
 											<option value="{{ unit.name }}">{{ unit.code }} - {{ unit.name }}</option>
 										{% endfor%}
 									</select>
+									<label for="slUnit" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Xuất sứ</label>
-									<select id="" class="form-control chosen-select"
-										data-placeholder="Xuất sứ" 
-										name = "slCountry">
+									<label>{% trans 'Xuất sứ' %}</label>
+									<select id="slCountry" class="form-control chosen-select"
+										data-placeholder="{% trans 'Xuất sứ' %}" 
+										name = "slCountry" required="required">
 										<option value=""></option>
 										{% for country in countries %}
 											<option value="{{ country.id }}">{{ country.code }} - {{ country.name }}</option>
 										{% endfor%}
 									</select>
+									<label for="slCountry" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Nhà cung cấp</label>
-									<select id="" class="form-control chosen-select"
-										data-placeholder="Nhà cung cấp" 
-										name = "slSupplier">
+									<label>{% trans 'Nhà cung cấp' %}</label>
+									<select id="slSupplier" class="form-control chosen-select"
+										data-placeholder="{% trans 'Nhà cung cấp' %}" 
+										name = "slSupplier" required="required">
 										<option value=""></option>
 										{% for supplier in suppliers %}
 											<option value="{{ supplier.id }}">{{ supplier.code }} - {{ supplier.name }}</option>
 										{% endfor%}
 									</select>
+									<label for="slSupplier" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								
 							</div>
@@ -269,61 +284,61 @@
 					<div class = "row row-pad-5">
 						
 						<div class="col-lg-2">
-							<label>Ngày sản xuất</label>
+							<label>{% trans 'Ngày sản xuất' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày sản xuất" id="product_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày sản xuất' %}" id="product_date"
 									name = "dtProductDate" required> <span
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày tính hao mòn</label>
+							<label>{% trans 'Ngày tính hao mòn' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tính hao mòn" id="atrophy_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày tính hao mòn' %}" id="atrophy_date"
 									name = "dtAtrophyDate" required>
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày ghi tăng</label>
+							<label>{% trans 'Ngày ghi tăng' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày ghi tăng" id="up_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày ghi tăng' %}" id="up_date"
 									name = "dtUpDate" required>
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày mua</label>
+							<label>{% trans 'Ngày mua' %}</label>
 							<div class="input-group">
 								
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày mua" id="buy_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày mua' %}" id="buy_date"
 									name = "dtBuyDate" required> <span
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày bắt đầu sử dụng</label>
+							<label>{% trans 'Ngày bắt đầu sử dụng' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày bắt đầu sử dụng" id="start_use_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày bắt đầu sử dụng' %}" id="start_use_date"
 									name = "dtStartUseDate" required>
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày quyết định</label>
+							<label>{% trans 'Ngày quyết định' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày quyết định" id="dtDecision"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày quyết định' %}" id="dtDecision"
 									name = "dtDecision" required>
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
@@ -334,22 +349,22 @@
 					<div class = "row row-pad-5">	
 						
 						<div class="col-lg-2">
-							<label> Số seri</label>
-							<input type="text" name="txtProductSeri" placeholder="Số seri..."
-								class="form-control" required>
+							<label> {% trans 'Số seri' %}</label>
+							<input type="text" name="txtProductSeri" placeholder="{% trans 'Số seri' %}"
+								class="form-control" required maxlength="15">
 						</div>
 						
 						<div class="col-lg-2">
 							<div class="ckbox ckbox-default" style="margin-top: 20%;">
 								<input type="checkbox" name="ckChildAsset" id="ckChildAsset"> 
-								<label for="ckChildAsset">Tài sản con</label>
+								<label for="ckChildAsset">{% trans 'Tài sản con' %}</label>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Tài sản cha</label>
+							<label>{% trans 'Tài sản cha' %}</label>
 							<select id = "slParent" class="form-control chosen-select"
-								data-placeholder="Chọn TS cha" 
+								data-placeholder="{% trans 'Tài sản cha' %}" 
 								name = "slParent" disabled="disabled">
 								<option value=""></option>
 								{% for parent in parents %}
@@ -359,7 +374,7 @@
 						</div>
 						
 						<div class="col-lg-4">
-							<textarea class="form-control" name="txtNote" rows="3" placeholder="Ghi chú" required></textarea>
+							<textarea class="form-control" name="txtNote" rows="3" placeholder="{% trans 'Ghi chú' %}" required maxlength="200"></textarea>
 						</div>
 
 						<div class="col-lg-2">
@@ -430,13 +445,17 @@ $(document).ready(function(){
 			}
 
 		});
+	$('.numberic').on('keypress', function(event){
+		if (event.keyCode < 48 || event.keyCode > 57)
+		return false;
+	});
 	});
 	//change slDept
 	$('#slDept')
 			.change(
 					function()
 					{
-
+						$(".error[for][for='slDept']").hide();
 						var dept_id = $(this).find('option:selected').val();
 
 						$("#slStock option[dept_id][dept_id='" + dept_id + "']")
@@ -452,12 +471,62 @@ $(document).ready(function(){
 						$('#slStock').chosen();
 
 					});
+	$( "#slStock" ).change(function() {
+		$(".error[for][for='slStock']").hide();
+	});
+	$( "#slCountry" ).change(function() {
+		$(".error[for][for='slCountry']").hide();
+	});
+	$( "#slSupplier" ).change(function() {
+		$(".error[for][for='slSupplier']").hide();
+	});
+	
+	$( "#slCapital" ).change(function() {
+		$(".error[for][for='slCapital']").hide();
+	});
+	
+	$( "#slGoal" ).change(function() {
+		$(".error[for][for='slGoal']").hide();
+	});
+	
+	$( "#slState" ).change(function() {
+		$(".error[for][for='slState']").hide();
+	});
+	
+	$( "#slMethod" ).change(function() {
+		$(".error[for][for='slMethod']").hide();
+	});
+	
+	$( "#slReason" ).change(function() {
+		$(".error[for][for='slReason']").hide();
+	});
+	$( "#slSource" ).change(function() {
+		$(".error[for][for='slSource']").hide();
+	});
+	$( "#slProject" ).change(function() {
+		$(".error[for][for='slProject']").hide();
+	});
+	$( "#slAsset" ).change(function() {
+		$(".error[for][for='slAsset']").hide();
+	});
+	
 	jQuery(window).load(function()
 	{
 		$(".numberic").numeric();
 	});
+	
 	function onSUbmitFormIncrement()
 	{
+		
+		var isTrue = false;
+		jQuery('.chosen-select').each(function(i){
+			var id = $(this).attr("id");
+			if(!jQuery('#'+id).valid())
+				isTrue = true;
+		});
+		if(isTrue)
+			return false;
+		
 		var $valid = jQuery('#incrementAsset').valid();
 		if (!$valid)
 		{
