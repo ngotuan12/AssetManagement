@@ -317,7 +317,7 @@ function clearVal( slName ){
 	$("#txtNote").val('');
 }
 jQuery(window).load(function(){
-	$(".numberic").numeric();
+	$(".numberic").numeric({ negative : false });
 	$("form:not(.filter) :input:visible:enabled:first").focus();
 });
 </script>
