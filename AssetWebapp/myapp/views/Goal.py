@@ -91,7 +91,7 @@ def edit(request,goal_id):
     context = {}
     try:
         goal = List.objects.get(id=goal_id,list_type='2')
-        context.update({'parents':List.objects.exclude(id=goal_id).filter(list_type='2')})
+        context.update({'parents':List.objects.exclude(id = goal_id).filter(list_type='2')})
         context.update({'goal':goal})
         if request.POST:
             parent_id = request.POST["slParent"]
@@ -127,7 +127,7 @@ def delete(request,goal_id):
             goal = List.objects.get(id=goal_id,list_type='2')
             childGoals = List.objects.filter(parent_id=goal.id,list_type='2')
             if len(childGoals)>0:
-                context.update({'has_error':"Không được phép xóa"})
+                context.update({'has_error':"Không được phép xóa.Phải xóa các mục đích sử dụng con trước"})
                 #get dât
                 goals_qs = List.objects.raw("""
                                 SELECT id,name,code,description,list_level,status,list_type,

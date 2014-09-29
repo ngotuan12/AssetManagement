@@ -127,7 +127,7 @@ def delete(request,state_id):
             asset_state = List.objects.get(id=state_id,list_type='4')
             childAssetStates = List.objects.filter(parent_id =asset_state.id,list_type='4')
             if len(childAssetStates)>0:
-                context.update({'has_error':'Không được phép xóa'})
+                context.update({'has_error':'Không được phép xóa.Phải xóa các tình trạng sử dụng con trước'})
                 states_qs = List.objects.raw("""
                                 SELECT id,name,code,description,list_level,status,list_type,
                                     create_datetime,user_name,parent_id,connect_by_isleaf is_leaf

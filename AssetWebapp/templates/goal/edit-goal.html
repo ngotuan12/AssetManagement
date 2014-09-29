@@ -52,7 +52,9 @@
 											{% if parent.id|truncatechars:100 == goal.parent_id.id|truncatechars:100 %}
 												<option selected="selected" value="{{ parent.id }}">{{ parent.code }} - {{ parent.name }}</option>
 											{% else %}
-												<option value="{{ parent.id }}">{{ parent.code }} - {{ parent.name }}</option>
+												{% if parent.parent_id.id|truncatechars:100 != goal.id|truncatechars:100 %}
+													<option value="{{ parent.id }}">{{ parent.code }} - {{ parent.name }}</option>
+												{% endif %}
 											{% endif %}
 										{% endfor%}
 									</select>

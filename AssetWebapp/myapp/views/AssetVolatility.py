@@ -127,7 +127,7 @@ def delete(request,volatility_id):
             asset_volatility = List.objects.get(id=volatility_id,list_type='5')
             childAssetVolatilities =List.objects.filter(parent_id=asset_volatility.id,list_type='5')
             if len(childAssetVolatilities) >0:
-                context.update({'has_error':"Không được phép xóa"})
+                context.update({'has_error':"Không được phép xóa.Phải xóa các biến động tăng giảm con trước"})
                 volatilities_qs = List.objects.raw("""
                                 SELECT id,name,code,description,list_level,status,list_type,
                                     create_datetime,user_name,parent_id,connect_by_isleaf is_leaf
