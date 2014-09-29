@@ -11,6 +11,7 @@ from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from myapp.models.List import List
 
@@ -45,7 +46,7 @@ def edit_project(request,project_id):
 				project.create_datetime = project_createDate
 				check_project=List.objects.exclude(id = project_id).filter(code=project_code.lower,list_type='7')
 				if(len(check_project) > 0):
-					context.update({'has_error':'Mã dự án đã tồn tại'})
+					context.update({'has_error':_(u'Mã dự án đã tồn tại')})
 				else:
 					project.save()
 					return HttpResponseRedirect(resolve_url("list-project"))
@@ -73,7 +74,7 @@ def add_project(request):
 				project.list_type = '7'
 				check_project=List.objects.filter(code=project_code.lower,list_type='7')
 				if(len(check_project) > 0):
-					context.update({'has_error':'Mã dự án đã tồn tại'})
+					context.update({'has_error':_(u'Mã dự án đã tồn tại')})
 					context.update({'project':project})
 				else:
 					project.save()

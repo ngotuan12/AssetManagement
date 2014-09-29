@@ -7,6 +7,7 @@ from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from myapp.models.List import List
 from myapp.util.DateEncoder import DateEncoder
@@ -75,7 +76,7 @@ def add(request,parent_id):
             asset_state.user_name = request.user.username
             check_asset_state = List.objects.filter(code = code,parent_id = parent_id,list_type='4')
             if len(check_asset_state) > 0:
-                context.update({'has_error':'Mã hiện trạng tài sản đã tồn tại'})
+                context.update({'has_error':_(u'Mã hiện trạng tài sản đã tồn tại')})
                 context.update({'asset_state':asset_state})
             else:
                 asset_state.save()
@@ -109,7 +110,7 @@ def edit(request,state_id):
             asset_state.parent_id = List.objects.get(id=parent_id,list_type='4')
             check_asset_state = List.objects.exclude(id=state_id).filter(code = code,parent_id = parent_id,list_type='4')
             if len(check_asset_state) >0 :
-                context.update({'has_error':'Mã hiện trạng tài sản đã tồn tại'})
+                context.update({'has_error':_(u'Mã hiện trạng tài sản đã tồn tại')})
             else:
                 asset_state.save()
                 return HttpResponseRedirect(resolve_url("asset-state"))

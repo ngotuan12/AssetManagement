@@ -19,6 +19,7 @@ from myapp.models.Stock import Stock
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.Supplier import Supplier
 import cx_Oracle
+from django.utils.translation import ugettext as _
 
 @login_required(login_url='/login/')
 @permission_required('myapp.view_area', login_url='/permission-error/')
@@ -74,7 +75,7 @@ def index(request):
             cursor.close()
             if p_error.getvalue() is not None:
                 raise Exception(p_error.getvalue())
-            context.update({'has_success':"Giao dịch thành công"})
+            context.update({'has_success':_(u"Giao dịch thành công")})
     except Exception as ex:
         context.update({'has_error':str(ex)})
     finally:

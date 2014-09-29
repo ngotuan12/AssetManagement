@@ -11,6 +11,7 @@ from django.db import connection
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from myapp.models.List import List
 from myapp.models.Staff import Staff
@@ -78,7 +79,7 @@ def verify(request,serial_id):
 			cursor.close()
 			if p_error.getvalue() is not None:
 				raise Exception(p_error.getvalue())
-			context.update({'has_success':"Giao dịch thành công"})
+			context.update({'has_success':_(u"Giao dịch thành công")})
 			return HttpResponseRedirect(resolve_url("verify-asset"))
 	except Exception as ex:
 		context.update({'has_error':str(ex)})

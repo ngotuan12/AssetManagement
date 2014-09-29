@@ -14,6 +14,7 @@ from django.forms.models import model_to_dict
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from myapp.models.Dept import Dept
 from myapp.models.List import List
@@ -84,7 +85,7 @@ def index(request):
 			cursor.close()
 			if p_error.getvalue() is not None:
 				raise Exception(p_error.getvalue())
-			context.update({'has_success':"Giảm tài sản thành công"})
+			context.update({'has_success':_(u"Giảm tài sản thành công")})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

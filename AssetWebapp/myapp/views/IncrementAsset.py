@@ -11,6 +11,7 @@ from django.core.context_processors import csrf
 from django.db import connection
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from myapp.models.ApDomain import ApDomain
 from myapp.models.Asset import Asset
@@ -176,7 +177,7 @@ def index(request):
 			cursor.close()
 			if p_error.getvalue() is not None:
 				raise Exception(p_error.getvalue())
-			context.update({'has_success':"Thêm tài sản thành công"})
+			context.update({'has_success':_(u"Thêm tài sản thành công")})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

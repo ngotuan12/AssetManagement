@@ -7,6 +7,7 @@ from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from myapp.models.List import List
 from myapp.util.DateEncoder import DateEncoder
@@ -75,7 +76,7 @@ def add(request,parent_id):
             goal.user_name = request.user.username
             check_asset_state = List.objects.filter(code = code,parent_id = parent_id,list_type='2')
             if len(check_asset_state) > 0:
-                context.update({'has_error':'Mã mục đích sử dụng đã tồn tại'})
+                context.update({'has_error':_(u'Mã mục đích sử dụng đã tồn tại')})
                 context.update({'goal':goal})
             else:
                 goal.save()
@@ -109,7 +110,7 @@ def edit(request,goal_id):
             goal.parent_id = List.objects.get(id=parent_id,list_type='2')
             check_asset_state = List.objects.exclude(id=goal_id).filter(code = code,parent_id = parent_id,list_type='2')
             if len(check_asset_state) >0 :
-                context.update({'has_error':'Mã mục đích sử dụng đã tồn tại'})
+                context.update({'has_error':_(u'Mã mục đích sử dụng đã tồn tại')})
             else:
                 goal.save()
                 return HttpResponseRedirect(resolve_url("goal"))
@@ -127,7 +128,7 @@ def delete(request,goal_id):
             goal = List.objects.get(id=goal_id,list_type='2')
             childGoals = List.objects.filter(parent_id=goal.id,list_type='2')
             if len(childGoals)>0:
-                context.update({'has_error':"Không được phép xóa.Phải xóa các mục đích sử dụng con trước"})
+                context.update({'has_error':_(u"Không được phép xóa.Phải xóa các mục đích sử dụng con trước")})
                 #get dât
                 goals_qs = List.objects.raw("""
                                 SELECT id,name,code,description,list_level,status,list_type,
@@ -162,7 +163,7 @@ def delete(request,goal_id):
                 return render_to_response("goal/goal.html", context, RequestContext(request))
             else:
                 goal.delete()
-                context.update({'has_success':"Xóa tài sản thành công"})
+                context.update({'has_success':_(u"Xóa tài sản thành công")})
                 return HttpResponseRedirect(resolve_url("goal"))
     except Exception as ex:
         context.update({'has_error':str(ex)})

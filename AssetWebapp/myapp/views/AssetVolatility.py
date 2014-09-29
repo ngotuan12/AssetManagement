@@ -6,6 +6,7 @@ from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from myapp.models.List import List
 from myapp.util.DateEncoder import DateEncoder
@@ -75,7 +76,7 @@ def add(request,parent_id):
             asset_volatility.user_name = request.user.username
             check_asset_volatility = List.objects.filter(code = code,parent_id = parent_id,list_type='5')
             if len(check_asset_volatility) > 0:
-                context.update({'has_error':'Mã biến động tài sản đã tồn tại'})
+                context.update({'has_error':_(u'Mã biến động tài sản đã tồn tại')})
                 context.update({'asset_volatility':asset_volatility})
             else:
                 asset_volatility.save()
@@ -109,7 +110,7 @@ def edit(request,volatility_id):
             asset_volatility.parent_id = List.objects.get(id=parent_id,list_type='5')
             check_asset_volatility = List.objects.exclude(id=volatility_id).filter(code = code,parent_id = parent_id,list_type='5')
             if len(check_asset_volatility) >0 :
-                context.update({'has_error':'Mã biến động tài sản đã tồn tại'})
+                context.update({'has_error':_(u'Mã biến động tài sản đã tồn tại')})
             else:
                 asset_volatility.save()
                 return HttpResponseRedirect(resolve_url("asset-volatility"))
@@ -127,7 +128,7 @@ def delete(request,volatility_id):
             asset_volatility = List.objects.get(id=volatility_id,list_type='5')
             childAssetVolatilities =List.objects.filter(parent_id=asset_volatility.id,list_type='5')
             if len(childAssetVolatilities) >0:
-                context.update({'has_error':"Không được phép xóa.Phải xóa các biến động tăng giảm con trước"})
+                context.update({'has_error':_(u"Không được phép xóa.Phải xóa các biến động tăng giảm con trước")})
                 volatilities_qs = List.objects.raw("""
                                 SELECT id,name,code,description,list_level,status,list_type,
                                     create_datetime,user_name,parent_id,connect_by_isleaf is_leaf

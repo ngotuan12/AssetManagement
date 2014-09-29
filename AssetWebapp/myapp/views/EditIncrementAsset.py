@@ -11,6 +11,7 @@ from django.db import connection
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from myapp.models.ApDomain import ApDomain
 from myapp.models.Asset import Asset
@@ -183,7 +184,7 @@ def index(request,asset_id):
 			cursor.close()
 			if p_error.getvalue() is not None:
 				raise Exception(p_error.getvalue())
-			context.update({'has_success':"Sửa tài sản thành công"})
+			context.update({'has_success':_(u"Sửa tài sản thành công")})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

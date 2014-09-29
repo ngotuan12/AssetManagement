@@ -10,6 +10,7 @@ from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from AdminManagement.models.App import App
 from AdminManagement.models.Module import Module
@@ -53,7 +54,7 @@ def edit_app(request,app_id):
                 
                 check_app=App.objects.exclude(id = app_id).filter(code=app_code)
                 if(len(check_app) > 0):
-                    context.update({'has_error':'Mã ứng dụng đã tồn tại'})
+                    context.update({'has_error':_(u'Mã ứng dụng đã tồn tại')})
                 else:
                     app.save()
                     module.save()
@@ -93,7 +94,7 @@ def add_app(request):
                 
                 check_app=App.objects.filter(code=app_code)
                 if(len(check_app) > 0):
-                    context.update({'has_error':'Mã ứng dụng đã tồn tại'})
+                    context.update({'has_error':_(u'Mã ứng dụng đã tồn tại')})
                     context.update({'app':app})
                 else:
                     app.save()
@@ -117,18 +118,18 @@ def delete_app(request,app_id):
             if len(modules) == 0 :
                 app.delete()
                 return HttpResponseRedirect(resolve_url("app"))
-                context.update({'has_success':"Ứng dụng đã được xóa"})
+                context.update({'has_success':_(u"Ứng dụng đã được xóa")})
             elif len(modules) == 1 :
                 chilModules = Module.objects.filter(parent = modules[0].id)
                 if len(chilModules) > 0:
-                    context.update({'has_error':'Không được phép xóa ứng dụng này'})
+                    context.update({'has_error':_(u'Không được phép xóa ứng dụng này')})
                 else:
                     modules[0].delete()
                     app.delete()
                     return HttpResponseRedirect(resolve_url("app"))
-                    context.update({'has_success':"Ứng dụng đã được xóa"})
+                    context.update({'has_success':_(u"Ứng dụng đã được xóa")})
             elif len(modules) > 1 :
-                context.update({'has_error':'Không được phép xóa ứng dụng này'})
+                context.update({'has_error':_(u'Không được phép xóa ứng dụng này')})
         except Exception as ex:
             context.update({'has_error':ex})
         finally:

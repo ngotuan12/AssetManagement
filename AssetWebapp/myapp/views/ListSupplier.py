@@ -11,6 +11,7 @@ from django.core.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
+from django.utils.translation import ugettext as _
 
 from myapp.models.List import List
 from myapp.models.Staff import Staff
@@ -57,7 +58,7 @@ def edit_supplier(request,supplier_id):
 				supplier.status = supplier_status
 				check_supplier=Supplier.objects.exclude(id = supplier_id).filter(code=supplier_code)
 				if(len(check_supplier) > 0):
-					context.update({'has_error':'Mã nhà sản xuất đã tồn tại'})
+					context.update({'has_error':_(u'Mã nhà sản xuất đã tồn tại')})
 				else:
 					supplier.save()
 					return HttpResponseRedirect(resolve_url("supplier"))
@@ -94,7 +95,7 @@ def add_supplier(request):
 				supplier.status = supplier_status
 				check_supplier=Supplier.objects.filter(code=supplier_code)
 				if(len(check_supplier) > 0):
-					context.update({'has_error':'Mã nhà sản xuất đã tồn tại'})
+					context.update({'has_error':_(u'Mã nhà sản xuất đã tồn tại')})
 					context.update({'supplier':supplier})
 				else:
 					supplier.save()
