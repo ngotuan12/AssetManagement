@@ -100,7 +100,7 @@
 								<div class="col-lg">
 									<label>{% trans 'Ghi chú' %}</label>
 									<textarea class="form-control" name="txtNote" rows="4"
-										placeholder="{% trans 'Ghi chú' %}" required maxlength="200"></textarea>
+										placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
 								</div>
 							</div>
 							
@@ -151,10 +151,10 @@ $(document).ready(function(){
 	$('#dtDecrementDate').datepicker({
 		dateFormat : 'dd/mm/yy',
 	});
-
+	
 	// Input Masks
 	$('#dtDecrementDate').mask("99/99/9999");
-	
+	$("#dtDecrementDate").datepicker("setDate",new Date());
 	$( "#slDept" ).change(function() {
 		$(".error[for][for='slDept']").hide();
 		onGetStock($(this).find('option:selected').val());
