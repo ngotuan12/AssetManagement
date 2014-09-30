@@ -107,12 +107,13 @@
 									<div class="form-group">
 										<label class="control-label">{% trans 'Trạng Thái' %}</label>
 										<select id="slState" name="slState"class="form-control chosen-select"
-											data-placeholder="{% trans 'Lý do giảm..' %}" style="display: ;">
+											data-placeholder="{% trans 'Lý do giảm..' %}" required="required">
 											<option value=""></option>
 											{% for state in states%}
 												<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 											{% endfor %}
 										</select>
+										<label for="slState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
 								<div class="col-sm-4">
@@ -205,18 +206,10 @@
 		  $( "#slStaff" ).change(function() {
 			  $(".error[for][for='slStaff']").hide();
 		  });
+		//validate
+		$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 	});
 	function onValidate() {
-		
-		var isTrue = false;
-		jQuery('.chosen-select').each(function(i){
-			var id = $(this).attr("id");
-			if(!jQuery('#'+id).valid())
-				isTrue = true;
-		});
-		if(isTrue)
-			return false;
-		
 		var $valid = jQuery('#form-verify-asset-edit').validate();
 		if (!$valid) {
 			$validator.focusInvalid();
