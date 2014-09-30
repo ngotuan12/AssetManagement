@@ -122,6 +122,39 @@
 		 * @author TuanNA
 		 * @param
 		 *   message: <strong> require </strong>
+		 *   position: optional
+		 *     default: center
+		 *     value: top,bottom,center
+		 *   options: optional
+		 */
+		notice_error : function(message,position,options)
+		{
+			if (typeof options !== 'object')
+				options = {};
+			if(typeof options.class_name === 'undefined')
+				options.class_name = 'alert alert-danger';
+			if(typeof options.mask === 'undefined')
+				options.mask = false;
+			if(typeof options.timeout === 'undefined')
+				options.timeout = 5000;
+			//position
+			if(typeof position === 'undefined')
+				position = 'center';
+			if(position === 'top')
+				options.css = {
+						'position' : 'absolute',
+						'z-index': '1000',
+						'width' :'100%',
+						'top':0,
+						'text-align': 'center',
+				};
+			options.type = 'notification';
+			return $.message.init(message,options);
+		},
+		/**
+		 * @author TuanNA
+		 * @param
+		 *   message: <strong> require </strong>
 		 */
 		confirm: function(message,options)
 		{

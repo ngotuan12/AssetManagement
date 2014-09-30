@@ -25,21 +25,35 @@
 	 *  onError:
 	 *    function
 	 */
-	$.api = function(url,params,onSuccess,onError)
+	$.api = function(options)
 	{
-		var posting = $.post(url,params);
-		posting.done(function(data) {
+		$.fn.loading.show();
+		if(typeof options.url ==='undefined')
+		{
+			options.error.call(this,{error:'Function must define'});
+			return;
+		}
+		
+		if(typeof options.params ==='undefined')
+			params = {};
+		
+		var posting = $.post(options.url,options.params);
+		
+		posting.done(function(data) 
+		{
 			if(typeof data.error === 'undefined')
-				onSuccess.call(this,data);
+				options.success.call(this,data);
 			else
-				onError.call(this,data);
+			{
+				options.error.call(this,{error:data.error});
+			}
+			$.fn.loading.hide();
 		});
+		
 		posting.fail(function(jqXHR, textStatus)
 		{
-			
-			data = {};
-			data.error = textStatus;
-			onError.call(this,data);
+			options.error.call(this,{error:textStatus});
+			$.fn.loading.hide();
 		});
 	};
 })(jQuery);

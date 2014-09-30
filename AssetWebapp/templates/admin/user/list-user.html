@@ -28,7 +28,7 @@
 			
 			<div class="modal-body">
 				{% trans 'Danh sách quyền hệ thống' %}
-				<ul id="treeDemo" class="ztree"></ul>
+				<ul id="treePermission" class="ztree"></ul>
 			</div>
 			
 			<div class="modal-footer">
@@ -96,7 +96,7 @@
 									<td>{{ user.date_joined }}</td>
 									<td class="table-action">
 										<a href="/user/{{ user.id }}/"><i class="fa fa-pencil"></i></a>
-										<a href="#" onclick="deleteUser('{{ user.id }}');" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
+										<a href="#" data="" onclick="deleteUser('{{ user.id }}');" class="delete-row confirm"><i class="fa fa-trash-o"></i></a>
 										 <form method="post" id="deleteUser{{ user.id }}" action="/user/delete/{{ user.id }}/">
 										  {% csrf_token %}
 										  <input type="hidden" name="hd_device_pro" value="{{ user.id }}">
@@ -147,20 +147,15 @@
 <script src="/js/custom.js"></script>
 <script src="/js/loading.js"></script>
 <script src="/js/message.js"></script>
-<script src="/js/jquery.confirm.js"></script>
+<script src="/js/api.js"></script>
 <script>
-	var current_user_id;
 	jQuery(document).ready(function() {
 		$("a[id^='btnPermission']").on('click',function(){
-			$("#modalPermission").modal('show');
-			current_user_id = $(this).attr("user-id");
-		});
-		$('#modalPermission').on('shown.bs.modal', function (e) {
-			fillModule("3");
+			fillModule("3",$(this).attr("user-id"));
 		});
 		$('#savePermission').on('click',function(){
 			
-			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+			var treeObj = $.fn.zTree.getZTreeObj("treePermission");
 			alert(JSON.stringify(treeObj.getNodesByParam("type", "P", null)));
 		});
 		jQuery(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
@@ -188,19 +183,11 @@
 				clickRow(user_id,user_name,email,user_first_name,user_last_name);
 			});
 	});
-	
 	function deleteUser(user_id)
 	{
-		$.confirm({
-			text : "Xóa bản ghi?",
-			confirm : function(button)
-			{
-				jQuery('#deleteUser' + user_id).submit();
-			},
-			cancel : function(button)
-			{
-
-			}
+		var message = $.message.confirm("Bạn thực sự muốn xoá tài khoản "+ user_id);
+		message.on('message.confirm',function(){
+			jQuery('#deleteUser' + user_id).submit();
 		});
 	}
 	function clickRow(user_id,user_name,email,first_name,last_name)
@@ -234,22 +221,37 @@
 		//set
 		clickRow(user_id,user_name,email,user_first_name,user_last_name);
 	});
-	
-	function fillModule(app_id,call_back)
+	/**
+	* @author TuanNA
+	* @version 1.0
+	* @params app_id, user_id
+	* Call api load user permission
+	* 
+	*/
+	function fillModule(app_id,user_id)
 	{
 		//show loading
-		$.fn.loading.show();
 		var csrftoken = $.cookie('csrftoken');
-		var url = "{% url 'ajax-user-permission' user_id='p_user_id' %}".replace("p_user_id", current_user_id);
-		var posting = $.post("{% url 'ajax-user-permission' user_id='p_user_id' %}".replace("p_user_id", current_user_id), {
-			'csrfmiddlewaretoken' : csrftoken,
-			'app_id' : app_id,
-		});
-		//posting
-		posting.done(function(data) 
-		{
-			var zNodes = data.modules;
-			var setting = {
+		var url = "{% url 'ajax-user-permission' user_id='p_user_id' %}".replace("p_user_id", user_id);
+		var params = {'csrfmiddlewaretoken' : csrftoken,'app_id' : app_id,};
+		$.api({
+			url: url,
+			params: params,
+			success: function(data)
+			{
+				initTree(data);
+			},
+			error: function(data)
+			{
+				$.message.notice_error("{% trans 'Không thể lấy dữ liệu của user!'%}");
+			}
+		})
+	}
+	
+	function initTree(data)
+	{
+		var setting = {
+				treeId: "treePermission",
 				check: {
 					enable: true
 				},
@@ -275,22 +277,20 @@
 					onClick: onClick
 				}
 			};
-			var tree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-			//select default node
-			if(tree.getNodes().length>0)
-			{
-				tree.selectNode(tree.getNodes()[0]);
-			}
-			//hide loading
-			$.fn.loading.hide();
-			//call back
-			if(typeof call_back !== 'undefined')
-				call_back.call(this,data);
-		});
+		var zNodes = data.modules;
+		
+		var tree = $.fn.zTree.init($("#treePermission"), setting, zNodes);
+		//select default node
+		if(tree.getNodes().length>0)
+		{
+			tree.selectNode(tree.getNodes()[0]);
+		}
+		//show modal
+		$("#modalPermission").modal('show');
 	}
 	
 	function onClick(e,treeId, treeNode) {
-		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		var zTree = $.fn.zTree.getZTreeObj("treePermission");
 		zTree.expandNode(treeNode);
 	}
 </script>
