@@ -28,12 +28,14 @@
 										<label class="control-label"> {% trans 'Đơn vị chuyển đi' %}</label>
 										<select id="slDeptSoure" class="form-control chosen-select"
 											data-placeholder="{% trans 'Đơn vị' %}"
-											name = "slDeptSoure">
+											name = "slDeptSoure" required="required">
 											<option value=""></option>
 											{% for dept in depts %}
 												<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 											{% endfor%}
+											<label for="slDeptSoure" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 										</select>
+										<label for="slDeptSoure" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
 								<div class="col-lg-4">
@@ -41,9 +43,10 @@
 										<label class="control-label"> {% trans 'Kho' %} </label>
 										<select id="slStockSource" class="form-control chosen-select"
 											data-placeholder="{% trans 'Kho' %}" 
-											name = "slStockSource" disabled="disabled">
+											name = "slStockSource" disabled="disabled" required="required">
 											<option value=""></option>
 										</select>
+										<label for="slStockSource" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 									
 								</div>
@@ -58,9 +61,10 @@
 										</select>
 										<label for="slSerialSource" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
-									
 								</div>
 								
+							</div>
+							<div class="row">
 								<div class="col-lg-4">
 									<div class="form-group">
 										<label class="control-label"> {% trans 'Người chuyển' %} </label>
@@ -96,12 +100,13 @@
 									<div class="form-group">
 										<label class="control-label"> {% trans 'Lý do chuyển' %}</label>
 										<select id="slReason" name="slReason"class="form-control chosen-select"
-											data-placeholder="{% trans 'Lý do chuyển ...' %}" style="display: ;">
+											data-placeholder="{% trans 'Lý do chuyển ...' %}" required="required">
 											<option value=""></option>
 											{% for reason in reasons%}
 												<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
 											{% endfor %}
 										</select>
+										<label for="slReason" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
 								
@@ -110,12 +115,13 @@
 											<label class="control-label"> {% trans 'Đơn vị chuyển đến' %}</label>
 											<select id="slDeptDes" class="form-control chosen-select"
 												data-placeholder="{% trans 'Đơn vị' %}" 
-												name = "slDeptDes">
+												name = "slDeptDes" required="required">
 												<option value=""></option>
 												{% for dept in depts %}
 													<option value="{{ dept.id }}" dept_id="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 												{% endfor%}
 											</select>
+											<label for="slDeptDes" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 										</div>
 								</div>
 								
@@ -195,6 +201,7 @@ $(document).ready(function(){
 	// Input Masks
 	$("#dt_transfer").mask("99/99/9999");
 	$( "#slDeptSoure" ).change(function() {
+		$(".error[for][for='slDeptSoure']").hide();
 		clearVal();
 		var dept_id =$(this).find('option:selected').val()
 		var id_name ='slStockSource';
@@ -211,8 +218,11 @@ $(document).ready(function(){
 	$( "#slSerialSource" ).change(function() {
 		$(".error[for][for='slSerialSource']").hide();
 	});
-	
+	$( "#slReason" ).change(function() {
+		$(".error[for][for='slReason']").hide();
+	});
 	$( "#slDeptDes" ).change(function() {
+		$(".error[for][for='slDeptDes']").hide();
 		var dept_id =$(this).find('option:selected').val()
 		var id_name ='slStockDes';
 		onGetStock(dept_id,id_name);
@@ -223,18 +233,12 @@ $(document).ready(function(){
 		var id_name ='slSerialDes';
 		onGetCode($(this).find('option:selected').val(),id_name);
 	});
+	
+	//validate
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 });
 function onSubmitFormTransfer()
 {
-	var isTrue = false;
-	jQuery('.chosen-select').each(function(i){
-		var id = $(this).attr("id");
-		if(!jQuery('#'+id).valid())
-			isTrue = true;
-	});
-	if(isTrue)
-		return false;
-	
 	var $valid = jQuery('#transferAsset').valid();
 	if(!$valid) 
 	{

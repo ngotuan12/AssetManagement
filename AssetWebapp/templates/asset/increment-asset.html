@@ -132,7 +132,7 @@
 								<div class="col-lg-4">
 									<label>{% trans 'Số năm khấu hao' %}</label>
 									<input type="text" name="txtInterval" placeholder="{% trans 'Số năm khấu hao' %}"
-										class="form-control numberic" maxlength="2">
+										class="form-control numberic" maxlength="2" required="required">
 								</div>
 								
 							</div>
@@ -163,13 +163,13 @@
 							<div class="col-lg-2">
 								<label>{% trans 'Công xuất' %}</label>
 								<input type="text" name="txtPower" placeholder="{% trans 'Công xuất' %}"
-									class="form-control numberic" maxlength="10">
+									class="form-control numberic" maxlength="10" required="required">
 							</div>
 							
 							<div class="col-lg-2">
 								<label>{% trans 'Số quyết định' %}</label>
 								<input type="text" name="txtDecisionNo" placeholder="{% trans 'Số quyết định' %}"
-									class="form-control" maxlength="15">
+									class="form-control" maxlength="15" required="required">
 							</div>
 							
 							<div class="col-lg-1">
@@ -239,7 +239,7 @@
 									<label>{% trans 'Đơn vị tính' %}</label>
 									<select id="slUnit" class="form-control chosen-select"
 										data-placeholder="{% trans 'Đơn vị tính' %}" 
-										name = "slUnit">
+										name = "slUnit" required="required">
 										<option value=""></option>
 										{% for unit in units %}
 											<option value="{{ unit.name }}">{{ unit.code }} - {{ unit.name }}</option>
@@ -449,6 +449,8 @@ $(document).ready(function(){
 		if (event.keyCode < 48 || event.keyCode > 57)
 		return false;
 	});
+	//validate
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 	});
 	//change slDept
 	$('#slDept')
@@ -509,6 +511,9 @@ $(document).ready(function(){
 	$( "#slAsset" ).change(function() {
 		$(".error[for][for='slAsset']").hide();
 	});
+	$( "#slUnit" ).change(function() {
+		$(".error[for][for='slUnit']").hide();
+	});
 	
 	jQuery(window).load(function()
 	{
@@ -517,16 +522,6 @@ $(document).ready(function(){
 	
 	function onSUbmitFormIncrement()
 	{
-		
-		var isTrue = false;
-		jQuery('.chosen-select').each(function(i){
-			var id = $(this).attr("id");
-			if(!jQuery('#'+id).valid())
-				isTrue = true;
-		});
-		if(isTrue)
-			return false;
-		
 		var $valid = jQuery('#incrementAsset').valid();
 		if (!$valid)
 		{

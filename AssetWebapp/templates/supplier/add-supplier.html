@@ -177,19 +177,11 @@ $(document).ready(function(){
 	$( "#slContactPerson" ).change(function() {
 		$(".error[for][for='slContactPerson']").hide();
 	});
+	//validate
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 });
 function onSubmitFormEditsupplier()
 {
-	var isTrue = false;
-	jQuery('.chosen-select').each(function(i){
-		
-		var id = $(this).attr("id");
-		if(!jQuery('#'+id).valid())
-			isTrue = true;
-	});
-	if(isTrue)
-		return false;
-	
 	var $valid = jQuery('#editsupplier').valid();
 	if(!$valid) 
 	{

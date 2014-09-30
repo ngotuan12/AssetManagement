@@ -157,6 +157,7 @@ $(document).ready(function(){
 	$("#dtDecrementDate").datepicker("setDate",new Date());
 	$( "#slDept" ).change(function() {
 		$(".error[for][for='slDept']").hide();
+		clearVal();
 		onGetStock($(this).find('option:selected').val());
 	});
 	
@@ -173,19 +174,11 @@ $(document).ready(function(){
 		$("#remain-amount").val(remain);
 		$("#txtAssetID").val(asset_id);
 	});
+	//validate
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 });
 function onSubmitFormDecrement()
 {
-	var isTrue = false;
-	jQuery('.chosen-select').each(function(i){
-		
-		var id = $(this).attr("id");
-		if(!jQuery('#'+id).valid())
-			isTrue = true;
-	});
-	if(isTrue)
-		return false;
-	
 	var $valid = jQuery('#decrementAsset').valid();
 	if(!$valid) 
 	{
@@ -193,6 +186,14 @@ function onSubmitFormDecrement()
 		return false;
 	}
 	jQuery('#decrementAsset').submit();
+}
+function clearVal()
+{
+		$('#slSerial').prop("disabled", true);
+		$('#slSerial option[value!=""]').remove();
+		$("#slSerial").prop("selectedIndex", -1).chosen('destroy').chosen();
+		$("#original-amount").val('');
+		$("#remain-amount").val('');
 }
 function onGetCode(stock_id)
 {

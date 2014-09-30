@@ -67,7 +67,7 @@
 								</div>
 								
 								<div class="col-lg-3">
-									<label>{% trans 'Trạng thái</label>
+									<label>{% trans 'Trạng thái' %}</label>
 									<select id="slState" name="slState"class="form-control chosen-select"
 										data-placeholder="{% trans 'Trạng thái ...' %}" style="display: ;">
 										<option value=""></option>
@@ -188,20 +188,11 @@ $(document).ready(function(){
 	{
 		$(this).attr('maxlength','10');
 		$(this).val($("#hd_cus_amount").val());
-	}); 
+	});
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 });
 function onSubmitFormUpgrade()
 {
-	var isTrue = false;
-	jQuery('.chosen-select').each(function(i){
-		
-		var id = $(this).attr("id");
-		if(!jQuery('#'+id).valid())
-			isTrue = true;
-	});
-	if(isTrue)
-		return false;
-	
 	var $valid = jQuery('#upgradeAsset').valid();
 	if(!$valid) 
 	{
