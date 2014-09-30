@@ -42,6 +42,7 @@ urlpatterns = patterns('',
 	# Ajax
 	url(r'^ajax-app-infor/$', Ajax.ajax_app_infor, name='ajax-app-infor'),
 	url(r'^ajax-app-module/$', Ajax.ajax_app_module, name='ajax-app-module'),
+	url(r'^ajax-user-permission/(?P<user_id>\w+)$', Ajax.ajax_user_permission, name='ajax-user-permission'),
 	#login
 	url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'admin/signin.html'}, name='login'),
 	#logout

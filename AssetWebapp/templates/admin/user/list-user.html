@@ -1,10 +1,43 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
-	
-	<link href="/css/custom.css" rel="stylesheet">
+
+<link href="/css/custom.css" rel="stylesheet">
+<link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<style>
+.ztree {
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	height: 400px;
+	overflow-y: scroll;
+	overflow-x: auto;
+}
+</style>
 {% endblock styles %}
 
 {% block content %}
+<div class="modal fade" id="modalPermission" tabindex="-1" role="dialog"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg-4">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">{% trans 'Phân quyền tài khoản' %}</h4>
+			</div>
+			
+			<div class="modal-body">
+				{% trans 'Danh sách quyền hệ thống' %}
+				<ul id="treeDemo" class="ztree"></ul>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="savePermission">{% trans 'Lưu' %}</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Đóng' %}</button>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="contentpanel" style="background:#828283">
 	<div class="col-md" >
 	  <div class="panel panel-primary">
@@ -47,6 +80,7 @@
 									<th>Email </th>
 									<th>Ngày tạo</th>
 									<th>Sửa/Xoá</th>
+									<th>Phân quyền</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -68,6 +102,10 @@
 										  <input type="hidden" name="hd_device_pro" value="{{ user.id }}">
 										  <input type="hidden" name="type" value="deleteDeviceProperty">
 										 </form>
+									</td>
+									
+									<td class="table-action">
+										<a href="#" id="btnPermission" user-id = {{ user.id }}><i class="fa fa-pencil"></i></a>
 									</td>
 								</tr>
 								{% endfor %}
@@ -98,17 +136,38 @@
 <script src="/js/retina.min.js"></script>
 <script src="/js/jquery.cookies.js"></script>
 
+<script type="text/javascript" src="/tree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.exedit-3.5.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js" ></script> 
+
 <script src="/js/jquery.datatables.min.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 
 <script src="/js/custom.js"></script>
+<script src="/js/loading.js"></script>
+<script src="/js/message.js"></script>
 <script src="/js/jquery.confirm.js"></script>
 <script>
+	var current_user_id;
 	jQuery(document).ready(function() {
+		$("a[id^='btnPermission']").on('click',function(){
+			$("#modalPermission").modal('show');
+			current_user_id = $(this).attr("user-id");
+		});
+		$('#modalPermission').on('shown.bs.modal', function (e) {
+			fillModule("3");
+		});
+		$('#savePermission').on('click',function(){
+			
+			var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+			alert(JSON.stringify(treeObj.getNodesByParam("type", "P", null)));
+		});
 		jQuery(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 		
 		$('#usertable').dataTable({
-			"sPaginationType" : "full_numbers"
+			"sPaginationType" : "full_numbers",
+			"aoColumnDefs": [{"bSortable": false,"aTargets": [-1,-2]}],
 		});
 		// Chosen Select
 		$("select").chosen({
@@ -175,5 +234,64 @@
 		//set
 		clickRow(user_id,user_name,email,user_first_name,user_last_name);
 	});
+	
+	function fillModule(app_id,call_back)
+	{
+		//show loading
+		$.fn.loading.show();
+		var csrftoken = $.cookie('csrftoken');
+		var url = "{% url 'ajax-user-permission' user_id='p_user_id' %}".replace("p_user_id", current_user_id);
+		var posting = $.post("{% url 'ajax-user-permission' user_id='p_user_id' %}".replace("p_user_id", current_user_id), {
+			'csrfmiddlewaretoken' : csrftoken,
+			'app_id' : app_id,
+		});
+		//posting
+		posting.done(function(data) 
+		{
+			var zNodes = data.modules;
+			var setting = {
+				check: {
+					enable: true
+				},
+				view: {
+					selectedMulti: false,
+					showLine: false,
+				},
+				edit: {
+					enable: false,
+				},
+				data : {
+					key : {
+						url: "",
+					},
+					simpleData : {
+						enable : true,
+						idKey: 'id',
+						pIdKey: 'parent_id',
+						rootPId: null,
+					}
+				},
+				callback: {
+					onClick: onClick
+				}
+			};
+			var tree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			//select default node
+			if(tree.getNodes().length>0)
+			{
+				tree.selectNode(tree.getNodes()[0]);
+			}
+			//hide loading
+			$.fn.loading.hide();
+			//call back
+			if(typeof call_back !== 'undefined')
+				call_back.call(this,data);
+		});
+	}
+	
+	function onClick(e,treeId, treeNode) {
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		zTree.expandNode(treeNode);
+	}
 </script>
 {% endblock scripts%}

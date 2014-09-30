@@ -148,9 +148,17 @@
 <script src="/js/chosen.jquery.min.js"></script>
 
 <script src="/js/custom.js"></script>
-<script>
-	jQuery(document).ready(function() {
 
+<script src="/js/message.js"></script>
+<script>
+	jQuery(document).ready(function() 
+	{
+		message =  $.message.confirm("This is confirm message!");
+		message.on('message.close',function(){
+		});
+		
+		message.on('message.confirm',function(){
+		});
 	});
 </script>
 {% endblock scripts%}
