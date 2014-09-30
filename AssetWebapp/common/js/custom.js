@@ -5,7 +5,7 @@ jQuery(window).load(function() {
    jQuery('#status').fadeOut();
    jQuery('#preloader').delay(350).fadeOut(function(){
 	   jQuery('#preloader').remove();
-      jQuery('body').delay(350).css({'overflow':'hidden'});
+      jQuery('body').delay(350).css({'overflow':'auto'});
    });
 });
 
