@@ -1,0 +1,122 @@
+I. Lỗi chung:
+- scroll bar
+- các chức năng đang sử dụng chosen-select: validate
+- chosen-select: xử lý trường hợp người dùng nhập vào ký tự trắng - only space;
+- Các chức năng sử dụng table: Nếu chưa có dữ liệu; Hiện tại show thông báo: "No data available in table" => Sửa thành: "Bảng không có dữ liệu";
+- validate cho text-area trên tất cả các form;
+- Dữ liệu hiện load lên chưa theo phân quyền truy cập??????
+- Các form nên bỏ phần header màu xanh xanh đi; chuyển title của form lên thanh menu trên cùng; Title set động theo từng chức năng;
+II. Chức năng:
+1. Tăng tài sản:
+- Trường nguyên giá không cho nhập giá trị âm <0;
+- Trường giá trị còn lại không cho nhập giá trị âm <0;
+- Trường model chưa bắt max-lenght;
+- Công suất không được nhập giá trị âm <0;
+- Số quyết định chưa bắt max-lenght;
+- Validate trường số lượng: Hiện tại đang nhập được xâu ---- => Dạng số
+- Trường seri chưa bắt max-lenght;
+- Trường ghi chú chưa xử lý trường hợp đầu vào là ký tự đặc biệt như space, enter...
+- Trường ghi chú chưa bắt max-lenght;
+- Khi thực hiện, nếu các trường chosen-select chưa chọn thì package luôn trả về lỗi là chưa chọn lý do; Đúng thì chưa chọn trường nào thì báo lỗi trường đó;
+- 	Lỗi mới ngày 1/10/2014:
+	+ Chọn bộ phận, chọn kho: Thông tin hiện ra kho sai
+	+ Tab hoặc Shift+Tab vào ô số lượng màn hình bị nhảy;
+	
+2. Giảm tài sản:
+
+- Không chọn 1 trong các trường chosen-select => lỗi bắn ra: slStock?
+- Trường ghi chú cho thêm label;
+- Trường ghi chú chưa bắt max-lenght;
+- Nhập các thông tin đầy đủ, bấm thực hiện lỗi bắn ra lý do không tồn tại????????
+
+3. Gộp/Tách tài sản: 
+- Co button thực hiện lên cao 1 chút nữa;
+- Không chọn tài sản gốc: Show message: "Bạn phải chọn một tài sản nhóm" 
+	=> Sửa thành : Phải chọn tài sản gốc!
+	=> Chuyển vị trí hiển thị lên phía dưới control (Giống các control khác như text box.v.v.)
+- Cho label vào các control;
+- Chọn tài sản gốc và tài sản con giống nhau bắn ra lỗi: join_release_asset: ORA-01722: invalid number-ORA-06512: at "ASSET.PCK_ASSET", line 452 <br/>
+- Chọn tài sản gốc là: 11111-MPĐ-Hòa Phát; sau đó chọn tài sản con: 11111-MPĐ-Hòa Phát => Bắn ra lỗi: join_release_asset: Ma the TS con khong ton tai<br/>
+- Form tách/ gộp tài sản nên thiết kế lại loayout và logic:
+	+ Khi chọn 1 tài sản gốc: Nên hiển thị các tài sản con hiện tại của tài sản đó
+	+ Sau đó có thể thêm các tài sản con khác vào list đó hoặc
+	+ Bớt/Tách tài sản khỏi list danh sách hiện tại;
+	+ Sau cùng bấm lưu thì mới gọi package xử lý nghiệp vụ;
+- Nghiệp vụ chưa check tài sản theo phân quyền truy cập theo kho:
+	+ Muốn gộp tài sản thì nguyên tắc tài sản phải cùng kho; thuộc quyền quản lý của user đăng nhập; 
+	Nếu user đăng nhập có quyền truy cập nhiều kho: 
+		(-) Khi Gộp TS: cần chuyển tài sản về cùng kho sau đó mới nhập;
+		(-) Tách TS: Tự động tách thành cùng 1 kho; sau đó chọn kho để điều chuyển (Nếu cần)
+- Sau khi tách/gộp tài sản nên cho người dùng xem lại hiện trạng tài sản ở mức tổng thể; hoặc riêng lẻ từng tài sản; 
+hoặc cho kết xuất báo cáo tổng hợp/chi tiết hiện trạng tài sản ngay trên form này; Đồng thời nên có link đến trang thể hiện thông tin chi tiết về tài sản;
+- Form tách tài sản: 
+	Nếu Table không có dữ liệu nên disable nút thực hiện để tránh phải bắt lỗi các trường hợp khác; 
+4. Tính khấu hao:
+- Nhập tháng tính khấu hao; Nhập Số thẻ tài sản linh tinh vào: Vẫn thông báo tính khấu hao thành công;
+- Trường serial chuyển thành dạng chosen-select; load dữ liệu từ kho theo phân quyền truy nhập;
+- Chỉ nhập tháng tính khấu hao; bỏ trống serial; bấm thực hiện: thấy show ra thông báo: " Phương pháp tính không tồn tại"
+- Format table: 
+	+ Trường số tiền chưa format kiểu số;
+	+ Ô check box nên căn giữa;
+	+ Trạng thái: Đã tính, chưa tính .v.v. nên căn
+	+ Nên hiển thị tên tài sản;
+	+ Cho bé lại độ rộng ô trạng thái & Phương pháp tính;
+	+ Nên cho link vào trường mã tài sản và chuyển đến trang thông tin tài sản chi tiết/ tổng hợp; Hoặc có thể sử dụng mouse_over để hiện thị thêm thông tin từng TS
+- Form này nên layout lại vì sau khi tính, nut duyệt bị kéo xuống dưới;
+5. Thiết kế lại chức năng kiểm kê => Nhập kết quả kiểm kê;	
+- Chức năng này nên thiết kế dạng Panel phía bên trái thể hiện danh sách đi kiểm kê; Panel phía bên phải thể hiện thông tin chi tiết để cập nhật KQ KK;
+- Chức năng cũng nên bao gồm thêm các điều kiện filter để người kiểm kê thực hiện dễ dàng hơn;
+6. Chức năng tra cứu thông tin tài sản:
+- Nên update lại để làm động các trường điều kiện filter; (cái này đã mô tả cho diễn)
+- Layout lại: 
+7. Đánh giá lại tài sản:
+- Nên tách thêm chức năng đánh giá lại nhiều tài sản;
+Layout lại bao gồm: 
+	- Top Filter condition 
+	- panel left: result Data
+	- panel right: data to be updated
+8. 	Điều chuyển tài sản:
+9. Menu left:
+- Báo cáo tài sản theo dự án; Sửa thành: BCTS Theo dự án
+- Toàn bộ menu quản lý / Phòng ban => Sửa thành viết hoa hết cho giống các menu khác;
+- Sắp xếp lại thứ tự menu: Để menu có ít ký tự lên trên; nhiều ký tự xuống dưới; 
+VD: 
+- Chức năng:
+	+ Tách tài sản
+	+ Gộp tài sản
+	+ Kiểm kê tài sản
+	+ Nâng cấp tài sản
+	+ Khấu hao tài sản
+	+ Đánh giá lại tài sản
+	+ ....................
+- Danh mục:
+	+ Lý do
+	+ Dự án
+	+ Loại tái sản
+	+ Nhà cung cấp
+	+ Nước sản xuất
+	+ ..............
+	+ .................
+	+ .................
+10. Chức năng thay đổi mật khẩu:
+- Khi nhập lại mật khẩu; 2 trường nhập lại không giống nhau=> hiện thông báo: "Hai trường mật khẩu không giống nhau"
+	=> Sửa thông báo thành: "Mật khẩu mới và Nhập lại mật khẩu không giống nhau"
+- Sửa thông báo: Trường này là bắt buộc => Không được để trống;
+- Sửa thông báo: Mật khẩu cũ không chính xác. Hãy nhập lại lần nữa => Mật khẩu cũ không chính xác!
+11. Menu: Trợ giúp đang không link tới đâu; Nếu có thông tin thì để lại, không thì bỏ đi;
+12. Login:
+- Chức năng Quên mật khẩu chưa có; => Nếu có thì thêm vào; không thì bỏ link này đi;
+- View trên smartphone, tablet: Ảnh bị to quá => Chỉnh lại css để cho hiển thị phù hợp;
+13. Thêm tài khoản người dùng:
+- Trường họ & tên đệm ; Trường tên;email; mật khẩu; nhập lại mật khẩu;tài khoản: Chưa bắt max-lenght;
+- Nhập user đã có trong hệ thống; bắn ra lỗi oracle: unique constraint; 
+	=>Sửa code để verify và nếu trùng đưa thông báo: Không được nhập vào tài khoản trùng với tài khoản đã tồn tại trên hệ thống;
+- Trường email chưa validate kiểu giữ liệu nhập vào là email; nhập linh tinh vẫn được;
+- Bỏ chọn tất cả các check trên phân quyền vẫn insert dữ liệu bình thường; => Khi thêm người dùng, ít nhất phải chọn 1 quyền nào đấy;
+- Dịch nốt mấy câu tiếng anh thành tiếng việt; vd:
+	+ Can add module permission
+	+ Can change module permission
+	+ ...
+14. Danh mục phòng ban:
+- Thêm text seach cho cây dữ liệu
+

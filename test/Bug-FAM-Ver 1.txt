@@ -1,0 +1,46 @@
+I. Lỗi chung:
+1. bắt max-lenght cho text area: Description
+2. Lỗi chính tả trên form
+3. Form Validate cho các trường sử dụng chosen-select
+- Các chức năng của Vinh làm review lại giao diện cho giống mọi người. 
+- Layout lại các control để trên một màn hình, không nên để người dùng phải kéo xuống phía dưới mới bấm được nút thực hiện (VD: Form Tách, gộp tài sản)
+4. Menu Left/ Tài khoản - Phòng ban sửa thành CẤU HÌNH (Viết hoa):
+- Bỏ menu setting chuyển các menu con của setting xuống menu cấu hình
+- MenuLeft bỏ toàn bộ phần Trạng thái hệ thống, mấy cái biểu đồ (chart) bên dưới
+5. Review lại toàn bộ chức năng có sử dụng table:
+- Header table viết hoa, căng giữa
+- Re-szie lại động rộng của column cho phù hợp .. hiện tại độ rộng chưa chuẩn, bên thừa bên thiếu dẫn đến form bị vỡ, hoặc bị wrap text;
+6. CHỨC NĂNG: Cập nhật tài khoản người dùng
+- dịch mấy câu tiếng anh -> VN
+- Phòng ban: check box + chữ B không hiểu dùng làm
+- Admin không cập nhật được mật khẩu người dùng; Ô text đang bị disable;
+7. CHỨC NĂNG: QUẢN LÝ TÀI KHOẢN HỆ THỐNG:
+- Chỉnh lại header table;
+- Chưa format date ngày tạo;
+- Bấm vào nút xóa, hiện thông báo: " Xóa bản ghi ? " =>
+ Sửa thành: "Lưu ý: Xóa người dùng khỏi hệ thống, đồng thời sẽ xóa tất cả các quyền truy nhập đến các chức năng, 
+ dữ liệu lịch sử truy cập hệ thống. Bạn có muốn tiếp tục không (Có/Không)? "
+- Sửa lable của 2 nút: Xóa/Đóng => Có/Không
+8. CHỨC NĂNG DANH SÁCH NHÓM QUYỀN:
+- Sửa lại table header
+- Sửa lại giao diện giống template các chức năng khác tile form, header, size.v.v.(vd: giống form: Quản lý tài khoản hệ thống)
+- Title "Tên phòng ban" => Tên nhóm quyền
+- Không biết thêm nhóm quyền như thế nào: VD: Thêm nhóm quản trị, Nhóm chức năng, Nhóm báo cáo .v.v.
+9. Các danh mục nói chung hiện chưa hoạt động
+10. Danh mục lý do:
+- Cập nhật lý do: Không thay đổi được tên lý do;
+- Bấm nút xóa không có tác dụng;
+11. CHỨC NĂNG: Quên mật khẩu chưa có;
+
+1
+-	1.1
+	-	1.1.1
+	-	1.1.2
+-	1.2
+-	1.3
+	-	1.3.1
+	-	1.3.2
+		-	1.3.2.1
+
+
+
