@@ -4,7 +4,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	EditIncrementAsset, ViewAsset, UpgradeAsset, DecrementAsset, VerifyAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error\
-	,Goal,AssetVolatility,ListCountry,App,BarCode,PrintAsset
+	,Goal,AssetVolatility,ListCountry,App,BarCode,PrintAsset,ReleaseAsset
 
 
 urlpatterns = patterns('',
@@ -87,7 +87,7 @@ urlpatterns = patterns('',
     url(r'^reason/delete/(?P<reason_id>\w+)/$', Reason.delete_reason, name='delete-reason'),
     url(r'^reason/(?P<reason_id>\w+)/$', Reason.change_reason, name='change-reason'),
     #Join-Release_asset
-    url(r'^release-asset/$', JoinReleaseAsset.release_asset, name='release_asset'),
+    url(r'^release-asset/$', ReleaseAsset.index, name='release_asset'),
     url(r'^join-asset/$', JoinReleaseAsset.join_asset, name='join-asset'),
     url(r'^get-child-asset/(?P<asset_parent_id>\w+)/$', JoinReleaseAsset.load_child_asset, name='get-child-asset'),
     url(r'^amortize-asset/$', AmortizeAsset.index, name='amortize-asset'),

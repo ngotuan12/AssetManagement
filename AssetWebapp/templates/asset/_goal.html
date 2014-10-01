@@ -1,0 +1,288 @@
+{% extends "base.html" %} 
+{% block styles %}
+<link href="/css/increment-asset.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<style>
+.ztree {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	height: 520px;
+	overflow-y: scroll;
+	overflow-x: auto;
+}
+
+.ztree li span.button.add {
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle
+}
+</style>
+{% endblock %}
+{% load i18n %}
+{% block content %}
+<div class="contentpanel no-padding">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title"
+				style="text-align: center; line-height: 10px">{% trans 'TÁCH TÀI SẢN' %}</h4>
+		</div>
+		<div class="panel-body" style="padding: 0 10px;">
+			<div class="row row-pad-0">
+				<div class="col-md-5" style="padding-top: 10px;">
+					<div class="col-md-12" style="BORDER-RIGHT: #999999 1px dashed;">
+						<label>{% trans 'TÌM KIẾM' %}</label> <input type="text"
+							id = "txtSearch" placeholder="{% trans 'Tìm ..' %}"
+							class="form-control" oninput="onChangeTree();">
+					</div>
+					<div class="col-md-12" style="BORDER-RIGHT: #999999 1px dashed;">
+							<ul id="treeGoal" class="ztree"></ul>
+					</div>
+				</div>
+				<div class="col-md-7" style="padding-top: 10px;padding-left: 0px;">
+					{% if has_error %}
+						<div class="col-sm panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+							<div class="col-lg">
+								<label>{% trans 'DANH SÁCH TÀI SẢN MUỐN TÁCH' %}</label>
+							</div>
+							<div class="col-lg">
+								<div class="table-responsive">
+									<table class="table table-bordered" id="assetTable">
+										<thead>
+											<tr>
+												<th style="width: 15%;">{% trans 'MÃ TÀI SẢN' %} </th>
+												<th style="width: 20%;">{% trans 'TÊN TÀI SẢN' %} </th>
+												<th style="width: 1%;">{% trans 'XÓA' %}</th>
+											</tr>
+										</thead>
+										<tbody id="assetTbody">
+										</tbody>
+									</table>
+								</div>
+							</div>
+						
+						<div class="col-lg">
+							<div class="col-sm">
+								<button class="btn btn-primary" onclick="return onSubmit();" style="float: right;">{% trans 'Thực hiện' %}</button>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<form class="form-horizontal form-bordered" method="post" id="release-asset" style="display: none;">
+	{% csrf_token %}
+	<input type="text" name="txtListSerial" id="txtListSerial" value="1,2,3">
+</form>
+<form method="post" id="formDepartment">
+	{% csrf_token %}
+	<input type="hidden" id= "txtID" name="txtID"/>
+</form>
+<div id="dialog-confirm" title="Xoá mục đích sủ dụng">
+	
+	<p>
+		Bạn thực sự muốn xoá đích sủ dụng ?
+	</p>
+</div>
+<!-- contentpanel -->
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script type="text/javascript" src="/tree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.exedit-3.5.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js" ></script> 
+<script src="/js/jquery.confirm.js"></script>
+
+<script src="/js/custom.js"></script>
+
+<script>
+jQuery(document).ready(function() {
+	var zNodes = {{ data|safe }};
+	var setting = {
+		treeId: "treeGoal",
+		view: {
+			//addHoverDom: addHoverDom,
+			removeHoverDom: removeHoverDom,
+			selectedMulti: false,
+			fontCss: getFontCss,
+		},
+		edit: {
+			enable: false,
+			editNameSelectAll: true,
+			showRemoveBtn: showBtn,
+			showRenameBtn: showBtn,
+		},
+		callback: {
+			beforeDrag: beforeDrag,
+			beforeEditName: beforeEditName,
+			//beforeRemove: beforeRemove,
+			onClick: onClick,
+			onCheck:onCheck,
+		},
+		data : {
+			simpleData : {
+				enable : true,
+				idKey: 'id',
+				pIdKey: 'parent_id',
+				rootPId: null,
+			},
+		},
+		check:{
+			autoCheckTrigger: true,
+			enable: true,
+			chkboxType: { "Y": "s", "N": "s" },
+			nocheckInherit: false,
+		}
+	};
+	var tree = $.fn.zTree.init($("#treeGoal"), setting, zNodes);
+	tree.selectNode(tree.getNodes()[0]);
+	fillData(tree.getNodes()[0]);
+	$("#dialog-confirm" ).dialog({
+		autoOpen: false, 
+		resizable: true,
+		height:200,
+		width: 500,
+		modal: true,
+		buttons: {
+			"Có": function() {
+				$("#formDepartment").submit();
+			},
+			"Không": function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});
+	var treeObj = $.fn.zTree.getZTreeObj("treeGoal");
+	var nodes = treeObj.getCheckedNodes(false);
+	for (var i=0, l=nodes.length; i < l; i++) {
+		if(!nodes[i].icon)
+			treeObj.setChkDisabled(nodes[i], true);
+	}
+});
+var lastValue = "", nodeList = [], fontCss = {};
+var newCount = 1;
+function addHoverDom(treeId, treeNode) 
+{
+	var sObj = $("#" + treeNode.tId + "_span");
+	if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+	var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+		+ "' title='add node' onfocus='this.blur();'></span>";
+	sObj.after(addStr);
+	var btn = $("#addBtn_"+treeNode.tId);
+	if (btn) btn.bind("click", function()
+	{
+		window.location.href  = "/goal/add/"+treeNode.id+"/";
+	}); 
+};
+
+function removeHoverDom(treeId, treeNode) {
+	$("#addBtn_"+treeNode.tId).unbind().remove();
+};
+function showBtn(treeId, treeNode) {
+	return treeNode.parent_id !=null;
+}
+function beforeDrag(treeId, treeNodes) {
+	return false;
+}
+function onCheck(event, treeId, treeNode, clickFlag)
+{
+	var newRow = $('<tr serial_id="'+treeNode.id+'"><td serial="'+treeNode.serial+'">'+treeNode.serial+'</td><td>'+treeNode.name+'</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('+"'" +treeNode.id+"'" +');"><i class="fa fa-trash-o"></i></a></td></tr>');
+	var tr= $("#assetTbody tr[serial_id][serial_id ='"+treeNode.id+"']");
+	if($("#assetTbody tr[serial_id][serial_id ='"+treeNode.id+"']").size() == 0)
+		$("#assetTbody").append(newRow);
+	else
+		tr.remove();
+}
+function onClick(event, treeId, treeNode, clickFlag) {
+	fillData(treeNode);
+	/* var treeObj = $.fn.zTree.getZTreeObj("treeGoal");
+	var nodes = treeObj.getCheckedNodes(true);
+	alert("Checked :"+nodes.length);
+	for (var i=0, l=nodes.length; i < l; i++) {
+		alert(nodes[i].name);
+	} */
+
+}
+function onSubmit()
+{
+	var temp ="";
+	$("#assetTbody tr[serial_id]").each(function()
+	{
+		temp += $(this).attr('serial_id')+",";
+	});
+	temp = temp.substr(0,temp.length-1);
+	$("#txtListSerial").val(temp);
+	alert($("#txtListSerial").val());
+	$("#release-asset").submit();
+}
+function Remove(serial_id)
+{
+	var tr= $("#assetTbody tr[serial_id][serial_id ='"+serial_id+"']");
+	tr.remove();
+}
+function getFontCss(treeId, treeNode) {
+	return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+}
+function onChangeTree()
+{
+	var zTree = $.fn.zTree.getZTreeObj("treeGoal");
+		var value = $("#txtSearch").val();
+		var keyType = "name";
+		if (lastValue === value) return;
+		lastValue = value;
+		if (value === "") return;
+		updateNodes(false);
+		nodeList = zTree.getNodesByParamFuzzy(keyType, value,null);
+		updateNodes(true);
+}
+function updateNodes(highlight) {
+	var zTree = $.fn.zTree.getZTreeObj("treeGoal");
+	for( var i=0, l=nodeList.length; i<l; i++) {
+		nodeList[i].highlight = highlight;
+		zTree.updateNode(nodeList[i]);
+	}
+}
+function fillData(treeNode)
+{
+	$("#txtParentName").val(treeNode.parent_name);
+	$("#txtName").val(treeNode.name);
+	$("#txtCode").val(treeNode.code);
+	$("#txtDescription").val(treeNode.description);
+	if(treeNode.status==='0')
+		$("#ckStatus").attr('checked', false);
+	else if(treeNode.status==='1')
+		$("#ckStatus").attr('checked', 'checked');
+	$("#txtCreateDate").html(treeNode.create_date);
+	$("#txtUserName").html(treeNode.user_name);
+}
+function beforeEditName(treeId, treeNode) {
+	window.location.href  = "/goal/edit/"+treeNode.id+"/";
+	return false;
+}
+function beforeRemove(treeId, treeNode) {
+	$("#txtID").val(treeNode.id);
+	$("#formDepartment").attr("action","/goal/delete/"+treeNode.id+"/");
+	$("#dialog-confirm" ).html("<p> Bạn thực sự muốn xoá <strong >"+treeNode.name+ " </strong>(Y/N)?</p>");
+	$("#dialog-confirm" ).dialog('open');
+	return false;
+}
+</script>
+{% endblock scripts%}
