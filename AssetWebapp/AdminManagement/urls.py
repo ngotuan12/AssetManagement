@@ -26,7 +26,7 @@ urlpatterns = patterns('',
 	url(r'^user/delete/(?P<user_id>\w+)/$', User.delete_user, name='delete-user'),
 	url(r'^user/(?P<user_id>\w+)/$', User.change_user, name='change-user'),
 	# Group
-	url(r'^group/$', Group.view_group, name='user'),
+	url(r'^group/$', Group.view_group, name='group'),
 	url(r'^group/add/$', Group.add_group, name='add-group'),
 	url(r'^group/delete/(?P<group_id>\w+)/$', Group.delete_group, name='delete-group'),
 	url(r'^group/(?P<group_id>\w+)/$', Group.change_group, name='change-group'),
@@ -43,6 +43,7 @@ urlpatterns = patterns('',
 	url(r'^ajax-app-infor/$', Ajax.ajax_app_infor, name='ajax-app-infor'),
 	url(r'^ajax-app-module/$', Ajax.ajax_app_module, name='ajax-app-module'),
 	url(r'^ajax-user-permission/(?P<user_id>\w+)$', Ajax.ajax_user_permission, name='ajax-user-permission'),
+	url(r'^ajax-save-user-permission/(?P<user_id>\w+)$', Ajax.ajax_save_user_permission, name='ajax-save-user-permission'),
 	#login
 	url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'admin/signin.html'}, name='login'),
 	#logout

@@ -8,7 +8,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 
 
 urlpatterns = patterns('',
-    url(r'^home/$', Home.index),
+    url(r'^home/$', Home.index,name = 'home'),
     url(r'^$', Home.index),
     url(r'^invoice/$', Home.invoice),
     url(r'^tree/$', Home.tree),

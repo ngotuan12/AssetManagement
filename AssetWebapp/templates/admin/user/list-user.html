@@ -6,9 +6,7 @@
 <link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 <style>
 .ztree {
-	border: 1px solid #617775;
-	background: #f0f6e4;
-	height: 400px;
+	height: 370px;
 	overflow-y: scroll;
 	overflow-x: auto;
 }
@@ -19,21 +17,44 @@
 <div class="modal fade" id="modalPermission" tabindex="-1" role="dialog"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg-4">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">×</button>
-				<h4 class="modal-title" id="myModalLabel">{% trans 'Phân quyền tài khoản' %}</h4>
-			</div>
-			
+		<div class="modal-content" style="background-color: #e4e7ea;">
 			<div class="modal-body">
-				{% trans 'Danh sách quyền hệ thống' %}
-				<ul id="treePermission" class="ztree"></ul>
+				<div class="profile-header" style="margin-bottom: 0">
+					<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+					<h2 class="profile-name">{% trans 'Phân quyền tài khoản' %}</h2>
+					<div class="profile-location">
+						<i class="fa fa-map-marker"></i> San Francisco, California, USA
+					</div>
+					<div class="profile-position">
+						<i class="fa fa-briefcase"></i> Software Engineer at <a href="#">SomeCompany,
+							Inc.</a>
+					</div>
+					<div class="mb20"></div>
+					
+				</div>
+				
+				<ul id="ul-app" class="nav nav-tabs nav-justified" >
+					<li class="active"><a href="#admin" data-toggle="tab"><strong>Admin</strong></a></li>
+					<li class=""><a href="#asset" data-toggle="tab"><strong>Asset</strong></a></li>
+				</ul>
+				
+				<div id="tab-content" class = "tab-content" style="padding: 5px 0 0 0;">
+					<div class = "tab-pane active" id="admin">
+						<ul id="treePermission" class="ztree"></ul>
+					</div>
+					<div class = "tab-pane" id="asset">
+					</div>
+				</div>
 			</div>
-			
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="savePermission">{% trans 'Lưu' %}</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">{% trans 'Đóng' %}</button>
+
+			<div class="col-sm col-sm-offset-4" style="padding-bottom: 5px;">
+				<button class="btn btn-success mr5" id="savePermission">
+					<i class="fa fa-user"></i> {% trans 'Thực hiện' %}
+				</button>
+				<button class="btn btn-white" data-dismiss="modal">
+					<i class="fa fa-envelope-o"></i> {% trans 'Thoát' %}
+				</button>
 			</div>
 		</div>
 	</div>
@@ -149,14 +170,47 @@
 <script src="/js/message.js"></script>
 <script src="/js/api.js"></script>
 <script>
-	jQuery(document).ready(function() {
+	var trees;
+	var current_user_id = "";
+	jQuery(document).ready(function() 
+	{
 		$("a[id^='btnPermission']").on('click',function(){
-			fillModule("3",$(this).attr("user-id"));
+			current_user_id = $(this).attr("user-id");
+			loadData($(this).attr("user-id"));
 		});
 		$('#savePermission').on('click',function(){
+			var permissions = [];
+			for(var j=0; j<trees.length;j++)
+			{
+				var treeObj = trees[j];
+				var node_perrmissions = treeObj.getNodesByParam("type", "P", null);
+				
+				
+				
+				for(var i=0;i<node_perrmissions.length;i++)
+				{
+					if(node_perrmissions[i].checked)
+					{
+						permissions.push(node_perrmissions[i].permission_id);
+					}
+				}
+			}
+			var url = "{% url 'ajax-save-user-permission' user_id='p_user_id' %}".replace("p_user_id", current_user_id);
 			
-			var treeObj = $.fn.zTree.getZTreeObj("treePermission");
-			alert(JSON.stringify(treeObj.getNodesByParam("type", "P", null)));
+			var params = {'csrfmiddlewaretoken' : $.cookie('csrftoken'),'permissions' : JSON.stringify(permissions),};
+			
+			$.api({
+				url:url,
+				params:params,
+				success: function(data){
+					$.message.notification("{% trans 'Cập nhật thành công' %}");
+					$("#modalPermission").delay(1000).modal('hide');
+				},
+				error: function(data){
+					$.message.notice_error(data.message);
+				},
+			});
+			
 		});
 		jQuery(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 		
@@ -228,30 +282,35 @@
 	* Call api load user permission
 	* 
 	*/
-	function fillModule(app_id,user_id)
+	function loadData(user_id)
 	{
 		//show loading
 		var csrftoken = $.cookie('csrftoken');
 		var url = "{% url 'ajax-user-permission' user_id='p_user_id' %}".replace("p_user_id", user_id);
-		var params = {'csrfmiddlewaretoken' : csrftoken,'app_id' : app_id,};
+		var params = {'csrfmiddlewaretoken' : csrftoken,};
 		$.api({
 			url: url,
 			params: params,
 			success: function(data)
 			{
-				initTree(data);
+				apps = data.apps;
+				modules = data.modules;
+				//initTree(data);
+				init(data)
 			},
 			error: function(data)
 			{
-				$.message.notice_error("{% trans 'Không thể lấy dữ liệu của user!'%}");
+				if(data.message === "error" )
+					$.message.notice_error("{% trans 'Không thể lấy dữ liệu của user!'%}");
+				else
+					$.message.notice_error(data.message);
 			}
 		})
 	}
 	
-	function initTree(data)
+	function init(data)
 	{
 		var setting = {
-				treeId: "treePermission",
 				check: {
 					enable: true
 				},
@@ -277,20 +336,55 @@
 					onClick: onClick
 				}
 			};
-		var zNodes = data.modules;
-		
-		var tree = $.fn.zTree.init($("#treePermission"), setting, zNodes);
-		//select default node
-		if(tree.getNodes().length>0)
+		//profile
+		$('.profile-location').empty().append('<i class="fa fa-map-marker"></i>' + data.user.first_name + data.user.last_name);
+			
+		$('.profile-position').empty().append('<i class="fa fa-briefcase"></i>' + data.user.username)
+		var apps = data.apps;
+		//ul app
+		var ul_app = $('#ul-app');
+		ul_app.empty();
+		//tab content
+		var tab_content = $('#tab-content');
+		tab_content.empty();
+		//trees
+		trees = [];
+		//
+		for(var i=0; i < apps.length;i++)
 		{
-			tree.selectNode(tree.getNodes()[0]);
+			var app = $('<li class=""><a href="#'+ apps[i].fields.code +'" data-toggle="tab"><strong>'+ apps[i].fields.name +'</strong></a></li>');
+			ul_app.append(app);
+			var tab = $('<div class = "tab-pane" id="'+ apps[i].fields.code +'"> </div>');
+			var ul_tree = $('<ul id="tree_'+ apps[i].pk +'" class="ztree"></ul>');
+			tab.append(ul_tree);
+			tab_content.append(tab);
+			var zNodes = data.modules.filter(function(e){
+				return e.app_id ===  apps[i].pk;
+			});
+			
+			setting.treeId = 'tree_'+ apps[i].pk;
+			
+			var tree = $.fn.zTree.init(ul_tree, setting, zNodes);
+			//select default node
+			if(tree.getNodes().length>0)
+			{
+				tree.selectNode(tree.getNodes()[0]);
+			}
+			trees.push(tree);
+			
+			
 		}
+		
+		$("#ul-app li:first-child").addClass("active");
+		$("#tab-content .tab-pane:first-child").addClass("active");
+		
 		//show modal
 		$("#modalPermission").modal('show');
 	}
 	
-	function onClick(e,treeId, treeNode) {
-		var zTree = $.fn.zTree.getZTreeObj("treePermission");
+	function onClick(e,treeId, treeNode) 
+	{
+		var zTree = $.fn.zTree.getZTreeObj(treeId);
 		zTree.expandNode(treeNode);
 	}
 </script>

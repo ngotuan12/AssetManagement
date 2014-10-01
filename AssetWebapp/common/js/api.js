@@ -30,7 +30,7 @@
 		$.fn.loading.show();
 		if(typeof options.url ==='undefined')
 		{
-			options.error.call(this,{error:'Function must define'});
+			options.error.call(this,{message:'url must be define'});
 			return;
 		}
 		
@@ -41,18 +41,18 @@
 		
 		posting.done(function(data) 
 		{
-			if(typeof data.error === 'undefined')
+			if(data.handle === 'success')
 				options.success.call(this,data);
+			else if(data.handle === 'error')
+				options.error.call(this,data);
 			else
-			{
-				options.error.call(this,{error:data.error});
-			}
+				options.error.call(this,{'handle':'error','message':'unknown response!'});
 			$.fn.loading.hide();
 		});
 		
 		posting.fail(function(jqXHR, textStatus)
 		{
-			options.error.call(this,{error:textStatus});
+			options.error.call(this,{"handle":"error","message":textStatus});
 			$.fn.loading.hide();
 		});
 	};

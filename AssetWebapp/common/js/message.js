@@ -31,7 +31,7 @@
 						'position' : 'absolute',
 						'left': '35%',
 						'top': '30%',
-						'z-index': '1000',
+						'z-index': '10000',
 						'width' :'30%',
 				};
 			options.type = 'error';
@@ -55,7 +55,7 @@
 						'position' : 'absolute',
 						'left': '35%',
 						'top': '30%',
-						'z-index': '1000',
+						'z-index': '10000',
 						'width' :'30%',
 				};
 			options.type = 'warning';
@@ -79,7 +79,7 @@
 						'position' : 'absolute',
 						'left': '35%',
 						'top': '30%',
-						'z-index': '1000',
+						'z-index': '10000',
 						'width' :'30%',
 				};
 			options.type = 'success';
@@ -110,7 +110,7 @@
 			if(position === 'top')
 				options.css = {
 						'position' : 'absolute',
-						'z-index': '1000',
+						'z-index': '10000',
 						'width' :'100%',
 						'top':0,
 						'text-align': 'center',
@@ -143,7 +143,7 @@
 			if(position === 'top')
 				options.css = {
 						'position' : 'absolute',
-						'z-index': '1000',
+						'z-index': '10000',
 						'width' :'100%',
 						'top':0,
 						'text-align': 'center',
@@ -167,7 +167,7 @@
 						'position' : 'absolute',
 						'left': '35%',
 						'top': '30%',
-						'z-index': '1000',
+						'z-index': '10000',
 						'width' :'30%',
 				};
 			options.type = 'confirm';
@@ -224,7 +224,7 @@
 				'position' : 'absolute',
 				'left': '40%',
 				'top': '40%',
-				'z-index': '1000',
+				'z-index': '10000',
 				'width' :'20%',
 			};
 			if(typeof options.css !=='undefined')
@@ -253,7 +253,7 @@
 					height : '100%',
 					display : 'block',
 					opacity : opacity,
-					zIndex : 999,
+					zIndex : 9999,
 					backgroundColor : '#000'
 				});
 				

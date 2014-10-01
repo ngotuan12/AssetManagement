@@ -63,10 +63,10 @@ def index(request):
 				module_type = _(u"Cha")
 				icon = '/images/module/home.png'
 			elif module.type == "G":
-				module_type = _(u"Nhóm module")
+				module_type = _(u"Nhóm chức năng")
 				icon = '/images/module/group.png'
 			elif module.type == "M":
-				module_type = _(u"Module")
+				module_type = _(u"Chức năng")
 				icon = '/images/module/module.png'
 			elif module.type == "P":
 				module_type = _(u"Quyền hạn")
@@ -108,9 +108,9 @@ def on_add_module(request,module_type,parent_id):
 		# title
 		title = ""
 		if module_type=="G":
-			title = _(u"THÊM NHÓM MODULE")
+			title = _(u"THÊM NHÓM CHỨC NĂNG")
 		elif module_type=="M":
-			title = _(u"THÊM MODULE")
+			title = _(u"THÊM CHỨC NĂNG")
 		elif module_type=="P":
 			title = _(u"THÊM QUYỀN")
 		context.update({'title':title})
