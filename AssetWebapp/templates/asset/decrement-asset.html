@@ -78,12 +78,13 @@
 								<div class="col-lg-6">
 									<label>{% trans 'Lý do giảm..' %}</label>
 									<select id="slReason" name="slReason"class="form-control chosen-select"
-										data-placeholder="{% trans 'Lý do giảm..' %}" style="display: ;">
+										data-placeholder="{% trans 'Lý do giảm..' %}" required="required">
 										<option value=""></option>
 										{% for reason in reasons%}
 											<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
 										{% endfor %}
 									</select>
+									<label for="slReason" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 								
 								<div class="col-lg-6">
@@ -173,6 +174,10 @@ $(document).ready(function(){
 		$("#original-amount").val(original);
 		$("#remain-amount").val(remain);
 		$("#txtAssetID").val(asset_id);
+	});
+	$( "#slReason" ).change(function() {
+		$(".error[for][for='slReason']").hide();
+		onGetCode($(this).find('option:selected').val());
 	});
 	//validate
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
