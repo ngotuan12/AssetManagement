@@ -60,19 +60,21 @@
 				<a class="menutoggle"><i class="fa fa-bars"></i></a>
 				<div class="header-right">
 					<ul class="headermenu">
-					{% block tool-bar-title %}
-						<li style="display: none">
-							<div>
-									<ol class="breadcrumb" style="margin: 5px 10px 5px 0px;background-color: transparent;">
-										<li><a href="{% url 'home' %}">{% trans 'Trang chủ'%}</a></li>
-										<li class="active">{% trans 'Dashboard'%}</li>
-									</ol>
-							</div>
-						</li>
-					{% endblock %}
-					
 					{% block tool-bar-right %}
 						<li>
+							<button href="#" class="btn btn-default tp-icon" data-toggle="dropdown">
+								<img alt="" src="/images/vietnam.png" width="25px">
+							</button>
+							<ul class="dropdown-menu">
+								<li style="padding: 0"><a href="#" class = ""> <img alt="" src="/images/usa.png" width="25px">   English</a></li>
+								<li style="padding: 0"><a href="#" class = ""> <img alt="" src="/images/japan.png" width="25px">Japanese</a></li>
+								<li style="padding: 0"><a href="#" class = ""> <img alt="" src="/images/francia.png" width="25px">French</a></li>
+								<li style="padding: 0"><a href="#" class = ""> <img alt="" src="/images/china.png" width="25px">Chinese</a></li>
+							</ul>
+						</li>
+
+						<li>
+							
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown">
@@ -89,6 +91,8 @@
 								</ul>
 							</div>
 						</li>
+						
+						
 					{% endblock %}
 					</ul>
 				</div>
