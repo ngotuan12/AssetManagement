@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
 <meta name="author" content="">
 <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
 
-<title>HỆ THỐNG QUẢN LÝ TÀI SẢN</title>
+<title>{% trans 'HỆ THỐNG QUẢN LÝ TÀI SẢN' %}</title>
 
 <link href="/css/style.default.css" rel="stylesheet">
 <link href="/css/jquery.datatables.css" rel="stylesheet">
@@ -63,8 +64,8 @@
 						<li style="display: none">
 							<div>
 									<ol class="breadcrumb" style="margin: 5px 10px 5px 0px;background-color: transparent;">
-										<li><a href="/home/">Trang chủ</a></li>
-										<li class="active">Dashboard</li>
+										<li><a href="{% url 'home' %}">{% trans 'Trang chủ'%}</a></li>
+										<li class="active">{% trans 'Dashboard'%}</li>
 									</ol>
 							</div>
 						</li>
@@ -75,16 +76,16 @@
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown">
-									<i class="glyphicon glyphicon-cog"></i> Cài đặt <span
+									<i class="glyphicon glyphicon-cog"></i> {% trans 'Cài đặt'%} <span
 										class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-usermenu pull-right">
 									<li><a href="/password/change/"><i
-											class="glyphicon glyphicon-cog"></i> Đổi mật khẩu</a></li>
+											class="glyphicon glyphicon-cog"></i> {% trans 'Đổi mật khẩu'%}</a></li>
 									<li><a href="#"><i
-											class="glyphicon glyphicon-question-sign"></i> Trợ giúp</a></li>
+											class="glyphicon glyphicon-question-sign"></i> {% trans 'Trợ giúp'%}</a></li>
 									<li><a href="/logout/"><i
-											class="glyphicon glyphicon-log-out"></i> Thoát</a></li>
+											class="glyphicon glyphicon-log-out"></i> {% trans 'Thoát'%}</a></li>
 								</ul>
 							</div>
 						</li>
