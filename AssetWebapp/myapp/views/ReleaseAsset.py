@@ -57,9 +57,10 @@ def index(request):
         stock_asset_serials_qs = List.objects.raw("""
                         SELECT id,name,serial,parent_serial,connect_by_isleaf is_leaf
                                 FROM stock_asset_serial 
+                                WHERE (stock_asset_serial.parent_serial is null AND stock_asset_serial.num_sub >0) OR stock_asset_serial.parent_serial is not null
                                 START WITH parent_serial IS NULL
                                 CONNECT BY PRIOR serial = parent_serial 
-                                ORDER SIBLINGS BY parent_serial 
+                                ORDER SIBLINGS BY parent_serial
                         """)
         stock_asset_serials = []
         for stock_asset_serial in stock_asset_serials_qs:
@@ -68,8 +69,9 @@ def index(request):
             row.update({'name':stock_asset_serial.name})
             row.update({'serial':stock_asset_serial.serial})
             if str(stock_asset_serial.is_leaf) == "1":
-                row.update({'parent_id':stock_asset_serial.id})
-                row.update({'parent_name':stock_asset_serial.name})
+                st =StockAssetSerial.objects.get(serial = stock_asset_serial.parent_serial)
+                row.update({'parent_id':st.id})
+                row.update({'parent_name':st.name})
                 if(stock_asset_serial.is_leaf == 1):
                     row.update({'icon':'/tree/css/zTreeStyle/img/diy/8.png'})
             else:
