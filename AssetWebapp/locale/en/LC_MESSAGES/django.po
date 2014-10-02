@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-25 10:42+0700\n"
+"POT-Creation-Date: 2014-10-02 16:06+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,36 +17,71 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\AdminManagement\views\Ajax.py:56 .\AdminManagement\views\Module.py:57
+#: .\AdminManagement\views\Ajax.py:80 .\AdminManagement\views\Ajax.py:148
+#: .\AdminManagement\views\Module.py:60
+#: .\AdminManagement\views\UserPermission.py:60
 msgid "unknown"
 msgstr ""
 
-#: .\AdminManagement\views\Ajax.py:59 .\AdminManagement\views\Module.py:60
-msgid "Cha"
+#: .\AdminManagement\views\Ajax.py:83
+#: .\templates\admin\module\add-module.html:46
+#: .\templates\admin\module\add-module.html:47
+#: .\templates\admin\module\edit-module.html:46
+#: .\templates\admin\module\edit-module.html:47
+#: .\templates\admin\module\module.html:76
+#: .\templates\admin\module\module.html:96
+#: .\templates\admin\module\module.html:97
+msgid "Hệ thống"
 msgstr ""
 
-#: .\AdminManagement\views\Ajax.py:62 .\AdminManagement\views\Module.py:63
-msgid "Nhóm module"
+#: .\AdminManagement\views\Ajax.py:86 .\AdminManagement\views\Module.py:66
+msgid "Nhóm chức năng"
 msgstr ""
 
-#: .\AdminManagement\views\Ajax.py:65 .\AdminManagement\views\Module.py:66
-msgid "Module"
+#: .\AdminManagement\views\Ajax.py:89 .\AdminManagement\views\Module.py:69
+msgid "Chức năng"
 msgstr ""
 
-#: .\AdminManagement\views\Ajax.py:68 .\AdminManagement\views\Module.py:69
+#: .\AdminManagement\views\Ajax.py:92 .\AdminManagement\views\Ajax.py:160
+#: .\AdminManagement\views\Module.py:72
+#: .\AdminManagement\views\UserPermission.py:72
 msgid "Quyền hạn"
 msgstr ""
 
-#: .\AdminManagement\views\Module.py:107
-msgid "THÊM NHÓM MODULE"
+#: .\AdminManagement\views\Ajax.py:151 .\AdminManagement\views\Module.py:63
+#: .\AdminManagement\views\UserPermission.py:63
+msgid "Cha"
 msgstr ""
 
-#: .\AdminManagement\views\Module.py:109
-msgid "THÊM MODULE"
+#: .\AdminManagement\views\Ajax.py:154
+#: .\AdminManagement\views\UserPermission.py:66
+msgid "Nhóm module"
+msgstr ""
+
+#: .\AdminManagement\views\Ajax.py:157
+#: .\AdminManagement\views\UserPermission.py:69
+msgid "Module"
 msgstr ""
 
 #: .\AdminManagement\views\Module.py:111
+msgid "THÊM NHÓM CHỨC NĂNG"
+msgstr ""
+
+#: .\AdminManagement\views\Module.py:113
+msgid "THÊM CHỨC NĂNG"
+msgstr ""
+
+#: .\AdminManagement\views\Module.py:115
+#: .\AdminManagement\views\UserPermission.py:115
 msgid "THÊM QUYỀN"
+msgstr ""
+
+#: .\AdminManagement\views\UserPermission.py:111
+msgid "THÊM NHÓM MODULE"
+msgstr ""
+
+#: .\AdminManagement\views\UserPermission.py:113
+msgid "THÊM MODULE"
 msgstr ""
 
 #: .\myapp\dictionary.py:9
@@ -118,104 +153,295 @@ msgstr ""
 msgid "Xem thông tin phòng ban"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:46
-#: .\templates\admin\module\add-module.html:47
-#: .\templates\admin\module\module.html:76
-#: .\templates\admin\module\module.html:92
-#: .\templates\admin\module\module.html:93
-msgid "Hệ thống"
+#: .\myapp\models\ModulePermission.py:42
+msgid "Có thể xem danh sách loại tài sản"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:54
-#: .\templates\admin\module\add-module.html:55
-#: .\templates\admin\module\module.html:111
-#: .\templates\admin\module\module.html:112
+#: .\myapp\models\ModulePermission.py:43
+msgid "Có thể thêm loại tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:44
+msgid "Có thể sửa loại tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:45
+msgid "Có thể xóa loại tài sản"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:46
+msgid "Có thể xem danh sách lý do"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:47
+msgid "Có thể thêm lý do"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:48
+msgid "Có thể sửa lý do"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:49 .\myapp\models\ModulePermission.py:50
+msgid "Có thể xóa lý do"
+msgstr ""
+
+#: .\myapp\models\ModulePermission.py:51
+msgid "Có thể tạo báo cáo tài sản theo dự án"
+msgstr ""
+
+#: .\myapp\views\App.py:57 .\myapp\views\App.py:97
+msgid "Mã ứng dụng đã tồn tại"
+msgstr ""
+
+#: .\myapp\views\App.py:121 .\myapp\views\App.py:130
+msgid "Ứng dụng đã được xóa"
+msgstr ""
+
+#: .\myapp\views\App.py:125 .\myapp\views\App.py:132
+msgid "Không được phép xóa ứng dụng này"
+msgstr ""
+
+#: .\myapp\views\AssetState.py:79 .\myapp\views\AssetState.py:113
+msgid "Mã hiện trạng tài sản đã tồn tại"
+msgstr ""
+
+#: .\myapp\views\AssetVolatility.py:79 .\myapp\views\AssetVolatility.py:113
+msgid "Mã biến động tài sản đã tồn tại"
+msgstr ""
+
+#: .\myapp\views\AssetVolatility.py:131
+msgid "Không được phép xóa.Phải xóa các biến động tăng giảm con trước"
+msgstr ""
+
+#: .\myapp\views\DecrementAsset.py:88
+msgid "Giảm tài sản thành công"
+msgstr ""
+
+#: .\myapp\views\EditIncrementAsset.py:187
+msgid "Sửa tài sản thành công"
+msgstr ""
+
+#: .\myapp\views\Error.py:10
+msgid "Bạn không có quyền truy cập vào trang này!"
+msgstr ""
+
+#: .\myapp\views\Error.py:13
+msgid "Trang này không tồn tại!"
+msgstr ""
+
+#: .\myapp\views\Error.py:16
+msgid "Lỗi xảy ra"
+msgstr ""
+
+#: .\myapp\views\EvaluationAsset.py:78 .\myapp\views\VerifyAsset.py:82
+msgid "Giao dịch thành công"
+msgstr ""
+
+#: .\myapp\views\Goal.py:79 .\myapp\views\Goal.py:113
+#: .\myapp\views\ReleaseAsset.py:108 .\myapp\views\ReleaseAsset.py:142
+msgid "Mã mục đích sử dụng đã tồn tại"
+msgstr ""
+
+#: .\myapp\views\Goal.py:131 .\myapp\views\ReleaseAsset.py:160
+msgid "Không được phép xóa.Phải xóa các mục đích sử dụng con trước"
+msgstr ""
+
+#: .\myapp\views\Goal.py:166 .\myapp\views\ReleaseAsset.py:195
+msgid "Xóa tài sản thành công"
+msgstr ""
+
+#: .\myapp\views\IncrementAsset.py:180
+msgid "Thêm tài sản thành công"
+msgstr ""
+
+#: .\myapp\views\ListAsset.py:114
+msgid "Thêm thành công"
+msgstr ""
+
+#: .\myapp\views\ListProject.py:49 .\myapp\views\ListProject.py:77
+msgid "Mã dự án đã tồn tại"
+msgstr ""
+
+#: .\myapp\views\ListSupplier.py:61 .\myapp\views\ListSupplier.py:98
+msgid "Mã nhà sản xuất đã tồn tại"
+msgstr ""
+
+#: .\myapp\views\TransferAsset.py:93
+msgid "Chuyển đổi thành công"
+msgstr ""
+
+#: .\myapp\views\UpgradeAsset.py:66
+msgid "Nâng cấp tài sản thành công"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:51
+#: .\templates\admin\module\add-module.html:52
+#: .\templates\admin\module\edit-module.html:51
+#: .\templates\admin\module\edit-module.html:52
+#: .\templates\admin\module\module.html:121
+#: .\templates\admin\module\module.html:122
 msgid "Chức năng cha"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:60
-#: .\templates\admin\module\add-module.html:61
-#: .\templates\admin\module\module.html:141
-#: .\templates\admin\module\module.html:142
-msgid "Độ ưu tiên"
-msgstr ""
-
-#: .\templates\admin\module\add-module.html:67
-#: .\templates\admin\module\add-module.html:68
-#: .\templates\admin\module\module.html:99
-#: .\templates\admin\module\module.html:100
+#: .\templates\admin\module\add-module.html:58
+#: .\templates\admin\module\add-module.html:59
+#: .\templates\admin\module\edit-module.html:58
+#: .\templates\admin\module\edit-module.html:59
+#: .\templates\admin\module\module.html:109
+#: .\templates\admin\module\module.html:110
 msgid "Mã"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:72
-#: .\templates\admin\module\add-module.html:73
-#: .\templates\admin\module\module.html:104
-#: .\templates\admin\module\module.html:105
+#: .\templates\admin\module\add-module.html:63
+#: .\templates\admin\module\add-module.html:64
+#: .\templates\admin\module\edit-module.html:63
+#: .\templates\admin\module\edit-module.html:64
+#: .\templates\admin\module\module.html:114
+#: .\templates\admin\module\module.html:115
 msgid "Tên"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:80
-#: .\templates\admin\module\add-module.html:81
-#: .\templates\admin\module\module.html:124
-#: .\templates\admin\module\module.html:125
+#: .\templates\admin\module\add-module.html:71
+#: .\templates\admin\module\add-module.html:72
+#: .\templates\admin\module\edit-module.html:71
+#: .\templates\admin\module\edit-module.html:72
+#: .\templates\admin\module\module.html:102
+#: .\templates\admin\module\module.html:103
+msgid "Độ ưu tiên"
+msgstr ""
+
+#: .\templates\admin\module\add-module.html:77
+#: .\templates\admin\module\add-module.html:78
+#: .\templates\admin\module\edit-module.html:77
+#: .\templates\admin\module\edit-module.html:78
+#: .\templates\admin\module\module.html:134
+#: .\templates\admin\module\module.html:135
 msgid "Action"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:86
 #: .\templates\admin\module\add-module.html:87
-#: .\templates\admin\module\module.html:130
-#: .\templates\admin\module\module.html:131
+#: .\templates\admin\module\add-module.html:88
+#: .\templates\admin\module\edit-module.html:87
+#: .\templates\admin\module\edit-module.html:88
+#: .\templates\admin\module\module.html:140
+#: .\templates\admin\module\module.html:141
 msgid "Icon"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:92
 #: .\templates\admin\module\add-module.html:93
-#: .\templates\admin\module\module.html:136
-#: .\templates\admin\module\module.html:137
+#: .\templates\admin\module\add-module.html:94
+#: .\templates\admin\module\edit-module.html:93
+#: .\templates\admin\module\edit-module.html:94
+#: .\templates\admin\module\module.html:147
 msgid "url"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:103
+#: .\templates\admin\module\add-module.html:104
+#: .\templates\admin\module\edit-module.html:106
 msgid "Hiệu lực"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:109
-#: .\templates\admin\module\module.html:168
+#: .\templates\admin\module\add-module.html:110
+#: .\templates\admin\module\edit-module.html:112
+#: .\templates\admin\module\module.html:173
+#: .\templates\admin\user\list-user.html:50 .\templates\asset\_goal.html:74
+#: .\templates\asset\add-asset-state.html:87
+#: .\templates\asset\add-asset-volatility.html:87
+#: .\templates\asset\asset-state.html:94
+#: .\templates\asset\asset-volatility.html:94
+#: .\templates\asset\decrement-asset.html:115
+#: .\templates\asset\edit-asset-state.html:98
+#: .\templates\asset\edit-asset-volatility.html:98
+#: .\templates\asset\evaluation-asset.html:124
+#: .\templates\asset\transfer-asset.html:156
+#: .\templates\asset\upgrade-asset.html:108
+#: .\templates\asset\verify-asset-edit.html:165
+#: .\templates\category\add-project.html:80
+#: .\templates\category\edit-project.html:70 .\templates\goal\add-goal.html:87
+#: .\templates\goal\edit-goal.html:98
+#: .\templates\supplier\add-supplier.html:125
+#: .\templates\supplier\edit-supplier.html:122
 msgid "Thực hiện"
 msgstr ""
 
-#: .\templates\admin\module\add-module.html:110
-#: .\templates\admin\module\module.html:169
+#: .\templates\admin\module\add-module.html:111
+#: .\templates\admin\module\edit-module.html:113
+#: .\templates\admin\module\module.html:174
+#: .\templates\admin\user\list-user.html:53
+#: .\templates\asset\add-asset-state.html:88
+#: .\templates\asset\add-asset-volatility.html:88
+#: .\templates\asset\asset-state.html:95
+#: .\templates\asset\asset-volatility.html:95
+#: .\templates\asset\edit-asset-state.html:99
+#: .\templates\asset\edit-asset-volatility.html:99 .\templates\base.html:91
+#: .\templates\goal\add-goal.html:88 .\templates\goal\edit-goal.html:99
+#: .\templates\goal\goal.html:94
 msgid "Thoát"
 msgstr ""
 
-#: .\templates\admin\module\module.html:70
+#: .\templates\admin\module\edit-module.html:33
+msgid "SỬA THÔNG TIN CHỨC NĂNG"
+msgstr ""
+
+#: .\templates\admin\module\module.html:70 .\templates\left-panel.tpl.html:67
 msgid "Danh sách chức năng"
 msgstr ""
 
-#: .\templates\admin\module\module.html:117
-#: .\templates\admin\module\module.html:118
+#: .\templates\admin\module\module.html:127
+#: .\templates\admin\module\module.html:128
 msgid "Loại"
 msgstr ""
 
-#: .\templates\admin\module\module.html:149
+#: .\templates\admin\module\module.html:146
+msgid "Url"
+msgstr ""
+
+#: .\templates\admin\module\module.html:154 .\templates\app\add-app.html:70
+#: .\templates\app\add-app.html.py:73 .\templates\app\edit-app.html:68
+#: .\templates\app\edit-app.html.py:71 .\templates\asset\asset-state.html:76
+#: .\templates\asset\asset-volatility.html:76
+#: .\templates\category\add-project.html:54
+#: .\templates\category\add-project.html:57
+#: .\templates\category\edit-project.html:44
+#: .\templates\category\edit-project.html:47 .\templates\goal\goal.html:75
+#: .\templates\supplier\add-supplier.html:53
+#: .\templates\supplier\add-supplier.html:56
+#: .\templates\supplier\edit-supplier.html:49
+#: .\templates\supplier\edit-supplier.html:52
 msgid "Ngày tạo"
 msgstr ""
 
-#: .\templates\admin\module\module.html:154
+#: .\templates\admin\module\module.html:159
+#: .\templates\asset\asset-state.html:81
+#: .\templates\asset\asset-volatility.html:81 .\templates\goal\goal.html:80
 msgid "Người tạo"
 msgstr ""
 
-#: .\templates\admin\module\module.html:163
+#: .\templates\admin\module\module.html:168 .\templates\app\list-app.html:46
+#: .\templates\asset\add-asset-state.html:78
+#: .\templates\asset\add-asset-volatility.html:78
+#: .\templates\asset\asset-state.html:89
+#: .\templates\asset\asset-volatility.html:89
+#: .\templates\asset\edit-asset-state.html:89
+#: .\templates\asset\edit-asset-volatility.html:89
+#: .\templates\goal\add-goal.html:78 .\templates\goal\edit-goal.html:89
+#: .\templates\goal\goal.html:88 .\templates\supplier\add-supplier.html:106
+#: .\templates\supplier\add-supplier.html:109
+#: .\templates\supplier\edit-supplier.html:103
+#: .\templates\supplier\edit-supplier.html:106
 msgid "Kích hoạt"
 msgstr ""
 
-#: .\templates\admin\module\module.html:182
+#: .\templates\admin\module\module.html:187
 msgid "Xoá phòng ban"
 msgstr ""
 
-#: .\templates\admin\module\module.html:185
+#: .\templates\admin\module\module.html:190
 msgid "Bạn thực sự muốn xoá phòng ban"
+msgstr ""
+
+#: .\templates\admin\module\module.html:394
+msgid "Bạn thực sự muốn xoá "
 msgstr ""
 
 #: .\templates\admin\user\change-password-done.html:8
@@ -260,8 +486,1039 @@ msgstr ""
 msgid "Change my password"
 msgstr ""
 
+#: .\templates\admin\user\list-user.html:25
+msgid "Phân quyền tài khoản"
+msgstr ""
+
+#: .\templates\admin\user\list-user.html:203
+msgid "Cập nhật thành công"
+msgstr ""
+
+#: .\templates\admin\user\list-user.html:301
+msgid "Không thể lấy dữ liệu của user!"
+msgstr ""
+
+#: .\templates\app\add-app.html:12
+msgid "THÊM ỨNG DỤNG"
+msgstr ""
+
+#: .\templates\app\add-app.html:30 .\templates\app\edit-app.html:30
+msgid "Mã ứng dụng"
+msgstr ""
+
+#: .\templates\app\add-app.html:35 .\templates\app\edit-app.html:33
+msgid "Mã ứng dụng..."
+msgstr ""
+
+#: .\templates\app\add-app.html:41 .\templates\app\edit-app.html:39
+msgid "Tên ứng dụng"
+msgstr ""
+
+#: .\templates\app\add-app.html:42 .\templates\app\edit-app.html:40
+msgid "Tên ứng dụng..."
+msgstr ""
+
+#: .\templates\app\add-app.html:51 .\templates\app\add-app.html.py:53
+#: .\templates\app\edit-app.html:49 .\templates\app\edit-app.html.py:51
+#: .\templates\asset\evaluation-asset.html:84
+#: .\templates\asset\upgrade-asset.html:70
+#: .\templates\supplier\add-supplier.html:101
+#: .\templates\supplier\add-supplier.html:103
+#: .\templates\supplier\edit-supplier.html:98
+#: .\templates\supplier\edit-supplier.html:100
+msgid "Trạng thái"
+msgstr ""
+
+#: .\templates\app\edit-app.html:12
+msgid "THAY ĐỔI THÔNG TIN ỨNG DỤNG"
+msgstr ""
+
+#: .\templates\app\list-app.html:15
+msgid "DANH MỤC ỨNG DỤNG"
+msgstr ""
+
+#: .\templates\app\list-app.html:30 .\templates\asset\verify-asset.html:59
+#: .\templates\asset\view-asset.html:101
+#: .\templates\category\list-project.html:30
+#: .\templates\country\list-country.html:30
+#: .\templates\supplier\list-supplier.html:30
+msgid "STT"
+msgstr ""
+
+#: .\templates\app\list-app.html:31
+msgid "MÃ ỨNG DỤNG"
+msgstr ""
+
+#: .\templates\app\list-app.html:32
+msgid "TÊN ỨNG DỤNG"
+msgstr ""
+
+#: .\templates\app\list-app.html:33
+msgid "LOẠI ỨNG DỤNG"
+msgstr ""
+
+#: .\templates\app\list-app.html:34 .\templates\asset\view-asset.html:106
+msgid "TRẠNG THÁI"
+msgstr ""
+
+#: .\templates\app\list-app.html:35 .\templates\category\list-project.html:35
+#: .\templates\supplier\list-supplier.html:36
+msgid "SỬA/XÓA"
+msgstr ""
+
+#: .\templates\app\list-app.html:48 .\templates\supplier\add-supplier.html:107
+#: .\templates\supplier\add-supplier.html:110
+#: .\templates\supplier\edit-supplier.html:104
+#: .\templates\supplier\edit-supplier.html:107
+msgid "Không kích hoạt"
+msgstr ""
+
+#: .\templates\app\list-app.html:64
+msgid "Thêm ứng dụng"
+msgstr ""
+
+#: .\templates\app\list-app.html:71
+msgid "Xóa ứng dụng ?"
+msgstr ""
+
+#: .\templates\app\list-app.html:72
+msgid ""
+"Khi xóa ứng dụng này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn "
+"muốn xóa không?"
+msgstr ""
+
+#: .\templates\asset\_goal.html:33 .\templates\index.html:63
+#: .\templates\left-panel.tpl.html:22
+msgid "TÁCH TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\_goal.html:39
+msgid "TÌM KIẾM"
+msgstr ""
+
+#: .\templates\asset\_goal.html:40
+msgid "Tìm .."
+msgstr ""
+
+#: .\templates\asset\_goal.html:54
+msgid "DANH SÁCH TÀI SẢN MUỐN TÁCH"
+msgstr ""
+
+#: .\templates\asset\_goal.html:61 .\templates\asset\view-asset.html:102
+msgid "MÃ TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\_goal.html:62 .\templates\asset\view-asset.html:103
+msgid "TÊN TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\_goal.html:63
+msgid "XÓA"
+msgstr ""
+
+#: .\templates\asset\add-asset-state.html:33
+msgid "THÊM TÌNH TRẠNG SỬ DỤNG"
+msgstr ""
+
+#: .\templates\asset\add-asset-state.html:48
+#: .\templates\asset\add-asset-state.html:49
+#: .\templates\asset\add-asset-volatility.html:48
+#: .\templates\asset\add-asset-volatility.html:49
+#: .\templates\asset\asset-state.html:49 .\templates\asset\asset-state.html:50
+#: .\templates\asset\asset-volatility.html:49
+#: .\templates\asset\asset-volatility.html:50
+#: .\templates\asset\edit-asset-state.html:48
+#: .\templates\asset\edit-asset-state.html:50
+#: .\templates\asset\edit-asset-volatility.html:48
+#: .\templates\asset\edit-asset-volatility.html:50
+#: .\templates\goal\add-goal.html:48 .\templates\goal\add-goal.html.py:49
+#: .\templates\goal\edit-goal.html:48 .\templates\goal\edit-goal.html.py:50
+#: .\templates\goal\goal.html:48 .\templates\goal\goal.html.py:49
+msgid "Trực thuộc"
+msgstr ""
+
+#: .\templates\asset\add-asset-state.html:56
+#: .\templates\asset\add-asset-state.html:57
+#: .\templates\asset\asset-state.html:56 .\templates\asset\asset-state.html:57
+#: .\templates\asset\edit-asset-state.html:67
+#: .\templates\asset\edit-asset-state.html:68 .\templates\goal\goal.html:56
+msgid "Mã hiện trạng tài sản"
+msgstr ""
+
+#: .\templates\asset\add-asset-state.html:61
+#: .\templates\asset\add-asset-state.html:62
+#: .\templates\asset\asset-state.html:61 .\templates\asset\asset-state.html:62
+#: .\templates\asset\edit-asset-state.html:72
+#: .\templates\asset\edit-asset-state.html:73 .\templates\goal\goal.html:61
+msgid "Tên hiện trạng tài sản"
+msgstr ""
+
+#: .\templates\asset\add-asset-state.html:66
+#: .\templates\asset\add-asset-state.html:67
+#: .\templates\asset\add-asset-volatility.html:66
+#: .\templates\asset\add-asset-volatility.html:67
+#: .\templates\asset\asset-state.html:69 .\templates\asset\asset-state.html:70
+#: .\templates\asset\asset-volatility.html:69
+#: .\templates\asset\asset-volatility.html:70
+#: .\templates\asset\edit-asset-state.html:77
+#: .\templates\asset\edit-asset-state.html:78
+#: .\templates\asset\edit-asset-volatility.html:77
+#: .\templates\asset\edit-asset-volatility.html:78
+#: .\templates\category\add-project.html:68
+#: .\templates\category\edit-project.html:58
+#: .\templates\category\edit-project.html:60 .\templates\goal\add-goal.html:66
+#: .\templates\goal\add-goal.html.py:67 .\templates\goal\edit-goal.html:77
+#: .\templates\goal\edit-goal.html.py:78 .\templates\goal\goal.html:68
+#: .\templates\goal\goal.html.py:69
+msgid "Mô tả"
+msgstr ""
+
+#: .\templates\asset\add-asset-volatility.html:33
+msgid "THÊM BIẾN ĐỘNG TĂNG GIẢM TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\add-asset-volatility.html:56
+#: .\templates\asset\add-asset-volatility.html:57
+#: .\templates\asset\asset-volatility.html:56
+#: .\templates\asset\asset-volatility.html:57
+#: .\templates\asset\edit-asset-volatility.html:67
+#: .\templates\asset\edit-asset-volatility.html:68
+msgid "Mã biến động tài sản"
+msgstr ""
+
+#: .\templates\asset\add-asset-volatility.html:61
+#: .\templates\asset\add-asset-volatility.html:62
+#: .\templates\asset\asset-volatility.html:61
+#: .\templates\asset\asset-volatility.html:62
+#: .\templates\asset\edit-asset-volatility.html:72
+#: .\templates\asset\edit-asset-volatility.html:73
+msgid "Tên biến động tài sản"
+msgstr ""
+
+#: .\templates\asset\asset-state.html:34
+msgid "DANH MỤC TÌNH TRẠNG SỬ DỤNG"
+msgstr ""
+
+#: .\templates\asset\asset-volatility.html:34
+msgid "DANH MỤC BIẾN ĐỘNG TĂNG GIẢM TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:12 .\templates\index.html:32
+#: .\templates\left-panel.tpl.html:17
+msgid "GIẢM TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:27
+#: .\templates\asset\decrement-asset.html:29
+#: .\templates\asset\increment-asset.html:204
+#: .\templates\asset\increment-asset.html:206
+#: .\templates\asset\upgrade-asset.html:27
+#: .\templates\asset\upgrade-asset.html:29
+msgid "Bộ phận"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:36
+#: .\templates\asset\decrement-asset.html:45
+#: .\templates\asset\decrement-asset.html:55
+#: .\templates\asset\decrement-asset.html:87
+#: .\templates\asset\edit-asset-state.html:61
+#: .\templates\asset\edit-asset-volatility.html:61
+#: .\templates\asset\evaluation-asset.html:37
+#: .\templates\asset\evaluation-asset.html:49
+#: .\templates\asset\evaluation-asset.html:62
+#: .\templates\asset\increment-asset.html:30
+#: .\templates\asset\increment-asset.html:43
+#: .\templates\asset\increment-asset.html:69
+#: .\templates\asset\increment-asset.html:89
+#: .\templates\asset\increment-asset.html:103
+#: .\templates\asset\increment-asset.html:116
+#: .\templates\asset\increment-asset.html:129
+#: .\templates\asset\increment-asset.html:183
+#: .\templates\asset\increment-asset.html:196
+#: .\templates\asset\increment-asset.html:213
+#: .\templates\asset\increment-asset.html:227
+#: .\templates\asset\increment-asset.html:248
+#: .\templates\asset\increment-asset.html:261
+#: .\templates\asset\increment-asset.html:274
+#: .\templates\asset\transfer-asset.html:36
+#: .\templates\asset\transfer-asset.html:38
+#: .\templates\asset\transfer-asset.html:49
+#: .\templates\asset\transfer-asset.html:62
+#: .\templates\asset\transfer-asset.html:109
+#: .\templates\asset\transfer-asset.html:124
+#: .\templates\asset\transfer-asset.html:136
+#: .\templates\asset\upgrade-asset.html:36
+#: .\templates\asset\upgrade-asset.html:45
+#: .\templates\asset\upgrade-asset.html:54
+#: .\templates\asset\verify-asset-edit.html:116
+#: .\templates\asset\verify-asset-edit.html:151
+#: .\templates\goal\edit-goal.html:61
+#: .\templates\supplier\add-supplier.html:114
+#: .\templates\supplier\edit-supplier.html:92
+#: .\templates\supplier\edit-supplier.html:111
+msgid "Trường không được để trống"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:39
+#: .\templates\asset\decrement-asset.html:41
+#: .\templates\asset\evaluation-asset.html:43
+#: .\templates\asset\evaluation-asset.html:45
+#: .\templates\asset\increment-asset.html:218
+#: .\templates\asset\increment-asset.html:220
+#: .\templates\asset\transfer-asset.html:43
+#: .\templates\asset\transfer-asset.html:45
+#: .\templates\asset\upgrade-asset.html:39
+#: .\templates\asset\upgrade-asset.html:41
+#: .\templates\asset\view-asset.html:49
+msgid "Kho"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:48
+#: .\templates\asset\evaluation-asset.html:57
+#: .\templates\asset\increment-asset.html:54
+#: .\templates\asset\increment-asset.html:55
+#: .\templates\asset\transfer-asset.html:57
+#: .\templates\asset\upgrade-asset.html:48
+#: .\templates\asset\upgrade-asset.html:50
+#: .\templates\asset\verify-asset-edit.html:42
+#: .\templates\asset\verify-asset.html:60
+msgid "Số thẻ TSCĐ"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:60
+#: .\templates\asset\decrement-asset.html:62
+msgid "Nguồn Vốn"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:66
+#: .\templates\asset\decrement-asset.html:68
+#: .\templates\asset\increment-asset.html:146
+#: .\templates\asset\increment-asset.html:147
+#: .\templates\asset\verify-asset.html:62
+msgid "Nguyên Giá"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:71
+#: .\templates\asset\decrement-asset.html:73
+#: .\templates\asset\evaluation-asset.html:71
+#: .\templates\asset\evaluation-asset.html:73
+#: .\templates\asset\increment-asset.html:152
+#: .\templates\asset\increment-asset.html:154
+#: .\templates\asset\verify-asset-edit.html:99
+#: .\templates\asset\verify-asset.html:63
+msgid "Giá trị còn lại"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:79
+#: .\templates\asset\decrement-asset.html:81
+#: .\templates\asset\verify-asset-edit.html:110
+msgid "Lý do giảm.."
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:91
+msgid "Ngày ghi giảm"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:94
+msgid "Ngày ghi giảm (mm/dd/yyyy)"
+msgstr ""
+
+#: .\templates\asset\decrement-asset.html:102
+#: .\templates\asset\decrement-asset.html:104
+#: .\templates\asset\evaluation-asset.html:112
+#: .\templates\asset\increment-asset.html:377
+#: .\templates\asset\transfer-asset.html:144
+#: .\templates\asset\transfer-asset.html:146
+#: .\templates\asset\upgrade-asset.html:95
+#: .\templates\asset\upgrade-asset.html:97
+#: .\templates\asset\verify-asset-edit.html:159
+#: .\templates\category\add-project.html:70
+msgid "Ghi chú"
+msgstr ""
+
+#: .\templates\asset\edit-asset-state.html:33
+msgid "SỬA THÔNG TIN TÌNH TRẠNG SỬ DỤNG"
+msgstr ""
+
+#: .\templates\asset\edit-asset-volatility.html:33
+msgid "SỬA THÔNG TIN BIẾN ĐỘNG TĂNG GIẢM TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\evaluation-asset.html:12
+#: .\templates\left-panel.tpl.html:31
+msgid "ĐÁNH GIÁ LẠI TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\evaluation-asset.html:29
+#: .\templates\asset\evaluation-asset.html:31
+#: .\templates\asset\transfer-asset.html:30
+#: .\templates\asset\transfer-asset.html:117
+msgid "Đơn vị"
+msgstr ""
+
+#: .\templates\asset\evaluation-asset.html:55
+#: .\templates\asset\transfer-asset.html:55
+msgid "Số thẻ TSCD"
+msgstr ""
+
+#: .\templates\asset\evaluation-asset.html:78
+#: .\templates\asset\upgrade-asset.html:65
+msgid "Thời gian sử dụng"
+msgstr ""
+
+#: .\templates\asset\evaluation-asset.html:79
+#: .\templates\asset\upgrade-asset.html:66
+msgid "Thời gian sử dụng..."
+msgstr ""
+
+#: .\templates\asset\evaluation-asset.html:86
+#: .\templates\asset\upgrade-asset.html:72
+msgid "Trạng thái ..."
+msgstr ""
+
+#: .\templates\asset\evaluation-asset.html:97
+#: .\templates\asset\evaluation-asset.html:100
+msgid "Ngày đánh giá lại tài sản"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:22
+#: .\templates\asset\increment-asset.html:24
+msgid "Lý do"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:34
+#: .\templates\asset\increment-asset.html:36
+msgid "Mã nhận diện"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:48
+#: .\templates\asset\increment-asset.html:49
+#: .\templates\asset\verify-asset-edit.html:51
+#: .\templates\asset\verify-asset.html:61
+msgid "Tên tài sản"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:60
+#: .\templates\asset\increment-asset.html:62
+msgid "Dự án"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:80
+#: .\templates\asset\increment-asset.html:82
+#: .\templates\asset\verify-asset-edit.html:71
+msgid "Nguồn vốn"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:94
+#: .\templates\asset\increment-asset.html:96
+#: .\templates\asset\view-asset.html:62
+msgid "Mục đích sử dụng"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:107
+#: .\templates\asset\increment-asset.html:109
+#: .\templates\asset\view-asset.html:73
+msgid "Hiện trạng sử dụng"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:120
+#: .\templates\asset\increment-asset.html:122
+msgid "Phương pháp tính"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:133
+#: .\templates\asset\increment-asset.html:134
+msgid "Số năm khấu hao"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:158
+#: .\templates\asset\increment-asset.html:159
+msgid "Model"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:164
+#: .\templates\asset\increment-asset.html:165
+msgid "Công xuất"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:170
+#: .\templates\asset\increment-asset.html:171
+msgid "Số quyết định"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:176
+#: .\templates\asset\increment-asset.html:178
+msgid "TT tài liệu"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:180
+msgid "Có"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:181
+msgid "Không"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:187
+#: .\templates\asset\increment-asset.html:189
+msgid "Nguồn gốc"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:231
+#: .\templates\asset\increment-asset.html:232
+msgid "Số lượng"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:239
+#: .\templates\asset\increment-asset.html:241
+msgid "Đơn vị tính"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:252
+#: .\templates\asset\increment-asset.html:254
+#: .\templates\asset\view-asset.html:38
+msgid "Xuất sứ"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:265
+#: .\templates\asset\increment-asset.html:267
+#: .\templates\asset\verify-asset-edit.html:80
+msgid "Nhà cung cấp"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:287
+#: .\templates\asset\increment-asset.html:290
+msgid "Ngày sản xuất"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:297
+#: .\templates\asset\increment-asset.html:300
+msgid "Ngày tính hao mòn"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:307
+#: .\templates\asset\increment-asset.html:310
+msgid "Ngày ghi tăng"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:317
+#: .\templates\asset\increment-asset.html:321
+msgid "Ngày mua"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:328
+#: .\templates\asset\increment-asset.html:331
+msgid "Ngày bắt đầu sử dụng"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:338
+#: .\templates\asset\increment-asset.html:341
+msgid "Ngày quyết định"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:352
+#: .\templates\asset\increment-asset.html:353
+msgid "Số seri"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:360
+msgid "Tài sản con"
+msgstr ""
+
+#: .\templates\asset\increment-asset.html:365
+#: .\templates\asset\increment-asset.html:367
+msgid "Tài sản cha"
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:12 .\templates\left-panel.tpl.html:33
+msgid "ĐIỀU CHUYỂN TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:28
+msgid "Đơn vị chuyển đi"
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:70
+#: .\templates\asset\verify-asset-edit.html:143
+msgid "Người chuyển"
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:72
+msgid "Người chuyển..."
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:85
+#: .\templates\asset\transfer-asset.html:88
+msgid "Ngày chuyển"
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:101
+msgid "Lý do chuyển"
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:103
+msgid "Lý do chuyển ..."
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:115
+msgid "Đơn vị chuyển đến"
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:130
+msgid "Kho chuyển đến"
+msgstr ""
+
+#: .\templates\asset\transfer-asset.html:132
+msgid "chuyển đến"
+msgstr ""
+
+#: .\templates\asset\upgrade-asset.html:12
+msgid "NÂNG CẤP TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\upgrade-asset.html:59
+msgid "Chi phí nâng cấp"
+msgstr ""
+
+#: .\templates\asset\upgrade-asset.html:61
+msgid "Chi phí nâng cấp ..."
+msgstr ""
+
+#: .\templates\asset\upgrade-asset.html:81
+msgid "Mực đích"
+msgstr ""
+
+#: .\templates\asset\upgrade-asset.html:83
+msgid "Mục đích ..."
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:10
+#: .\templates\asset\verify-asset-edit.html:43
+#: .\templates\asset\verify-asset-edit.html:72
+msgid "Tài khoản"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:10
+msgid "Sửa thông tin tài"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:25
+#: .\templates\asset\verify-asset.html:11 .\templates\left-panel.tpl.html:27
+msgid "KIỂM KÊ TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:52
+msgid "Tên tài sản ..."
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:59
+#: .\templates\asset\view-asset.html:83
+msgid "Nguyên giá"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:88
+msgid "Đối tác"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:91
+msgid "Nhập lại mật khẩu"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:100
+msgid "Giá trị còn lại "
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:108
+msgid "Trạng Thái"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:121
+#: .\templates\asset\verify-asset-edit.html:124
+msgid "Ngày kiểm kê"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:134
+#: .\templates\asset\verify-asset-edit.html:136
+msgid "Số biên bản"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:145
+msgid "Người kiểm kê"
+msgstr ""
+
+#: .\templates\asset\verify-asset-edit.html:157
+msgid "Ghi Chú"
+msgstr ""
+
+#: .\templates\asset\view-asset.html:14
+msgid "TRA CỨU TÀI SẢN"
+msgstr ""
+
+#: .\templates\asset\view-asset.html:27
+msgid "Tài sản"
+msgstr ""
+
+#: .\templates\asset\view-asset.html:89
+msgid "Tìm Kiếm"
+msgstr ""
+
+#: .\templates\asset\view-asset.html:104
+msgid "NGUYÊN GIÁ"
+msgstr ""
+
+#: .\templates\asset\view-asset.html:105
+msgid "GIÁ TRỊ CÒN LẠI"
+msgstr ""
+
+#: .\templates\asset\view-asset.html:107
+msgid "XUẤT XỨ"
+msgstr ""
+
+#: .\templates\base.html:12
+msgid "HỆ THỐNG QUẢN LÝ TÀI SẢN"
+msgstr ""
+
+#: .\templates\base.html:87
+#, fuzzy
+#| msgid "Mật khẩu cũ"
+msgid "Đổi mật khẩu"
+msgstr "Old password"
+
+#: .\templates\base.html:89
+msgid "Trợ giúp"
+msgstr ""
+
+#: .\templates\category\add-project.html:12
+msgid "THÊM DỰ ÁN"
+msgstr ""
+
+#: .\templates\category\add-project.html:32
+#: .\templates\category\add-project.html:37
+#: .\templates\category\edit-project.html:30
+#: .\templates\category\edit-project.html:31
+msgid "Mã dự án"
+msgstr ""
+
+#: .\templates\category\add-project.html:43
+#: .\templates\category\edit-project.html:37
+msgid "Tên dự án"
+msgstr ""
+
+#: .\templates\category\add-project.html:48
+#: .\templates\category\edit-project.html:38
+msgid "Tên dự án ..."
+msgstr ""
+
+#: .\templates\category\edit-project.html:12
+msgid "THAY ĐỔI THÔNG TIN DỰ ÁN"
+msgstr ""
+
+#: .\templates\category\list-project.html:15
+msgid "DANH MỤC DỰ ÁN"
+msgstr ""
+
+#: .\templates\category\list-project.html:31
+msgid "MÃ DỰ ÁN"
+msgstr ""
+
+#: .\templates\category\list-project.html:32
+msgid "TÊN DỰ ÁN"
+msgstr ""
+
+#: .\templates\category\list-project.html:34
+#: .\templates\country\list-country.html:33
+#: .\templates\supplier\list-supplier.html:35
+msgid "NGÀY TẠO"
+msgstr ""
+
+#: .\templates\category\list-project.html:60
+msgid "Thêm dự án"
+msgstr ""
+
+#: .\templates\category\list-project.html:67
+msgid "Xóa dự án ?"
+msgstr ""
+
+#: .\templates\category\list-project.html:68
+msgid ""
+"Khi xóa dự án này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc chắn "
+"muốn xóa không?"
+msgstr ""
+
+#: .\templates\country\list-country.html:15
+msgid "DANH MỤC NƯỚC SẢN XUẤT"
+msgstr ""
+
+#: .\templates\country\list-country.html:31
+msgid "MÃ NƯỚC SẢN XUẤT"
+msgstr ""
+
+#: .\templates\country\list-country.html:32
+msgid "TÊN NƯỚC SẢN XUẤT"
+msgstr ""
+
+#: .\templates\country\list-country.html:59
+#: .\templates\supplier\list-supplier.html:69
+msgid "Xóa nhà cung cấp ?"
+msgstr ""
+
+#: .\templates\country\list-country.html:60
+#: .\templates\supplier\list-supplier.html:70
+msgid ""
+"Khi xóa nhà cung cấp này,có thể sẻ mất những dữ liệu liên quan.Bạn có chắc "
+"chắn muốn xóa không?"
+msgstr ""
+
+#: .\templates\error.html:34
+msgid ""
+"Các trang web mà bạn đang tìm kiếm có thể đã được gỡ bỏ, đã thay đổi tên, "
+"hoặc không có."
+msgstr ""
+
+#: .\templates\error.html:35
+msgid "Quay lại trang chủ"
+msgstr ""
+
+#: .\templates\goal\add-goal.html:33
+msgid "THÊM MỤC ĐÍCH SỬ DỤNG"
+msgstr ""
+
+#: .\templates\goal\add-goal.html:56 .\templates\goal\add-goal.html.py:57
+#: .\templates\goal\edit-goal.html:67 .\templates\goal\edit-goal.html.py:68
+#: .\templates\goal\goal.html:55
+msgid "Mã mục đích sử dụng"
+msgstr ""
+
+#: .\templates\goal\add-goal.html:61 .\templates\goal\add-goal.html.py:62
+#: .\templates\goal\edit-goal.html:72 .\templates\goal\edit-goal.html.py:73
+#: .\templates\goal\goal.html:60
+msgid "Tên mục đích sử dụng"
+msgstr ""
+
+#: .\templates\goal\edit-goal.html:33
+msgid "SỬA THÔNG TIN MỤC ĐÍCH SỬ DỤNG"
+msgstr ""
+
+#: .\templates\goal\goal.html:33
+msgid "DANH MỤC MỤC ĐÍCH SỬ DỤNG"
+msgstr ""
+
+#: .\templates\index.html:17 .\templates\left-panel.tpl.html:15
+msgid "TĂNG TÀI SẢN"
+msgstr "ICREMENT ASSET"
+
+#: .\templates\index.html:47 .\templates\left-panel.tpl.html:20
+msgid "GỘP TÀI SẢN"
+msgstr ""
+
+#: .\templates\index.html:79
+msgid "TÍNH KHẤU HAO"
+msgstr ""
+
+#: .\templates\index.html:95
+msgid "KIỂM KÊ TS"
+msgstr ""
+
+#: .\templates\index.html:111
+msgid "ĐÁNH GIÁ LẠI TS"
+msgstr ""
+
+#: .\templates\index.html:127
+#, fuzzy
+#| msgid "TĂNG TÀI SẢN"
+msgid "CHUYỂN TÀI SẢN"
+msgstr "ICREMENT ASSET"
+
+#: .\templates\left-panel.tpl.html:6
+msgid "FMS - Ver 2.0"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:10
+msgid "TRANG CHỦ"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:12
+msgid "CHỨC NĂNG"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:25
+msgid "KHẤU HAO TÀI SẢN"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:38
+msgid "BÁO CÁO"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:41
+msgid "BC CTTSCD-BK07"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:43
+msgid "BC TSCDTH-4ATHTSCĐ"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:51
+msgid "DANH MỤC"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:53
+msgid "NƯỚC SẢN XUẤT"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:54
+msgid "NHÀ CUNG CẤP"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:55
+msgid "LOẠI TÀI SẢN"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:56
+msgid "LÝ DO"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:57
+msgid "DỰ ÁN"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:58
+msgid "TÌNH TRẠNG SỬ DỤNG"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:59
+msgid "BIẾN ĐỘNG TĂNG GIẢM"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:60
+msgid "MỤC ĐÍCH SỬ DỤNG"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:64
+msgid "Tài khoản/Phòng ban"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:70
+msgid "Quản lý tài khoản"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:73
+msgid "Quản lý phòng ban"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:75
+msgid "Danh sách nhóm quyền"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:78
+msgid "Quản lý ứng dụng"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:85
+msgid "TRẠNG THÁI HỆ THỐNG"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:89
+msgid "Số lượng tài sản"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:96
+msgid "Tổng nguyên giá"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:103
+msgid "Giá trị hiện tại"
+msgstr ""
+
+#: .\templates\left-panel.tpl.html:110
+msgid "Số tài sản đang sử dụng"
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:12
+msgid "THÊM NHÀ CUNG CẤP"
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:30
+#: .\templates\supplier\edit-supplier.html:30
+msgid "Mã nhà cung cấp"
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:35
+#: .\templates\supplier\edit-supplier.html:31
+msgid "Mã nhà cung cấp..."
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:41
+#: .\templates\supplier\edit-supplier.html:37
+msgid "Tên nhà cung cấp"
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:42
+msgid "Tên nhà cung cấp..."
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:47
+#: .\templates\supplier\edit-supplier.html:43
+msgid "Địa chỉ"
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:48
+msgid "Địa chỉ..."
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:68
+#: .\templates\supplier\add-supplier.html:69
+#: .\templates\supplier\edit-supplier.html:65
+msgid "Số điện thoại"
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:75
+#: .\templates\supplier\add-supplier.html:76
+#: .\templates\supplier\edit-supplier.html:72
+msgid "Fax"
+msgstr ""
+
+#: .\templates\supplier\add-supplier.html:82
+#: .\templates\supplier\add-supplier.html:84
+#: .\templates\supplier\edit-supplier.html:79
+#: .\templates\supplier\edit-supplier.html:81
+msgid "Tên người liên hệ"
+msgstr ""
+
+#: .\templates\supplier\edit-supplier.html:38
+msgid "Tên nhà cung cấp ..."
+msgstr ""
+
+#: .\templates\supplier\edit-supplier.html:44
+msgid "Địa chỉ ..."
+msgstr ""
+
+#: .\templates\supplier\edit-supplier.html:66
+msgid "Số điện thoại ..."
+msgstr ""
+
+#: .\templates\supplier\edit-supplier.html:73
+msgid "Số Fax ..."
+msgstr ""
+
+#: .\templates\supplier\list-supplier.html:15
+msgid "DANH MỤC NHÀ CUNG CẤP"
+msgstr ""
+
+#: .\templates\supplier\list-supplier.html:31
+msgid "MÃ NHÀ CUNG CẤP"
+msgstr ""
+
+#: .\templates\supplier\list-supplier.html:32
+msgid "TÊN NHÀ CUNG CẤP"
+msgstr ""
+
+#: .\templates\supplier\list-supplier.html:33
+msgid "NGƯỜI LIÊN HỆ"
+msgstr ""
+
+#: .\templates\supplier\list-supplier.html:62
+msgid "Thêm nhà cung cấp"
+msgstr ""
+
 #~ msgid "Hãy sửa những lỗi sau."
 #~ msgstr "Please fix error"
-
-#~ msgid "Mật khẩu cũ"
-#~ msgstr "Old password"

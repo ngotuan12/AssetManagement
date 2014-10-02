@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from AdminManagement.views import User, Group, Module, App, Ajax
+from AdminManagement.views import User, Group, Module, App, Ajax, Language
 
 
 urlpatterns = patterns('',
@@ -20,6 +20,8 @@ urlpatterns = patterns('',
 	url(r'^password/reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
 			'django.contrib.auth.views.password_reset_confirm',
 			name='password_reset_confirm'),
+	#language
+	url(r'^language/(?P<language_code>\w+)/$', Language.switch_language, name='switch-language'),
 	# User
 	url(r'^user/$', User.list_user, name='user'),
 	url(r'^user/add/$', User.add_user, name='add-user'),

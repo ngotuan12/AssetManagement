@@ -62,14 +62,15 @@
 					<ul class="headermenu">
 					{% block tool-bar-right %}
 						<li>
-							<button href="#" class="btn btn-default tp-icon" data-toggle="dropdown">
-								<img alt="" src="/images/vietnam.png" width="25px">
+							<button class="btn btn-default tp-icon" data-toggle="dropdown">
+								<img alt="" src="/images/language/{{ LANGUAGE_CODE }}.png" width="25px">
 							</button>
 							<ul class="dropdown-menu">
-								<li style="padding: 0"><a href="#" class = ""> <img alt="" src="/images/usa.png" width="25px">   English</a></li>
-								<li style="padding: 0"><a href="#" class = ""> <img alt="" src="/images/japan.png" width="25px">Japanese</a></li>
-								<li style="padding: 0"><a href="#" class = ""> <img alt="" src="/images/francia.png" width="25px">French</a></li>
-								<li style="padding: 0"><a href="#" class = ""> <img alt="" src="/images/china.png" width="25px">Chinese</a></li>
+								{% for language in LANGUAGES %}
+									{% ifnotequal language.0 LANGUAGE_CODE %}
+										<li style="padding: 0"><a href="{% url 'switch-language' language_code=language.0 %}?next={{ request.get_full_path }}"> <img alt="" src="/images/language/{{ language.0 }}.png" width="25px">  {{language.1}}</a></li>
+									{% endifnotequal %}
+								{% endfor%}
 							</ul>
 						</li>
 
@@ -78,7 +79,7 @@
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle"
 									data-toggle="dropdown">
-									<i class="glyphicon glyphicon-cog"></i> {% trans 'Cài đặt'%} <span
+									<i class="glyphicon glyphicon-cog"></i> {{ user.username }}<span
 										class="caret"></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-usermenu pull-right">

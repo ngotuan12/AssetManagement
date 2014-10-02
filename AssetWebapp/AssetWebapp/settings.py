@@ -47,9 +47,20 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 #     'myapp.util.middleware.LastActivityMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.request"
+)
 ROOT_URLCONF = 'AssetWebapp.urls'
 
 WSGI_APPLICATION = 'AssetWebapp.wsgi.application'
@@ -100,7 +111,8 @@ LOCALE_PATHS = (
 LANGUAGES = (
     ('en', 'English'),
     ('vi', 'VietNamese'),
-    ('de', 'Germany')
+    ('de', 'Germany'),
+    ('ja','Japanese')
 )
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/

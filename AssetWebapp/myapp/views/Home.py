@@ -17,7 +17,8 @@ from myapp.models.Asset import Asset
 @login_required(login_url='/login/')
 def index(request):
 	context={}
-	return render_to_response("index.html", context, RequestContext(request))
+	response =  render_to_response("index.html", context, RequestContext(request))
+	return response
 @login_required(login_url='/login/')
 def invoice(request):
 	context={}
