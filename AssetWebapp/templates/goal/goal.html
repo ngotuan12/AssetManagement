@@ -35,7 +35,14 @@
 		<div class="panel-body" style="padding: 0 10px;">
 			<div class="row row-pad-0">
 				<div class="col-md-5" style="BORDER-RIGHT: #999999 1px dashed;">
-						<ul id="treeDemo" class="ztree"></ul>
+					<div class="col-md-12">
+						<label>{% trans 'TÌM KIẾM' %}</label> <input type="text"
+							id = "txtSearch" placeholder="{% trans 'Tìm ..' %}"
+							class="form-control" oninput="onChangeTree();">
+					</div>
+					<div class="col-md-12" >
+						<ul id="treeGoal" class="ztree"></ul>
+					</div>
 				</div>
 				<div class="col-md-7">
 					{% if has_error %}
@@ -137,7 +144,8 @@ jQuery(document).ready(function() {
 		view: {
 			addHoverDom: addHoverDom,
 			removeHoverDom: removeHoverDom,
-			selectedMulti: false
+			selectedMulti: false,
+			fontCss: getFontCss,
 		},
 		edit: {
 			enable: true,
@@ -160,7 +168,7 @@ jQuery(document).ready(function() {
 			}
 		}
 	};
-	var tree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	var tree = $.fn.zTree.init($("#treeGoal"), setting, zNodes);
 	tree.selectNode(tree.getNodes()[0]);
 	fillData(tree.getNodes()[0]);
 	$("#dialog-confirm" ).dialog({
@@ -180,6 +188,33 @@ jQuery(document).ready(function() {
 	});
 });
 var newCount = 1;
+var lastValue = "", nodeList = [], fontCss = {};
+
+function onChangeTree()
+{
+	var zTree = $.fn.zTree.getZTreeObj("treeGoal");
+		var value = $("#txtSearch").val();
+		var keyType = "name";
+		if (lastValue === value) return;
+		lastValue = value;
+		if (value === "") return;
+		updateNodes(false);
+		nodeList = zTree.getNodesByParamFuzzy(keyType, value,null);
+		updateNodes(true);
+}
+
+function updateNodes(highlight) {
+	var zTree = $.fn.zTree.getZTreeObj("treeGoal");
+	for( var i=0, l=nodeList.length; i<l; i++) {
+		nodeList[i].highlight = highlight;
+		zTree.updateNode(nodeList[i]);
+	}
+}
+
+function getFontCss(treeId, treeNode) {
+	return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+}
+
 function addHoverDom(treeId, treeNode) 
 {
 	var sObj = $("#" + treeNode.tId + "_span");
