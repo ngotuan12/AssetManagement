@@ -58,21 +58,19 @@
 				</ul></li> 
 				{% if user.is_superuser %}
 				<li class="nav-parent"><a href="#"><i class="fa fa-cogs"></i>
-					<span>{% trans 'Tài khoản/Phòng ban'%}</span></a>
+					<span>{% trans 'TK/PB'%}</span></a>
 				<ul class="children">
-					<li><a href="{% url 'module' %}"><i class="fa fa-caret-right"></i>
-							{% trans 'Danh sách chức năng'%} </a></li>
-						
 					<li><a href="{% url 'user' %}"><i class="fa fa-caret-right"></i>
-							{% trans 'Quản lý tài khoản'%} </a></li>
-					
-					<li><a href="{% url 'department' %}"><i class="fa fa-caret-right"></i>
-							{% trans 'Quản lý phòng ban'%} </a></li>
-					<li><a href="{% url 'group' %}"><i class="fa fa-caret-right"></i>
-							{% trans 'Danh sách nhóm quyền'%} </a></li>
-							
+							{% trans 'QL TÀI KHOẢN'%} </a></li>
 					<li><a href="{% url 'app' %}"><i class="fa fa-caret-right"></i>
-							{% trans 'Quản lý ứng dụng'%} </a></li>
+							{% trans 'QL ỨNG DỤNG'%} </a></li>
+					<li><a href="{% url 'department' %}"><i class="fa fa-caret-right"></i>
+							{% trans 'QL PHÒNG BAN'%} </a></li>
+					<li><a href="{% url 'module' %}"><i class="fa fa-caret-right"></i>
+							{% trans 'DS CHỨC NĂNG'%} </a></li>
+					<li><a href="{% url 'group' %}"><i class="fa fa-caret-right"></i>
+							{% trans 'DS NHÓM QUYỀN'%} </a></li>
+							
 				</ul></li> 
 				{% endif %}
 			<li><a href="/logout/"><i class="fa fa-sign-out"></i> <span>{% trans 'ĐĂNG XUẤT'%}</span></a></li>
