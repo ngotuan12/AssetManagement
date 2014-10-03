@@ -11,50 +11,50 @@
 			<li class="nav-parent"><a href="#"><i
 					class="fa fa-building-o"></i> <span>{% trans 'CHỨC NĂNG'%} </span></a>
 				<ul class="children">
+					<li><a href="/join-asset/"><i class="fa fa-caret-right"></i>{% trans 'GỘP TÀI SẢN'%}
 					<li><a href="{% url 'increment-asset' %}"><i
 							class="fa fa-caret-right"></i>{% trans 'TĂNG TÀI SẢN'%} </a></li>
 					<li><a href="/decrement-asset/"><i
 							class="fa fa-caret-right"></i>{% trans 'GIẢM TÀI SẢN'%} </a></li>
 					<!-- <li><a href="/revaluate-asset/"><i class="fa fa-caret-right"></i>
 							<span>ĐÁNH GIÁ LẠI TS</span></a></li> -->
-					<li><a href="/join-asset/"><i class="fa fa-caret-right"></i>{% trans 'GỘP TÀI SẢN'%}
+					
 							</a></li>
 					<li><a href="/release-asset/"><i class="fa fa-caret-right"></i>{% trans 'TÁCH TÀI SẢN'%}
 							</a></li>
-					<li><a href="/amortize-asset/"><i
-							class="fa fa-caret-right"></i>{% trans 'KHẤU HAO TÀI SẢN'%} </a></li>
 					<li><a href="/verify-asset/"><i class="fa fa-caret-right"></i>
 							{% trans 'KIỂM KÊ TÀI SẢN'%}</a></li>
 					<li><a href="/view-asset/"><i class="fa fa-caret-right"></i>
 							TRA CỨU TÀI SẢN</a></li>
+					<li><a href="/upgrade-asset/"><i class="fa fa-caret-right"></i>{% trans 'NÂNG CẤP TÀI SẢN'%}</a></li>
+					<li><a href="/amortize-asset/"><i
+							class="fa fa-caret-right"></i>{% trans 'KHẤU HAO TÀI SẢN'%} </a></li>
 					<li><a href="/evaluation-asset/"><i
 							class="fa fa-caret-right"></i>{% trans 'ĐÁNH GIÁ LẠI TÀI SẢN'%}</a></li>
 					<li><a href="/transfer-asset/"><i
 							class="fa fa-caret-right"></i>{% trans 'ĐIỀU CHUYỂN TÀI SẢN'%}</a></li>
-					<li><a href="/upgrade-asset/"><i class="fa fa-caret-right"></i>{% trans 'NÂNG CẤP TÀI SẢN'%}</a></li>
 				</ul></li>
 			<li class="nav-parent"><a href="#"><i
 					class="fa fa-bar-chart-o"></i> <span>{% trans 'BÁO CÁO'%}</span></a>
 				<ul class="children">
+					<li><a href="/card-asset/"><i class="fa fa-caret-right"></i>{% trans 'THẺ TÀI SẢN'%}</a></li>
 					<li><a href="/report/verify-asset-report/"><i
 							class="fa fa-caret-right"></i>{% trans 'BC CTTSCD-BK07'%}</a></li>
+					<li><a href="/report/asset-by-project-report/"><i class="fa fa-caret-right"></i>{% trans 'BCTS THEO DỰ ÁN'%}</a></li>
 					<li><a href="/report/asset-inventory-report/"><i
 							class="fa fa-caret-right"></i>{% trans 'BC TSCDTH-4ATHTSCĐ'%}</a></li>
-					<li><a href="/card-asset/"><i class="fa fa-caret-right"></i>{% trans 'THẺ TÀI SẢN'%}</a></li>
-					<li><a href="/report/asset-by-project-report/"><i class="fa fa-caret-right"></i>{% trans 'BÁO CÁO TÀI SẢN THEO DỰ ÁN'%}</a></li>
-							
 				</ul></li>
 			<li class="nav-parent"><a href="#"><i
 					class="fa fa-file-text"></i> <span>{% trans 'DANH MỤC'%}</span></a>
 				<ul class="children">
-					<li><a href="/country/"><i class="fa fa-caret-right"></i>{% trans 'NƯỚC SẢN XUẤT'%}</a></li>
-					<li><a href="/list-supplier/"><i class="fa fa-caret-right"></i>{% trans 'NHÀ CUNG CẤP'%}</a></li>
-					<li><a href="/asset-type/"><i class="fa fa-caret-right"></i>{% trans 'LOẠI TÀI SẢN'%}</a></li>
 					<li><a href="/reason/"><i class="fa fa-caret-right"></i> {% trans 'LÝ DO'%}</a></li>
 					<li><a href="/list-project/"><i class="fa fa-caret-right"></i>{% trans 'DỰ ÁN'%}</a></li>
+					<li><a href="/asset-type/"><i class="fa fa-caret-right"></i>{% trans 'LOẠI TÀI SẢN'%}</a></li>
+					<li><a href="/list-supplier/"><i class="fa fa-caret-right"></i>{% trans 'NHÀ CUNG CẤP'%}</a></li>
+					<li><a href="/country/"><i class="fa fa-caret-right"></i>{% trans 'NƯỚC SẢN XUẤT'%}</a></li>
+					<li><a href="/goal/"><i class="fa fa-caret-right"></i>{% trans 'MỤC ĐÍCH SỬ DỤNG'%}</a></li>
 					<li><a href="/asset-state/"><i class="fa fa-caret-right"></i>{% trans 'TÌNH TRẠNG SỬ DỤNG'%}</a></li>
 					<li><a href="/asset-volatility/"><i class="fa fa-caret-right"></i>{% trans 'BIẾN ĐỘNG TĂNG GIẢM'%}</a></li>
-					<li><a href="/goal/"><i class="fa fa-caret-right"></i>{% trans 'MỤC ĐÍCH SỬ DỤNG'%}</a></li>
 				</ul></li> 
 				{% if user.is_superuser %}
 				<li class="nav-parent"><a href="#"><i class="fa fa-cogs"></i>
