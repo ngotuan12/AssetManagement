@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 
+from MySQLdb.constants.FIELD_TYPE import NULL
 import cx_Oracle
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
@@ -67,24 +68,35 @@ def index(request):
         child_stock_asset_serials=[]
         parent_stock_asset_serials=[]
         
-        getChild(child_stock_asset_serials)
+        getChild(child_stock_asset_serials,None)
         context.update({'child_data':json.dumps(child_stock_asset_serials,cls=DateEncoder)})
         
-        getParent(parent_stock_asset_serials)
+        getParent(parent_stock_asset_serials,None)
         context.update({'parent_data':json.dumps(parent_stock_asset_serials,cls=DateEncoder)})
     except Exception as ex:
         context.update({'has_error':str(ex)})
     finally:
         context.update(csrf(request))
     return render_to_response("asset/_goal_.html", context, RequestContext(request))
-def getParent(parent_stock_asset_serials):
-    parent_stock_asset_serials_qs = List.objects.raw("""
-                        SELECT id,name,serial,parent_serial,connect_by_isleaf is_leaf
-                                FROM stock_asset_serial 
-                                START WITH parent_serial IS NULL
-                                CONNECT BY PRIOR serial = parent_serial 
-                                ORDER SIBLINGS BY parent_serial
-                        """)
+def getParent(parent_stock_asset_serials,stock_id):
+    if stock_id is not None:
+        print(stock_id)
+        parent_stock_asset_serials_qs = List.objects.raw("""
+                            SELECT id,name,serial,parent_serial,connect_by_isleaf is_leaf 
+                                    FROM stock_asset_serial 
+                                    WHERE stock_id = """ +"'"+stock_id + "'"+
+                                    """ START WITH parent_serial IS NULL 
+                                    CONNECT BY PRIOR serial = parent_serial 
+                                    ORDER SIBLINGS BY parent_serial
+                            """)
+    else:
+        parent_stock_asset_serials_qs = List.objects.raw("""
+                            SELECT id,name,serial,parent_serial,connect_by_isleaf is_leaf
+                                    FROM stock_asset_serial 
+                                    START WITH parent_serial IS NULL
+                                    CONNECT BY PRIOR serial = parent_serial 
+                                    ORDER SIBLINGS BY parent_serial
+                            """)
     for stock_asset_serial in parent_stock_asset_serials_qs:
             row = {}
             row.update({'id':stock_asset_serial.id})
@@ -99,13 +111,21 @@ def getParent(parent_stock_asset_serials):
             else:
                 row.update({'open':True,'iconOpen':'/tree/css/zTreeStyle/img/diy/1_open.png', 'iconClose':'/tree/css/zTreeStyle/img/diy/1_close.png'})
             parent_stock_asset_serials.append(row)
-def getChild(child_stock_asset_serials):
-    child_stock_asset_serials_qs = List.objects.raw("""
-                        SELECT id,name,serial
-                                FROM stock_asset_serial
-                                WHERE parent_serial is null AND num_sub <=0 
-                                ORDER BY id DESC
-                        """)
+def getChild(child_stock_asset_serials,stock_id):
+    if stock_id is not None:
+        child_stock_asset_serials_qs = List.objects.raw("""
+                            SELECT id,name,serial
+                                    FROM stock_asset_serial
+                                    WHERE parent_serial is null AND num_sub <=0  AND stock_id = """ +"'"+stock_id + "'"+
+                                    """ORDER BY id DESC
+                            """)
+    else:
+        child_stock_asset_serials_qs = List.objects.raw("""
+                            SELECT id,name,serial
+                                    FROM stock_asset_serial
+                                    WHERE parent_serial is null AND num_sub <=0 
+                                    ORDER BY id DESC
+                            """)
     for stock_asset_serial in child_stock_asset_serials_qs:
         row = {}
         row.update({'id':stock_asset_serial.id})
@@ -115,20 +135,12 @@ def getChild(child_stock_asset_serials):
         child_stock_asset_serials.append(row)
 def getListChild(request,stock_id):
     try:
-        child_stock_asset_serials_qs = List.objects.raw("""
-                            SELECT id,name,serial
-                                    FROM stock_asset_serial
-                                    WHERE parent_serial is null AND stock_id = '23' 
-                                    ORDER BY id DESC
-                            """)
-        child_stock_asset_serials =[]
-        for stock_asset_serial in child_stock_asset_serials_qs:
-            row = {}
-            row.update({'id':stock_asset_serial.id})
-            row.update({'name':stock_asset_serial.name})
-            row.update({'serial':stock_asset_serial.serial})
-            row.update({'icon':'/tree/css/zTreeStyle/img/diy/8.png'})
-            child_stock_asset_serials.append(row)
-        return HttpResponse(json.dumps({'child_stock_asset_serials':child_stock_asset_serials},cls=DateEncoder) ,content_type="application/json")
+        child_stock_asset_serials=[]
+        parent_stock_asset_serials=[]
+        
+        getChild(child_stock_asset_serials,stock_id)
+        getParent(parent_stock_asset_serials,stock_id)
+        
+        return HttpResponse(json.dumps({'child_stock_asset_serials':child_stock_asset_serials,'parent_stock_asset_serials':parent_stock_asset_serials},cls=DateEncoder) ,content_type="application/json")
     except Exception as ex:
         return HttpResponse(json.dumps({"error": str(ex)}),content_type="application/json")

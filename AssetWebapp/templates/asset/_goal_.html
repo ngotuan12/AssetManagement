@@ -133,7 +133,7 @@
 <script src="/js/jquery.confirm.js"></script>
 
 <script src="/js/custom.js"></script>
-
+<script src="/js/loading.js"></script>
 <script>
 jQuery(document).ready(function() {
 	
@@ -142,7 +142,6 @@ jQuery(document).ready(function() {
 		'width' : '100%',
 		'white-space' : 'nowrap'
 	});
-	
 	var childZNodes = {{ child_data|safe }};
 	var parentZNodes = {{ parent_data|safe }};
 	
@@ -230,6 +229,12 @@ var parentSetting = {
 };
 function onGetStock(dept_id)
 {
+	//show loading
+	$.fn.loading.show();
+	
+	//destroy tree
+	$.fn.zTree.destroy();
+	
 	var csrftoken = $.cookie('csrftoken');
 	var posting = $.post("/get-list-stock"+"/"+dept_id.toString()+"/", {
 		'csrfmiddlewaretoken' : csrftoken,
@@ -252,22 +257,28 @@ function onGetStock(dept_id)
 		$('#slStock').chosen('destroy');
 		$('#slStock').prop("selectedIndex", -1);
 		$('#slStock').chosen();
+		//hide loading
+		$.fn.loading.hide();
 	});
 }
 function onGetCode(stock_id)
 {
+	//show loading
+	$.fn.loading.show();
+	
 	var csrftoken = $.cookie('csrftoken');
 	var posting = $.post("/get-serial"+"/"+stock_id.toString()+"/", {
 		'csrfmiddlewaretoken' : csrftoken,
 	});
 	posting.done(function(data) 
 	{
-		child_stock_asset_serials = data.child_stock_asset_serials;
-		alert(child_stock_asset_serials.name);
-		alert(child_stock_asset_serials.serial);
-		var childZNodes = {{ child_data|safe }};
-		$.fn.zTree.destroy();
+		childZNodes = data.child_stock_asset_serials;
+		parentZNodes = data.parent_stock_asset_serials
+		
 		$.fn.zTree.init($("#treeChildGoal"), childSetting, childZNodes);
+		$.fn.zTree.init($("#treeParentGoal"), parentSetting, parentZNodes);
+		//hide loading
+		$.fn.loading.hide();
 	});
 }
 function addHoverDom(treeId, treeNode) 
@@ -440,6 +451,10 @@ function beforeRemove(treeId, treeNode) {
 	$("#dialog-confirm" ).html("<p> Bạn thực sự muốn xoá <strong >"+treeNode.name+ " </strong>(Y/N)?</p>");
 	$("#dialog-confirm" ).dialog('open');
 	return false;
+}
+function init(data)
+{
+	
 }
 </script>
 {% endblock scripts%}
