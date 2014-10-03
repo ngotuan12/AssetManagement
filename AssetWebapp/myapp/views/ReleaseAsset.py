@@ -86,4 +86,4 @@ def index(request):
         context.update({'has_error':str(ex)})
     finally:
         context.update(csrf(request))
-    return render_to_response("asset/_goal.html", context, RequestContext(request))
+    return render_to_response("asset/release-asset.html", context, RequestContext(request))

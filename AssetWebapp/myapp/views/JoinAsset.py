@@ -74,7 +74,7 @@ def index(request):
         context.update({'has_error':str(ex)})
     finally:
         context.update(csrf(request))
-    return render_to_response("asset/_goal_.html", context, RequestContext(request))
+    return render_to_response("asset/join-asset.html", context, RequestContext(request))
 def getParent(parent_stock_asset_serials,stock_id):
     if stock_id is not None:
         parent_stock_asset_serials_qs = List.objects.raw("""

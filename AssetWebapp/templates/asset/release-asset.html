@@ -1,96 +1,99 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 {% block styles %}
-	<style>
-		.no-padding
-		{
-			padding: 0px;
-		}
-	</style>
+<link href="/css/increment-asset.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<style>
+.ztree {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	height: 520px;
+	overflow-y: scroll;
+	overflow-x: auto;
+}
+
+.ztree li span.button.add {
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle
+}
+</style>
 {% endblock %}
+{% load i18n %}
 {% block content %}
-	<div class="contentpanel no-padding" style="background: #828283">
-		<div class="col-md">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">TÁCH TÀI SẢN</h4>
-			</div>
-			<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="release-asset">
-		
-			{% csrf_token %}
-			<div class="panel-body">
-				{% if has_error %}
-					<div class="panel">
-						<label id="error-text" class="error">{{ has_error }}</label>
+<div class="contentpanel no-padding">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title"
+				style="text-align: center; line-height: 10px">{% trans 'TÁCH TÀI SẢN' %}</h4>
+		</div>
+		<div class="panel-body" style="padding: 0 10px;">
+			<div class="row row-pad-0">
+				<div class="col-md-5" style="padding-top: 10px;">
+					<div class="col-md-12" style="BORDER-RIGHT: #999999 1px dashed;">
+						<label>{% trans 'TÌM KIẾM' %}</label> <input type="text"
+							id = "txtSearch" placeholder="{% trans 'Tìm ..' %}"
+							class="form-control" oninput="onChangeTree();">
 					</div>
-				{% endif %}
-				<select id="choosen-asset" style="display:none ">
-					</select>
-					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  /> 
-				<div class="alert alert-info">
-					<div class = "row row-pad-5">
-						<div class="col-lg-6">
-							<select id="slAsset" class="form-control chosen-select"
-								data-placeholder="Tài sản gốc" 
-								name = "slAsset">
-								<option value=""></option>
-								{% for asset in assets%}
-									<option value="{{ asset.SERIAL }}" {% ifequal asset.SERIAL|add:'0' parent_serial|add:'0' %} selected {% endifequal %}>{{ asset.SERIAL }} - {{ asset.NAME }}</option>
-								{% endfor%}
-							</select>
-						</div>
-						<div class="col-lg-6">
-							<input type="text" name="txtNote" placeholder="Chi chú"
-								class="form-control"  style="padding-bottom: 6px;">
-						</div>
-						
+					<div class="col-md-12" style="BORDER-RIGHT: #999999 1px dashed;">
+							<ul id="treeGoal" class="ztree"></ul>
 					</div>
-					<div class="form-group">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="childAssetTable" style="width:100%">
-									<thead>
-										<tr>
-											<th width='30' style="text-align:center">CHỌN</th>
-											<th width='150' style="text-align:center">SỐ THẺ TÀI SẢN</th>
-											<th style="text-align:center">TÊN TÀI SẢN</th>
-										</tr>
-									</thead>
-									<tbody id="child-asset-table-body">
-										{% for asset in child_assets %}
-										<tr class="odd gradeX" >
-											<td width='30' style="text-align:center"><input type="checkbox" id='{{ "child-asset-id-"|add:asset.SERIAL }}' value='{{ asset.SERIAL }}' onClick="chooseAsset(this.id,this.checked)"></td>
-											<td width='100'>{{ asset.SERIAL }}</td>
-											<td>{{ asset.NAME }}</td>
-											
-										</tr>
-										{% endfor %}
-									</tbody>
-								</table>
+				</div>
+				<div class="col-md-7" style="padding-top: 10px;padding-left: 0px;">
+					{% if has_error %}
+						<div class="col-sm panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+					<div class="col-sm panel">
+						<p id="showError" style="color:#B94A48;margin: 10px; display: none;">Phải chọn tài sản để tách!</p>
+					</div>
+					<div class="col-lg">
+						<label>{% trans 'DANH SÁCH TÀI SẢN MUỐN TÁCH' %}</label>
+					</div>
+					<div class="col-lg">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="assetTable">
+								<thead>
+									<tr>
+										<th style="width: 15%;">{% trans 'MÃ TÀI SẢN' %} </th>
+										<th style="width: 20%;">{% trans 'TÊN TÀI SẢN' %} </th>
+										<th style="width: 1%;">{% trans 'XÓA' %}</th>
+									</tr>
+								</thead>
+								<tbody id="assetTbody">
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col-lg" style="padding-top: 20px;padding-bottom: 10px;">
+						<form method="post" id="release-asset" novalidate="novalidate" >
+							{% csrf_token %}
+							<input type="hidden" name="txtListSerial" id="txtListSerial" value="" required="required">
+							<div class="col-sm">
+								<label>{% trans 'Ghi chú' %}</label>
+								<textarea class="form-control" name="txtNote" rows="3"
+									placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
 							</div>
-							<!-- table-responsive -->
+						</form>
 					</div>
-					<!-- panel-body -->
-				
-				
-				<span id="error-validate" class="error" style="color:red"></span>
-			</div>
-			
-			<div class="row">
-				<div class="col-sm col-sm-offset-5" >
-						<button class="btn btn-primary" onclick=" return onSubmitForm();">Thực hiện</button>
+					<div class="col-lg">
+						<div class="col-sm">
+							<button class="btn btn-primary" onclick="return onSubmit();" style="float: right;">{% trans 'Thực hiện' %}</button>
+						</div>
+					</div>
 				</div>
 			</div>
-			</div>
-		</form>
-			
-		
-		</div>
-		
-		<!-- panel body-->
 		</div>
 	</div>
-{% endblock content %}
-
+</div>
+<!-- contentpanel -->
+{% endblock %} 
 {% block scripts %}
 <script src="/js/jquery-1.10.2.min.js"></script>
 <script src="/js/jquery-migrate-1.2.1.min.js"></script>
@@ -100,138 +103,192 @@
 <script src="/js/toggles.min.js"></script>
 <script src="/js/retina.min.js"></script>
 <script src="/js/jquery.cookies.js"></script>
-
-<script src="/js/jquery.autogrow-textarea.js"></script>
-<script src="/js/jquery.maskedinput.min.js"></script>
-<script src="/js/chosen.jquery.min.js"></script>
-<script src="/js/jquery-ui-1.10.3.min.js"></script>
 <script src="/js/jquery.validate.min.js"></script>
-<script src="/js/jquery.numeric.js"></script>
-<script src="/js/jquery.datatables.min.js"></script>
+
+<script type="text/javascript" src="/tree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="/tree/js/jquery.ztree.exedit-3.5.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js" ></script> 
+<script src="/js/jquery.confirm.js"></script>
 
 <script src="/js/custom.js"></script>
 
-
 <script>
-$(document).ready(function(){
-  // Chosen Select
-  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
-  
-  $('#childAssetTable').dataTable({
-		"sPaginationType" : "full_numbers"
-	});
-  $(".table-responsive  select").chosen({
-		'min-width' : '150px',
-		'white-space' : 'nowrap',
-		disable_search_threshold : 10
-	});
-  
-	
-});
-
-$('#slAsset').change(function(){
-	
-	var parent_serial = $(this).find('option:selected').val();
-	onChangeParent(parent_serial);
-	
-	
-});
-
-function onSubmitForm()
-{
-	var choosenId='';
-	$('#error-validate').empty();
-	
-	if($('#slAsset').val()=='')
-	{
-		$('#error-validate').html("Bạn phải chọn một tài sản nhóm");
-		$('#slAsset').focus();
-		return false;
-	}
-	$('#choosen-asset option').each(function(){
-		choosenId+=$(this).val();
-		choosenId+=';';
-	});
-	if(choosenId=='')
-	{
-		$('#error-validate').html("Không có tài sản nào được chọn để tách");
-		return false;
-	}
-	else
-	{
-		choosenId=choosenId.substring(0,choosenId.length-1);
-		
-		$('#txtChooseAsset').val(choosenId);
-		$('#release-asset').submit();
-		return true;
-	}
-}
-function onChangeParent(parent_id)
-{
-	
-	var csrftoken = $.cookie('csrftoken');
-	$('#error-validate').empty();
-	var posting = $.post("/get-child-asset"+"/"+parent_id.toString()+"/", {
-		'csrfmiddlewaretoken' : csrftoken,
-	});
-	
-	posting.done(function(data) 
-	{
-		//alert(JSON.stringify(data))
-		//num_row
-		
-		assets = data.child_assets;
-		$('#childAssetTable').dataTable().fnDestroy();
-		$('#choosen-asset').empty();
-		$('#childAssetTable tbody').empty();
-		for(var i=0;i<assets.length ;i++)
-		{
-			asset = assets[i];
-			row = $("<tr class=\"odd gradeX\" ></tr>");
-			
-			chooseCol=$("<td width='30' style='text-align:center'></td>");
-			chk=$("<input type=\"checkbox\" id=\"child-asset-id-"+asset.SERIAL+"\" value=\"\" onClick=\"chooseAsset(this.id,this.checked)\">");
-			chk.attr("value",asset.SERIAL);
-			chooseCol.append(chk);
-			assetIdCol=$("<td width='150'></td>");
-			assetIdCol.text(asset.SERIAL);
-			assetNameCol=$("<td></td>");
-			assetNameCol.text(asset.NAME);
-			
-			row.append(chooseCol);
-			row.append(assetIdCol);
-			row.append(assetNameCol);
-			$('#childAssetTable tbody').append(row);
+jQuery(document).ready(function() {
+	var zNodes = {{ data|safe }};
+	var setting = {
+		treeId: "treeGoal",
+		view: {
+			//addHoverDom: addHoverDom,
+			removeHoverDom: removeHoverDom,
+			selectedMulti: false,
+			fontCss: getFontCss,
+		},
+		edit: {
+			enable: false,
+			editNameSelectAll: true,
+			showRemoveBtn: showBtn,
+			showRenameBtn: showBtn,
+		},
+		callback: {
+			beforeDrag: beforeDrag,
+			beforeEditName: beforeEditName,
+			//beforeRemove: beforeRemove,
+			onClick: onClick,
+			onCheck:onCheck,
+		},
+		data : {
+			simpleData : {
+				enable : true,
+				idKey: 'id',
+				pIdKey: 'parent_id',
+				rootPId: null,
+			},
+		},
+		check:{
+			autoCheckTrigger: true,
+			enable: true,
+			chkboxType: { "Y": "s", "N": "s" },
+			nocheckInherit: false,
 		}
-		$('#childAssetTable').css("width","100%");
-		$('#childAssetTable').dataTable({
-			"sPaginationType" : "full_numbers",
-			"bAutoWidth":false
-		});
-		 $(".table-responsive  select").chosen({
-				'min-width' : '150px',
-				'white-space' : 'nowrap',
-				disable_search_threshold : 10
-			});
-	});
+	};
+	var tree = $.fn.zTree.init($("#treeGoal"), setting, zNodes);
 	
-}
-
-function chooseAsset(id,checked){
-	var value=$('#'+id).val();
-	
-	if(checked==true)
+	var treeObj = $.fn.zTree.getZTreeObj("treeGoal");
+	var nodes = treeObj.getCheckedNodes(false);
+	for (var i=0, l=nodes.length; i < l; i++) {
+		if(!nodes[i].icon)
+			treeObj.setChkDisabled(nodes[i], true);
+	}
+});
+var lastValue = "", nodeList = [], fontCss = {};
+var newCount = 1;
+function addHoverDom(treeId, treeNode) 
+{
+	var sObj = $("#" + treeNode.tId + "_span");
+	if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+	var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+		+ "' title='add node' onfocus='this.blur();'></span>";
+	sObj.after(addStr);
+	var btn = $("#addBtn_"+treeNode.tId);
+	if (btn) btn.bind("click", function()
 	{
-		
-		option=$("<option></option>");
-		option.attr("value",value);
-		$('#choosen-asset').append(option);
+		window.location.href  = "/goal/add/"+treeNode.id+"/";
+	}); 
+};
+
+function removeHoverDom(treeId, treeNode) {
+	$("#addBtn_"+treeNode.tId).unbind().remove();
+};
+function showBtn(treeId, treeNode) {
+	return treeNode.parent_id !=null;
+}
+function beforeDrag(treeId, treeNodes) {
+	return false;
+}
+function onCheck(event, treeId, treeNode, clickFlag)
+{
+	var newRow = $('<tr serial="'+ treeNode.serial +'"><td serial="'+treeNode.serial+'">'+treeNode.serial+'</td><td>'+treeNode.name+'</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('+"'" +treeNode.serial+"'" +');"><i class="fa fa-trash-o"></i></a></td></tr>');
+	var tr= $("#assetTbody tr[serial][serial ='"+treeNode.serial+"']");
+	
+	if($("#assetTbody tr[serial][serial ='"+treeNode.serial+"']").size() == 0)
+		$("#assetTbody").append(newRow);
+	else
+		tr.remove();
+	//check node on tree
+	checkNode();
+}
+function onClick(event, treeId, treeNode, clickFlag) {
+
+}
+function checkNode()
+{
+	//set check
+	var ChildZTree = $.fn.zTree.getZTreeObj("treeGoal");
+	
+	childCheck = ChildZTree.getCheckedNodes(true);
+	
+	if(childCheck.length <=0)
+		$("#showError").show();
+	else
+		$("#showError").hide();
+}
+function onSubmit()
+{	
+	//set check
+	var ChildZTree = $.fn.zTree.getZTreeObj("treeGoal");
+	
+	childCheck = ChildZTree.getCheckedNodes(true);
+	
+	if(childCheck.length <=0)
+	{
+		$("#showError").show();
+		return false;
+	}
+	else
+		$("#showError").hide();
+	
+	//validate
+	var $valid = jQuery("#release-asset").valid();
+	if(!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
 	}
 	else
 	{
-		$('#choosen-asset option[value="'+value+'"]').remove();
+		var temp ="";
+		$("#assetTbody tr[serial]").each(function()
+		{
+			temp += $(this).attr('serial')+",";
+		});
+		temp = temp.substr(0,temp.length-1);
+		$("#txtListSerial").val(temp);
+		$("#release-asset").submit();
 	}
+		
+}
+function Remove(serial)
+{
+	var zTree = $.fn.zTree.getZTreeObj("treeGoal");
 	
+	var tr= $("#assetTbody tr[serial][serial ='"+serial+"']");
+	tr.remove();
+	var node = zTree.getNodeByParam("serial", serial, null);
+	node.checked = false;
+	zTree.refresh();
+	//check node checked on tree
+	checkNode();
+}
+function getFontCss(treeId, treeNode) {
+	return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+}
+function onChangeTree()
+{
+	var zTree = $.fn.zTree.getZTreeObj("treeGoal");
+		var value = $("#txtSearch").val();
+		var keyType = "name";
+		if (lastValue === value) return;
+		lastValue = value;
+		if (value === "") return;
+		updateNodes(false);
+		nodeList = zTree.getNodesByParamFuzzy(keyType, value,null);
+		updateNodes(true);
+}
+function updateNodes(highlight) {
+	var zTree = $.fn.zTree.getZTreeObj("treeGoal");
+	for( var i=0, l=nodeList.length; i<l; i++) {
+		nodeList[i].highlight = highlight;
+		zTree.updateNode(nodeList[i]);
+	}
+}
+function beforeEditName(treeId, treeNode) {
+	window.location.href  = "/goal/edit/"+treeNode.id+"/";
+	return false;
+}
+function beforeRemove(treeId, treeNode) {
+	$("#txtID").val(treeNode.id);
+	return false;
 }
 </script>
 {% endblock scripts%}
