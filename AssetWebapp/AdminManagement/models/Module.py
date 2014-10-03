@@ -34,7 +34,6 @@ class Module(models.Model):
     ord = models.IntegerField(db_column="ord",default=1)
     class Meta:
         db_table = 'module'
-        app_label = 'AdminManagement'
     @update_id
     def save(self):
         # Now actually save the object.

@@ -70,6 +70,14 @@ WSGI_APPLICATION = 'AssetWebapp.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'db',
+        'USER': 'ASSET',
+        'PASSWORD': 'asset',
+        'HOST': '10.0.3.10',
+        'PORT': '1521',
+    },
+    'oracle_pool': {
         'ENGINE': 'oraclepool',
         'NAME': 'db',
         'USER': 'ASSET',

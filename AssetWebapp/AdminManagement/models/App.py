@@ -18,7 +18,6 @@ class App(models.Model):
     status = models.CharField(max_length=10,db_column="status",default='1')
     class Meta:
         db_table = 'app'
-        app_label = 'AdminManagement'
     @update_id
     def save(self):
         # Now actually save the object.

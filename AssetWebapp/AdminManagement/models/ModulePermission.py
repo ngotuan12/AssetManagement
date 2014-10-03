@@ -17,4 +17,3 @@ class ModulePermission(models.Model):
     permission = models.ForeignKey(Permission,db_column='permission_id')
     class Meta:
         db_table = 'module_permission'
-        app_label = 'AdminManagement'
