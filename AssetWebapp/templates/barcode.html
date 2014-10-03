@@ -1,0 +1,23 @@
+<html>
+<head>
+<link href="/fonts/barcode/Code39Azalea.min.css" rel="stylesheet">
+</head>
+<body>
+{% if has_error %}
+<h1>{{ has_error }}</h1>
+{% endif %}
+<div style="font-family: Code39AzaleaFont;font-size: 70px;text-align: center;"><p id="showbarcode"></p></div>
+<div style="font-family: Code39AzaleaFont;font-size: 70px;text-align: center;"><input id="txtbarcode" type="number" value="" placeholder="Nhập barcode" onchange="onChange();"></div>
+
+</body>
+<script src="../../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+	function onChange()
+	{
+		var barcode = $("#txtbarcode").val();
+		$("#showbarcode").html("*"+ barcode +"*");
+	}
+	$(document).ready(function() {
+	});
+</script>
+</html>

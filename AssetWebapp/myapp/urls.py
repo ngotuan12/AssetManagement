@@ -4,7 +4,8 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	EditIncrementAsset, ViewAsset, UpgradeAsset, DecrementAsset, VerifyAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error\
-	,Goal,AssetVolatility,ListCountry,App,BarCode,PrintAsset,ReleaseAsset
+	, Goal, AssetVolatility, ListCountry, App, BarCode, PrintAsset, ReleaseAsset\
+	, JoinAsset
 
 
 urlpatterns = patterns('',
@@ -39,6 +40,7 @@ urlpatterns = patterns('',
     url(r'^decrement-asset/$', DecrementAsset.index, name='decrement-asset'),
     url(r'^get-list-stock/(?P<dept_id>\w+)/$', DecrementAsset.getListStock, name='get-list-stock'),
     url(r'^get-list-serial/(?P<stock_id>\w+)/$', DecrementAsset.getListSerial, name='get-list-serial'),
+    url(r'^get-serial/(?P<stock_id>\w+)/$', JoinAsset.getListChild, name='get-serial'),
     # verify asset
     url(r'^verify-asset/$', VerifyAsset.index,name='verify-asset'),
     url(r'^verify-asset/(?P<serial_id>\w+)/$', VerifyAsset.verify),
@@ -88,7 +90,7 @@ urlpatterns = patterns('',
     url(r'^reason/(?P<reason_id>\w+)/$', Reason.change_reason, name='change-reason'),
     #Join-Release_asset
     url(r'^release-asset/$', ReleaseAsset.index, name='release_asset'),
-    url(r'^join-asset/$', JoinReleaseAsset.join_asset, name='join-asset'),
+    url(r'^join-asset/$', JoinAsset.index, name='join-asset'),
     url(r'^get-child-asset/(?P<asset_parent_id>\w+)/$', JoinReleaseAsset.load_child_asset, name='get-child-asset'),
     url(r'^amortize-asset/$', AmortizeAsset.index, name='amortize-asset'),
     url(r'^asset-type/$', AssetType.index, name='asset-type'),
