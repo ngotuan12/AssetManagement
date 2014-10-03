@@ -320,6 +320,15 @@ function onParentCheck(event, treeId, treeNode, clickFlag)
 	var ChildZTree = $.fn.zTree.getZTreeObj("treeChildGoal");
 	var ParentZTree = $.fn.zTree.getZTreeObj("treeParentGoal");
 	
+	//refresh tree
+	var parentNodes = ParentZTree.getCheckedNodes(true);
+	for( var i=0, l=parentNodes.length; i<l; i++) {
+		if(parentNodes[i].id != treeNode.id){
+			parentNodes[i].checked = false;
+			ParentZTree.refresh();
+		}
+	}
+	
 	var nodes = ChildZTree.getNodes();
 	for( var i=0, l=nodes.length; i<l; i++) {
 		if(nodes[i].id === treeNode.id && treeNode.checked){
@@ -328,6 +337,7 @@ function onParentCheck(event, treeId, treeNode, clickFlag)
 		else
 			ChildZTree.setChkDisabled(nodes[i], false);
 	}
+	
 	//set check
 	parentCheck = ParentZTree.getCheckedNodes(true);
 	childCheck = ChildZTree.getCheckedNodes(true);

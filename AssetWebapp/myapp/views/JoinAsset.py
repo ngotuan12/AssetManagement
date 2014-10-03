@@ -94,8 +94,8 @@ def getParent(parent_stock_asset_serials):
                 st =StockAssetSerial.objects.get(serial = stock_asset_serial.parent_serial)
                 row.update({'parent_id':st.id})
                 row.update({'parent_name':st.name})
-                row.update({'icon':'/tree/css/zTreeStyle/img/diy/8.png'})
-                row.update({'serial':stock_asset_serial.serial})
+                if(stock_asset_serial.is_leaf == 1): 
+                    row.update({'icon':'/tree/css/zTreeStyle/img/diy/8.png'})
             else:
                 row.update({'open':True,'iconOpen':'/tree/css/zTreeStyle/img/diy/1_open.png', 'iconClose':'/tree/css/zTreeStyle/img/diy/1_close.png'})
             parent_stock_asset_serials.append(row)
@@ -103,7 +103,7 @@ def getChild(child_stock_asset_serials):
     child_stock_asset_serials_qs = List.objects.raw("""
                         SELECT id,name,serial
                                 FROM stock_asset_serial
-                                WHERE parent_serial is null
+                                WHERE parent_serial is null AND num_sub <=0 
                                 ORDER BY id DESC
                         """)
     for stock_asset_serial in child_stock_asset_serials_qs:
