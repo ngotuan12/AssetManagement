@@ -31,9 +31,6 @@ def index(request):
             parentSerial = request.POST["hd_ParentSerial"];
             
             arrChildSerial = lsChildSerial.split(',')
-            print("txtNote: "+txtNote)
-            print("parentSerial: "+ parentSerial)
-            print("lsChildSerial: "+ lsChildSerial)
             for childSerial in arrChildSerial:
                 cursor = connection.cursor()
                 cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
@@ -80,7 +77,6 @@ def index(request):
     return render_to_response("asset/_goal_.html", context, RequestContext(request))
 def getParent(parent_stock_asset_serials,stock_id):
     if stock_id is not None:
-        print(stock_id)
         parent_stock_asset_serials_qs = List.objects.raw("""
                             SELECT id,name,serial,parent_serial,connect_by_isleaf is_leaf 
                                     FROM stock_asset_serial 

@@ -23,6 +23,7 @@ def index(request):
         try:
             lsSerial = request.POST["txtListSerial"];
             arrSerial = lsSerial.split(',')
+            txtNote = request.POST["txtNote"];
             p_type= '2'
             user_name = request.user.username
             for serial in arrSerial :
@@ -44,7 +45,7 @@ def index(request):
                                 # p_serial
                                 p_serial,
                                 # p_note
-                                None,
+                                txtNote,
                                 # p_user_name
                                 user_name,
                             ))
