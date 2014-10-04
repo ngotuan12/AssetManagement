@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<style>
 		.no-padding
@@ -13,7 +14,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">TÍNH KHẤU HAO TÀI SẢN</h4>
+					style="text-align: center; line-height: 10px">{% trans 'TÍNH KHẤU HAO TÀI SẢN' %}</h4>
 			</div>
 			
 			<div class="panel-body">
@@ -25,18 +26,19 @@
 			<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="amortize-asset">
 		
 		{% csrf_token %}
-				<div class="alert alert-info">
 					<div class = "row row-pad-5">
 						<div class="col-lg-6">
+							<label> {% trans 'Tháng tính khấu hao' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="mm/yy" placeholder="Tháng tính khấu hao" id="amortize_month"
+									data-provide="datepicker" data-date-format="mm/yy" placeholder="{% trans 'Tháng tính khấu hao' %}" id="amortize_month"
 									name = "dtAmortizeMonth" required> <span
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<input type="text" name="txtSerial" placeholder="Số thẻ tài sản"
+						<label> {% trans 'Số thẻ tài sản' %}</label>
+							<input type="text" name="txtSerial" placeholder="{% trans 'Số thẻ tài sản' %}"
 								class="form-control">
 						</div>
 					</div>
@@ -44,39 +46,27 @@
 				<!-- row -->
 						
 						
-					</div>
 					<input type="hidden" name="submitForm" value="calculate"/>
-					</form>
-					<div class="row">
-						<div class="col-sm col-sm-offset-5" >
-								<button class="btn btn-primary" onclick=" return onCalculate();">Thực hiện</button>
+						<div class="row row-pad-5" >
+						<div class="col-sm col-sm-offset-5" style='float:right'>
+								<button class="btn btn-primary" onclick=" return onCalculate();">{% trans 'Thực hiện' %}</button>
 						</div>
 					</div>
-			</div>
-			</div>
-		
-			<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">DUYỆT</h4>
-			</div>
-			
-			<div class="panel-body">
-			<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="approve-amortize-asset">
+					</form>
+				
+				<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="approve-amortize-asset">
 			{% csrf_token %}
-				<div class="alert alert-info">
-					<div class="form-group">
 						<div class="col-sm" >
 							<div class="table-responsive">
 								<table class="table table-bordered" id="childAssetTable">
 									<thead>
 										<tr>
-											<th width='30' style='text-align:center'>CHỌN</th>
-											<th width='150' style='text-align:center'>SỐ THẺ TÀI SẢN </th>
-											<th style='text-align:center'>THÁNG </th>
-											<th style='text-align:center'>SỐ TIỀN </th>
-											<th style='text-align:center'>PHƯƠNG PHÁP TÍNH </th>
-											<th style='text-align:center'>TRẠNG THÁI</th>
+											<th width='30' style='text-align:center'>{% trans 'CHỌN' %}</th>
+											<th width='150' style='text-align:center'>{% trans 'SỐ THẺ TÀI SẢN' %} </th>
+											<th style='text-align:center'>{% trans 'THÁNG' %} </th>
+											<th style='text-align:center'>{% trans 'SỐ TIỀN' %} </th>
+											<th style='text-align:center'>{% trans 'PHƯƠNG PHÁP TÍNH' %} </th>
+											<th style='text-align:center'>{% trans 'TRẠNG THÁI' %}</th>
 										</tr>
 									</thead>
 									<tbody id="child-asset-table-body">
@@ -89,15 +79,15 @@
 												></td>
 											<td width='100'>{{ amortizeAsset.serial_no }}</td>
 											<td>{{ amortizeAsset.month|date:'m/Y' }}</td>
-											<td style="text-align: right;">{{ amortizeAsset.amount }}</td>
+											<td class="currency" style="text-align: right;">{{ amortizeAsset.amount }}</td>
 											<td>{{ amortizeAsset.amortize.name }}</td>
 											{% if amortizeAsset.status == '00' %}
 												<td>
-													Đã tính
+													{% trans 'Đã tính' %}
 												</td>
 											{% else %}
 												<td>
-													Đã duyệt
+													{% trans 'Đã duyệt' %}
 												</td>
 											{% endif %}
 											
@@ -109,22 +99,24 @@
 							<!-- table-responsive -->
 						</div>
 						
-					</div>
 					<!-- row -->
-				</div>
 				<input type="hidden" name="submitForm" value="approved"/>
 			<select id="choosen-asset" style="display:none ">
 					</select>
 					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  />
-				</form>
-				<div class="row">
+					<div class="row">
 						<div class="col-sm col-sm-offset-5" >
-								<button class="btn btn-primary" onclick=" return onApproved();">Thực hiện</button>
+								<button class="btn btn-primary" onclick=" return onApproved();">{% trans 'Thực hiện' %}</button>
 						</div>
-					</div>
+					</div>	
+				</form>
+				
+			</div>
+			</div>
+		
 			
-			</div>
-			</div>
+			
+			
 			
 		
 		<!-- panel body-->
@@ -151,7 +143,8 @@
 <script src="/js/jquery.datatables.min.js"></script>
 
 <script src="/js/custom.js"></script>
-
+<script src="/js/jquery.formatCurrency.vi-VN.js"></script>
+<script src="/js/jquery.formatCurrency-1.4.0.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -193,7 +186,7 @@ function onApproved()
 	});
 	if(choosenId=='')
 	{
-		$('#error-validate').html("Không có bản ghi nào được chọn để duyệt");
+		$('#error-validate').html("{% trans 'Không có bản ghi nào được chọn để duyệt' %}");
 		return false;
 	}
 	else

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="css/custom.css" rel="stylesheet">
 	<link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css"
@@ -9,7 +10,7 @@
 <div class="col-md">
 	  <div class="panel panel-primary">
 		<div class="panel-heading">
-		  <h4 class="panel-title" style="text-align:center;line-height:10px">DANH MỤC LÝ DO</h4>
+		  <h4 class="panel-title" style="text-align:center;line-height:10px">{% trans 'DANH MỤC LÝ DO' %}</h4>
 		</div>
 		<div class="panel-body">
 			{% if has_error %}
@@ -22,12 +23,12 @@
 				<table class="table table-bordered" id="reasontable">
 					<thead>
 						<tr>
-							<th style='text-align:center'>STT</th>
-							<th style='text-align:center'>MÃ LÝ DO</th>
-							<th style='text-align:center'>TÊN LÝ DO</th>
-							<th style='text-align:center'>TRẠNG THÁI</th>
-							<th style='text-align:center'>MÔ TẢ</th>
-							<th style='text-align:center'>SỬA/XÓA</th>
+							<th style='text-align:center'>{% trans 'STT' %}</th>
+							<th style='text-align:center'>{% trans 'MÃ LÝ DO' %}</th>
+							<th style='text-align:center'>{% trans 'TÊN LÝ DO' %}</th>
+							<th style='text-align:center'>{% trans 'TRẠNG THÁI' %}</th>
+							<th style='text-align:center'>{% trans 'MÔ TẢ' %}</th>
+							<th style='text-align:center'>{% trans 'SỬA/XÓA' %}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,7 +37,7 @@
 							<td>{{forloop.counter}}</td>
 							<td><a href="/reason/{{ reason.id }}/">{{ reason.code }}</a></td>
 							<td>{{ reason.name }}</td>
-							<td>{% ifequal reason.status "1" %} Hiệu lực {% else %} Hết hiệu lực {% endifequal  %}</td>
+							<td>{% ifequal reason.status "1" trans 'Hiệu lực' %} {% else trans 'Hết hiệu lực' %} {% endifequal  %}</td>
 							<td>{{ reason.description }}</td>
 							<td class="table-action">
 								<a href="/reason/{{ reason.id }}/"><i class="fa fa-pencil"></i></a>
@@ -56,13 +57,13 @@
 		</div>
 		<!-- panel-body -->
 		<div class="panel-footer">
-				<a class="btn btn-success" href="/reason/add/">Thêm lý do</a>
+				<a class="btn btn-success" href="/reason/add/">{% trans 'Thêm lý do' %}</a>
 			</div>
 	</div>
 	<!-- panel -->
 </div>
 <div id="dialog-confirm" title="Xóa lý do?" >
-  		<p><span style="float:left; margin:0 7px 20px 0;"></span>Bạn có chắc chắn muốn xóa lý do này không?</p>
+  		<p><span style="float:left; margin:0 7px 20px 0;"></span>{% trans 'Bạn có chắc chắn muốn xóa lý do này không?' %}</p>
 	</div>
 {% endblock content %}
 

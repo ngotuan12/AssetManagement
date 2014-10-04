@@ -9,37 +9,37 @@
 <div class="col-md">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-		  <h4 class="panel-title" style="text-align:center;line-height:10px">THAY ĐỔI LÝ DO</h4>
+		  <h4 class="panel-title" style="text-align:center;line-height:10px">{% trans 'THAY ĐỔI LÝ DO' %}</h4>
 		</div>
 		<div class="panel-body">
 			<div class="alert alert-info">
 				<form action="" class="form-horizontal form-bordered" method="post" id="formReason" novalidate="novalidate">
 				{% csrf_token %}
 					<div class="form-group ">
-						<label class="col-sm-2 control-label">Tên lý do</label>
+						<label class="col-sm-2 control-label">{% trans 'Tên lý do' %}</label>
 						<div class="col-sm-8">
-							<input name="txtReasonName" type="text" placeholder="Tên lý do" class="form-control" value="{{ current_reason.name }}" required maxlength="200">
+							<input name="txtReasonName" type="text" placeholder="{% trans 'Tên lý do' %}" class="form-control" value="{{ current_reason.name }}" required maxlength="200">
 						</div>
 					</div>
 					<div class="form-group ">
-						<label class="col-sm-2 control-label">Trạng thái</label>
+						<label class="col-sm-2 control-label">{% trans 'Trạng thái' %}</label>
 						<div class="col-sm-8">
 							<select  name="optStatus" class="form-control" required="required">
-								<option value="1" {% if current_reason.status == "1" %} selected {% endif %}>Hiệu lực</option>
-								<option value="0" {% if current_reason.status == "0" %} selected {% endif %}>Hết hiệu lực</option>
+								<option value="1" {% if current_reason.status == "1" %} selected {% endif %}>{% trans 'Hiệu lực' %}</option>
+								<option value="0" {% if current_reason.status == "0" %} selected {% endif %}>{% trans 'Hết hiệu lực' %}</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group ">
-						<label class="col-sm-2 control-label">Mô tả</label>
+						<label class="col-sm-2 control-label">{% trans 'Mô tả' %}</label>
 						<div class="col-sm-8">
-							<input name="txtDescription" type="text" placeholder="Mô tả" class="form-control" value="{{ current_reason.description }}" maxlength="500" >
+							<input name="txtDescription" type="text" placeholder="{% trans 'Mô tả' %}" class="form-control" value="{{ current_reason.description }}" maxlength="500" >
 						</div>
 					</div>
 					<div class="form-group">
 					<div class="col-sm-6 col-sm-offset-3">
-						<button class="btn btn-primary" onclick="return onValidate();">Lưu</button>&nbsp;
-						<a href="/reason/" class="btn btn-default">Thoát</a>
+						<button class="btn btn-primary" onclick="return onValidate();">{% trans 'Lưu' %}</button>&nbsp;
+						<a href="/reason/" class="btn btn-default">{% trans 'Thoát' %}</a>
 					</div>
 				 	</div>
 				</form>

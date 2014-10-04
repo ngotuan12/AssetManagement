@@ -1,4 +1,5 @@
 {% extends "base.html" %} 
+{% load i18n %}
 {% block styles %}
 <link href="/css/increment-asset.css" rel="stylesheet">
 <link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
@@ -29,7 +30,7 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h4 class="panel-title"
-				style="text-align: center; line-height: 10px">THÊM LOẠI TÀI SẢN</h4>
+				style="text-align: center; line-height: 10px">{% trans 'THÊM LOẠI TÀI SẢN' %}</h4>
 		</div>
 		<div class="panel-body" style="padding: 0 10px;">
 			<div class="row row-pad-5">
@@ -42,53 +43,51 @@
 					{% endif %}
 					<div class="row row-pad-5">
 						<div class="col-lg">
-							<label>Thuộc loại tài sản</label> <input type="text" value="{{ parent_name }}"
-								id = "txtParentName" placeholder="Thuộc loại tài sản"
+							<label>{% trans 'Thuộc loại tài sản' %}</label> <input type="text" value="{{ parent_name }}"
+								id = "txtParentName" placeholder="{% trans 'Thuộc loại tài sản' %}"
 								class="form-control" disabled>
 						</div>
 					</div>
 					<div class="row row-pad-5">
 						<div class="col-lg-6">
-							<label>Mã loại tài sản</label> <input type="text"
-								id="txtCode" name="txtCode" placeholder="Mã loại tài sản"
+							<label>{% trans 'Mã loại tài sản' %}</label> <input type="text"
+								id="txtCode" name="txtCode" placeholder="{% trans 'Mã loại tài sản' %}"
 								class="form-control" required maxlength="40">
 						</div>
 						<div class="col-lg-6">
-							<label>Tên loại tài sản</label> <input type="text"
-								id="txtName" name="txtName" placeholder="Tên loại tài sản"
+							<label>{% trans 'Tên loại tài sản' %}</label> <input type="text"
+								id="txtName" name="txtName" placeholder="{% trans 'Tên loại tài sản' %}"
 								class="form-control" required maxlength="150">
 						</div>
 					</div>
 					<div class="row row-pad-5">
 						<div class="col-lg-6">
-							<label>Tài khoản hạch toán</label>
+							<label>{% trans 'Tài khoản hạch toán' %}</label>
 							<input type="text" id="account-no" name="txtAccountNo" 
-							placeholder="Tài khoản hạch toán" class="form-control" required>
+							placeholder="{% trans 'Tài khoản hạch toán' %}" class="form-control" required>
 						</div>
 						<div class="col-lg-6" style="margin-bottom:2%;">
-							<label>Thời gian khấu hao</label>
+							<label>{% trans 'Thời gian khấu hao' %}</label>
 							<input type="text" id="asset_interval" name="txtInterval" 
-							placeholder="Thời gian khấu hao" class="form-control" required>
+							placeholder="{% trans 'Thời gian khấu hao' %}" class="form-control" required>
 						</div>
 					</div>
 					<div class="row row-pad-5">
 						<div class="col-lg">
-							<label>Mô tả</label> 
+							<label>{% trans 'Mô tả' %}</label> 
 							<input type="text"  class="form-control" id="txtDescription" name="txtDescription" rows="10" placeholder="Mô tả" maxlength="300"/>
 						</div>
 					</div>
 					<div class="row row-pad-5">
 						<div class="ckbox ckbox-default">
 							<input id="ckStatus" type="checkbox" name="ckStatus"
-								checked="checked" > <label for="ckStatus">Kích
-								hoạt </label>
+								checked="checked" > <label for="ckStatus">{% trans 'Kích hoạt' %} </label>
 						</div>
 					</div>
 					<div class="row row-pad-5">
 						<div class="col-sm col-sm-offset-5">
-							<button class="btn btn-primary" onclick="return onSubmit();">Thực
-								hiện</button>
-							&nbsp; <a class="btn btn-default" href="/asset-type/">Thoát</a>
+							<button class="btn btn-primary" onclick="return onSubmit();">{% trans 'Thực hiện' %}</button>
+							&nbsp; <a class="btn btn-default" href="/asset-type/">{% trans 'Thoát' %}</a>
 						</div>
 					</div>
 				</form>

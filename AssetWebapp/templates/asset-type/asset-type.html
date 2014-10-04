@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 <link rel="stylesheet" href="/css/ui-lightness/jquery-ui.min.css" type="text/css">
 <link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
@@ -27,7 +28,7 @@
 	<div class="col-md">
 	  <div class="panel panel-primary">
 		<div class="panel-heading">
-		  <h4 class="panel-title" style="text-align:center;line-height:10px">DANH MỤC LOẠI TÀI SẢN CỐ ĐỊNH</h4>
+		  <h4 class="panel-title" style="text-align:center;line-height:10px">{% trans 'DANH MỤC LOẠI TÀI SẢN CỐ ĐỊNH' %}</h4>
 		</div>
 		
 		<div class="panel-body">
@@ -38,7 +39,7 @@
 		{% endif %}
 		<div class="row row-pad-0" id="asset-search">
 			<div class="col-md-5"  style="BORDER-RIGHT: #999999 1px dashed;">
-					<input type="text" class="form-control" id="keySearch" value="" placeholder="Tìm kiếm nội dung .." />
+					<input type="text" class="form-control" id="keySearch" value="" placeholder="{% trans 'Tìm kiếm nội dung' %} .." />
 					<ul id="assetTree" class="ztree"></ul>
 			</div>
 			 <!-- 
@@ -58,8 +59,8 @@
 				 
 				<div class="row row-pad-5">
 					<div class="col-lg-12" style="margin-bottom:2%;">
-						<label>Thuộc loại tài sản</label>
-						<input type="text" id="asset-parent" name="parent_name" placeholder="Thuộc loại tài sản" class="form-control" required disabled="disabled">
+						<label>{% trans 'Thuộc loại tài sản' %}</label>
+						<input type="text" id="asset-parent" name="parent_name" placeholder="{% trans 'Thuộc loại tài sản' %}" class="form-control" required disabled="disabled">
 						<!-- <select id="asset-parent" class="form-control chosen-select"
 										data-placeholder="Tài sản cấp cha" 
 										name = "asset_parent" disabled="disabled" required>
@@ -72,38 +73,38 @@
 				</div>
 				<div class="row row-pad-5">
 					<div class="col-lg-6">
-						<label>Mã tài sản</label>
-						<input type="text" id="asset-code" name="asset_code" placeholder="Mã tài sản" class="form-control" required disabled="disabled">
+						<label>{% trans 'Mã tài sản' %}</label>
+						<input type="text" id="asset-code" name="asset_code" placeholder="{% trans 'Mã tài sản' %}" class="form-control" required disabled="disabled">
 					</div>
 					<div class="col-lg-6" style="margin-bottom:2%;">
-						<label>Tên tài sản</label>
-						<input type="text" id="asset-name" name="asset_name" placeholder="Tên tài sản" class="form-control" required disabled="disabled">
+						<label>{% trans 'Tên tài sản' %}</label>
+						<input type="text" id="asset-name" name="asset_name" placeholder="{% trans 'Tên tài sản' %}" class="form-control" required disabled="disabled">
 					</div>
 				</div>
 				<div class="row row-pad-5">
 					<div class="col-lg-6">
-						<label>Tài khoản hạch toán</label>
-						<input type="text" id="account-no" name="account_no" placeholder="Tài khoản hạch toán" class="form-control" required disabled="disabled">
+						<label>{% trans 'Tài khoản hạch toán' %}</label>
+						<input type="text" id="account-no" name="account_no" placeholder="{% trans 'Tài khoản hạch toán' %}" class="form-control" required disabled="disabled">
 					</div>
 					<div class="col-lg-6" style="margin-bottom:2%;">
-						<label>Thời gian khấu hao</label>
-						<input type="text" id="asset_interval" name="asset_interval" placeholder="Thời gian khấu hao" class="form-control" required disabled="disabled">
+						<label>{% trans 'Thời gian khấu hao' %}</label>
+						<input type="text" id="asset_interval" name="asset_interval" placeholder="{% trans 'Thời gian khấu hao' %}" class="form-control" required disabled="disabled">
 					</div>
 				</div>
 				<div class="row row-pad-5">
 					<div class="col-lg-12"  style="margin-bottom:2%;">
-						<label class="col-lg">Mô tả</label>
+						<label class="col-lg">{% trans 'Mô tả' %}</label>
 						<textarea  class="form-control" id="asset-description" name="asset_description" rows="10" placeholder="Mô tả" disabled="disabled" style='height:100px'></textarea>
 					</div>
 				</div>
 				<div class="row row-pad-5">
 					<div class="col-lg-6">
-						<label>Ngày tạo</label> 
+						<label>{% trans 'Ngày tạo' %}</label> 
 						<p id="create-date"> </p>
 					</div>
 					
 					<div class="col-lg-6">
-						<label>Người tạo</label> 
+						<label>{% trans 'Người tạo' %}</label> 
 						<p id="create-user"> </p>
 					</div>
 				</div>
@@ -111,8 +112,7 @@
 				<div class="row row-pad-5">
 					<div class="ckbox ckbox-default">
 						<input id="ckStatus" type="checkbox"
-							checked="checked" disabled="disabled"> <label for="ckStatus">Kích
-							hoạt </label>
+							checked="checked" disabled="disabled"> <label for="ckStatus">{% trans 'Hiệu lực' %}</label>
 					</div>
 				</div>
 				<!-- <div class="col-lg-12">
