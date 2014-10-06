@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
 
-from MySQLdb.constants.FIELD_TYPE import NULL
 import cx_Oracle
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
