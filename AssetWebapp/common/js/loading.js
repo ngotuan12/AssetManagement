@@ -10,7 +10,7 @@
 	$.fn.loading = {
 		show: function()
 		{
-			$('body').css("overflow","hidden");
+			$('body').css("overflow","auto");
 			$.loading.loadMask();
 			//addloading
 			loading = $('<div id="status"><i class="fa fa-spinner fa-spin"></i></div>');
