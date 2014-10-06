@@ -19,6 +19,7 @@ from myapp.models.StockAssetSerial import StockAssetSerial
 
 
 @login_required(login_url='/login/')
+@permission_required('myapp.verify_asset', login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:
@@ -29,6 +30,8 @@ def index(request):
 	finally:
 		context.update(csrf(request))
 		return render_to_response("asset/verify-asset.html", context,RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.verify_asset_edit', login_url='/permission-error/')
 def verify(request,serial_id):
 	context = {}
 	try:

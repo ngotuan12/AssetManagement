@@ -23,7 +23,7 @@ from myapp.models.Supplier import Supplier
 from myapp.models.Staff import Staff
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_area', login_url='/permission-error/')
+@permission_required('myapp.transfer_asset', login_url='/permission-error/')
 def index(request):
     context = {}
     try:

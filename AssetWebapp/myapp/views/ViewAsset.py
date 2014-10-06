@@ -19,7 +19,7 @@ from myapp.models.Supplier import Supplier
 
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_area', login_url='/permission-erro/r')
+@permission_required('myapp.view_asset', login_url='/permission-erro/r')
 def index(request):
 	context = {}
 	try:

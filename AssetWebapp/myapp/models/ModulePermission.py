@@ -36,7 +36,7 @@ class ModulePermission(models.Model):
             ("asset_type", _(u"Có thể quản lý loại tài sản")),
             ("edit_increment_asset", _(u"Có thể sửa thông tin tài sản")),
             ("view_department", _(u"Xem thông tin phòng ban")),
-            ("add_department", _(u"Có thể sửa thông tin tài sản")),
+            ("add_department", _(u"Có thể thêm phòng ban")),
             ("edit_department", _(u"Có thể sửa thông tin tài sản")),
             ("delete_department", _(u"Có thể sửa thông tin tài sản")),
             ("view_asset_type", _(u"Có thể xem danh sách loại tài sản")),
@@ -48,5 +48,5 @@ class ModulePermission(models.Model):
             ("change_reason", _(u"Có thể sửa lý do")),
             ("delete_reason", _(u"Có thể xóa lý do")),
             ("delete_reason", _(u"Có thể xóa lý do")),
-            ("asset_project_report", _(u"Có thể tạo báo cáo tài sản theo dự án"))
+            ("asset_project_report", _(u"Có thể tạo báo cáo tài sản theo dự án")),
         )

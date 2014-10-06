@@ -16,7 +16,7 @@ from myapp.util.DateEncoder import DateEncoder
 
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_department',login_url='/permission-error/')
+@permission_required('myapp.release_asset',login_url='/permission-error/')
 def index(request):
     context = {}
     if request.POST:
