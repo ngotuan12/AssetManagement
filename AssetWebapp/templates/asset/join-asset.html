@@ -70,16 +70,7 @@
 				</div>
 			</div>
 			<div class="row row-pad-0">
-				<div class="col-md-6" style="padding-top: 10px;">
-					<div class="col-md-12">
-						<label>{% trans 'TÌM TÀI SẢN CON' %}</label> <input type="text"
-							id = "txtChildSearch" placeholder="{% trans 'Tìm ..' %}"
-							class="form-control" oninput="onChangeChildTree();">
-					</div>
-					<div class="col-md-12">
-							<ul id="treeChildGoal" class="ztree" style="height: 180px;"></ul>
-					</div>
-				</div>
+			
 				<div class="col-md-6" style="padding-top: 10px;">
 					<div class="col-md-12" >
 						<label>{% trans 'TÌM TÀI SẢN CHA' %}</label> <input type="text"
@@ -90,6 +81,18 @@
 							<ul id="treeParentGoal" class="ztree" style="height: 180px;"></ul>
 					</div>
 				</div>
+				
+				<div class="col-md-6" style="padding-top: 10px;">
+					<div class="col-md-12">
+						<label>{% trans 'TÌM TÀI SẢN CON' %}</label> <input type="text"
+							id = "txtChildSearch" placeholder="{% trans 'Tìm ..' %}"
+							class="form-control" oninput="onChangeChildTree();">
+					</div>
+					<div class="col-md-12">
+							<ul id="treeChildGoal" class="ztree" style="height: 180px;"></ul>
+					</div>
+				</div>
+				
 			</div>
 			<div class="row row-pad-5">
 				<form method="post" id="join-asset" novalidate="novalidate">
