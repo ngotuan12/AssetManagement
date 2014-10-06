@@ -223,7 +223,7 @@ function onGetCode(stock_id)
 			option.attr("original-value",serial.original_value)
 			option.attr("remain-value",serial.remain_value)
 			option.attr("asset-id",serial.asset)
-			option.text(serial.serial)
+			option.text(serial.serial+"-"+serial.name)
 			$('#slSerial').append(option)
 		}
 		$('#slSerial').chosen('destroy');
