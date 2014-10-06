@@ -66,10 +66,10 @@ def index(request):
         parent_stock_asset_serials=[]
         
         getChild(child_stock_asset_serials,None)
-        context.update({'child_data':json.dumps(child_stock_asset_serials,cls=DateEncoder)})
+        context.update({'child_data':json.dumps([],cls=DateEncoder)})
         
         getParent(parent_stock_asset_serials,None)
-        context.update({'parent_data':json.dumps(parent_stock_asset_serials,cls=DateEncoder)})
+        context.update({'parent_data':json.dumps([],cls=DateEncoder)})
     except Exception as ex:
         context.update({'has_error':str(ex)})
     finally:

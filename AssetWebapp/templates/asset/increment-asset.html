@@ -220,9 +220,6 @@
 									data-placeholder="{% trans 'Kho' %}" 
 									name = "slStock" required="required">
 									<option value=""></option>
-									{% for stock in stocks %}
-										<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
-									{% endfor%}
 								</select>
 								<label for="slStock" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
@@ -411,7 +408,7 @@
 <script src="/js/jquery.numeric.js"></script>
 
 <script src="/js/custom.js"></script>
-
+<script src="/js/loading.js"></script>
 <script>
 $(document).ready(function(){
   // Chosen Select
@@ -453,25 +450,10 @@ $(document).ready(function(){
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 	});
 	//change slDept
-	$('#slDept')
-			.change(
-					function()
-					{
+	$('#slDept').change(function(){
 						$(".error[for][for='slDept']").hide();
 						var dept_id = $(this).find('option:selected').val();
-
-						$("#slStock option[dept_id][dept_id='" + dept_id + "']")
-								.show();
-						$("#slStock option[dept_id][dept_id='" + dept_id + "']")
-								.css("display", "block");
-						$(
-								"#slStock option[dept_id][dept_id!='" + dept_id
-										+ "']").hide();
-
-						$('#slStock').chosen('destroy');
-						$('#slStock').prop("selectedIndex", -1);
-						$('#slStock').chosen();
-
+						onGetStock(dept_id);
 					});
 	$( "#slStock" ).change(function() {
 		$(".error[for][for='slStock']").hide();
@@ -519,7 +501,37 @@ $(document).ready(function(){
 	{
 		$(".numberic").numeric({ negative : false });
 	});
-	
+	function onGetStock(dept_id)
+	{
+		//show loading
+		$.fn.loading.show();
+		
+		var csrftoken = $.cookie('csrftoken');
+		var posting = $.post("/get-list-stock"+"/"+dept_id.toString()+"/", {
+			'csrfmiddlewaretoken' : csrftoken,
+		});
+		posting.done(function(data) 
+		{
+			//alert(JSON.stringify(data))
+			stocks = data.stocks
+			if(stocks.length>0)
+				$('#slStock').prop("disabled", false);
+			$('#slStock option[value!=""]').remove();
+			for(var i=0;i<stocks.length ;i++)
+			{
+				stock = stocks[i];
+				option = $("<option></option>")
+				option.attr("value",stock.id)
+				option.text(stock.code+"-"+stock.name)
+				$('#slStock').append(option)
+			}
+			$('#slStock').chosen('destroy');
+			$('#slStock').prop("selectedIndex", -1);
+			$('#slStock').chosen();
+			//hide loading
+			$.fn.loading.hide();
+		});
+	}
 	function onSUbmitFormIncrement()
 	{
 		var $valid = jQuery('#incrementAsset').valid();
