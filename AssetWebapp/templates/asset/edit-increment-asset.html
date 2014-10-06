@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/increment-asset.css" rel="stylesheet">
 {% endblock %}
@@ -23,9 +24,9 @@
 					<div class="form-group">
 						<div class = "row row-pad-5">
 							<div class="col-lg-3">
-								<label>Lý do</label>
+								<label>{% trans 'Lý do' %}</label>
 								<select id="slReason" class="form-control chosen-select"
-									data-placeholder="Lý do" name = "slReason" required>
+									data-placeholder="{% trans 'Lý do' %}" name = "slReason" required>
 									<option value></option>
 									{% for reason in reasons %}
 										{% if stockAssetSerial.reason.id|truncatechars:100 == reason.id|truncatechars:100 %}
@@ -39,9 +40,9 @@
 							</div>
 						
 							<div class="col-lg-3">
-								<label>Mã nhận diện</label>
+								<label>{% trans 'Mã nhận diện' %}</label>
 								<select id="slAsset" class="form-control chosen-select"
-									data-placeholder="Mã nhận diện ..." 
+									data-placeholder="{% trans 'Mã nhận diện' %}" 
 									name = "slAsset" required>
 									<option value=""></option>
 									{% for asset in assets%}
@@ -57,21 +58,21 @@
 							<div class="col-lg-6">
 								
 								<div class="col-lg-4">
-									<label>Tên tài sản</label>
-									<input type="text" name="txtAssetName" placeholder="Tên tài sản"
+									<label>{% trans 'Tên tài sản' %}</label>
+									<input type="text" name="txtAssetName" placeholder="{% trans 'Tên tài sản' %}"
 										value="{{ stockAssetSerial.name }}" class="form-control" required>
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Số thẻ TSCĐ</label>
-									<input type="text" name="txtSerial" placeholder="Số thẻ TSCĐ"
+									<label>{% trans 'Số thẻ TSCĐ' %}</label>
+									<input type="text" name="txtSerial" placeholder="{% trans 'Số thẻ TSCĐ' %}"
 										value="{{ stockAssetSerial.serial }}" class="form-control" required>
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Dự án</label>
+									<label>{% trans 'Dự án' %}</label>
 									<select id="slProject" class="form-control chosen-select"
-										data-placeholder="Dự án" 
+										data-placeholder="{% trans 'Dự án' %}" 
 										name = "slProject" required>
 										<option value=""></option>
 										{% for project in projects %}
@@ -93,9 +94,9 @@
 						<div class = "row row-pad-5">
 							
 							<div class="col-lg-3">
-								<label>Nguồn vốn</label>
+								<label>{% trans 'Nguồn vốn' %}</label>
 								<select id="slCapital" class="form-control chosen-select"
-									data-placeholder="Nguồn vốn" 
+									data-placeholder="{% trans 'Nguồn vốn' %}" 
 									name = "slCapital" required>
 									<option value=""></option>
 									{% for capital in capitals %}
@@ -106,14 +107,14 @@
 										{% endif %}
 									{% endfor%}
 								</select>
-								<label for="slCapital" Trường không được để trống style="display: none;" >Trường không được để trống</label>
+								<label for="slCapital" class="error" style="display: none;" >Trường không được để trống</label>
 							</div>
 							
 							
 							<div class="col-lg-3">
-								<label>Mục đích sử dụng</label>
+								<label>{% trans 'Mục đích sử dụng' %}</label>
 								<select id="slGoal" class="form-control chosen-select"
-									data-placeholder="Mục đích sử dụng" 
+									data-placeholder="{% trans 'Mục đích sử dụng' %}" 
 									name = "slGoal" required>
 									<option value=""></option>
 									{% for goal in goals %}
@@ -128,9 +129,9 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="col-lg-4">
-									<label>Hiện trạng sử dụng</label>
+									<label>{% trans 'Hiện trạng sử dụng' %}</label>
 									<select id="slState" class="form-control chosen-select"
-										data-placeholder="Hiện trạng sử dụng" 
+										data-placeholder="{% trans 'Hiện trạng sử dụng' %}" 
 										name = "slState" required>
 										<option value=""></option>
 										{% for state in states %}
@@ -145,9 +146,9 @@
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Phương pháp tính</label>
+									<label>{% trans 'Phương pháp tính' %}</label>
 									<select id="slMethod" class="form-control chosen-select"
-										data-placeholder="Phương pháp tính" 
+										data-placeholder="{% trans 'Phương pháp tính' %}" 
 										name = "slMethod" required>
 										<option value=""></option>
 										{% for method in methods %}
@@ -162,9 +163,9 @@
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Số năm khấu hao</label>
-									<input type="text" name="txtInterval" placeholder="Số năm khấu hao"
-										value="{{ stockAssetSerial.interval }}" class="form-control numberic" maxlength="2">
+									<label>{% trans 'Số năm khấu hao' %}</label>
+									<input type="text" name="txtInterval" placeholder="{% trans 'Số năm khấu hao' %}"
+										value="{{ stockAssetSerial.interval }}" class="form-control numberic" maxlength="2" required="required">
 								</div>
 								
 							</div>
@@ -175,54 +176,54 @@
 						<div class = "row row-pad-5">
 
 							<div class="col-lg-2">
-								<label>Nguyên Giá</label>
-								<input type="text" name="txtOriginPrice" placeholder="Nguyên Giá"
+								<label>{% trans 'Nguyên Giá' %}</label>
+								<input type="text" name="txtOriginPrice" placeholder="{% trans 'Nguyên Giá' %}"
 									value="{{ stockAssetSerial.original_value }}" class="form-control numberic" required maxlength="15">
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Giá trị còn lại</label>
+								<label>{% trans 'Giá trị còn lại' %}</label>
 								<input type="text" name="txtRemainAmount"
-									placeholder="Giá trị còn lại" value="{{ stockAssetSerial.remain_value }}" class="form-control numberic" required maxlength="15">
+									placeholder="{% trans 'Giá trị còn lại' %}" value="{{ stockAssetSerial.remain_value }}" class="form-control numberic" required maxlength="15">
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Model</label>
-								<input type="text" name="txtModel" value="{{ stockAssetSerial.model }}" placeholder="Model"
+								<label>{% trans 'Model' %}</label>
+								<input type="text" name="txtModel" value="{{ stockAssetSerial.model }}" placeholder="{% trans 'Model' %}"
 									class="form-control" required>
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Công xuất</label>
-								<input type="text" name="txtPower" placeholder="Công xuất"
+								<label>{% trans 'Công xuất' %}</label>
+								<input type="text" name="txtPower" placeholder="{% trans 'Công xuất' %}"
 									class="form-control numberic" value="{{ stockAssetSerial.power }}" maxlength="10" required>
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Số quyết định</label>
-								<input type="text" name="txtDecisionNo" value="{{ stockAssetSerial.decision_no }}" placeholder="Số quyết định"
+								<label>{% trans 'Số quyết định' %}</label>
+								<input type="text" name="txtDecisionNo" value="{{ stockAssetSerial.decision_no }}" placeholder="{% trans 'Số quyết định' %}"
 									class="form-control" required>
 							</div>
 							
 							<div class="col-lg-1">
-								<label>TT tài liệu</label>
+								<label>{% trans 'TT tài liệu' %}</label>
 								<select id="slDocumentStatus" class="form-control chosen-select"
-									data-placeholder="Tài liệu" 
+									data-placeholder="{% trans 'TT tài liệu' %}" 
 									name = "slDocumentStatus" >
 									{% if stockAssetSerial.status|truncatechars:100 == '1' %}
-										<option value="1" selected>Có</option>
-										<option value="0">Không</option>
+										<option value="1" selected>{% trans 'có' %}</option>
+										<option value="0">{% trans 'Không' %}</option>
 									{% else %}
-										<option value="1" >Có</option>
-										<option value="0" selected>Không</option>
+										<option value="1" >{% trans 'có' %}</option>
+										<option value="0" selected>{% trans 'Không' %}</option>
 									{% endif %}
 								</select>
 							</div>
 							
 							<div class="col-lg-1">
-								<label>Nguồn gốc</label>
+								<label>{% trans 'Nguồn gốc' %}</label>
 								<select id="slSource" class="form-control chosen-select"
-									data-placeholder="Nguồn gốc" 
+									data-placeholder="{% trans 'Nguồn gốc' %}" 
 									name = "slSource" required>
 									<option value=""></option>
 									{% for source in sources %}
@@ -241,9 +242,9 @@
 						<div class = "row row-pad-5">
 						
 							<div class="col-lg-2">
-								<label>Bộ phận</label>
+								<label>{% trans 'Bộ phận' %}</label>
 								<select id="slDept" class="form-control chosen-select"
-									data-placeholder="Bộ phận" 
+									data-placeholder="{% trans 'Bộ phận' %}" 
 									name = "slDept" required>
 									<option value=""></option>
 									{% for dept in depts %}
@@ -259,9 +260,9 @@
 						
 
 							<div class="col-lg-2">
-								<label>Kho</label>
+								<label>{% trans 'Kho' %}</label>
 								<select id="slStock" class="form-control chosen-select"
-									data-placeholder="Kho" 
+									data-placeholder="{% trans 'Kho' %}" 
 									name = "slStock" required>
 									<option value=""></option>
 									{% for stock in stocks %}
@@ -276,17 +277,17 @@
 							</div>
 							
 							<div class="col-lg-2">
-								<label>Số lượng</label>
-								<input type="text" name="txtQuantity" value="{{ stockAssetSerial.quantity }}" placeholder="Số lượng"
-									class="form-control" required maxlength="3">
+								<label>{% trans 'Số lượng' %}</label>
+								<input type="text" name="txtQuantity" value="{{ stockAssetSerial.quantity }}" placeholder="{% trans 'Số lượng' %}"
+									class="form-control numberic" required maxlength="3">
 							</div>
 							
 							<div class="col-lg-6">
 							
 								<div class="col-lg-4">
-									<label>Đơn vị tính</label>
+									<label>{% trans 'Đơn vị tính' %}</label>
 									<select id="slUnit" class="form-control chosen-select"
-										data-placeholder="Đơn vị tính" 
+										data-placeholder="{% trans 'Đơn vị tính' %}" 
 										name = "slUnit" required>
 										<option value=""></option>
 										{% for unit in units %}
@@ -301,9 +302,9 @@
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Xuất sứ</label>
+									<label>{% trans 'Xuất sứ' %}</label>
 									<select id="slCountry" class="form-control chosen-select"
-										data-placeholder="Xuất sứ" 
+										data-placeholder="{% trans 'Xuất sứ' %}" 
 										name = "slCountry" required>
 										<option value=""></option>
 										{% for country in countries %}
@@ -318,9 +319,9 @@
 								</div>
 								
 								<div class="col-lg-4">
-									<label>Nhà cung cấp</label>
+									<label>{% trans 'Nhà cung cấp' %}</label>
 									<select id="slSupplier" class="form-control chosen-select"
-										data-placeholder="Nhà cung cấp" 
+										data-placeholder="{% trans 'Nhà cung cấp' %}" 
 										name = "slSupplier" required>
 										<option value=""></option>
 										{% for supplier in suppliers %}
@@ -344,61 +345,61 @@
 					<div class = "row row-pad-5">
 						
 						<div class="col-lg-2">
-							<label>Ngày sản xuất</label>
+							<label>{% trans 'Ngày sản xuất' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày sản xuất" id="product_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày sản xuất' %}" id="product_date"
 									name = "dtProductDate" required> <span
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày tính hao mòn</label>
+							<label>{% trans 'Ngày tính hao mòn' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày tính hao mòn" id="atrophy_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày tính hao mòn' %}" id="atrophy_date"
 									name = "dtAtrophyDate" required>
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày ghi tăng</label>
+							<label>{% trans 'Ngày ghi tăng' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày ghi tăng" id="up_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày ghi tăng' %}" id="up_date"
 									name = "dtUpDate" required>
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày mua</label>
+							<label>{% trans 'Ngày mua' %}</label>
 							<div class="input-group">
 								
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày mua" id="buy_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày mua' %}" id="buy_date"
 									name = "dtBuyDate" required> <span
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày bắt đầu sử dụng</label>
+							<label>{% trans 'Ngày bắt đầu sử dụng' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="Ngày bắt đầu sử dụng" id="start_use_date"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày bắt đầu sử dụng' %}" id="start_use_date"
 									name = "dtStartUseDate" required>
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Ngày quyết định</label>
+							<label>{% trans 'Ngày quyết định' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
-									data-provide="datepicker" data-date-format="dd/mm/yy"  placeholder="Ngày quyết định" id="dtDecision"
+									data-provide="datepicker" data-date-format="dd/mm/yy"  placeholder="{% trans 'Ngày quyết định' %}" id="dtDecision"
 									name = "dtDecision" required>
 								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							</div>
@@ -409,8 +410,8 @@
 					<div class = "row row-pad-5">	
 						
 						<div class="col-lg-2">
-							<label> Số seri</label>
-							<input type="text" name="txtProductSeri" value="{{ stockAssetSerial.seri }}" placeholder="Số seri..."
+							<label>{% trans 'Số seri' %}</label>
+							<input type="text" name="txtProductSeri" value="{{ stockAssetSerial.seri }}" placeholder="{% trans 'Số seri' %}"
 								class="form-control" required>
 						</div>
 						
@@ -421,14 +422,14 @@
 								{% else %}
 									<input type="checkbox" name="ckChildAsset" id="ckChildAsset">
 								{% endif %}
-								<label for="ckChildAsset">Tài sản con</label>
+								<label for="ckChildAsset">{% trans 'Tài sản con' %}</label>
 							</div>
 						</div>
 						
 						<div class="col-lg-2">
-							<label>Tài sản cha</label>
+							<label>{% trans 'Tài sản cha' %}</label>
 							<select id = "slParent" class="form-control chosen-select"
-								data-placeholder="Chọn TS cha" 
+								data-placeholder="{% trans 'Chọn TS cha' %}" 
 								name = "slParent" {% if stockAssetSerial.parent_serial %} {% else %} disabled="disabled" {% endif %}>
 								<option value=""></option>
 								{% for parent in parents %}
@@ -442,11 +443,11 @@
 						</div>
 						
 						<div class="col-lg-4">
-							<textarea class="form-control" name="txtNote" rows="3" placeholder="Ghi chú" required>{{ stockAssetSerial.note }}</textarea>
+							<textarea class="form-control" name="txtNote" rows="3" placeholder="{% trans 'Ghi chú' %}" required>{{ stockAssetSerial.note }}</textarea>
 						</div>
 
 						<div class="col-lg-2">
-							<button class="btn btn-primary  btn-block" style="min-height: 76px;" onclick=" return onSUbmitFormEditIncrement();">Thực hiện</button>
+							<button class="btn btn-primary  btn-block" style="min-height: 76px;" onclick=" return onSUbmitFormEditIncrement();">{% trans 'Thực hiện' %}</button>
 						</div>
 
 					</div>
@@ -479,9 +480,11 @@
 <script src="/js/jquery.numeric.js"></script>
 
 <script src="/js/custom.js"></script>
-
+<script src="/js/loading.js"></script>
 <script>
 $(document).ready(function(){
+	//validate
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
   // Chosen Select
   $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
   // Date Picker
@@ -528,36 +531,89 @@ $(document).ready(function(){
 	//change slDept
 	$('#slDept').change(function()
 	{
+		$(".error[for][for='slDept']").hide();
 		var dept_id = $(this).find('option:selected').val();
-
-		$("#slStock option[dept_id][dept_id='" + dept_id + "']")
-				.show();
-		$("#slStock option[dept_id][dept_id='" + dept_id + "']")
-				.css("display", "block");
-		$(
-				"#slStock option[dept_id][dept_id!='" + dept_id
-						+ "']").hide();
-
-		$('#slStock').chosen('destroy');
-		$('#slStock').prop("selectedIndex", -1);
-		$('#slStock').chosen();
+		onGetStock(dept_id);
 
 	});
+	$( "#slStock" ).change(function() {
+		$(".error[for][for='slStock']").hide();
+	});
+	$( "#slCountry" ).change(function() {
+		$(".error[for][for='slCountry']").hide();
+	});
+	$( "#slSupplier" ).change(function() {
+		$(".error[for][for='slSupplier']").hide();
+	});
+	
+	$( "#slCapital" ).change(function() {
+		$(".error[for][for='slCapital']").hide();
+	});
+	
+	$( "#slGoal" ).change(function() {
+		$(".error[for][for='slGoal']").hide();
+	});
+	
+	$( "#slState" ).change(function() {
+		$(".error[for][for='slState']").hide();
+	});
+	
+	$( "#slMethod" ).change(function() {
+		$(".error[for][for='slMethod']").hide();
+	});
+	
+	$( "#slReason" ).change(function() {
+		$(".error[for][for='slReason']").hide();
+	});
+	$( "#slSource" ).change(function() {
+		$(".error[for][for='slSource']").hide();
+	});
+	$( "#slProject" ).change(function() {
+		$(".error[for][for='slProject']").hide();
+	});
+	$( "#slAsset" ).change(function() {
+		$(".error[for][for='slAsset']").hide();
+	});
+	$( "#slUnit" ).change(function() {
+		$(".error[for][for='slUnit']").hide();
+	});
+	function onGetStock(dept_id)
+	{
+		//show loading
+		$.fn.loading.show();
+		
+		var csrftoken = $.cookie('csrftoken');
+		var posting = $.post("/get-list-stock"+"/"+dept_id.toString()+"/", {
+			'csrfmiddlewaretoken' : csrftoken,
+		});
+		posting.done(function(data) 
+		{
+			//alert(JSON.stringify(data))
+			stocks = data.stocks
+			if(stocks.length>0)
+				$('#slStock').prop("disabled", false);
+			$('#slStock option[value!=""]').remove();
+			for(var i=0;i<stocks.length ;i++)
+			{
+				stock = stocks[i];
+				option = $("<option></option>")
+				option.attr("value",stock.id)
+				option.text(stock.code+"-"+stock.name)
+				$('#slStock').append(option)
+			}
+			$('#slStock').chosen('destroy');
+			$('#slStock').prop("selectedIndex", -1);
+			$('#slStock').chosen();
+			//hide loading
+			$.fn.loading.hide();
+		});
+	}
 	jQuery(window).load(function()
 	{
 		$(".numberic").numeric({ negative : false });
 	});
 	function onSUbmitFormEditIncrement()
 	{
-		var isTrue = false;
-		jQuery('.chosen-select').each(function(i){
-			
-			var id = $(this).attr("id");
-			if(!jQuery('#'+id).valid())
-				isTrue = true;
-		});
-		if(isTrue)
-			return false;
 		var $valid = jQuery('#editIncrementAsset').valid();
 		if (!$valid)
 		{

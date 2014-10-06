@@ -264,7 +264,7 @@ function onGetCode(stock_id)
 			option.attr("asset-id",serial.asset)
 			option.attr("state-id",serial.state)
 			option.attr("interval",serial.interval)
-			option.text(serial.serial)
+			option.text(serial.serial+"-"+serial.name)
 			$('#slSerial').append(option)
 		}
 		$('#slSerial').chosen('destroy');
