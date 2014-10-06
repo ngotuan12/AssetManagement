@@ -53,8 +53,7 @@ def view_Asset_Inventory_report(request):
 		context.update(csrf(request))
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
-	finally:	
-		return render_to_response("report/report-verify-asset-summarize.html", context, RequestContext(request))
+	return render_to_response("report/report-verify-asset-summarize.html", context, RequestContext(request))
 @login_required(login_url='/login/')
 @permission_required('myapp.inventory_asset_report', login_url='/permission-error/')
 def verify_asset_report(request):
