@@ -183,7 +183,7 @@
 
 
 <script src="/js/custom.js"></script>
-
+<script src="/js/loading.js"></script>
 <script>
 $(document).ready(function(){
 // Chosen Select
@@ -249,6 +249,9 @@ function onSubmitFormTransfer()
 }
 function onGetCode(stock_id,id_name)
 {
+	//show loading
+	$.fn.loading.show();
+	
 	var csrftoken = $.cookie('csrftoken');
 	var posting = $.post("/get-list-serial"+"/"+stock_id.toString()+"/", {
 		'csrfmiddlewaretoken' : csrftoken,
@@ -274,10 +277,15 @@ function onGetCode(stock_id,id_name)
 		$('#'+ id_name).chosen('destroy');
 		$('#'+ id_name).prop("selectedIndex", -1);
 		$('#'+ id_name).chosen();
+		//hide loading
+		$.fn.loading.hide();
 	});
 }
 function onGetStock(dept_id,id_name)
-{
+{	
+	//show loading
+	$.fn.loading.show();
+	
 	var csrftoken = $.cookie('csrftoken');
 	var posting = $.post("/get-list-stock"+"/"+dept_id.toString()+"/", {
 		'csrfmiddlewaretoken' : csrftoken,
@@ -313,6 +321,9 @@ function onGetStock(dept_id,id_name)
 		$('#'+id_name).chosen('destroy');
 		$('#'+id_name).prop("selectedIndex", -1);
 		$('#'+id_name).chosen();
+		
+		//hide loading
+		$.fn.loading.hide();
 	});
 }
 

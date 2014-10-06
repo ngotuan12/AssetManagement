@@ -153,7 +153,7 @@
 <script src="/js/jquery.formatCurrency-1.4.0.js"></script>
 
 <script src="/js/custom.js"></script>
-
+<script src="/js/loading.js"></script>
 <script>
 var tid;
 $(document).ready(function(){
@@ -241,6 +241,9 @@ function onSubmitFormEvaluation()
 }
 function onGetCode(stock_id)
 {
+	//show loading
+	$.fn.loading.show();
+	
 	var csrftoken = $.cookie('csrftoken');
 	var posting = $.post("/get-list-serial"+"/"+stock_id.toString()+"/", {
 		'csrfmiddlewaretoken' : csrftoken,
@@ -267,10 +270,16 @@ function onGetCode(stock_id)
 		$('#slSerial').chosen('destroy');
 		$('#slSerial').prop("selectedIndex", -1);
 		$('#slSerial').chosen();
+		
+		//hide loading
+		$.fn.loading.hide();
 	});
 }
 function onGetStock(dept_id)
 {
+	//show loading
+	$.fn.loading.show();
+	
 	var csrftoken = $.cookie('csrftoken');
 	var posting = $.post("/get-list-stock"+"/"+dept_id.toString()+"/", {
 		'csrfmiddlewaretoken' : csrftoken,
@@ -293,6 +302,9 @@ function onGetStock(dept_id)
 		$('#slStock').chosen('destroy');
 		$('#slStock').prop("selectedIndex", -1);
 		$('#slStock').chosen();
+		//hide loading
+		$.fn.loading.hide();
+		
 	});
 }
 function clearVal( slName ){
