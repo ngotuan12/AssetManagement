@@ -33,6 +33,38 @@
 				style="text-align: center; line-height: 10px">{% trans 'TÁCH TÀI SẢN' %}</h4>
 		</div>
 		<div class="panel-body" style="padding: 0 10px;">
+			<div class="panel">
+				<p id="showError" style="color:#B94A48;margin: 10px; display: none;">Phải chọn tài sản để tách!</p>
+			</div>
+			<div class="alert alert-info" style="padding-top: 0px;padding-bottom: 15px;">
+				<div class="row row-pad-0">
+					<div class="col-md-5">
+						<label>{% trans 'BỘ PHẬN' %}</label>
+						<select id="slDept" class="form-control chosen-select"
+							data-placeholder="{% trans 'Bộ phận...' %}" 
+							name = "slDept" required="required">
+							<option value=""></option>
+							{% for dept in depts %}
+								<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+							{% endfor%}
+						</select>
+						<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+					</div>
+					<div class="col-md-7">
+						<label>{% trans 'KHO' %}</label>
+						<select id="slStock" class="form-control chosen-select"
+							data-placeholder="{% trans 'Kho...' %}" 
+							name = "slStock" required="required" disabled="disabled">
+							<option value=""></option>
+							{% for dept in depts %}
+								<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+							{% endfor%}
+						</select>
+						<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+					</div>
+				</div>
+			</div>
+		
 			<div class="row row-pad-0">
 				<div class="col-md-5" style="padding-top: 10px;">
 					<div class="col-md-12" style="BORDER-RIGHT: #999999 1px dashed;">
@@ -50,9 +82,6 @@
 							<label class="error">{{ has_error }}</label>
 						</div>
 					{% endif %}
-					<div class="col-sm panel">
-						<p id="showError" style="color:#B94A48;margin: 10px; display: none;">Phải chọn tài sản để tách!</p>
-					</div>
 					<div class="col-lg">
 						<label>{% trans 'DANH SÁCH TÀI SẢN MUỐN TÁCH' %}</label>
 					</div>
@@ -104,6 +133,7 @@
 <script src="/js/retina.min.js"></script>
 <script src="/js/jquery.cookies.js"></script>
 <script src="/js/jquery.validate.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
 
 <script type="text/javascript" src="/tree/js/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="/tree/js/jquery.ztree.excheck-3.5.js"></script>
@@ -112,11 +142,31 @@
 <script src="/js/jquery.confirm.js"></script>
 
 <script src="/js/custom.js"></script>
-
+<script src="/js/loading.js"></script>
 <script>
 jQuery(document).ready(function() {
+	
+	// Chosen Select
+	$(".chosen-select").chosen({
+		'width' : '100%',
+		'white-space' : 'nowrap'
+	});
+	
+	
 	var zNodes = {{ data|safe }};
-	var setting = {
+	
+	var tree = $.fn.zTree.init($("#treeGoal"), setting, zNodes);
+	
+	var treeObj = $.fn.zTree.getZTreeObj("treeGoal");
+	var nodes = treeObj.getCheckedNodes(false);
+	for (var i=0, l=nodes.length; i < l; i++) {
+		if(!nodes[i].icon)
+			treeObj.setChkDisabled(nodes[i], true);
+	}
+});
+var lastValue = "", nodeList = [], fontCss = {};
+var newCount = 1;
+var setting = {
 		treeId: "treeGoal",
 		view: {
 			//addHoverDom: addHoverDom,
@@ -152,17 +202,6 @@ jQuery(document).ready(function() {
 			nocheckInherit: false,
 		}
 	};
-	var tree = $.fn.zTree.init($("#treeGoal"), setting, zNodes);
-	
-	var treeObj = $.fn.zTree.getZTreeObj("treeGoal");
-	var nodes = treeObj.getCheckedNodes(false);
-	for (var i=0, l=nodes.length; i < l; i++) {
-		if(!nodes[i].icon)
-			treeObj.setChkDisabled(nodes[i], true);
-	}
-});
-var lastValue = "", nodeList = [], fontCss = {};
-var newCount = 1;
 function addHoverDom(treeId, treeNode) 
 {
 	var sObj = $("#" + treeNode.tId + "_span");
@@ -197,6 +236,63 @@ function onCheck(event, treeId, treeNode, clickFlag)
 		tr.remove();
 	//check node on tree
 	checkNode();
+}
+$( "#slDept" ).change(function() {
+	onGetStock($(this).find('option:selected').val());
+});
+$( "#slStock" ).change(function() {
+	onGetCode($(this).find('option:selected').val());
+});
+function onGetStock(dept_id)
+{
+	//show loading
+	$.fn.loading.show();
+	
+	//destroy tree
+	$.fn.zTree.destroy();
+	
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-stock"+"/"+dept_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		//alert(JSON.stringify(data))
+		stocks = data.stocks
+		if(stocks.length>0)
+			$('#slStock').prop("disabled", false);
+		$('#slStock option[value!=""]').remove();
+		for(var i=0;i<stocks.length ;i++)
+		{
+			stock = stocks[i];
+			option = $("<option></option>")
+			option.attr("value",stock.id)
+			option.text(stock.name)
+			$('#slStock').append(option)
+		}
+		$('#slStock').chosen('destroy');
+		$('#slStock').prop("selectedIndex", -1);
+		$('#slStock').chosen();
+		//hide loading
+		$.fn.loading.hide();
+	});
+}
+function onGetCode(stock_id)
+{
+	//show loading
+	$.fn.loading.show();
+	
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-stock_asset-serials"+"/"+stock_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		ZNodes = data.stock_asset_serials;
+		$.fn.zTree.init($("#treeGoal"), setting, ZNodes);
+		//hide loading
+		$.fn.loading.hide();
+	});
 }
 function onClick(event, treeId, treeNode, clickFlag) {
 

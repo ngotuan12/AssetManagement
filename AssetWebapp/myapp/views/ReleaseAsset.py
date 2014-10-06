@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-import cx_Oracle
 import json
 
+import cx_Oracle
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.db import connection
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, resolve_url
 from django.template.context import RequestContext
 from django.utils.translation import ugettext as _
 
+from myapp.models.Dept import Dept
 from myapp.models.List import List
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.util.DateEncoder import DateEncoder
@@ -58,6 +59,8 @@ def index(request):
         except Exception as ex:
             context.update({'has_error':str(ex)})
     try:
+        context.update({'depts':Dept.objects.all()})
+        
         stock_asset_serials_qs = List.objects.raw("""
                         SELECT id,name,serial,parent_serial,connect_by_isleaf is_leaf
                                 FROM stock_asset_serial 
@@ -87,3 +90,32 @@ def index(request):
     finally:
         context.update(csrf(request))
     return render_to_response("asset/release-asset.html", context, RequestContext(request))
+def getStockAssetSerial(request,stock_id):
+    try:
+        stock_asset_serials=[]
+        stock_asset_serials_qs = List.objects.raw("""
+                        SELECT id,name,serial,parent_serial,connect_by_isleaf is_leaf
+                                FROM stock_asset_serial 
+                                WHERE ((stock_asset_serial.parent_serial is null AND stock_asset_serial.num_sub >0) OR stock_asset_serial.parent_serial is not null) 
+                                AND stock_id = """ +"'"+stock_id + "' "+
+                                """START WITH parent_serial IS NULL
+                                CONNECT BY PRIOR serial = parent_serial 
+                                ORDER SIBLINGS BY parent_serial
+                        """)
+        for stock_asset_serial in stock_asset_serials_qs:
+            row = {}
+            row.update({'id':stock_asset_serial.id})
+            row.update({'name':stock_asset_serial.name})
+            row.update({'serial':stock_asset_serial.serial})
+            if stock_asset_serial.parent_serial is not None :
+                st =StockAssetSerial.objects.get(serial = stock_asset_serial.parent_serial)
+                row.update({'parent_id':st.id})
+                row.update({'parent_name':st.name})
+                if(stock_asset_serial.is_leaf == 1):
+                    row.update({'icon':'/tree/css/zTreeStyle/img/diy/8.png'})
+            else:
+                row.update({'open':True,'iconOpen':'/tree/css/zTreeStyle/img/diy/1_open.png', 'iconClose':'/tree/css/zTreeStyle/img/diy/1_close.png'})
+            stock_asset_serials.append(row)
+        return HttpResponse(json.dumps({'stock_asset_serials':stock_asset_serials},cls=DateEncoder) ,content_type="application/json")
+    except Exception as ex:
+        return HttpResponse(json.dumps({"error": str(ex)}),content_type="application/json")

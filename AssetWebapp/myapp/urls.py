@@ -92,6 +92,8 @@ urlpatterns = patterns('',
     url(r'^release-asset/$', ReleaseAsset.index, name='release_asset'),
     url(r'^join-asset/$', JoinAsset.index, name='join-asset'),
     url(r'^get-child-asset/(?P<asset_parent_id>\w+)/$', JoinReleaseAsset.load_child_asset, name='get-child-asset'),
+    url(r'^get-stock_asset-serials/(?P<stock_id>\w+)/$', ReleaseAsset.getStockAssetSerial, name='get-stock-serial'),
+    
     url(r'^amortize-asset/$', AmortizeAsset.index, name='amortize-asset'),
     url(r'^asset-type/$', AssetType.index, name='asset-type'),
     url(r'^load-asset-detail/(?P<asset_id>\w+)/$', AssetType.load_asset_detail, name='load-asset-detail'),
