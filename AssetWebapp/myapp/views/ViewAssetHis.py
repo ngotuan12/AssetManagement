@@ -9,6 +9,7 @@ from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
+from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.StockAssetSerialHis import StockAssetSerialHis
 
 
@@ -17,8 +18,9 @@ from myapp.models.StockAssetSerialHis import StockAssetSerialHis
 def index(request,serial):
 	context = {}
 	try:
+		stockAssetSerial = StockAssetSerial.objects.get(serial=serial)
 		stockAssetSerials = StockAssetSerialHis.objects.filter(serial=serial)
-		context.update({'stockAssetSerials':stockAssetSerials ,'stockAssetSerial' : stockAssetSerials.first()})
+		context.update({'stockAssetSerials':stockAssetSerials ,'stockAssetSerial' : stockAssetSerial})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
