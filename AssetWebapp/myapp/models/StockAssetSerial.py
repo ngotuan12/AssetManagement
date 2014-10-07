@@ -24,6 +24,7 @@ class StockAssetSerial(models.Model):
     remain_value = models.FloatField(db_column="remain_value")
     import_date = models.DateField(db_column="import_date")
     use_date = models.DateField(db_column="use_date")
+    user_name = models.CharField(max_length=20,db_column="user_name")
     change_date = models.DateField(db_column="change_date")
     product_date = models.DateField(db_column="product_date")
     decision_date = models.DateField(db_column="decision_date")

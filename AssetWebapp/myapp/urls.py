@@ -5,7 +5,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error\
 	, Goal, AssetVolatility, ListCountry, App, BarCode, PrintAsset, ReleaseAsset\
-	, JoinAsset
+	, JoinAsset,ViewAssetHis
 
 
 urlpatterns = patterns('',
@@ -68,6 +68,9 @@ urlpatterns = patterns('',
     url(r'^supplier/delete/(?P<supplier_id>\w+)/$', ListSupplier.delete_supplier,name='delete-supplier'),
 #     Bar code
 	url(r'^bar-code/$', BarCode.barcode,name='bar-code'),
+	#get history Stock Asset Serial
+	url(r'^get-list-serial-his/(?P<serial>\w+)/$', ViewAssetHis.index, name='get-list-serial-his'),
+	
     #AssetState
     url(r'^asset-state/$', AssetState.index,name='asset-state'),
     url(r'^state/add/(?P<parent_id>\w+)/$', AssetState.add, name='add-asset-state'),
