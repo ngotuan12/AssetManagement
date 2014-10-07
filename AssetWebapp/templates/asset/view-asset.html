@@ -104,7 +104,6 @@
 										<th>{% trans 'NGUYÊN GIÁ' %}</th>
 										<th>{% trans 'GIÁ TRỊ CÒN LẠI' %}</th>
 										<th>{% trans 'TRẠNG THÁI' %}</th>
-										<th>{% trans 'XUẤT XỨ' %}</th>
 										<th style="width: 8%;"></th> 
 									</tr>
 								</thead>
@@ -117,7 +116,6 @@
 										<td class="currency" style="text-align: right;">{{ asset.original_value }}</td>
 										<td class="currency" style="text-align: right;">{{ asset.remain_value }}</td>
 										<td >{{ asset.state.name }}</td>
-										<td >{{ asset.country.name }}</td>
 										<td class="table-action">
 											<a href="/edit-increment-asset/{{ asset.id }}/" title="Sửa" ><i class="fa fa-pencil"></i></a>
 											<a href="#" title="In" id="btn-print" print-src="/invoice/{{ asset.id }}/"><i class="fa fa-print mr5"></i></a>
