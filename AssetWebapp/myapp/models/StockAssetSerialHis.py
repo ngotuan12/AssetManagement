@@ -27,7 +27,7 @@ class StockAssetSerialHis(models.Model):
     change_date = models.DateField(db_column="change_date")
     user_name = models.CharField(max_length=20,db_column="user_name")
     stock = models.ForeignKey(Stock,db_column="stock_id")
-    
+    parent_serial =models.CharField(max_length=50,db_column="parent_serial")
     class Meta:
         db_table = 'stock_asset_serial_his'
         app_label = 'myapp'
