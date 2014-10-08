@@ -14,7 +14,7 @@ from myapp.util.DateEncoder import DateEncoder
 
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_department',login_url='/permission-error/')
+@permission_required('myapp.view_state',login_url='/permission-error/')
 def index(request):
     context = {}
     try:
@@ -53,7 +53,7 @@ def index(request):
         context.update(csrf(request))
     return render_to_response("asset/asset-state.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.add_department',login_url='/permission-error/')
+@permission_required('myapp.add_state',login_url='/permission-error/')
 def add(request,parent_id):
     context = {}
     try:
@@ -87,7 +87,7 @@ def add(request,parent_id):
         context.update(csrf(request))
     return render_to_response("asset/add-asset-state.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.edit_department',login_url='/permission-error/')
+@permission_required('myapp.edit_state',login_url='/permission-error/')
 def edit(request,state_id):
     context = {}
     try:
@@ -120,7 +120,7 @@ def edit(request,state_id):
         context.update(csrf(request))
     return render_to_response("asset/edit-asset-state.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.delete_department',login_url='/permission-error/')
+@permission_required('myapp.delete_state',login_url='/permission-error/')
 def delete(request,state_id):
     context = {}
     try:

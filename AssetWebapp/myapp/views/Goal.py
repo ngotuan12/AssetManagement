@@ -14,7 +14,7 @@ from myapp.util.DateEncoder import DateEncoder
 
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_department',login_url='/permission-error/')
+@permission_required('myapp.view_goal',login_url='/permission-error/')
 def index(request):
     context = {}
     try:
@@ -53,7 +53,7 @@ def index(request):
         context.update(csrf(request))
     return render_to_response("goal/goal.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.add_department',login_url='/permission-error/')
+@permission_required('myapp.add_goal',login_url='/permission-error/')
 def add(request,parent_id):
     context = {}
     try:
@@ -87,7 +87,7 @@ def add(request,parent_id):
         context.update(csrf(request))
     return render_to_response("goal/add-goal.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.edit_department',login_url='/permission-error/')
+@permission_required('myapp.edit_goal',login_url='/permission-error/')
 def edit(request,goal_id):
     context = {}
     try:
@@ -120,7 +120,7 @@ def edit(request,goal_id):
         context.update(csrf(request))
     return render_to_response("goal/edit-goal.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.delete_department',login_url='/permission-error/')
+@permission_required('myapp.delete_goal',login_url='/permission-error/')
 def delete(request,goal_id):
     context = {}
     try:
