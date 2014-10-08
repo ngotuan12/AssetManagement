@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block styles %}
 	<link href="/css/custom.css" rel="stylesheet">
 {% endblock styles %}
@@ -20,9 +21,9 @@
 				<table class="table table-hover" id="usertable">
 					<thead>
 						<tr>
-							<th>STT</th>
-							<th>Tên phòng ban</th>
-							<th>Sửa/Xoá</th>
+							<th style="width: 10%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'STT' %}</th>
+							<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN PHÒNG BAN' %}</th>
+							<th style="text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỬA/XÓA' %}</th>
 						</tr>
 					</thead>
 					<tbody>

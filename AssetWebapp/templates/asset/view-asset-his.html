@@ -26,14 +26,14 @@
 						<div class = "row row-pad-5">
 							<div class = "col-md-7" style="margin-top: 10px;">
 								<div class="profile-location">
-									<p><span>TÊN TÀI SẢN: </span><span><strong>{{ stockAssetSerial.name }}</strong></span></p>
-									<p><span>SERIAL :</span><span><strong>{{ stockAssetSerial.serial }}</strong></span></p>
+									<p><span>{% trans 'TÊN TÀI SẢN:' %} </span><span><strong>{{ stockAssetSerial.name }}</strong></span></p>
+									<p><span>{% trans 'SERIAL :' %}</span><span><strong>{{ stockAssetSerial.serial }}</strong></span></p>
 								</div>
 							</div>
 							<div class = "col-md-5" style="margin-top: 10px;">
 								<div class="profile-location">
-									<p><span>NGƯỜI TẠO: </span><span><strong>{{ stockAssetSerial.user_name }} </strong></span></p>
-									<p><span>NGÀY TẠO :</span><span><strong> {{ stockAssetSerial.import_date|date:'d-m-Y' }} </strong></span></p>
+									<p><span>{% trans 'NGƯỜI TẠO:' %} </span><span><strong>{{ stockAssetSerial.user_name }} </strong></span></p>
+									<p><span>{% trans 'NGÀY TẠO :' %}</span><span><strong> {{ stockAssetSerial.import_date|date:'d-m-Y' }} </strong></span></p>
 								</div>
 							</div>
 						</div>
@@ -45,18 +45,18 @@
 							<table class="table table-bordered" id="assetTable">
 								<thead>
 									<tr>
-										<th style="width: 5%;">{% trans 'STT' %}</th>
-										<th>{% trans 'KHO' %} </th>
-										<th>{% trans 'MỤC ĐÍCH' %} </th>
-										<th>{% trans 'NGUỒN VỐN' %} </th>
-										<th>{% trans 'PHƯƠNG PHÁP TÍNH' %} </th>
-										<th>{% trans 'GIÁ TRỊ CŨ' %} </th>
-										<th>{% trans 'GIÁ TRỊ CÒN LẠI' %} </th>
-										<th>{% trans 'SỐ LƯỢNG' %} </th>
-										<th>{% trans 'TÀI SẢN CHA' %} </th>
-										<th style="width: 30%;">{% trans 'GHI CHÚ' %} </th>
-										<th>{% trans 'NGƯỜI TẠO' %} </th>
-										<th>{% trans 'NGÀY TẠO' %}</th>
+										<th style="width: 5%;" style="width: 12%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'STT' %}</th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'KHO' %} </th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'MỤC ĐÍCH' %} </th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUỒN VỐN' %} </th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'PHƯƠNG PHÁP TÍNH' %} </th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CŨ' %} </th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CÒN LẠI' %} </th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỐ LƯỢNG' %} </th>
+										<th style="widtext-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÀI SẢN CHA' %} </th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'GHI CHÚ' %} </th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGƯỜI TẠO' %} </th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGÀY TẠO' %}</th>
 									</tr>
 								</thead>
 								<tbody>
