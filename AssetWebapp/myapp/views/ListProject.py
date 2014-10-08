@@ -17,7 +17,7 @@ from myapp.models.List import List
 
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_area', login_url='/permission-erro/r')
+@permission_required('myapp.view_project', login_url='/permission-error')
 def index(request):
 	context = {}
 	try:
@@ -28,6 +28,8 @@ def index(request):
 	finally:
 		context.update(csrf(request))
 		return render_to_response("category/list-project.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.edit_project', login_url='/permission-error')
 def edit_project(request,project_id):
 	try:
 		context = {}
@@ -56,6 +58,8 @@ def edit_project(request,project_id):
 		return render_to_response("category/edit-project.html",context, RequestContext(request))
 	except List.DoesNotExist:
 		return HttpResponseRedirect("/notfound-error")
+@login_required(login_url='/login/')
+@permission_required('myapp.add_project', login_url='/permission-error')
 def add_project(request):
 	try:
 		context = {}
@@ -86,6 +90,7 @@ def add_project(request):
 	except List.DoesNotExist:
 		return HttpResponseRedirect("/notfound-error")
 @login_required(login_url='/login/')
+@permission_required('myapp.delete_project', login_url='/permission-error')
 def delete_project(request,project_id):
 	try:
 		project = List.objects.get(id=project_id)

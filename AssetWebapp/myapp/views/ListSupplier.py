@@ -19,7 +19,7 @@ from myapp.models.Supplier import Supplier
 
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_area', login_url='/permission-erro/r')
+@permission_required('myapp.view_supplier', login_url='/permission-error')
 def index(request):
 	context = {}
 	try:
@@ -31,6 +31,8 @@ def index(request):
 	finally:
 		context.update(csrf(request))
 		return render_to_response("supplier/list-supplier.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.edit_supplier', login_url='/permission-error')
 def edit_supplier(request,supplier_id):
 	try:
 		context = {}
@@ -68,6 +70,8 @@ def edit_supplier(request,supplier_id):
 		return render_to_response("supplier/edit-supplier.html",context, RequestContext(request))
 	except List.DoesNotExist:
 		return HttpResponseRedirect("/notfound-error")
+@login_required(login_url='/login/')
+@permission_required('myapp.add_supplier', login_url='/permission-error')
 def add_supplier(request):
 	try:
 		context = {}
@@ -107,6 +111,7 @@ def add_supplier(request):
 	except List.DoesNotExist:
 		return HttpResponseRedirect("/notfound-error")
 @login_required(login_url='/login/')
+@permission_required('myapp.delete_supplier', login_url='/permission-error')
 def delete_supplier(request,supplier_id):
 	try:
 		supplier = Supplier.objects.get(id=supplier_id)

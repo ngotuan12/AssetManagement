@@ -26,6 +26,8 @@ def index(request):
     finally:
         context.update(csrf(request))
         return render_to_response("app/list-app.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.edit_app', login_url='/permission-error/')
 def edit_app(request,app_id):
     try:
         context = {}
@@ -65,6 +67,8 @@ def edit_app(request,app_id):
         return render_to_response("app/edit-app.html",context, RequestContext(request))
     except App.DoesNotExist:
         return HttpResponseRedirect("/notfound-error")
+@login_required(login_url='/login/')
+@permission_required('myapp.add_app', login_url='/permission-error/')
 def add_app(request):
     try:
         context = {}
@@ -109,6 +113,7 @@ def add_app(request):
     except App.DoesNotExist:
         return HttpResponseRedirect("/notfound-error")
 @login_required(login_url='/login/')
+@permission_required('myapp.delete_app', login_url='/permission-error/')
 def delete_app(request,app_id):
     try:
         try:

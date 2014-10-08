@@ -14,7 +14,7 @@ from myapp.models.StockAssetSerialHis import StockAssetSerialHis
 
 
 @login_required(login_url='/login/')
-@permission_required('myapp.edit_increment_asset', login_url='/permission-error/')
+@permission_required('myapp.view_asset_his', login_url='/permission-error/')
 def index(request,serial):
 	context = {}
 	try:

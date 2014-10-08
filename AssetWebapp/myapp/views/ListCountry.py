@@ -13,7 +13,7 @@ from django.template.context import RequestContext
 from myapp.models.Country import Country
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_area', login_url='/permission-error/')
+@permission_required('myapp.view-country', login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:
