@@ -1,4 +1,4 @@
-SELECT d.code asset_code, a.serial, a.original_value,
+SELECT rownum ROW_NO,d.code asset_code, a.serial, a.original_value,
        a.remain_value, a.import_date, to_char(a.use_date,'mm') use_month, to_char(a.use_date,'yyyy') use_year, a.change_date,
        a.state_id, a.goal_id, a.country_id, a.supplier_id, a.capital_id,
        nvl(a.project_id,-1) project_id,(select name from list where list_type='7' and id=a.project_id) project_name,a.unit, to_char(a.product_date,'yyyy') product_date,
