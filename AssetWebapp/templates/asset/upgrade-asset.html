@@ -56,18 +56,41 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-3">
+									<label>{% trans 'Nguyên giá' %}</label>
+									<input type="text" name="txtOriginalAmount" id="txtOriginalAmount"
+										placeholder="{% trans 'Nguyên giá ...' %}" class="form-control numberic" disabled="disabled">
+								</div>
+								
+								<div class="col-lg-3">
+									<label>{% trans 'Thời hạn sử dụng cũ' %}</label>
+									<input type="text" id="txtIntervalCurrent" name="txtIntervalCurrent" placeholder="{% trans 'Thời hạn sử dụng cũ...' %}" class="form-control numberic" disabled="disabled">
+								</div>
+								
+								<div class="col-lg-3">
+									<label>{% trans 'Trạng thái cũ' %}</label>
+									<input type="text" id="txtStateCurrent" name="txtStateCurrent" placeholder="{% trans 'Trạng thái cũ...' %}" class="form-control" disabled="disabled">
+								</div>
+								
+								<div class="col-lg-3">
+									<label>{% trans 'Mực đích' %}</label>
+									<input type="text" id="txtGoalCurrent" name="txtGoalCurrent" placeholder="{% trans 'Mục đích cũ...' %}" class="form-control" disabled="disabled">
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class="col-lg-3">
 									<label>{% trans 'Chi phí nâng cấp' %}</label>
 									<input type="text" name="txtCostAmount" id="cost-amount"
 										placeholder="{% trans 'Chi phí nâng cấp ...' %}" class="form-control numberic" required maxlength="15">
 								</div>
 								
 								<div class="col-lg-3">
-									<label>{% trans 'Thời gian sử dụng' %}</label>
-									<input type="text" id="txtInterval" name="txtInterval" placeholder="{% trans 'Thời gian sử dụng...' %}" class="form-control numberic" required maxlength="2">
+									<label>{% trans 'Thời hạn sử dụng mới' %}</label>
+									<input type="text" id="txtInterval" name="txtInterval" placeholder="{% trans 'Thời hạn sử dụng...' %}" class="form-control numberic" required maxlength="2">
 								</div>
 								
 								<div class="col-lg-3">
-									<label>{% trans 'Trạng thái' %}</label>
+									<label>{% trans 'Trạng thái mới' %}</label>
 									<select id="slState" name="slState"class="form-control chosen-select"
 										data-placeholder="{% trans 'Trạng thái ...' %}" style="display: ;">
 										<option value=""></option>
@@ -169,11 +192,21 @@ $(document).ready(function(){
 		clearVal('serial');
 		var asset_id = $(this).find('option:selected').attr('asset-id');
 		var state_id = $(this).find('option:selected').attr('state_id');
-		var goad_id = $(this).find('option:selected').attr('goal_id')
+		var goad_id = $(this).find('option:selected').attr('goal_id');
+		var interval = $(this).find('option:selected').attr('interval');
+		var original_value = $(this).find('option:selected').attr('original_value');
 		
 		$("#txtAssetID").val(asset_id);
 		$("#slState").val(state_id).chosen('destroy').chosen();
 		$("#slGoal").val(goad_id).chosen('destroy').chosen();
+		$("#txtInterval").val(interval);
+		
+		$("#txtStateCurrent").val($("#slState option[value='"+state_id+"']").text());
+		$("#txtGoalCurrent").val($("#slGoal option[value='"+goad_id+"']").text());
+		$("#txtIntervalCurrent").val(interval);
+		$("#txtOriginalAmount").val(original_value);
+		
+		$("#txtOriginalAmount").formatCurrency();
 	});
 	
 	
@@ -221,9 +254,11 @@ function onGetCode(stock_id)
 			serial = serials[i];
 			option = $("<option></option>")
 			option.attr("value",serial.serial)
+			option.attr("original_value",serial.original_value)
 			option.attr("asset-id",serial.asset)
 			option.attr("state_id",serial.state)
 			option.attr("goal_id",serial.goal)
+			option.attr("interval",serial.interval)
 			
 			option.text(serial.serial +"-" + serial.name)
 			$('#slSerial').append(option)
@@ -252,6 +287,11 @@ function clearVal( slName ){
 	$("#cost-amount").val('');
 	$("#hd_cus_amount").val('');
 	$("#txtNote").val('');
+	
+	$("#txtStateCurrent").val('');
+	$("#txtGoalCurrent").val('');
+	$("#txtIntervalCurrent").val('');
+	$("#txtOriginalAmount").val('');
 }
 function onGetStock(dept_id)
 {
