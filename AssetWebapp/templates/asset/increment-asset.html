@@ -500,6 +500,7 @@ $(document).ready(function(){
 	jQuery(window).load(function()
 	{
 		$(".numberic").numeric({ negative : false });
+		$("form:not(.filter) :input:visible:enabled:first").focus();
 	});
 	function onGetStock(dept_id)
 	{

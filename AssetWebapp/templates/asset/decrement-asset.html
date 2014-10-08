@@ -267,8 +267,9 @@ function onGetStock(dept_id)
 	});
 }
 
-function onGetSerial(stock_id)
+jQuery(window).load(function()
 {
-}
+	$("form:not(.filter) :input:visible:enabled:first").focus();
+});
 </script>
 {% endblock scripts%}
