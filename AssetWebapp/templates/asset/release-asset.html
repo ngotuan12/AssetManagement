@@ -291,6 +291,13 @@ function onGetCode(stock_id)
 	{
 		ZNodes = data.stock_asset_serials;
 		$.fn.zTree.init($("#treeGoal"), setting, ZNodes);
+		
+		var treeObj = $.fn.zTree.getZTreeObj("treeGoal");
+		var nodes = treeObj.getCheckedNodes(false);
+		for (var i=0, l=nodes.length; i < l; i++) {
+			if(!nodes[i].icon)
+				treeObj.setChkDisabled(nodes[i], true);
+		}
 		//hide loading
 		$.fn.loading.hide();
 	});
