@@ -24,7 +24,7 @@
 					<div class="row row-pad-5">
 						<div class="alert alert-info">
 							<div class="row">
-								<div class="col-lg-4">
+								<div class="col-lg-3">
 									<div class="form-group">
 										<label class="control-label"> {% trans 'Đơn vị' %} </label>
 										<select id="slDept" class="form-control chosen-select"
@@ -38,7 +38,7 @@
 									</div>
 									
 								</div>
-								<div class="col-lg-4">
+								<div class="col-lg-3">
 									<div class="form-group">
 										<label class="control-label"> {% trans 'Kho' %} </label>
 										<select id="slStock" class="form-control chosen-select"
@@ -50,7 +50,7 @@
 									</div>
 									
 								</div>
-								<div class="col-lg-4">
+								<div class="col-lg-3">
 									<div class="form-group">
 										<label class="control-label"> {% trans 'Số thẻ TSCD' %} </label>
 										<select id="slSerial" class="form-control chosen-select"
@@ -63,6 +63,24 @@
 									</div>
 									
 								</div>
+								
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label"> {% trans 'Lý do' %} </label>
+										<select id="slReason" class="form-control chosen-select"
+											data-placeholder="{% trans 'Lý do' %}" 
+											name = "slReason" required="required">
+											<option value=""></option>
+											{% for reason in reasons_inc %}
+												<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
+											{% endfor%}
+											{% for reason in reasons_dec %}
+												<option value="{{ reason.id }}">{{ reason.code }} - {{ reason.name }}</option>
+											{% endfor%}
+										</select>
+										<label for="slReason" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+									</div>
+								</div>
 							</div>
 							
 							<div class="row">
@@ -70,7 +88,7 @@
 								<div class="form-group">
 									<label class="control-label"> {% trans 'Giá trị còn lại' %}</label>
 									<input type="text" name="txtRemainAmount" id="remain-amount" 
-										placeholder="{% trans 'Giá trị còn lại' %}" class="form-control numberic" required maxlength="15">
+										placeholder="{% trans 'Giá trị còn lại' %}" class="form-control numberic" required maxlength="20">
 								</div>
 							</div>
 							

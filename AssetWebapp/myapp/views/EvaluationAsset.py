@@ -27,8 +27,28 @@ def index(request):
     context = {}
     try:
         assets = Asset.objects.all()
-        context.update({'assets':assets, 'reasons':Reason.objects.filter(group_code='1'), 'methods':List.objects.filter(list_type='6'), 'sources':List.objects.filter(list_type='3')})
+        context.update({'assets':assets, 'methods':List.objects.filter(list_type='6'), 'sources':List.objects.filter(list_type='3')})
         
+        reasons_inc = List.objects.raw("""
+                                    SELECT id, name, code
+                                    FROM list
+                                    WHERE CONNECT_BY_ISLEAF = 1 AND list_type = '5'
+                                    START WITH parent_id = (SELECT id
+                                    FROM list
+                                    WHERE code = '10' AND list_type = '5')
+                                    CONNECT BY PRIOR id = parent_id
+                                    """)
+        reasons_dec = List.objects.raw("""
+                                    SELECT id, name, code
+                                    FROM list
+                                    WHERE CONNECT_BY_ISLEAF = 1 AND list_type = '5'
+                                    START WITH parent_id = (SELECT id
+                                    FROM list
+                                    WHERE code = '20' AND list_type = '5')
+                                    CONNECT BY PRIOR id = parent_id
+                                    """)
+        context.update({'reasons_inc':reasons_inc})
+        context.update({'reasons_dec':reasons_dec})
         context.update({'countries':Country.objects.all()})
         context.update({'suppliers':Supplier.objects.all()})
         context.update({'depts':Dept.objects.all()})
@@ -40,6 +60,7 @@ def index(request):
             username = request.user.username
             serial_id = request.POST["slSerial"]
             state_id = request.POST["slState"]
+            reason_id = request.POST["slReason"]
             note = request.POST["txtNote"]
             remain_amount = request.POST["hd_cost_amount"]
             interval = request.POST["txtInterval"]
@@ -67,7 +88,9 @@ def index(request):
                             #p_note
                             note,
                             #p_username
-                            username
+                            username,
+                            #p_reason
+                            reason_id
                         ))
 #             print(p_error.getvalue())
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  

@@ -10,12 +10,13 @@ from myapp.models.List import List
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.util.sequence import update_id
 from myapp.models.Stock import Stock
+from myapp.models.ApDomain import ApDomain
 # Create your models here.
 class StockAssetSerialHis(models.Model):
     id = models.IntegerField(primary_key=True,db_column="id")
     stock_asset_serial = models.ForeignKey(StockAssetSerial,db_column='stock_asset_serial_id')
     serial = models.CharField(max_length=100,db_column="serial")
-    action_type = models.CharField(max_length=10,db_column='action_type')
+    action = models.ForeignKey(ApDomain,db_column='action_type')
     original_value = models.FloatField(db_column="original_value")
     remain_value = models.FloatField(db_column="remain_value")
     state = models.ForeignKey(List,db_column="state_id")

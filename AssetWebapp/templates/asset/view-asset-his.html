@@ -46,6 +46,7 @@
 								<thead>
 									<tr>
 										<th style="width: 5%;" style="width: 12%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'STT' %}</th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÁC ĐỘNG' %} </th>
 										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'KHO' %} </th>
 										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'MỤC ĐÍCH' %} </th>
 										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUỒN VỐN' %} </th>
@@ -63,6 +64,7 @@
 									{% for stockAssetSerial in stockAssetSerials %}
 									<tr class="odd gradeX">
 										<td>{{ forloop.counter }}</td>
+										<td>{{ stockAssetSerial.action.name }}</td>
 										<td>{{ stockAssetSerial.stock.name }}</td>
 										<td>{{ stockAssetSerial.goal.name }}</td>
 										<td>{{ stockAssetSerial.capital.name }}</td>
