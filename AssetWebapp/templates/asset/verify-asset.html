@@ -15,8 +15,8 @@
 					<div class="col-md-5">
 							<div class="table-responsive ">
 								<div class="panel panel-primary">
-									<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;>
-										<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'DANH SÁCH TÀI SẢN' %}</h4>
+									<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+										<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'DANH SÁCH TÀI SẢN CẦN KIỂM KÊ' %}</h4>
 									</div>
 									<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
 										<table class="table table-bordered" id="table1">
@@ -42,128 +42,140 @@
 							</div><!-- table-responsive -->
 					</div>
 					<div class="col-md-7" style="BORDER-LEFT: #999999 1px dashed;">
-						<div class="table-responsive ">
-								<div class="panel panel-primary">
-									<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
-										<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'KIỂM KÊ' %}</h4>
+						<div class="panel panel-primary">
+							<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+								<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'KIỂM KÊ' %}</h4>
+							</div>
+							<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+							{% if has_error %}
+								<div class="panel">
+									<label class="error">{{ has_error }}</label>
+								</div>
+							{% endif %}
+							<form  class="form form-bordered" method="post" id="form-verify-asset-edit" novalidate="novalidate">
+								{% csrf_token %}
+								<input type="hidden" name="hd_cost_amount" id="hd_cost_amount">
+								<input type="hidden" name="hd_serial" id="hd_serial">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">{% trans 'Số thẻ TSCĐ' %}</label> <input
+												type="text" id ="txtSerial" placeholder="{% trans 'Số thẻ TSCĐ' %}"
+												class="form-control" required="required"
+												value="{{ serial.serial }}" disabled="disabled">
+										</div>
 									</div>
-									<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
-									{% if has_error %}
-										<div class="panel">
-											<label class="error">{{ has_error }}</label>
+	
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">{% trans 'Giá trị còn lại cũ' %}</label>
+											<input type="text" id="txtRemain" placeholder="{% trans 'Giá trị còn lại cũ' %}"
+												class="form-control" value="{{ serial.asset.name }}"
+												disabled="disabled">
 										</div>
-									{% endif %}
-									<form  class="form form-bordered" method="post" id="form-verify-asset-edit" novalidate="novalidate">
-										{% csrf_token %}
-										<input type="hidden" name="hd_cost_amount" id="hd_cost_amount">
-										<input type="hidden" name="hd_serial" id="hd_serial">
-										<div class="row">
-											<div class="col-sm-4">
-												<div class="form-group">
-													<label class="control-label">{% trans 'Số thẻ TSCĐ' %}</label> <input
-														type="text" id ="txtSerial" placeholder="{% trans 'Số thẻ TSCĐ' %}"
-														class="form-control" required="required"
-														value="{{ serial.serial }}" disabled="disabled">
-												</div>
-											</div>
-			
-											<div class="col-sm-4">
-												<div class="form-group">
-													<label class="control-label">{% trans 'Giá trị còn lại cũ' %}</label>
-													<input type="text" id="txtRemain" placeholder="{% trans 'Giá trị còn lại cũ' %}"
-														class="form-control" value="{{ serial.asset.name }}"
-														disabled="disabled">
-												</div>
-											</div>
-											
-											<div class="col-sm-4">
-												<div class="form-group">
-													<label class="control-label">{% trans 'Trạng thái cũ' %}</label>
-													<input type="text" id="txtState" placeholder="{% trans 'Trạng thái cũ' %}"
-														class="form-control" value="{{ serial.asset.name }}"
-														disabled="disabled">
-												</div>
-											</div>
+									</div>
+									
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">{% trans 'Trạng thái cũ' %}</label>
+											<input type="text" id="txtState" placeholder="{% trans 'Trạng thái cũ' %}"
+												class="form-control" value="{{ serial.asset.name }}"
+												disabled="disabled">
 										</div>
-										
-										<div class="row">
-											<div class="col-sm-4">
-												<div class="form-group">
-													<label class="control-label">{% trans 'Giá trị còn lại' %}</label>
-														<input type="text" id="txtRemainAmount" placeholder="{% trans 'Giá trị còn lại ' %}"
-															name = "txtRemainAmount"class="form-control numberic" value="{{ serial.remain_value }}"
-															required maxlength="15">
-												</div>
-											</div>
-											
-											<div class="col-sm-4">
-												<div class="form-group">
-													<label class="control-label">{% trans 'Trạng Thái' %}</label>
-													<select id="slState" name="slState"class="form-control chosen-select"
-														data-placeholder="{% trans 'Trạng thái ... ' %}" required="required">
-														<option value=""></option>
-														{% for state in states%}
-															<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
-														{% endfor %}
-													</select>
-													<label for="slState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
-												</div>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<label class="control-label">{% trans 'Ngày kiểm kê' %}</label>
-													<div class="input-group">
-														<input type="text" class="form-control"
-															data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày kiểm kê' %}" id="dt_verify"
-															name = "dtVerify" required>
-														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-													</div>
-												</div>
-											</div>
-										</div>
-										
-										<div class="row">
-											<div class="col-sm-4">
-												<div class="form-group">
-													<label class="control-label">{% trans 'Số biên bản' %}</label>
-													<input type="text" 
-														name = "txtCheckNo"class="form-control" value="" placeholder="{% trans 'Số biên bản' %}"
-														required maxlength="10">
-												</div>
-											</div>
-											
-											<div class="col-sm-4">
-												<div class="form-group">
-													<label class="control-label">{% trans 'Người kiểm kê' %}</label>
-													<select id="slStaff" name="slStaff" class="form-control chosen-select"
-														data-placeholder="{% trans 'Người kiểm kê' %}" required="required">
-														<option value=""></option>
-														{% for staff in staffs %}
-															<option value="{{ staff.code }}">{{ staff.name }}</option>
-														{% endfor %}
-													</select>
-													<label for="slStaff" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
-												</div>
-											</div>
-											
-											<div class="col-sm-12">
-												<div class="form-group">
-													<label class="control-label">{% trans 'Ghi Chú' %}</label>
-														<textarea class="form-control" name="txtNote" rows="3"
-															placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
-												</div>
-											</div>	
-										</div>
-										<div class="row">
-											<div class="col-sm">
-												<button id="btnSubmit" class="btn btn-primary" onclick="return onValidate();" style="float: right; margin-right: 10px;" disabled="disabled">{% trans 'Thực hiện' %} &nbsp;</button>
-												
-											</div>
-										</div>
-									</form>
 									</div>
 								</div>
-							</div><!-- table-responsive -->
+								
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">{% trans 'Giá trị còn lại' %}</label>
+												<input type="text" id="txtRemainAmount" placeholder="{% trans 'Giá trị còn lại ' %}"
+													name = "txtRemainAmount"class="form-control numberic" value="{{ serial.remain_value }}"
+													required maxlength="15">
+										</div>
+									</div>
+									
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">{% trans 'Trạng Thái' %}</label>
+											<select id="slState" name="slState"class="form-control chosen-select"
+												data-placeholder="{% trans 'Trạng thái ... ' %}" required="required">
+												<option value=""></option>
+												{% for state in states%}
+													<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
+												{% endfor %}
+											</select>
+											<label for="slState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">{% trans 'Ngày kiểm kê' %}</label>
+											<div class="input-group">
+												<input type="text" class="form-control"
+													data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày kiểm kê' %}" id="dt_verify"
+													name = "dtVerify" required>
+												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">{% trans 'Số biên bản' %}</label>
+											<input type="text" 
+												name = "txtCheckNo"class="form-control" value="" placeholder="{% trans 'Số biên bản' %}"
+												required maxlength="10">
+										</div>
+									</div>
+									
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">{% trans 'Người kiểm kê' %}</label>
+											<select id="slStaff" name="slStaff" class="form-control chosen-select"
+												data-placeholder="{% trans 'Người kiểm kê' %}" required="required">
+												<option value=""></option>
+												{% for staff in staffs %}
+													<option value="{{ staff.code }}">{{ staff.name }}</option>
+												{% endfor %}
+											</select>
+											<label for="slStaff" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label"> {% trans 'Đơn vị chuyển đi' %}</label>
+											<select id="slDeptSoure" class="form-control chosen-select"
+												data-placeholder="{% trans 'Đơn vị' %}"
+												name = "slDeptSoure" required="required">
+												<option value="1">1</option>
+												<option value="2">2</option>
+											</select>
+											<label for="slDeptSoure" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+										</div>
+									</div>
+									
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label class="control-label">{% trans 'Ghi Chú' %}</label>
+												<textarea class="form-control" name="txtNote" rows="3"
+													placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm">
+										<button id="btnSubmit" class="btn btn-primary" onclick="return onValidate();" style="float: right; margin-right: 10px;" disabled="disabled">{% trans 'Thực hiện' %} &nbsp;</button>
+										
+									</div>
+								</div>
+							</form>
+							</div>
+						</div>
 					</div>
 				</div>
 		  </div><!-- panel body-->
