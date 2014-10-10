@@ -29,7 +29,7 @@
 										  </thead>
 										  <tbody>
 										  	{% for serial in serials %}
-												<tr class="odd gradeX" serial ="{{ serial.serial }}" remain="{{ serial.remain_value }}" state = "{{ serial.state.name }}" >
+												<tr onclick="showDetail('{{ serial.serial }}');" class="odd gradeX" serial ="{{ serial.serial }}" remain="{{ serial.remain_value }}" state = "{{ serial.state.name }}" >
 													<td>{{ forloop.counter }}</td>
 													<td><a href="#">{{ serial.serial }} </a></td>
 													<td>{{ serial.asset.name }}</td>
@@ -199,25 +199,6 @@ $(document).ready(function(){
 	jQuery('#table1').dataTable({
 		"sPaginationType" : "full_numbers"
 	});
-	$('#table1 tbody tr').click(function()
-	{
-		$('#btnSubmit').prop("disabled", false);
-		
-		serial = $(this).attr('serial');
-		remain =$(this).attr('remain');
-		state =$(this).attr('state');
-		
-		$('#table1 tbody tr[serial][serial= "'+ serial +'"]' ).css('background-color','#f5f5f5');
-		$('#table1 tbody tr[serial][serial!= "'+ serial +'"]' ).css('background-color','#fff');
-		
-		$("#txtSerial").val(serial);
-		$("#hd_serial").val(serial);
-		$("#txtRemain").val(remain);
-		$("#txtState").val(state);
-		$("#hd_serial").val(serial);
-		
-		$("#txtRemain").formatCurrency();
-	});
 	$('#txtRemainAmount').blur(function()
 		{
 			$(this).attr('maxlength','20');
@@ -252,6 +233,24 @@ $(document).ready(function(){
   // Input Masks
   $("#dt_verify").mask("99/99/9999");
 });
+function showDetail(serial)
+{
+	$('#btnSubmit').prop("disabled", false);
+	
+	remain =$('#table1 tbody tr[serial][serial= "'+ serial +'"]' ).attr('remain');
+	state =$('#table1 tbody tr[serial][serial= "'+ serial +'"]' ).attr('state');
+	
+	$('#table1 tbody tr[serial][serial= "'+ serial +'"]' ).css('background-color','#f5f5f5');
+	$('#table1 tbody tr[serial][serial!= "'+ serial +'"]' ).css('background-color','#fff');
+	
+	$("#txtSerial").val(serial);
+	$("#hd_serial").val(serial);
+	$("#txtRemain").val(remain);
+	$("#txtState").val(state);
+	$("#hd_serial").val(serial);
+	
+	$("#txtRemain").formatCurrency();
+}
 function onValidate() {
 	
 	var $valid = jQuery('#form-verify-asset-edit').validate();
