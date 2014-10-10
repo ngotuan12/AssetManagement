@@ -5,91 +5,173 @@
 {% endblock %}
 {% block content %}
 	<div class="contentpanel no-padding" style="background:#828283">
-		<form class="form-horizontal form-bordered" method="post">
 			<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title" style="text-align:center;line-height:10px">{% trans 'KIỂM KÊ TÀI SẢN' %}</h4>
 			</div>
-			<form>
 			
 			<div class="panel-body">
-				<div class="alert alert-warning" style="margin-bottom:1%;">
-					<!-- <div class="row" style="margin-bottom:1%;">
-						<div class="col-lg-3">
-							<select id= "asset_code" class="form-control chosen-select" data-placeholder="Mã Phòng ban kiểm kê.." style="display: none;">
-							  <option value=""></option>
-							  <option value="United States">TTVTT</option>
-							</select>
-						</div>
-						<div class="col-lg-9">
-						  <input type="text" name="asset_name" placeholder="Tên phòng ban kiểm kê.." class="form-control">
-						</div>
+				<div class="row">
+					<div class="col-md-4">
+							<div class="table-responsive ">
+								<div class="panel panel-primary">
+									<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;>
+										<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'DANH SÁCH TÀI SẢN' %}</h4>
+									</div>
+									<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+										<table class="table table-bordered" id="table1">
+										  <thead>
+											 <tr>
+												<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'STT' %}</th>
+												<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỐ THẺ' %}</th>
+												<th style="width:50%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
+											 </tr>
+										  </thead>
+										  <tbody>
+										  	{% for serial in serials %}
+												<tr class="odd gradeX" serial ="{{ serial.serial }}" remain="{{ serial.remain_value }}" state = "{{ serial.state.name }}" >
+													<td>{{ forloop.counter }}</td>
+													<td><a href="#">{{ serial.serial }} </a></td>
+													<td>{{ serial.asset.name }}</td>
+												 </tr>
+											{% endfor%}
+										  </tbody>
+									   </table>
+									</div>
+								</div>
+							</div><!-- table-responsive -->
 					</div>
-					<div class="row">
-						<div class="col-lg-3">
-							<select id= "asset_code" class="form-control chosen-select" data-placeholder="Mã Nhân viên" style="display: none;">
-							  <option value=""></option>
-							  <option value="United States">TTVTT</option>
-							</select>
-						</div>
-						<div class="col-lg-3">
-						  <input type="text" name="asset_name" placeholder="Tên NV kiểm kê" class="form-control">
-						</div>
-
-						<div class="col-lg-2">
-							<div class="input-group">
-								<input type="text" class="form-control hasDatepicker" placeholder="Ngày kiểm kê" id="buy_date">
-								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-							</div>
-						</div>
-
-						<div class="col-lg-2">
-						  <input type="text" name="asset_name" placeholder="Số Biên bản kiểm kê" class="form-control">
-						</div>
-						<div class="col-lg-2" >
-						  <button class="btn btn-primary btn-block" style="margin-top:3px;">Tìm kiếm</button>
-						</div>
-						
-					</div> Div Row
-					</div> -->
-				  <div class="table-responsive ">
-				  <table class="table table-bordered" id="table2">
-					  <thead>
-						 <tr>
-							<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'STT' %}</th>
-							<th style="width: 12%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỐ THẺ TSCĐ' %}</th>
-							<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
-							<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
-							<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CÒN LẠI' %}</th>
-						 </tr>
-					  </thead>
-					  <tbody>
-					  	{% for serial in serials %}
-							<tr class="odd gradeX">
-								<td>{{ forloop.counter }}</td>
-								<td><a href="/verify-asset/{{ serial.id }}/">{{ serial.serial }} </a></td>
-								<td>{{ serial.asset.name }}</td>
-								<td style="text-align: right;">{{ serial.original_value|stringformat:".3f" }}</td>
-								<td style="text-align: right;"> {{ serial.remain_value|stringformat:".3f" }}</td>
-							 </tr>
-						{% endfor%}
-					  </tbody>
-				   </table>
-				  </div><!-- table-responsive -->
-				<!-- <div class="row" style="padding:6px;">
-					<button class="btn btn-primary">Nhập từ File</button>
-					<button class="btn btn-primary">In BB KK </button>
-					<button class="btn btn-primary">Lưu</button>
-					<button class="btn btn-primary">Đóng</button>
-				</div>	 -->
-			  </div><!-- panel-body -->
+					<div class="col-md-8" style="BORDER-LEFT: #999999 1px dashed;">
+						<div class="table-responsive ">
+								<div class="panel panel-primary">
+									<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+										<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'KIỂM KÊ' %}</h4>
+									</div>
+									<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+									{% if has_error %}
+										<div class="panel">
+											<label class="error">{{ has_error }}</label>
+										</div>
+									{% endif %}
+									<form  class="form form-bordered" method="post" id="form-verify-asset-edit" novalidate="novalidate">
+										{% csrf_token %}
+										<input type="hidden" name="hd_cost_amount" id="hd_cost_amount">
+										<input type="hidden" name="hd_serial" id="hd_serial">
+										<div class="row">
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label class="control-label">{% trans 'Số thẻ TSCĐ' %}</label> <input
+														type="text" id ="txtSerial" placeholder="{% trans 'Số thẻ TSCĐ' %}"
+														class="form-control" required="required"
+														value="{{ serial.serial }}" disabled="disabled">
+												</div>
+											</div>
 			
-			</form>
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label class="control-label">{% trans 'Giá trị còn lại cũ' %}</label>
+													<input type="text" id="txtRemain" placeholder="{% trans 'Giá trị còn lại cũ' %}"
+														class="form-control" value="{{ serial.asset.name }}"
+														disabled="disabled">
+												</div>
+											</div>
+											
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label class="control-label">{% trans 'Trạng thái cũ' %}</label>
+													<input type="text" id="txtState" placeholder="{% trans 'Trạng thái cũ' %}"
+														class="form-control" value="{{ serial.asset.name }}"
+														disabled="disabled">
+												</div>
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label class="control-label">{% trans 'Giá trị còn lại' %}</label>
+														<input type="text" id="txtRemainAmount" placeholder="{% trans 'Giá trị còn lại ' %}"
+															name = "txtRemainAmount"class="form-control numberic" value="{{ serial.remain_value }}"
+															required maxlength="15">
+												</div>
+											</div>
+											
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label class="control-label">{% trans 'Trạng Thái' %}</label>
+													<select id="slState" name="slState"class="form-control chosen-select"
+														data-placeholder="{% trans 'Trạng thái ... ' %}" required="required">
+														<option value=""></option>
+														{% for state in states%}
+															<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
+														{% endfor %}
+													</select>
+													<label for="slState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label class="control-label">{% trans 'Ngày kiểm kê' %}</label>
+													<div class="input-group">
+														<input type="text" class="form-control"
+															data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày kiểm kê' %}" id="dt_verify"
+															name = "dtVerify" required>
+														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="row">
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label class="control-label">{% trans 'Số biên bản' %}</label>
+													<input type="text" 
+														name = "txtCheckNo"class="form-control" value="" placeholder="{% trans 'Số biên bản' %}"
+														required maxlength="10">
+												</div>
+											</div>
+											
+											<div class="col-sm-4">
+												<div class="form-group">
+													<label class="control-label">{% trans 'Người kiểm kê' %}</label>
+													<select id="slStaff" name="slStaff" class="form-control chosen-select"
+														data-placeholder="{% trans 'Người kiểm kê' %}" required="required">
+														<option value=""></option>
+														{% for staff in staffs %}
+															<option value="{{ staff.code }}">{{ staff.name }}</option>
+														{% endfor %}
+													</select>
+													<label for="slStaff" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+												</div>
+											</div>
+											
+											<div class="col-sm-12">
+												<div class="form-group">
+													<label class="control-label">{% trans 'Ghi Chú' %}</label>
+														<textarea class="form-control" name="txtNote" rows="3"
+															placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
+												</div>
+											</div>	
+										</div>
+										<div class="row">
+											<div class="col-sm">
+												<button class="btn btn-primary" onclick="return onValidate();" style="float: right; margin-right: 10px;">{% trans 'Thực hiện' %} &nbsp;</button>
+												
+											</div>
+										</div>
+									</form>
+									</div>
+								</div>
+							</div><!-- table-responsive -->
+					</div>
+				</div>
 		  </div><!-- panel body-->
-		</form>
 	</div>
 {% endblock %} 
 {% block scripts %}
+
+
 <script src="/js/jquery-1.10.2.min.js"></script>
 <script src="/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
@@ -99,18 +181,53 @@
 <script src="/js/retina.min.js"></script>
 <script src="/js/jquery.cookies.js"></script>
 
-<script src="/js/jquery.datatables.min.js"></script>
 <script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.datatables.min.js"></script>
 <script src="/js/jquery.maskedinput.min.js"></script>
 <script src="/js/chosen.jquery.min.js"></script>
 <script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+
+<script src="/js/jquery.formatCurrency.vi-VN.js"></script>
+<script src="/js/jquery.formatCurrency-1.4.0.js"></script>
 
 <script src="/js/custom.js"></script>
+<script src="/js/loading.js"></script>
 
 <script>
 $(document).ready(function(){
-	jQuery('#table2').dataTable({
+	jQuery('#table1').dataTable({
 		"sPaginationType" : "full_numbers"
+	});
+	$('#table1 tbody tr').click(function()
+	{
+		serial = $(this).attr('serial');
+		remain =$(this).attr('remain');
+		state =$(this).attr('state');
+		
+		$('#table1 tbody tr[serial][serial= "'+ serial +'"]' ).css('background-color','#f5f5f5');
+		$('#table1 tbody tr[serial][serial!= "'+ serial +'"]' ).css('background-color','#fff');
+		
+		$("#txtSerial").val(serial);
+		$("#hd_serial").val(serial);
+		$("#txtRemain").val(remain);
+		$("#txtState").val(state);
+		$("#hd_serial").val(serial);
+		
+		$("#txtRemain").formatCurrency();
+	});
+	$('#txtRemainAmount').blur(function()
+		{
+			$(this).attr('maxlength','20');
+			var temp=($(this).val()).toString();
+			$("#hd_cost_amount").val(temp);
+			$(this).formatCurrency();
+		});
+	$('#txtRemainAmount').focus(function() 
+	{
+		$(this).attr('maxlength','10');
+		$(this).val($("#hd_cost_amount").val());
 	});
 	// Select
 	jQuery(".table-responsive  select").chosen({
@@ -120,18 +237,51 @@ $(document).ready(function(){
 			});
   // Chosen Select
   $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
-  // Date Picker
-  $('#buy_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#start_use_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#up_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#atrophy_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $.validator.setDefaults({ ignore: ":hidden:not(select)" })
   
+  $( "#slState" ).change(function() {
+		$(".error[for][for='slState']").hide();
+	});
+  $( "#slStaff" ).change(function() {
+		$(".error[for][for='slStaff']").hide();
+	});
+  // Date Picker
+  $('#dt_verify').datepicker({dateFormat: 'dd/mm/yy',});
+  $("#dt_verify").datepicker("setDate",new Date());
   // Input Masks
-  $("#datepicker").mask("99/99/9999");
-  $('#buy_date').mask("99/99/9999");
-  $('#start_use_date').mask("99/99/9999");
-  $('#up_date').mask("99/99/9999");
-  $('#atrophy_date').mask("99/99/9999");
+  $("#dt_verify").mask("99/99/9999");
+});
+function onValidate() {
+	
+	var $valid = jQuery('#form-verify-asset-edit').validate();
+	if (!$valid) {
+		$validator.focusInvalid();
+		return false;
+	}
+	{
+		var temp =$("#hd_cost_amount").val();
+		temp =temp.replace(/,/g,"");
+		$("#hd_cost_amount").val(temp);
+
+		jQuery('#form-verify-asset-edit').submit();
+	}
+}
+jQuery(window).load(function(){ 
+	
+	$(".numberic").numeric({ negative : false });
+	
+	serial =$('#table1 tbody tr:first').attr('serial');
+	remain =$('#table1 tbody tr:first').attr('remain');
+	state =$('#table1 tbody tr:first').attr('state');
+	
+	$('#table1 tbody tr[serial][serial= "'+ serial +'"]' ).css('background-color','#f5f5f5');
+	
+	$("#hd_serial").val(serial);
+	$("#txtSerial").val(serial);
+	$("#txtRemain").val(remain);
+	$("#txtState").val(state);
+	
+	$("#txtRemain").formatCurrency();
 });
 </script>
 {% endblock scripts%}

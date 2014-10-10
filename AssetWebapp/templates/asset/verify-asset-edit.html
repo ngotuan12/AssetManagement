@@ -140,7 +140,7 @@
 								
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label class="control-label">{% trans 'Người chuyển' %}</label>
+										<label class="control-label">{% trans 'Người kiểm kê' %}</label>
 										<select id="slStaff" name="slStaff" class="form-control chosen-select"
 											data-placeholder="{% trans 'Người kiểm kê' %}" required="required">
 											<option value=""></option>
@@ -204,6 +204,7 @@
 		 $("#dt_verify").datepicker("setDate",new Date());
 		  // Input Masks
 		  $("#dt_verify").mask("99/99/9999");
+		  
 		  $( "#slStaff" ).change(function() {
 			  $(".error[for][for='slStaff']").hide();
 		  });
