@@ -24,48 +24,61 @@ def index(request):
 	context = {}
 	try:
 		if(request.POST):
-			serial = request.POST["hd_serial"]
-			remain_amount = request.POST["hd_cost_amount"]
-			state_id = request.POST["slState"]
-			check_no = request.POST["txtCheckNo"]
-			staff_code = request.POST["slStaff"]
-			note = request.POST["txtNote"]
-			username = request.user.username
-			dtVerify = request.POST["dtVerify"]
-			p_serial = serial
-			p_error  = ''
-			cursor = connection.cursor()
-			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
-                                       "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
-			p_error = cursor.var(cx_Oracle.STRING).var
-			cursor.callproc("pck_asset.check_asset",
-						(
-							#p_error
-							p_error,
-							#p_check_no
-							check_no,
-							#p_check_user
-							staff_code,
-							#p_serial
-							p_serial,
-							#p_remain_amount
-							remain_amount,
-							#p_interval
-							None,
-							#p_state_id
-							state_id,
-							#p_note
-							note,
-							#p_username
-							username,
-							#p_check_date
-							dtVerify
-						))
-			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
-                                       "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
-			cursor.close()
-			if p_error.getvalue() is not None:
-				raise Exception(p_error.getvalue())
+			slSerial = request.POST["hd_ls_serial"]
+			arrSerial = slSerial.split(',')
+			for s in arrSerial:
+				serial = s
+				remain_amount = request.POST["txtRemain"+serial]
+				
+				state_id = request.POST["txtState"+serial]
+				check_no = request.POST["txtCheckNo"+serial]
+				staff_code = request.POST["txtStaff"+serial]
+				note = request.POST["txtNote"+serial]
+				username = request.user.username
+				dtVerify = request.POST["txtDtVerify"+serial]
+				p_serial = serial
+				p_error  = ''
+# 				print(serial)
+# 				print(remain_amount)
+# 				print(state_id)
+# 				print(check_no)
+# 				print(note)
+# 				print(username)
+# 				print(dtVerify)
+# 				print(staff_code)
+# 				print('---------')
+				cursor = connection.cursor()
+				cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
+	                                       "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
+				p_error = cursor.var(cx_Oracle.STRING).var
+				cursor.callproc("pck_asset.check_asset",
+							(
+								#p_error
+								p_error,
+								#p_check_no
+								check_no,
+								#p_check_user
+								staff_code,
+								#p_serial
+								p_serial,
+								#p_remain_amount
+								remain_amount,
+								#p_interval
+								None,
+								#p_state_id
+								state_id,
+								#p_note
+								note,
+								#p_username
+								username,
+								#p_check_date
+								dtVerify
+							))
+				cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
+	                                       "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
+				cursor.close()
+				if p_error.getvalue() is not None:
+					raise Exception(p_error.getvalue())
 			context.update({'has_success':_(u"Giao dịch thành công")})
 		serials = StockAssetSerial.objects.all()
 		context.update({'serials':serials})
