@@ -8,6 +8,7 @@
 		aria-hidden="true">
 		<div class="modal-dialog modal-lg-4" style="width: 80%;">
 			<div class="modal-content" style="background-color: #e4e7ea;">
+			<form class="form form-bordered" method="post" id="edit_stock_table" novalidate="novalidate">
 				<div class="modal-body">
 					<div class="profile-header" style="margin-bottom: 0">
 						<button type="button" class="close" data-dismiss="modal"
@@ -21,16 +22,14 @@
 										<div class="form-group">
 											<label class="control-label">{% trans 'Số thẻ TSCĐ' %}</label> <input
 												type="text" id ="mdSerial" placeholder="{% trans 'Số thẻ TSCĐ' %}"
-												class="form-control" required="required"
-												value="" disabled="disabled">
+												class="form-control" value="" disabled="disabled">
 										</div>
 									</div>
 								<div class="col-sm-4">
 									<div class="form-group">
 										<label class="control-label">{% trans 'Giá trị còn lại' %}</label>
 											<input type="text" id="mdRemainAmount" placeholder="{% trans 'Giá trị còn lại ' %}"
-												 class="form-control numberic" value=""
-												required maxlength="15">
+												class="form-control numberic" value="" maxlength="20" required="required">
 									</div>
 								</div>
 								
@@ -38,9 +37,7 @@
 								<div class="col-sm-4">
 									<div class="form-group">
 										<label class="control-label">{% trans 'Số biên bản' %}</label>
-										<input type="text" 
-											 id="mdCheckNo" class="form-control" value="" placeholder="{% trans 'Số biên bản' %}"
-											required maxlength="10">
+										<input type="text" id="mdCheckNo" class="form-control" value="" placeholder="{% trans 'Số biên bản' %}" maxlength="10" required="required">
 									</div>
 								</div>
 							</div>
@@ -57,7 +54,7 @@
 												<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 											{% endfor %}
 										</select>
-										<label for="slState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+										<label for="mdState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
 								
@@ -71,7 +68,7 @@
 												<option value="{{ staff.code }}">{{ staff.name }}</option>
 											{% endfor %}
 										</select>
-										<label for="slStaff" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+										<label for="mdStaff" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 									
 								</div>
@@ -91,14 +88,15 @@
 									<div class="form-group">
 										<label class="control-label">{% trans 'Ghi Chú' %}</label>
 											<textarea class="form-control" id="mdNote" rows="4"
-												placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
+												placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-	
+			</form>
+				<input type="hidden" id="hd_md_reamain" value="">
 				<div class="col-sm col-sm-offset-4" style="padding-bottom: 5px;">
 					<button class="btn btn-success mr5" onclick="editTable();">
 						<i class="fa fa-check"></i> {% trans 'Thực hiện' %}
@@ -272,13 +270,13 @@
 											<thead>
 												<tr>
 													<th style="width: 10%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỐ THẺ' %}</th>
-													<th width="20%"; style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
+													<th width="15%"; style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
 													<th width="14%"; style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CÒN LẠI MỚI' %}</th>
 													<th width="12%";style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TRẠNG THÁI MỚI' %}</th>
 													<th width="12%";style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỐ BIÊN BẢN' %}</th>
-													<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'GHI CHÚ' %}</th>
-													<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGƯỜI KIỂM KÊ' %}</th>
-													<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGÀY KIỂM KÊ' %}</th>
+													<th width="10%"; style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'GHI CHÚ' %}</th>
+													<th width="12%"; style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGƯỜI KIỂM KÊ' %}</th>
+													<th width="10%"; style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGÀY KIỂM KÊ' %}</th>
 													<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỬA/XÓA' %}</th>
 												</tr>
 											</thead>
@@ -302,6 +300,9 @@
 			</div>
 		</form>
 	</div>
+	<div id="dialog-confirm" title="{% trans 'Đánh giá lại tài sản ?' %}" >
+		<p><span style="float:left; margin:0 7px 20px 0;"></span>{% trans 'Bạn muốn bỏ đánh giá tài sản này ?' %}</p>
+	</div>
 {% endblock %} 
 {% block scripts %}
 
@@ -315,6 +316,7 @@
 <script src="/js/retina.min.js"></script>
 <script src="/js/jquery.cookies.js"></script>
 
+
 <script src="/js/jquery.autogrow-textarea.js"></script>
 <script src="/js/jquery.datatables.min.js"></script>
 <script src="/js/jquery.maskedinput.min.js"></script>
@@ -322,6 +324,8 @@
 <script src="/js/jquery-ui-1.10.3.min.js"></script>
 <script src="/js/jquery.validate.min.js"></script>
 <script src="/js/jquery.numeric.js"></script>
+<script src="js/jquery.confirm.js"></script>
+<script src="js/message.js"></script>
 
 <script src="/js/jquery.formatCurrency.vi-VN.js"></script>
 <script src="/js/jquery.formatCurrency-1.4.0.js"></script>
@@ -344,6 +348,19 @@ $(document).ready(function(){
 		$(this).attr('maxlength','10');
 		$(this).val($("#hd_cost_amount").val());
 	});
+	$('#mdRemainAmount').blur(function()
+		{
+			$(this).attr('maxlength','20');
+			var temp=($(this).val()).toString();
+			$("#hd_md_reamain").val(temp);
+			$(this).formatCurrency();
+		});
+	$('#mdRemainAmount').focus(function() 
+		{
+			$(this).attr('maxlength','10');
+			$(this).val($("#hd_md_reamain").val());
+		});
+	
 	$( "#slSerial" ).change(function() {
 		$('#btnAdd').prop("disabled", false);
 		
@@ -380,7 +397,10 @@ $(document).ready(function(){
 	if(e.which === 32) 
 		return false;
 	});
-  
+  $("#mdCheckNo").on("keydown", function (e) {
+	if(e.which === 32) 
+		return false;
+	});
   $( "#slState" ).change(function() {
 		$(".error[for][for='slState']").hide();
 	});
@@ -526,6 +546,8 @@ function Remove(serial)
 	
 	//check table
 	checkTable();
+	
+	$( this ).dialog( "close" );
 }
 function onEdit(serial)
 {
@@ -535,6 +557,9 @@ function onEdit(serial)
 	state_id = $("#tbStockAssetSerial tr[serial][serial ='"+ serial +"']").attr('state_id');
 	staff_id = $("#tbStockAssetSerial tr[serial][serial ='"+ serial +"']").attr('staff_id');
 	dt_verify = $("#tbStockAssetSerial tr[serial][serial ='"+ serial +"']").attr('dt_verify');
+	
+	
+	$("#hd_md_reamain").val(remain.replace(/,/g,""));
 	
 	$("#mdSerial").val(serial);
 	$("#mdRemainAmount").val(remain);
@@ -548,29 +573,43 @@ function onEdit(serial)
 	$("#mdStaff option[value="+ staff_id +"]").attr("selected","selected");
 	$("#mdStaff").trigger("chosen:updated");
 	
+	//format currency
+	$("#mdRemainAmount").formatCurrency();
+	
 	$("#modalPermission").modal('show');
 }
 function editTable()
 {
-	serial =$("#mdSerial").val();
-	remain = $("#mdRemainAmount").val();
-	note = $("#mdNote").val();
-	checkNo = $("#mdCheckNo").val();
-	state_id = $("#mdState option:selected").val();
-	staff_id = $("#mdStaff option:selected").val();
-	state = $("#mdState option:selected").text();
-	staff = $("#mdStaff option:selected").text();
-	dt_verify = $("#md_verify").val();
-	name = $("#tbStockAssetSerial tr[serial][serial ='"+ serial +"']").attr('name');
 	
-	//remove
-	$("#tbStockAssetSerial tr[serial][serial ='"+ serial +"']").remove();
-	
-	var newRow = $('<tr name="'+ name +'" serial="'+ serial +'" state_id="'+ state_id +'" staff_id="'+ staff_id +'" remain="'+ remain +'" state="'+ state +'" dt_verify="'+ dt_verify +'" checkNo="'+ checkNo +'" staff="'+ staff +'" note="'+ note +'">'
-			+ '<td>'+ serial +'</td><td>'+ name +'</td><td>'+ remain +'</td><td>'+ state +'</td><td>'+ checkNo +'</td><td>'+ note +'</td><td>'+ staff +'</td><td>'+ dt_verify +'</td><td class="table-action"><a href="#" onclick="onEdit('+"'" + serial +"'" +');"><i class="fa fa-pencil"></i></a><a href="#" class="delete-row" onclick="Remove('+"'" + serial +"'" +');"><i class="fa fa-trash-o"></i></a></td></tr>');
-	$("#tbStockAssetSerial").append(newRow);
-	
-	$("#modalPermission").modal('hide');
+	//validate
+	var $valid = jQuery("#edit_stock_table").valid();
+	if(!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	else
+	{
+		serial =$("#mdSerial").val();
+		remain = $("#mdRemainAmount").val();
+		note = $("#mdNote").val();
+		checkNo = $("#mdCheckNo").val();
+		state_id = $("#mdState option:selected").val();
+		staff_id = $("#mdStaff option:selected").val();
+		state = $("#mdState option:selected").text();
+		staff = $("#mdStaff option:selected").text();
+		dt_verify = $("#md_verify").val();
+		name = $("#tbStockAssetSerial tr[serial][serial ='"+ serial +"']").attr('name');
+		
+		//remove
+		$("#tbStockAssetSerial tr[serial][serial ='"+ serial +"']").remove();
+		
+		var newRow = $('<tr name="'+ name +'" serial="'+ serial +'" state_id="'+ state_id +'" staff_id="'+ staff_id +'" remain="'+ remain +'" state="'+ state +'" dt_verify="'+ dt_verify +'" checkNo="'+ checkNo +'" staff="'+ staff +'" note="'+ note +'">'
+				+ '<td>'+ serial +'</td><td>'+ name +'</td><td>'+ remain +'</td><td>'+ state +'</td><td>'+ checkNo +'</td><td>'+ note +'</td><td>'+ staff +'</td><td>'+ dt_verify +'</td><td class="table-action"><a href="#" onclick="onEdit('+"'" + serial +"'" +');"><i class="fa fa-pencil"></i></a><a href="#" class="delete-row" onclick="Remove('+"'" + serial +"'" +');"><i class="fa fa-trash-o"></i></a></td></tr>');
+		$("#tbStockAssetSerial").append(newRow);
+		
+		$("#modalPermission").modal('hide');
+	}
 }
 jQuery(window).load(function(){ 
 	

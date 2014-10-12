@@ -38,15 +38,6 @@ def index(request):
 				dtVerify = request.POST["txtDtVerify"+serial]
 				p_serial = serial
 				p_error  = ''
-# 				print(serial)
-# 				print(remain_amount)
-# 				print(state_id)
-# 				print(check_no)
-# 				print(note)
-# 				print(username)
-# 				print(dtVerify)
-# 				print(staff_code)
-# 				print('---------')
 				cursor = connection.cursor()
 				cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
 	                                       "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
