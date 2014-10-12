@@ -15,6 +15,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 from myapp.models.AmortizeAsset import AmortizeAsset
+from myapp.models.StockAssetSerial import StockAssetSerial
 
 
 @login_required(login_url='/login/')
@@ -22,12 +23,18 @@ from myapp.models.AmortizeAsset import AmortizeAsset
 def index(request):
     try:
         context={}
+        sql = '''SELECT a.* from stock_asset_serial a,stock b
+                    WHERE a.stock_id=b.stock_id
+                        and b.staff_id in (select staff_id from staff where lower(staff_code)=lower(%s)) 
+                '''
+        assets = StockAssetSerial.objects.raw(sql,[request.user.username])
+        context.update({"assets":assets})
         if(request.POST):
             submitForm=request.POST['submitForm']
             if submitForm=='calculate':
                 month=request.POST['dtAmortizeMonth']
                 dtmonth = datetime.strptime(month, '%m/%Y')
-                serial=request.POST['txtSerial']
+                serial=request.POST['slAssetSerial']
                 cursor=connection.cursor()
                 p_out_error=cursor.var(cx_Oracle.STRING).var
                 p_amount=cursor.var(cx_Oracle.NUMBER).var

@@ -37,9 +37,17 @@
 							</div>
 						</div>
 						<div class="col-lg-6">
-						<label> {% trans 'Số thẻ tài sản' %}</label>
-							<input type="text" name="txtSerial" placeholder="{% trans 'Số thẻ tài sản' %}"
-								class="form-control">
+							<label> {% trans 'Số thẻ tài sản' %}</label>
+							<!--  <input type="text" name="txtSerial" placeholder="{% trans 'Số thẻ tài sản' %}"
+								class="form-control">-->
+							<select id="slAssetSerial" class="form-control chosen-select"
+								data-placeholder="Số thẻ tài sản" 
+								name = "slAssetSerial" >
+								<option value="">----{% trans 'Tất cả' %}----</option>
+								{% for asset in assets%}
+									<option value="{{ asset.serial }}" >{{ asset.serial }} - {{ asset.name }}</option>
+								{% endfor%}
+							</select>
 						</div>
 					</div>
 				
@@ -159,6 +167,7 @@ $(document).ready(function(){
 			'white-space' : 'nowrap',
 			disable_search_threshold : 10
 		});
+	  $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 });
 
 
