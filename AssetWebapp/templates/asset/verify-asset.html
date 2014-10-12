@@ -463,9 +463,7 @@ function onValidate()
 	
 	$("#form-list-stock-asset").submit();
 	
-	$("#tbStockAssetSerial tr").remove();
-	//check table
-	checkTable();
+	$('#btnSubmit').prop("disabled", true);
 }
 function onAddTable() {
 	
