@@ -84,7 +84,47 @@
 							</div>
 							
 							<div class="row">
-							<div class="col-lg-3">
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label"> {% trans 'Giá trị còn lại cũ' %}</label>
+										<input type="text" id="current-remain-amount" 
+											placeholder="{% trans 'Giá trị còn lại cũ' %}" class="form-control" disabled="disabled">
+									</div>
+								</div>
+							
+								<div class="col-lg-3">
+									<label>{% trans 'Thời gian sử dụng cũ' %}</label>
+									<input type="text" id="current-txtInterval" placeholder=" {% trans 'Thời gian sử dụng cũ' %}" class="form-control" disabled="disabled">
+								</div>
+							
+								<div class="col-lg-3">
+									<div class="form-group">
+									<label class="control-label"> {% trans 'Trạng thái cũ' %} </label>
+									<select id="current-slState" class="form-control chosen-select"
+										data-placeholder="{% trans 'Trạng thái cũ...' %}" disabled="disabled">
+										<option value=""></option>
+										{% for state in states%}
+											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
+										{% endfor %}
+									</select>
+								</div>
+								</div>
+							
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label">{% trans 'Ngày đánh giá lại tài sản' %}</label>
+										<div class="input-group">
+											<input type="text" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày đánh giá lại tài sản' %}" id="dt_evalution"
+												name = "dt_evalution" required>
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
+								</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-lg-4">
 								<div class="form-group">
 									<label class="control-label"> {% trans 'Giá trị còn lại' %}</label>
 									<input type="text" name="txtRemainAmount" id="remain-amount" 
@@ -92,12 +132,12 @@
 								</div>
 							</div>
 							
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<label>{% trans 'Thời gian sử dụng' %}</label>
 								<input type="text" id="txtInterval" name="txtInterval" placeholder=" {% trans 'Thời gian sử dụng...' %}" class="form-control numberic" required maxlength="2">
 							</div>
 							
-							<div class="col-lg-3">
+							<div class="col-lg-4">
 								<div class="form-group">
 									<label class="control-label"> {% trans 'Trạng thái' %} </label>
 									<select id="slState" name="slState"class="form-control chosen-select"
@@ -110,19 +150,8 @@
 								</div>
 							</div>
 							
-							<div class="col-lg-3">
-								<div class="form-group">
-									<label class="control-label">{% trans 'Ngày đánh giá lại tài sản' %}</label>
-									<div class="input-group">
-										<input type="text" class="form-control"
-											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày đánh giá lại tài sản' %}" id="dt_evalution"
-											name = "dt_evalution" required>
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									</div>
-								</div>
-							</div>
-								
 						</div>
+						
 						<div class="row">
 							<div class="col-lg">
 								<div class="form-group">
@@ -204,18 +233,18 @@ $(document).ready(function(){
 		var remain = $(this).find('option:selected').attr('remain-value');
 		var asset_id = $(this).find('option:selected').attr('asset-id');
 		var state_id = $(this).find('option:selected').attr('state-id');
+		var state_name = $(this).find('option:selected').attr('state-name');
 		var interval = $(this).find('option:selected').attr('interval');
-		$("#remain-amount").val(remain);
-		$("#hd_cus_amount").val(remain);
-		$("#remain-amount").formatCurrency();
-		$("#txtInterval").val(interval);
+		$("#current-remain-amount").val(remain);
+		$("#current-remain-amount").formatCurrency();
+		$("#current-txtInterval").val(interval);
 		$("#txtAssetID").val(asset_id);
 		
 		//checked slState
-		$('#slState').val(state_id);
+		$('#current-slState').val(state_id);
 		
-		$('#slState').chosen('destroy');
-		$('#slState').chosen();
+		$('#current-slState').chosen('destroy');
+		$('#current-slState').chosen();
 	});
 	tid = setTimeout(hideNotification, 2000);
 	
@@ -277,6 +306,7 @@ function onGetCode(stock_id)
 			option.attr("remain-value",serial.remain_value)
 			option.attr("asset-id",serial.asset)
 			option.attr("state-id",serial.state)
+			option.attr("state-name",serial.name)
 			option.attr("interval",serial.interval)
 			option.text(serial.serial+"-"+serial.name)
 			$('#slSerial').append(option)
