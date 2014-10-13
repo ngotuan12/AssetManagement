@@ -156,7 +156,7 @@
 							
 							<div class="col-lg-2">
 								<label>{% trans 'Model' %}</label>
-								<input type="text" name="txtModel" placeholder="{% trans 'Model' %}"
+								<input type="text" id="txtModel" name="txtModel" placeholder="{% trans 'Model' %}"
 									class="form-control" required maxlength="15">
 							</div>
 							
@@ -347,7 +347,7 @@
 						
 						<div class="col-lg-2">
 							<label> {% trans 'Số seri' %}</label>
-							<input type="text" name="txtProductSeri" placeholder="{% trans 'Số seri' %}"
+							<input type="text" id="txtProductSeri" name="txtProductSeri" placeholder="{% trans 'Số seri' %}"
 								class="form-control" required maxlength="15">
 						</div>
 						
@@ -442,10 +442,14 @@ $(document).ready(function(){
 			}
 
 		});
-	$('.numberic').on('keypress', function(event){
-		if (event.keyCode < 48 || event.keyCode > 57)
-		return false;
-	});
+	$("#txtModel").on("keydown", function (e) {
+		if(e.which === 32) 
+			return false;
+		});
+	$("#txtProductSeri").on("keydown", function (e) {
+		if(e.which === 32) 
+			return false;
+		});
 	//validate
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 	});
