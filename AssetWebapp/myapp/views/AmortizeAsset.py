@@ -25,7 +25,7 @@ def index(request):
         context={}
         sql = '''SELECT a.* from stock_asset_serial a,stock b
                     WHERE a.stock_id=b.stock_id
-                        and b.staff_id in (select staff_id from staff where lower(staff_code)=lower(%s)) 
+                        and b.dept_id in (select dept_id from staff where  lower(staff_code)=lower(%s)) 
                 '''
         assets = StockAssetSerial.objects.raw(sql,[request.user.username])
         context.update({"assets":assets})
