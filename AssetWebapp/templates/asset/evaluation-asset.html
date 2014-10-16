@@ -141,12 +141,13 @@
 								<div class="form-group">
 									<label class="control-label"> {% trans 'Trạng thái' %} </label>
 									<select id="slState" name="slState"class="form-control chosen-select"
-										data-placeholder="{% trans 'Trạng thái ...' %}">
+										data-placeholder="{% trans 'Trạng thái ...' %}" required="required">
 										<option value=""></option>
 										{% for state in states%}
 											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 										{% endfor %}
 									</select>
+									<label for="slState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 							</div>
 							
@@ -245,6 +246,12 @@ $(document).ready(function(){
 		
 		$('#current-slState').chosen('destroy');
 		$('#current-slState').chosen();
+	});
+	$( "#slReason" ).change(function() {
+		$(".error[for][for='slReason']").hide();
+	});
+	$( "#slState" ).change(function() {
+		$(".error[for][for='slState']").hide();
 	});
 	tid = setTimeout(hideNotification, 2000);
 	
