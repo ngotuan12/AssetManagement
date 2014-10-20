@@ -5,7 +5,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report, Error\
 	, Goal, AssetVolatility, ListCountry, App, BarCode, PrintAsset, ReleaseAsset\
-	, JoinAsset,ViewAssetHis
+	, JoinAsset,ViewAssetHis,ProfileAsset
 
 
 urlpatterns = patterns('',
@@ -38,12 +38,16 @@ urlpatterns = patterns('',
     url(r'^upgrade-asset/$', UpgradeAsset.index),
     # increment asset
     url(r'^decrement-asset/$', DecrementAsset.index, name='decrement-asset'),
-    url(r'^get-list-stock/(?P<dept_id>\w+)/$', DecrementAsset.getListStock, name='get-list-stock'),
+    url(r'^get-serial/(?P<stock_id>\w+)/$', JoinAsset.getListChild, name='get-serial'),
     url(r'^get-list-serial/(?P<stock_id>\w+)/$', DecrementAsset.getListSerial, name='get-list-serial'),
     url(r'^get-serial/(?P<stock_id>\w+)/$', JoinAsset.getListChild, name='get-serial'),
+    # get list capital
+    url(r'^get-list-capital/(?P<asset_id>\w+)/$', ProfileAsset.get_capital, name='get-capitals'),
     # verify asset
     url(r'^verify-asset/$', VerifyAsset.index,name='verify-asset'),
     url(r'^verify-asset/(?P<serial_id>\w+)/$', VerifyAsset.verify),
+    # profile asset
+	url(r'^profile-asset/$', ProfileAsset.index,name='profile-asset'),
     # revaluate asset
     url(r'^revaluate-asset/$', RevaluateAsset.index),
     # evaluation asset

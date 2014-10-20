@@ -1,0 +1,668 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	<div class="modal fade" id="modalPermission" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg-4" style="width: 60%;">
+			<div class="modal-content" style="background-color: #e4e7ea;">
+			<form class="form form-bordered" method="post" id="edit_stock_table" novalidate="novalidate">
+			<input type="hidden" id="hd_cus_amount" value="">
+			<input type="hidden" id="hd_radio" value="1">
+				<div class="modal-body">
+					<div class="profile-header" style="margin-bottom: 0">
+						<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+						<h2 class="profile-name">{% trans 'Sửa thông tin tài sản' %}</h2>
+					</div>
+					<div id="tab-content" class = "tab-content" style="padding: 5px 0 0 0;">
+						<div class="row" style="padding: 10px;">
+							<div class="row"  style="padding-left: 10px;padding-right: 10px;">
+								<div class="col-sm-6">
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label">{% trans 'Đơn vị' %}</label>
+										<select id="mdLisDept" class="form-control chosen-select"
+											data-placeholder="{% trans '----------------------------------Chọn đơn vị ----------------------------------' %}" required="required">
+											<option value=""></option>
+											{% for dept in depts %}
+												<option value="{{ dept.id }}" name="{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
+											{% endfor %}
+										</select>
+										<label for="mdLisDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+									</div>
+								</div>
+								
+								<div class="col-sm-6" >
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label"> {% trans 'Giá trị' %}</label>
+										<div class="input-group">
+											<input type="text" id="mdAssetOriginal" name="mdAssetOriginal" style="padding: 8px;text-align: right;" class="form-control" placeholder="{% trans 'Giá trị' %}" maxlength="10" required="required">
+											<span class="input-group-addon" style="background:#EEE">VND</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row" style="padding-left: 10px;padding-right: 10px;">
+								<div class="col-sm-6">
+										<div class="form-group" style="padding: 5px 0;">
+											<label class="control-label">{% trans 'Mã tài sản' %}</label>
+											<input type="text" id ="mdAssetSerial" name="mdAssetSerial" placeholder="{% trans 'Mã tài sản' %}"
+												class="form-control" value="" maxlength="20" required="required">
+										</div>
+									</div>
+								<div class="col-sm-6">
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label">{% trans 'Tên tài sản' %}</label>
+											<input type="text" id="mdAssetName" name="mdAssetName" placeholder="{% trans 'Tên tài sản ' %}"
+												class="form-control numberic" value="" maxlength="50" required="required">
+									</div>
+								</div>
+							</div>
+							<div class="row" style="padding-left: 10px;padding-right: 10px;">
+									<div class="col-sm-12">
+										<div class="form-group" style="padding: 5px 0;">
+											<label class="control-label"> {% trans 'Ghi chú' %} </label>
+											<textarea class="form-control" id="mdAssetNote" name="txtNote" rows="2"
+													placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
+										</div>
+									</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+				<input type="hidden" id="hd_md_reamain" value="">
+				<div class="col-sm col-sm-offset-4" style="padding-bottom: 5px;">
+					<button class="btn btn-success mr5" onclick="editTable();">
+						<i class="fa fa-check"></i> {% trans 'Thực hiện' %}
+					</button>
+					<button class="btn btn-white mr5" data-dismiss="modal">
+						 {% trans 'Thoát' %} <i class="fa fa-forward"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="contentpanel no-padding" style="background:#828283">
+			<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h4 class="panel-title" style="text-align:center;line-height:10px">{% trans 'CẬP NHẬT HỒ SƠ TÀI SẢN' %}</h4>
+			</div>
+			
+			<div class="panel-body">
+				<div class="row" style="margin-left: -20px;margin-right: -20px;">
+					<div class="col-md-6" style="BORDER-RIGHT: #999999 1px dashed;">
+						<div class="panel panel-primary">
+							<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+								<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'THÔNG TIN TÀI SẢN CHA' %}</h4>
+							</div>
+							<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+								{% if has_error %}
+									<div class="panel">
+										<label class="error">{{ has_error }}</label>
+									</div>
+								{% endif %}
+								<div class="row"> 
+									<div class="col-sm-12">
+										<select id="slSerial" name="slSerial"class="form-control chosen-select"
+											data-placeholder="{% trans '--------------------------------------------------------------------Chọn tài sản cha----------------------------------------------------' %}">
+											<option value=""></option>
+											{% for serial  in serials %}
+												<option id="{{ serial.id }}" value="{{ serial.id }}" name="{{ serial.name }}" serial ="{{ serial.serial }}" original="{{ serial.original_value }}" project_name="{{ serial.project_id.name }}" state = "{{ serial.state.name }}">{{ serial.serial }} - {{ serial.name }}</option>
+											{% endfor %}
+										</select>
+										<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group" style="padding: 5px 0;">
+											<label class="control-label"> {% trans 'Mã tài sản' %}</label>
+											<input type="text" id="txtViewSerialId" style="padding: 8px;" 
+												placeholder="{% trans 'Mã tài sản' %}" class="form-control" disabled="disabled">
+										</div>
+									</div>
+									<div class="col-sm-8">
+										<div class="form-group" style="padding: 5px 0;">
+											<label class="control-label"> {% trans 'Tên tài sản' %}</label>
+											<input type="text" id="txtViewSerialName" style="padding: 8px;" 
+												placeholder="{% trans 'Tên tài sản' %}" class="form-control" disabled="disabled">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group" style="padding: 5px 0;">
+											<label class="control-label"> {% trans 'Giá trị' %}</label>
+											<div class="input-group">
+												<input type="text" id="txtViewSerialOriginal" style="padding: 8px; text-align: right;" 
+												placeholder="{% trans 'Giá trị' %}" class="form-control" disabled="disabled">
+												<span class="input-group-addon" style="background:#EEE">VND</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-8">
+										<div class="form-group" style="padding: 5px 0;">
+											<label class="control-label"> {% trans 'Dự án' %}</label>
+											<input type="text" id="txtViewProjectName" style="padding: 8px;" 
+												placeholder="{% trans 'Tên dự án' %}" class="form-control" disabled="disabled">
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="form-group" style="padding: 5px 0;">
+											<label class="control-label"> {% trans 'Nguồn vốn' %}</label>
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th style="width: 25%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MÃ NGUỒN VỐN' %}</th>
+														<th style="width:37%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN NGUỒN VỐN' %}</th>
+														<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
+														<th style="width:20%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CÒN LẠI' %}</th>
+													</tr>
+												</thead>
+												<tbody id="tbView">
+													
+												</tbody>
+											</table>
+											<button id="btnViewDetail" class="btn btn-primary" onclick="" style="float: right;margin-top: 2%;" disabled="disabled">{% trans 'Xem chi tiết' %} &nbsp;</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'CHIA TÁCH TÀI SẢN' %}</h4>
+								</div>
+								<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+									<div class="row" style="margin-top: 6px;"> 
+										<div class="col-sm-6">
+											<div class="rdio rdio-primary">
+												<input type="radio" name="radio" value="1" id="radioPrimary" checked="checked">
+												<label for="radioPrimary">{% trans 'Phân bổ đều' %}</label>
+											</div>
+										</div>
+										
+										<div class="col-sm-6">
+											<div class="rdio rdio-primary">
+												<input type="radio" name="radio" value="0" id="radioPrimary1">
+												<label for="radioPrimary1">{% trans 'Phân bổ không đều' %}</label>
+											</div>
+										</div>
+									</div>
+									<form  class="form form-bordered" method="post" id="form-verify-asset-edit" novalidate="novalidate">
+										{% csrf_token %}
+										<div class="row">
+												<div class="col-sm-4">
+													<div class="form-group" style="padding: 5px 0;">
+														<label class="control-label"> {% trans 'Đơn vị' %}</label>
+														<select id="slDept" class="form-control chosen-select"
+															data-placeholder="{% trans '----------Chọn đơn vị----------' %}"
+															name = "slDept" required="required">
+															<option value=""></option>
+															{% for dept in depts %}
+																<option value="{{ dept.id }}" id="{{ dept.id }}" name= "{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
+															{% endfor%}
+														</select>
+														<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+													</div>
+												</div>
+												
+												<div class="col-sm-4">
+													<div class="form-group" style="padding: 5px 0;">
+														<label class="control-label"> {% trans 'Mã tài sản' %}</label>
+														<input type="text" id="txtAssetSerial" name="txtSerial" style="padding: 8px;" 
+															placeholder="{% trans 'Mã tài sản' %}" class="form-control" maxlength="20" required="required">
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group" style="padding: 5px 0;">
+														<label class="control-label"> {% trans 'Tên tài sản' %}</label>
+														<input type="text" id="txtAssetName" style="padding: 8px;" 
+															placeholder="{% trans 'Tên tài sản' %}" class="form-control" maxlength="50" required="required">
+													</div>
+												</div>
+												
+										</div>
+										<div id="addDiv">
+											
+										</div>
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="form-group" style="padding: 5px 0;">
+													<label class="control-label"> {% trans 'Ghi chú' %} </label>
+													<textarea class="form-control" id="txtAssetNote" name="txtNote" rows="2"
+															placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
+												</div>
+											</div>
+										</div>
+									</form>
+									<div class="col-sm-12" style="padding-left: 0px;padding-right: 0px;">
+										<button id="btnAdd" class="btn btn-primary" onclick="onAddTable();" style="float: right;" disabled="disabled">{% trans 'Thêm' %} &nbsp;</button>
+									</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="table-responsive ">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'DANH SÁCH TÀI SẢN CON' %}</h4>
+								</div>
+								<div class="panel-body" style="padding: 0px !important;margin-top: 1%;">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th style="width: 20%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'ĐỢN VỊ' %}</th>
+												<th style="width:10%; text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MÃ TÀI SẢN' %}</th>
+												<th style="width:15%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
+												<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUỒN VỐN' %}</th>
+												<th style="width:10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
+												<th style="width:12%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CÒN LẠI' %}</th>
+												<th style="width:25%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GHI CHÚ' %}</th>
+												<th style="text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỬA/XÓA' %}</th>
+											</tr>
+										</thead>
+										<tbody id="tbStockAssetSerial">
+										
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div><!-- table-responsive -->
+						<div class="col-sm-12" style="padding-left: 0px;padding-right: 0px;">
+							<button id="btnSubmit" class="btn btn-primary" onclick="onValidate();" style="float: right; margin-bottom: 15px;" disabled="disabled">{% trans 'Thực hiện phân tách' %} &nbsp;</button>
+						</div>
+					</div>
+				</div>
+			</div><!-- panel body-->
+	</div>
+{% endblock %} 
+{% block scripts %}
+
+
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.datatables.min.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+<script src="js/jquery.confirm.js"></script>
+<script src="js/message.js"></script>
+
+<script src="/js/jquery.formatCurrency.vi-VN.js"></script>
+<script src="/js/jquery.formatCurrency-1.4.0.js"></script>
+
+<script src="/js/custom.js"></script>
+<script src="/js/loading.js"></script>
+
+<script>
+$(document).ready(function(){
+	
+	// Select
+	jQuery(".table-responsive  select").chosen({
+				'min-width' : '150px',
+				'white-space' : 'nowrap',
+				disable_search_threshold : 10
+			});
+	// Chosen Select
+	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
+	
+	//slSerial 
+	$("#slSerial").change(function() {
+		$('#btnAdd').prop("disabled", false);
+		$('#btnViewDetail').prop("disabled", false);
+		$('#tbStockAssetSerial tr').remove();
+		//check data
+		checkTable();
+		removeInput('');
+		
+		var asset_id =$('#slSerial option:selected').attr('id');
+		var serial =$('#slSerial option:selected').attr('serial');
+		var original = $('#slSerial option:selected').attr('original');
+		var name =$('#slSerial option:selected').attr('name');
+		var project_name = $('#slSerial option:selected').attr('project_name');
+		//get list capital
+		onGetCapital(asset_id);
+		//set view input text
+		$("#txtViewSerialId").val(serial);
+		$("#txtViewSerialName").val(name);
+		$("#txtViewSerialOriginal").val(original);
+		$("#txtViewProjectName").val(project_name);
+		//format currency
+		$("#txtViewSerialOriginal").formatCurrency();
+		
+	});
+	$("#slDept").change(function() {
+		$(".error[for][for='slDept']").hide();
+	});
+	$("#txtAssetSerial").on("keydown", function (e) {
+	if(e.which === 32) 
+		return false;
+	});
+	$("#mdAssetSerial").on("keydown", function (e) {
+	if(e.which === 32) 
+		return false;
+	});
+	$('#txtAssetOriginal').blur(function()
+	{
+		$(this).attr('maxlength','20');
+		var temp=($(this).val()).toString();
+		$("#hd_cus_amount").val(temp);
+		$(this).formatCurrency();
+	});
+	$('#txtAssetOriginal').focus(function() 
+	{
+		$(this).attr('maxlength','15');
+		$(this).val($("#hd_cus_amount").val());
+	}); 
+	$('input:radio[name="radio"]').change(function(){
+		if ( $(this).val() === '1')
+		{
+			$("div[id^='triger']")
+			
+			$('input[id^=txtAssetOriginal]').val('');
+			$('input[id^=txtAssetRemain]').val('');
+			
+			$('input[id^=txtAssetOriginal]').prop("disabled", true);
+			$('input[id^=txtAssetRemain]').prop("disabled", true);
+			$("#hd_radio").val($(this).val());
+		}
+		else
+		{
+			$('input[id^=txtAssetOriginal]').val('');
+			$('input[id^=txtAssetRemain]').val('');
+			
+			$('input[id^=txtAssetOriginal]').prop("disabled", false);
+			$('input[id^=txtAssetRemain]').prop("disabled", false);
+			$("#hd_radio").val($(this).val());
+		}
+	});
+});
+	//add table
+	function onAddTable()
+	{
+
+		//validate
+		var $valid = jQuery("#form-verify-asset-edit").valid();
+		if (!$valid)
+		{
+			$validator.focusInvalid();
+			return false;
+		} else
+		{
+			
+			var asset_name = $("#txtAssetName").val();
+			var asset_serial = $("#txtAssetSerial").val();
+			var asset_note = $('#txtAssetNote').val();
+			var dept_name = $('#slDept option:selected').attr('name');
+			var dept_id = $('#slDept option:selected').attr('value');
+			var stock_asset_serial_id =$('#slSerial option:selected').attr('id');
+			$("#tbView tr").each(function()
+			{
+				var capital_id = $(this).attr('id');
+				var capital_name= $(this).attr('name');
+				if($('#hd_radio').val() === '1')
+				{
+					var original = $(this).attr('original')*$("#tbView tr").size()/($("#tbStockAssetSerial tr[stock_asset_serial_id][stock_asset_serial_id='"+stock_asset_serial_id+"']").size()+$("#tbView tr").size());
+					var remain = $(this).attr('remain')*$("#tbView tr").size()/($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size()+$("#tbView tr").size());
+					
+				}
+				else
+				{
+					var original = $("#txtAssetOriginal"+capital_id).val();
+					var remain = $("#txtAssetRemain"+capital_id).val();
+				}
+				
+				var newRow = $('<tr stock_asset_serial_id="'+ stock_asset_serial_id +'" dept_id="'+dept_id+'" original ="'+ original +'" asset_name ="'+ asset_name +'" asset_serial="'+ asset_serial +'" asset_note="'+asset_note+'" dept_id="'+ dept_id +'"></tr>');
+				var newcol = $('<td>'
+						+ dept_name
+						+ '</td><td>'
+						+ asset_serial
+						+ '</td><td>'
+						+ asset_name
+						+ '</td><td>'
+						+ capital_name
+						+ '</td><td style="text-align:right;" name="original" stock_asset_serial_id="'+ stock_asset_serial_id +'">'
+						+ original
+						+ '</td><td style="text-align:right;" name="remain" stock_asset_serial_id="'+ stock_asset_serial_id +'">'
+						+ remain
+						+ '</td><td>'
+						+ asset_note
+						+ '</td><td class="table-action"><a href="#" onclick="onEdit('
+						+ "'"
+						+ dept_id
+						+ "'"
+						+ ');"><i class="fa fa-pencil"></i></a><a href="#" class="delete-row" onclick="Remove('
+						+ "'" + dept_id + "'"
+						+ ');"><i class="fa fa-trash-o"></i></a></td>');
+				newRow.append(newcol);
+				if($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size() < $("#tbView tr").size())
+				{
+					$("#tbStockAssetSerial").append(newRow);
+					//check data
+					checkTable();
+				}
+			});
+			tt(stock_asset_serial_id);
+			//removeInput
+			removeInput(dept_id);
+		}
+	}
+	//tinh toan lại
+	function tt(stock_asset_serial)
+	{
+		var temp = $("#tbView tr[original]").attr('original')/$("#tbStockAssetSerial tr td[name][name='original'][stock_asset_serial_id][stock_asset_serial_id='"+stock_asset_serial+"']").size();
+		$("#tbStockAssetSerial tr td[name][name='original'][stock_asset_serial_id][stock_asset_serial_id='"+stock_asset_serial+"']").html(temp);
+	}
+	//get capital
+	function onGetCapital(asset_id)
+	{
+		//show loading
+		$.fn.loading.show();
+		
+		var csrftoken = $.cookie('csrftoken');
+		var posting = $.post("/get-list-capital"+"/"+asset_id.toString()+"/", {
+			'csrfmiddlewaretoken' : csrftoken,
+		});
+		posting.done(function(data) 
+		{
+			$("#tbView tr").remove();
+			$("#addDiv div").remove();
+			//alert(JSON.stringify(data))
+			capitals = data.capitals
+			for(var i=0;i<capitals.length ;i++)
+			{
+				capital = capitals[i];
+				var capital_id = capital.capital_id;
+				var capital_name = capital.name;
+				var capital_original = capital.original_value;
+				var capital_remain = capital.remain_value;
+				var newRow = $('<tr id="'+ capital_id +'" name="'+capital_name+'" original="'+capital_original+'" remain="'+ capital_remain +'"></tr>');
+				var newcol = $('<td>'
+						+ capital_id
+						+ '</td><td>'
+						+ capital_name
+						+ '</td><td style="text-align:right;">'
+						+ capital_original
+						+ '</td><td style="text-align:right;">'
+						+ capital_remain
+						+ '</td>');
+				newRow.append(newcol);
+				$("#tbView").append(newRow);
+				
+				//addDiv
+				var div =$('<div class="row">'
+						+'<div class="col-sm-12">'
+						+'<div class="form-group" style="padding: 5px 0;margin-top: 10px;">'
+						+'<label class="control-label"> {% trans "'+capital_id+capital_name+'" %}</label>'
+						+'</div>'
+						+'<div class="col-sm-6" style="padding: 0 10px 0 0;">'
+						+'<div class="input-group">'
+						+'<input type="text" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
+						+'class="form-control numberic" maxlength="10" required="required" disabled="disabled">'
+						+'<span class="input-group-addon" style="background:#EEE">VND</span>'
+						+'</div>'
+						+'</div>'
+						+'<div class="col-sm-6" style="padding: 0 0 0 10px;">'
+						+'<div class="input-group">'
+						+'<input type="text" name="txtAssetRemain'+capital_id+'" id="txtAssetRemain'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
+						+'class="form-control numberic" maxlength="10" required="required" disabled="disabled">'
+						+'<span class="input-group-addon" style="background:#EEE">VND</span>'
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+'</div>');
+					$("#addDiv").append(div);
+			}
+			//hide loading
+			$.fn.loading.hide();
+		});
+	}
+	function Remove(dept_id)
+	{
+		//show slSerial
+		$("#slDept option[id][id='" + dept_id + "']").show();
+		$('#slDept').trigger('chosen:updated');
+		$('#slDept').prop("selectedIndex", -1);
+		$('#slDept').trigger('chosen:updated');
+
+		//check table
+		checkTable();
+	}
+	function onEdit(dept_id)
+	{
+
+		var original = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('original');
+		var asset_name = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('asset_name');
+		var asset_serial = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('asset_serial');
+		var asset_note = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('asset_note');
+		var dept_id = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('dept_id');
+
+		$("#hd_md_reamain").val(original.replace(/,/g, ""));
+
+		$("#mdAssetSerial").val(asset_serial);
+		$("#mdAssetName").val(asset_name);
+		$("#mdAssetOriginal").val(original);
+		$("#mdAssetNote").val(asset_note);
+
+		$("#mdLisDept option[value][value='" + dept_id + "']").show();
+		$("#mdLisDept option[value=" + dept_id + "]").attr("selected",
+				"selected");
+		$("#mdLisDept").trigger("chosen:updated");
+
+		$("#slDept option[value][value='" + dept_id + "']").show();
+		$('#slDept').trigger('chosen:updated');
+
+		//format currency
+		$("#mdAssetOriginal").formatCurrency();
+
+		$("#modalPermission").modal('show');
+	}
+	function removeInput(dept_id)
+	{
+		//clear input
+		$("#txtAssetSerial").val('');
+		$("#txtAssetName").val('');
+		$('input[id^=txtAssetOriginal]').val('');
+		$('input[id^=txtAssetRemain]').val('');
+		$("#hd_cus_amount").val('');
+		$("#txtAssetNote").val('');
+		//hidden slDept
+		$("#slDept option[value][value='" + dept_id + "']").hide();
+		$('#slDept').trigger('chosen:updated');
+
+		$('#slDept').prop("selectedIndex", -1);
+		$('#slDept').trigger('chosen:updated');
+
+		$("#mdLisDept option[value][value='" + dept_id + "']").hide();
+		$('#mdLisDept').trigger('chosen:updated');
+
+		$('#mdLisDept').prop("selectedIndex", -1);
+		$('#mdLisDept').trigger('chosen:updated');
+	}
+	function checkTable()
+	{
+		if ($("#tbStockAssetSerial tr").size() > 0)
+			$('#btnSubmit').prop("disabled", false);
+		else
+			$('#btnSubmit').prop("disabled", true);
+	}
+	//edit table
+	function editTable()
+	{
+
+		//validate
+		var $valid = jQuery("#edit_stock_table").valid();
+		if (!$valid)
+		{
+			$validator.focusInvalid();
+			return false;
+		} else
+		{
+			var original = $("#mdAssetOriginal").val();
+			var asset_name = $("#mdAssetName").val();
+			var asset_serial = $("#mdAssetSerial").val();
+			var asset_note = $('#mdAssetNote').val();
+			var dept_name = $('#mdLisDept option:selected').attr('name');
+			var dept_id = $('#mdLisDept option:selected').attr('value');
+
+			var tr = $("#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id
+					+ "']");
+			tr.find("td").remove();
+			var newcol = $('<td>'
+					+ asset_serial
+					+ '</td><td>'
+					+ asset_name
+					+ '</td><td>'
+					+ dept_name
+					+ '</td><td>'
+					+ original
+					+ '</td><td>'
+					+ asset_note
+					+ '</td><td class="table-action"><a href="#" onclick="onEdit('
+					+ "'"
+					+ dept_id
+					+ "'"
+					+ ');"><i class="fa fa-pencil"></i></a><a href="#" class="delete-row" onclick="Remove('
+					+ "'" + dept_id + "'"
+					+ ');"><i class="fa fa-trash-o"></i></a></td>');
+			tr.append(newcol);
+
+			$("#modalPermission").modal('hide');
+		}
+	}
+	jQuery(window).load(function()
+	{
+
+		$(".numberic").numeric({
+			negative : false
+		});
+		$("form:not(.filter) :input:visible:enabled:first").focus();
+	});
+</script>
+{% endblock scripts%}

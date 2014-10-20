@@ -34,7 +34,7 @@ class StockAssetSerial(models.Model):
     supplier = models.ForeignKey(Supplier,db_column="supplier_id")
     capital = models.ForeignKey(List,db_column="capital_id")
     amortize = models.ForeignKey(List,db_column="amortize_id")
-    project_id = models.CharField(max_length=100,db_column="project_id")
+    project_id = models.ForeignKey(List,db_column='project_id')
     reason = models.ForeignKey(Reason,db_column="reason_id")
     unit = models.CharField(max_length=100,db_column="unit")
     product_date = models.DateTimeField(db_column="product_date")
