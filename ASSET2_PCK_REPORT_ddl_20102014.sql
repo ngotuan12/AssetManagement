@@ -1,7 +1,8 @@
 -- Start of DDL Script for Package Body ASSET2.PCK_REPORT
--- Generated 21-Oct-2014 5:17:19 from ASSET2@ORCL
+-- Generated 21-Oct-2014 15:26:55 from ASSET2@ORCL
 -- Start of DDL Script for Type ASSET2.T_REPORT_ASSET_ROW
--- Generated 21-Oct-2014 4:29:06 from ASSET2@ORCL
+-- Generated 21-Oct-2014 15:26:49 from ASSET2@ORCL
+DROP TYPE t_report_asset_sum_tab;
 DROP TYPE t_report_asset_tab;
 
 CREATE OR REPLACE 
@@ -46,11 +47,81 @@ TYPE t_report_asset_row                                                         
 /
 
 
+
+-- End of DDL Script for Type ASSET2.T_REPORT_ASSET_ROW
+
+-- Start of DDL Script for Type ASSET2.T_REPORT_ASSET_SUM_ROW
+-- Generated 21-Oct-2014 15:26:49 from ASSET2@ORCL
+
+CREATE OR REPLACE 
+TYPE t_report_asset_sum_row                                                                                                                                                   AS OBJECT
+
+    (
+     row_num number(10),
+   
+     no VARCHAR2 (10),
+     asset_id number(10),
+     parent_id  number(10),
+     asset_name VARCHAR2 (500),
+     asset_code VARCHAR2 (20),
+     capital_id NUMBER (10),
+     original_10 NUMBER (20),
+     original_20 NUMBER (20),
+     original_30 NUMBER (20),
+     original_40 NUMBER (20),
+     original_50 NUMBER (20),
+     remain_10 NUMBER (20),
+     remain_20 NUMBER (20),
+     remain_30 NUMBER (20),
+     remain_40 NUMBER (20),
+     remain_50 NUMBER (20),
+     note VARCHAR2 (500),
+     cur_level number(4),
+     max_level number(4),
+     flag_in_stock number(1),  is_leaf number(1), goal_id NUMBER ,
+     country_id NUMBER,
+     product_date DATE ,
+     power varchar2(50) ,
+     INTERVAL NUMBER ,
+     place VARCHAR2 (300),
+     dept VARCHAR2 (200),
+     source VARCHAR2 (200),
+     decision_no VARCHAR2 (50),
+     decision_date DATE ,
+     account_no VARCHAR2 (50),
+     document_status VARCHAR2 (20),
+      asset_serial VARCHAR2 (40),
+      use_date DATE,
+       unit VARCHAR2 (20),
+       supplier VARCHAR2 (100),
+        asset_status VARCHAR2 (250))
+/
+
+
+
+-- End of DDL Script for Type ASSET2.T_REPORT_ASSET_SUM_ROW
+
+-- Start of DDL Script for Type ASSET2.T_REPORT_ASSET_SUM_TAB
+-- Generated 21-Oct-2014 15:26:49 from ASSET2@ORCL
+
+CREATE OR REPLACE 
+TYPE t_report_asset_sum_tab IS TABLE OF t_report_asset_sum_row
+/
+
+
+
+-- End of DDL Script for Type ASSET2.T_REPORT_ASSET_SUM_TAB
+
+-- Start of DDL Script for Type ASSET2.T_REPORT_ASSET_TAB
+-- Generated 21-Oct-2014 15:26:49 from ASSET2@ORCL
+
 CREATE OR REPLACE 
 TYPE t_report_asset_tab IS TABLE OF t_report_asset_row
 /
 
--- End of DDL Script for Type ASSET2.T_REPORT_ASSET_ROW
+
+
+-- End of DDL Script for Type ASSET2.T_REPORT_ASSET_TAB
 
 
 
@@ -133,7 +204,7 @@ AS
                     FROM   list
                    WHERE   list_type = '4' AND id = b.state_id)
                      status,
-                 NULL unit,
+                 b.unit,
                  (SELECT   supplier_name
                     FROM   supplier
                    WHERE   id = b.supplier_id)
@@ -142,7 +213,7 @@ AS
                  nvl(b.remain_value,0) acc_remain,
                  nvl(b.original_value,0) inv_original,
                  nvl(c.check_remain_amount,0) inv_remain,
-                 '' note,
+                 b.note,
                  b.goal_id,
                  b.country_id,
                  b.product_date,
@@ -412,6 +483,17 @@ AS
                  b.name,
                  a.asset_level,
                  b.capital_id,
+                  b.serial,
+                 b.use_date,
+                 (SELECT   name
+                    FROM   list
+                   WHERE   list_type = '4' AND id = b.state_id)
+                     status,
+                 b.unit,
+                 (SELECT   supplier_name
+                    FROM   supplier
+                   WHERE   id = b.supplier_id)
+                     supplier,
                  case when   b.state_id in (select id from list where list_type='4' and code='10') then b.original_value else 0 end org_10,
                  case when   b.state_id in (select id from list where list_type='4' and code='20') then b.original_value else 0 end org_20,
                  case when   b.state_id in (select id from list where list_type='4' and code='30') then b.original_value else 0 end org_30,
@@ -422,20 +504,33 @@ AS
                  case when   c.check_state_id in (select id from list where list_type='4' and code='30') then c.check_remain_amount else 0 end remain_30,
                  case when   c.check_state_id in (select id from list where list_type='4' and code='40') then c.check_remain_amount else 0 end remain_40,
                  case when   c.check_state_id in (select id from list where list_type='4' and code='50') then c.check_remain_amount else 0 end remain_50,
-                 null note
+                 b.note,
+                  b.goal_id,
+                 b.country_id,
+                 b.product_date,
+                 b.power,
+                 b.INTERVAL,
+                 d.name place,
+               (SELECT dept_name FROM dept WHERE dept.id=d.dept_id) dept,
+                 (select name from ap_domain where type='SOURCE' and code=b.source) source,
+                  b.decision_no,
+                 b.decision_date,
+                 a.account_no,
+                 b.document_status
           FROM   (    SELECT   id,
                                code,
                                name,
                                parent_id,
-                               LEVEL asset_level
+                               LEVEL asset_level,account_no
                         FROM   asset
                   START WITH   parent_id IS NULL
                   CONNECT BY   PRIOR id = parent_id) a,
                  stock_asset_serial b,
-                 check_stock_asset_serial c
+                 check_stock_asset_serial c,stock d
          WHERE       1 = 1
                  AND b.id = c.stock_asset_serial_id(+)
                  AND a.id = b.asset_id
+                 AND b.stock_id=d.stock_id
                  AND (p_capital_id IS NULL OR b.capital_id = p_capital_id);
     v_row_num number(4):=0;
     v_cur_row_num number(4);
@@ -508,7 +603,24 @@ BEGIN
                                                      r_data.remain_50,
                                                      null,
                                                      v_r_level,
-                                                     null,1,1);
+                                                     null,1,1,
+                                                     r_data.goal_id  ,
+                                                     r_data.country_id ,
+                                                     r_data.product_date  ,
+                                                     r_data.power  ,
+                                                     r_data.INTERVAL  ,
+                                                     r_data.place ,
+                                                     r_data.dept ,
+                                                     r_data.source ,
+                                                     r_data.decision_no ,
+                                                     r_data.decision_date  ,
+                                                     r_data.account_no,
+                                                     r_data.document_status,
+                                                     r_data.serial,
+                                                     r_data.use_date,
+                                                     r_data.unit,
+                                                     r_data.supplier,
+                                                     r_data.status);
 
 
        v_cur_parent_id:=r_data.id;
@@ -598,7 +710,24 @@ BEGIN
                                                      v_sum_remain_50,
                                                      null,
                                                      v_r_level-i,
-                                                     null,0,0);
+                                                     null,0,0,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL,
+                                                     NULL);
 
          else
 
