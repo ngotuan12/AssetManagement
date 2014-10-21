@@ -2,12 +2,13 @@ import json
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
+from myapp.importer.DepartmentImporter import DepartmentImporter
 from myapp.models.Dept import Dept
 from myapp.util.DateEncoder import DateEncoder
-from django.http.response import HttpResponseRedirect
 
 
 @login_required(login_url='/login/')
@@ -129,3 +130,8 @@ def delete(request,dept_id):
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 		return HttpResponseRedirect("/department/")
+def import_from_excel(request):
+	importer = DepartmentImporter(file_path="D:\import.xls",import_type=2)
+	importer.do_import()
+# 	importer.worksheet[0]
+	return HttpResponse("OK")

@@ -28,3 +28,10 @@ def update_id(func):
         # Execute the function we're decorating.
         return func(*args)
     return decorated_function
+class Sequence(object):
+    def get_value(self,sequence_name):
+        from django.db import connection
+        cursor = connection.cursor()
+        cursor.execute("SELECT %s.nextval FROM dual" % sequence_name)
+        row = cursor.fetchone()
+        return row[0]
