@@ -44,6 +44,17 @@
 					<li><a href="/report/asset-inventory-report/"><i
 							class="fa fa-caret-right"></i>{% trans 'BÁO CÁO TỔNG HỢP TS CỐ ĐỊNH'%}</a></li>
 				</ul></li>
+			
+			<!-- Tiện ích -->
+			<li class="nav-parent"><a href="#"><i
+					class="fa fa-file-text"></i> <span>{% trans 'Tiện ích'%}</span></a>
+				<ul class="children">
+					<li><a href="{% url 'import-asset'%}"><i class="fa fa-caret-right"></i>{% trans 'Thêm tài sản từ file'%}</a></li>
+					<li><a href="{% url 'import-department'%}"><i class="fa fa-caret-right"></i>{% trans 'Thêm phòng ban từ file'%}</a></li>
+				</ul>
+			</li>
+			<!-- END Tiện ích -->
+			
 			<li class="nav-parent"><a href="#"><i
 					class="fa fa-file-text"></i> <span>{% trans 'DANH MỤC'%}</span></a>
 				<ul class="children">

@@ -5,7 +5,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report\
 	, Goal, AssetVolatility, ListCountry, App, BarCode, PrintAsset, ReleaseAsset\
-	, JoinAsset, ViewAssetHis, ProfileAsset
+	, JoinAsset, ViewAssetHis, ProfileAsset, ImportAsset
 
 
 urlpatterns = patterns('',
@@ -109,5 +109,6 @@ urlpatterns = patterns('',
     url(r'^report/asset-inventory-report/$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
     url(r'^report/verify-asset-report/$', Report.verify_asset_report , name='verify-asset-report'),
     url(r'^report/asset-by-project-report/$', Report.asset_project_report , name='asset-by-project-report'),
-    # Error page
+    #import asset
+    url(r'^asset/import/$', ImportAsset.index, name='import-asset'),
 )
