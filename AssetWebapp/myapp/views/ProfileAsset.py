@@ -29,46 +29,60 @@ def index(request):
 	context = {}
 	try:
 		if(request.POST):
-			slSerial = request.POST["hd_ls_serial"]
-			arrSerial = slSerial.split(',')
-			for s in arrSerial:
-				serial = s
-				remain_amount = request.POST["txtRemain"+serial]
+			lsDeptId = request.POST["hd_ls_dept_id"]
+			asset_serial_id = request.POST["hd_parent_stock_asset_id"]
+			arrDeptId = lsDeptId.split(',')
+			username = request.user.username
+			
+			for d in arrDeptId :
+				deptId = d
+				name = request.POST["txtName"+deptId]
+				serial = request.POST["txtSerial"+deptId]
+				note =request.POST["txtNote"+deptId]
+				arrRemainValue = request.POST["txtRemain"+deptId]
+				arrOriginalValue = request.POST["txtOriginal"+deptId]
+				arrCapital = request.POST["txtCapital"+deptId]
 				
-				state_id = request.POST["txtState"+serial]
-				check_no = request.POST["txtCheckNo"+serial]
-				staff_code = request.POST["txtStaff"+serial]
-				note = request.POST["txtNote"+serial]
-				username = request.user.username
-				dtVerify = request.POST["txtDtVerify"+serial]
-				p_serial = serial
+# 				print("asset_serial_id: "+asset_serial_id)
+# 				print("deptId: "+deptId)
+# 				print("name: "+name)
+# 				print("serial: "+serial)
+# 				print("note: "+note)
+# 				print("arrRemainValue: "+arrRemainValue)
+# 				print("arrOriginalValue: "+arrOriginalValue)
+# 				print("arrCapital: "+arrCapital)
+# 				print("")
 				p_error  = ''
 				cursor = connection.cursor()
 				cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
 	                                       "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
 				p_error = cursor.var(cx_Oracle.STRING).var
-				cursor.callproc("pck_asset.check_asset",
+				cursor.callproc("pck_stock_trans.distribute_capital",
 							(
 								#p_error
 								p_error,
-								#p_check_no
-								check_no,
-								#p_check_user
-								staff_code,
-								#p_serial
-								p_serial,
-								#p_remain_amount
-								remain_amount,
-								#p_interval
+								#p_asset_serial_id
+								asset_serial_id,
+								#p_dept_id
+								deptId,
+								#p_stock_id
 								None,
-								#p_state_id
-								state_id,
-								#p_note
+								#p_name
+								name,
+								#p_serial
+								serial,
+								#p_quantity
+								None,
+								#p_arr_capital
+								arrCapital,
+								#p_arr_original_value
+								arrOriginalValue,
+								#p_arr_remain_value
+								arrRemainValue,
+								#p_description
 								note,
 								#p_username
-								username,
-								#p_check_date
-								dtVerify
+								username
 							))
 				cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
 	                                       "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")

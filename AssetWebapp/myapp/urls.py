@@ -75,7 +75,7 @@ urlpatterns = patterns('',
 	url(r'^bar-code/$', BarCode.barcode, name='bar-code'),
 	# get history Stock Asset Serial
 	url(r'^get-list-serial-his/(?P<serial>\w+)/$', ViewAssetHis.index, name='get-list-serial-his'),
-	
+	url(r'^get-list-stock/(?P<dept_id>\w+)/$', DecrementAsset.getListStock, name='get-list-stock'),
     # AssetState
     url(r'^asset-state/$', AssetState.index, name='asset-state'),
     url(r'^state/add/(?P<parent_id>\w+)/$', AssetState.add, name='add-asset-state'),
