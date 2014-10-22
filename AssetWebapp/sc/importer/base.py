@@ -7,6 +7,7 @@ Created on Oct 20, 2014
 @since: 20/10/2014
 '''
 import codecs
+import cx_Oracle
 
 from django.db import connection
 from django.utils.translation import ugettext as _
@@ -78,38 +79,66 @@ class Importer(object):
     return log file name
     '''
     def do_import(self):
+        
         '''
         Create cursor
         '''
         cursor = connection.cursor()
+        cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
+                                       "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
         '''
         Create log file
         '''
         log_file = codecs.open(LOG_ROOT+ "\log.txt","w+","utf-8")
-        print("Analyze data")
-        '''
-        read xls file
-        '''
-        work_book = xlrd.open_workbook(self.file_path)
-        sheet = work_book.sheet_by_index(0)
-        from_row = 0
-        if hasattr(self.Meta,"from_row"):
-            from_row = self.Meta.from_row
-        to_row = sheet.nrows
-        if hasattr(self.Meta,"to_row"):
-            to_row = self.Meta.to_row
-        for i in range(from_row,to_row):
-            values = []
-            for j in range(len(self.columns)):
-                values.append(sheet.cell_value(i,self.columns[j].column_index))
-                print sheet.cell_value(i,self.columns[j].column_index)
-            try:
-#                     print sql % tuple(values)
-                cursor.execute(self.sql,values)
-            except Exception as ex:
-                log_file.write(_(u"Dòng ") + "%i: %s"% (i,str(ex))+"\n")
-#               print _(u"Dòng ") + "%i: %s"% (i,str(ex))
-        log_file.close()
+        try:
+            '''
+            read xls file
+            '''
+            work_book = xlrd.open_workbook(self.file_path)
+            sheet = work_book.sheet_by_index(0)
+            from_row = 0
+            if hasattr(self.Meta,"from_row"):
+                from_row = self.Meta.from_row
+            to_row = sheet.nrows
+            if hasattr(self.Meta,"to_row"):
+                to_row = self.Meta.to_row
+            '''
+            Analyze data
+            '''
+            for i in range(from_row,to_row):
+                values = []
+                for j in range(len(self.columns)):
+                    '''
+                    Append value
+                    '''
+                    values.append(sheet.cell_value(i,self.columns[j].column_index))
+                try:
+                    '''
+                    Check import type
+                    '''
+                    if self.import_type == 1 or self.import_type == 2:
+                        if hasattr(self.Meta, "table"):
+                            cursor.execute(self.sql,values)
+                    elif self.import_type == 3:
+                        if hasattr(self.Meta, "package"):
+                            cursor.callproc(self.Meta.package,values)
+                except Exception as ex:
+                    log_file.write(_(u"Dòng ") + "%i: %s"% (i,str(ex))+"\n")
+            '''
+            Check import type = 2 call package after import table
+            '''
+            if self.import_type == 2:
+                if hasattr(self.Meta, "package"):
+                    p_error = cursor.var(cx_Oracle.STRING).var
+                    cursor.callproc(self.Meta.package,[p_error])
+                    if p_error.getvalue() is not None:
+                        log_file.write(p_error.getvalue()+"\n")
+        except Exception as ex:
+            raise ex
+        finally:
+            cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
+                                       "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
+            log_file.close()
     def get_column(self):
         return self.columns
 class ImporterColumn(object):
