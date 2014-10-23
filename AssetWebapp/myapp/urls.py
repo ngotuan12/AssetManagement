@@ -111,4 +111,6 @@ urlpatterns = patterns('',
     url(r'^report/asset-by-project-report/$', Report.asset_project_report , name='asset-by-project-report'),
     #import asset
     url(r'^asset/import/$', ImportAsset.index, name='import-asset'),
+    url(r'^asset/import/test/$', ImportAsset.test_import, name='test-import-asset'),
+    url(r'^asset/upload/$', ImportAsset.upload, name='upload-asset'),
 )

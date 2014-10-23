@@ -8,8 +8,9 @@ Created on Oct 20, 2014
 '''
 import codecs
 import cx_Oracle
+import datetime
 
-from django.db import connection
+from django.db import connection, transaction
 from django.utils.translation import ugettext as _
 import xlrd
 
@@ -89,7 +90,9 @@ class Importer(object):
         '''
         Create log file
         '''
-        log_file = codecs.open(LOG_ROOT+ "\log.txt","w+","utf-8")
+        strtime = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+        log_file_name = "/log"+ strtime + ".html";
+        log_file = codecs.open(LOG_ROOT+ log_file_name,"w+","utf-8")
         try:
             '''
             read xls file
@@ -123,7 +126,7 @@ class Importer(object):
                         if hasattr(self.Meta, "package"):
                             cursor.callproc(self.Meta.package,values)
                 except Exception as ex:
-                    log_file.write(_(u"Dòng ") + "%i: %s"% (i,str(ex))+"\n")
+                    log_file.write(_(u"Dòng ") + "%i: %s"% (i+1,str(ex))+"<br>")
             '''
             Check import type = 2 call package after import table
             '''
@@ -139,6 +142,12 @@ class Importer(object):
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
             log_file.close()
+        return log_file_name
+    def do_test(self):
+        transaction.set_autocommit(False)
+        log_file_name = self.do_import()
+        transaction.rollback()
+        return log_file_name
     def get_column(self):
         return self.columns
 class ImporterColumn(object):

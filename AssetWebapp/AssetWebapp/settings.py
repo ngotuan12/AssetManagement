@@ -132,6 +132,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/common"
 REPORT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/report"
 LOG_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/log"
+UPLOAD_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/upload"
 TEMPLATE_DEBUG = DEBUG
 TEMPLATE_DIRS = (
                 os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/templates",
@@ -147,3 +148,5 @@ if not os.path.exists(REPORT_ROOT):
     os.makedirs(REPORT_ROOT)
 if not os.path.exists(LOG_ROOT):
     os.makedirs(LOG_ROOT)
+if not os.path.exists(UPLOAD_ROOT):
+    os.makedirs(UPLOAD_ROOT)
