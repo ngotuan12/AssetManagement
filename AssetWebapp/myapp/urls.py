@@ -44,6 +44,7 @@ urlpatterns = patterns('',
     url(r'^get-serial/(?P<stock_id>\w+)/$', JoinAsset.getListChild, name='get-serial'),
     # get list capital
     url(r'^get-list-capital/(?P<asset_id>\w+)/$', ProfileAsset.get_capital, name='get-capitals'),
+    url(r'^get-list-stock-serial/(?P<stock_id>\w+)/$', EvaluationAsset.get_list_stock_serial, name='get-list-stock-serial'),
     # verify asset
     url(r'^verify-asset/$', VerifyAsset.index, name='verify-asset'),
     url(r'^verify-asset/(?P<serial_id>\w+)/$', VerifyAsset.verify),

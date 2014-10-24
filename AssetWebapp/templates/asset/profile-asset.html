@@ -4,93 +4,12 @@
 	<link href="/css/increment-asset.css" rel="stylesheet">
 {% endblock %}
 {% block content %}
-	<div class="modal fade" id="modalPermission" tabindex="-1" role="dialog"
-		aria-hidden="true">
-		<div class="modal-dialog modal-lg-4" style="width: 60%;">
-			<div class="modal-content" style="background-color: #e4e7ea;">
-			<form class="form form-bordered" method="post" id="edit_stock_table" novalidate="novalidate">
-			<input type="hidden" id="hd_cus_amount" value="">
-			<input type="hidden" id="hd_radio" value="1">
-				<div class="modal-body">
-					<div class="profile-header" style="margin-bottom: 0">
-						<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">×</button>
-						<h2 class="profile-name">{% trans 'Sửa thông tin tài sản' %}</h2>
-					</div>
-					<div id="tab-content" class = "tab-content" style="padding: 5px 0 0 0;">
-						<div class="row" style="padding: 10px;">
-							<div class="row"  style="padding-left: 10px;padding-right: 10px;">
-								<div class="col-sm-6">
-									<div class="form-group" style="padding: 5px 0;">
-										<label class="control-label">{% trans 'Đơn vị' %}</label>
-										<select id="mdLisDept" class="form-control chosen-select"
-											data-placeholder="{% trans '----------------------------------Chọn đơn vị ----------------------------------' %}" required="required">
-											<option value=""></option>
-											{% for dept in depts %}
-												<option value="{{ dept.id }}" name="{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
-											{% endfor %}
-										</select>
-										<label for="mdLisDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
-									</div>
-								</div>
-								
-								<div class="col-sm-6" >
-									<div class="form-group" style="padding: 5px 0;">
-										<label class="control-label"> {% trans 'Giá trị' %}</label>
-										<div class="input-group">
-											<input type="text" id="mdAssetOriginal" name="mdAssetOriginal" style="padding: 8px;text-align: right;" class="form-control numberic" placeholder="{% trans 'Giá trị' %}" maxlength="10" required="required">
-											<span class="input-group-addon " style="background:#EEE">VND</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="row" style="padding-left: 10px;padding-right: 10px;">
-								<div class="col-sm-6">
-										<div class="form-group" style="padding: 5px 0;">
-											<label class="control-label">{% trans 'Mã tài sản' %}</label>
-											<input type="text" id ="mdAssetSerial" name="mdAssetSerial" placeholder="{% trans 'Mã tài sản' %}"
-												class="form-control" value="" maxlength="20" required="required">
-										</div>
-									</div>
-								<div class="col-sm-6">
-									<div class="form-group" style="padding: 5px 0;">
-										<label class="control-label">{% trans 'Tên tài sản' %}</label>
-											<input type="text" id="mdAssetName" name="mdAssetName" placeholder="{% trans 'Tên tài sản ' %}"
-												class="form-control" value="" maxlength="50" required="required">
-									</div>
-								</div>
-							</div>
-							<div class="row" style="padding-left: 10px;padding-right: 10px;">
-									<div class="col-sm-12">
-										<div class="form-group" style="padding: 5px 0;">
-											<label class="control-label"> {% trans 'Ghi chú' %} </label>
-											<textarea class="form-control" id="mdAssetNote" name="txtNote" rows="2"
-													placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
-										</div>
-									</div>	
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-				<input type="hidden" id="hd_md_reamain" value="">
-				<div class="col-sm col-sm-offset-4" style="padding-bottom: 5px;">
-					<button class="btn btn-success mr5" onclick="editTable();">
-						<i class="fa fa-check"></i> {% trans 'Thực hiện' %}
-					</button>
-					<button class="btn btn-white mr5" data-dismiss="modal">
-						 {% trans 'Thoát' %} <i class="fa fa-forward"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<div class="contentpanel no-padding" style="background:#828283">
 			<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title" style="text-align:center;line-height:10px">{% trans 'PHÂN BỔ TÀI SẢN' %}</h4>
-			</div>
+			<!-- <div class="panel-heading">
+				<h4 class="panel-title" style="text-align:center;line-height:10px">{% trans 'PHÂN BỔ TÀI SẢN' %}</h4>
+			</div> -->
 			
 			<div class="panel-body">
 				<div class="row" style="margin-left: -20px;margin-right: -20px;">
@@ -108,7 +27,7 @@
 								<div class="row"> 
 									<div class="col-sm-12">
 										<select id="slSerial" name="slSerial"class="form-control chosen-select"
-											data-placeholder="{% trans '------------------------------------------------------------Chọn tài sản cha----------------------------------------------------' %}">
+											data-placeholder="{% trans '------------------------------------------------------------Chọn tài sản cha----------------------------------------------------' %}">
 											<option value=""></option>
 											{% for serial  in serials %}
 												<option id="{{ serial.id }}" value="{{ serial.id }}" name="{{ serial.name }}" serial ="{{ serial.serial }}" original="{{ serial.original_value }}" project_name="{{ serial.project_id.name }}" state = "{{ serial.state.name }}">{{ serial.serial }} - {{ serial.name }}</option>
@@ -116,56 +35,44 @@
 										</select>
 										<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
-									<div class="col-sm-4">
-										<div class="form-group" style="padding: 5px 0;">
-											<label class="control-label"> {% trans 'Mã tài sản' %}</label>
-											<input type="text" id="txtViewSerialId" style="padding: 8px;" 
-												placeholder="{% trans 'Mã tài sản' %}" class="form-control" disabled="disabled">
-										</div>
-									</div>
-									<div class="col-sm-8">
-										<div class="form-group" style="padding: 5px 0;">
-											<label class="control-label"> {% trans 'Tên tài sản' %}</label>
-											<input type="text" id="txtViewSerialName" style="padding: 8px;" 
-												placeholder="{% trans 'Tên tài sản' %}" class="form-control" disabled="disabled">
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="form-group" style="padding: 5px 0;">
-											<label class="control-label"> {% trans 'Giá trị' %}</label>
-											<div class="input-group">
-												<input type="text" id="txtViewSerialOriginal" style="padding: 8px; text-align: right;" 
-												placeholder="{% trans 'Giá trị' %}" class="form-control" disabled="disabled">
-												<span class="input-group-addon" style="background:#EEE">VND</span>
+									<div class="col-sm-12">
+										<div class="people-item" style="padding-left: 0px;padding-bottom: 0px;font-size: 14px;">
+											<div class="media">
+												<div class="media-body">
+													<div class="text-muted">
+														<p><span class="span-style">Tên TS: </span><span style="font-family: initial;" id="lbViewSerialName">T/t Mở rộng mạng cáp nội hạt trạm TBình, Thanh An, THưng 06-08 (94p0781)</span></p>
+													</div>
+													<div class="text-muted">
+														<p><span class="span-style">Mã TS: </span><span style="font-family: initial;" id="lbViewSerialId">00109011601599</span></p>
+													</div>
+													<div class="text-muted">
+														<p><span class="span-style">Dự án: </span><span style="font-family: initial;" id="lbViewProjectName">T/t Mở rộng mạng cáp nội hạt trạm TBình</span></p>
+													</div>
+													<div class="text-muted">
+														<p><span class="span-style">Giá trị: </span><span style="font-family: initial;" id="lbViewSerialOriginal">562,123,123đ</span></p>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-8">
-										<div class="form-group" style="padding: 5px 0;">
-											<label class="control-label"> {% trans 'Dự án' %}</label>
-											<input type="text" id="txtViewProjectName" style="padding: 8px;" 
-												placeholder="{% trans 'Tên dự án' %}" class="form-control" disabled="disabled">
+								</div>
+								<div class="row" style="margin-top: 6px;"> 
+										<div class="col-sm-4">
+											<div class="rdio rdio-primary" style="margin-top: 5px;">
+												<input type="radio" name="radio" value="1" id="radioPrimary" checked="checked">
+												<label for="radioPrimary">{% trans 'Phân bổ đều' %}</label>
+											</div>
 										</div>
-									</div>
-									<div class="col-sm-12">
-										<div class="form-group" style="padding: 5px 0;">
-											<label class="control-label"> {% trans 'Nguồn vốn' %}</label>
-											<table class="table table-bordered">
-												<thead>
-													<tr>
-														<th style="width: 25%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MÃ NGUỒN VỐN' %}</th>
-														<th style="width:37%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN NGUỒN VỐN' %}</th>
-														<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
-														<th style="width:20%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CÒN LẠI' %}</th>
-													</tr>
-												</thead>
-												<tbody id="tbView">
-													
-												</tbody>
-											</table>
-											<!-- <button id="btnViewDetail" class="btn btn-primary" onclick="" style="float: right;margin-top: 2%;" disabled="disabled">{% trans 'Xem chi tiết' %} &nbsp;</button> -->
+										
+										<div class="col-sm-4">
+											<div class="rdio rdio-primary" style="margin-top: 5px;">
+												<input type="radio" name="radio" value="0" id="radioPrimary1">
+												<label for="radioPrimary1">{% trans 'Phân bổ không đều' %}</label>
+											</div>
 										</div>
-									</div>
+										<div class="col-sm-4">
+											<button id="btnShowPopUp" class="btn btn-primary" onclick="onShowPopUp();" style="float: right;" disabled="disabled"><span class="glyphicon glyphicon-plus" ></span>{% trans 'Tài sản con' %} &nbsp;</button>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -177,70 +84,26 @@
 									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'CHIA TÁCH TÀI SẢN CHA' %}</h4>
 								</div>
 								<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
-									<div class="row" style="margin-top: 6px;"> 
-										<div class="col-sm-6">
-											<div class="rdio rdio-primary">
-												<input type="radio" name="radio" value="1" id="radioPrimary" checked="checked">
-												<label for="radioPrimary">{% trans 'Phân bổ đều' %}</label>
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group" style="padding: 5px 0;">
+												<label class="control-label"> {% trans 'Danh sách nguồn vốn' %}</label>
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th style="width: 10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MNV' %}</th>
+															<th style="width:54%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN NGUỒN VỐN' %}</th>
+															<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
+															<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GT CÒN LẠI' %}</th>
+														</tr>
+													</thead>
+													<tbody id="tbView">
+														
+													</tbody>
+												</table>
+												<!-- <button id="btnViewDetail" class="btn btn-primary" onclick="" style="float: right;margin-top: 2%;" disabled="disabled">{% trans 'Xem chi tiết' %} &nbsp;</button> -->
 											</div>
 										</div>
-										
-										<div class="col-sm-6">
-											<div class="rdio rdio-primary">
-												<input type="radio" name="radio" value="0" id="radioPrimary1">
-												<label for="radioPrimary1">{% trans 'Phân bổ không đều' %}</label>
-											</div>
-										</div>
-									</div>
-									<form  class="form form-bordered" method="post" id="form-verify-asset-edit" novalidate="novalidate">
-										{% csrf_token %}
-										<div class="row">
-												<div class="col-sm-4">
-													<div class="form-group" style="padding: 5px 0;">
-														<label class="control-label"> {% trans 'Đơn vị' %}</label>
-														<select id="slDept" class="form-control chosen-select"
-															data-placeholder="{% trans '----------Chọn đơn vị----------' %}"
-															name = "slDept" required="required">
-															<option value=""></option>
-															{% for dept in depts %}
-																<option value="{{ dept.id }}" id="{{ dept.id }}" name= "{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
-															{% endfor%}
-														</select>
-														<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
-													</div>
-												</div>
-												
-												<div class="col-sm-4">
-													<div class="form-group" style="padding: 5px 0;">
-														<label class="control-label"> {% trans 'Mã tài sản con' %}</label>
-														<input type="text" id="txtAssetSerial" name="txtSerial" style="padding: 8px;" 
-															placeholder="{% trans 'Mã tài sản con' %}" class="form-control" maxlength="20" required="required">
-													</div>
-												</div>
-												<div class="col-sm-4">
-													<div class="form-group" style="padding: 5px 0;">
-														<label class="control-label"> {% trans 'Tên tài sản con' %}</label>
-														<input type="text" id="txtAssetName" style="padding: 8px;" 
-															placeholder="{% trans 'Tên tài sản con' %}" class="form-control" maxlength="50" required="required">
-													</div>
-												</div>
-												
-										</div>
-										<div id="addDiv">
-											
-										</div>
-										<div class="row">
-											<div class="col-sm-12">
-												<div class="form-group" style="padding: 5px 0;">
-													<label class="control-label"> {% trans 'Ghi chú' %} </label>
-													<textarea class="form-control" id="txtAssetNote" name="txtNote" rows="2"
-															placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
-												</div>
-											</div>
-										</div>
-									</form>
-									<div class="col-sm-12" style="padding-left: 0px;padding-right: 0px;">
-										<button id="btnAdd" class="btn btn-primary" onclick="onAddTable();" style="float: right;" disabled="disabled">{% trans 'Thêm' %} &nbsp;</button>
 									</div>
 							</div>
 						</div>
@@ -248,20 +111,20 @@
 					<div class="col-sm-12">
 						<div class="table-responsive ">
 							<div class="panel panel-primary">
-								<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+								<!-- <div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
 									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'DANH SÁCH TÀI SẢN CON' %}</h4>
-								</div>
+								</div> -->
 								<div class="panel-body" style="padding: 0px !important;margin-top: 1%;">
 									<table class="table table-bordered">
 										<thead>
 											<tr>
 												<th style="width: 20%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'ĐỢN VỊ' %}</th>
 												<th style="width:10%; text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MÃ TÀI SẢN' %}</th>
-												<th style="width:15%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
-												<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUỒN VỐN' %}</th>
+												<th style="width:20%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
+												<th style="width:10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUỒN VỐN' %}</th>
 												<th style="width:10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
 												<th style="width:12%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CÒN LẠI' %}</th>
-												<th style="width:25%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GHI CHÚ' %}</th>
+												<th style="width:28%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GHI CHÚ' %}</th>
 												<th style="text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'XÓA' %}</th>
 											</tr>
 										</thead>
@@ -272,8 +135,8 @@
 								</div>
 							</div>
 						</div><!-- table-responsive -->
-						<div class="col-sm-12" style="padding-left: 0px;padding-right: 0px;">
-							<button id="btnSubmit" class="btn btn-primary" onclick="onValidate();" style="float: right; margin-bottom: 15px;" disabled="disabled">{% trans 'Thực hiện phân tách' %} &nbsp;</button>
+						<div class="col-sm-12" style="padding-left: 0px;padding-right: 0px; margin-top: -15px;">
+							<button id="btnSubmit" class="btn btn-primary" onclick="onValidate();" style="float: right; margin-bottom: 15px;" disabled="disabled">{% trans 'Thực hiện phân tách' %} &nbsp;</button>
 						</div>
 					</div>
 				</div>
@@ -285,6 +148,102 @@
 					<input type="hidden" name="hd_ls_dept_id" id="hd_ls_dept_id" value="">
 				</div>
 			</form>
+	</div>
+</div>
+<!-- pop up -->
+<div class="modal fade" id="modalPermission" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg-4" style="width: 70%;">
+			<div class="modal-content" style="background-color: #e4e7ea;">
+			<form class="form form-bordered" method="post" id="form-add-stock-asset-serial" novalidate="novalidate">
+			<input type="hidden" id="hd_cus_amount" value="">
+			<input type="hidden" id="hd_radio" value="1">
+				<div class="modal-body">
+					<div class="profile-header" style="margin-bottom: 0">
+						<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+						<h3 class="profile-name" style="text-align: center;">{% trans 'Thêm tài sản con' %}</h3>
+					</div>
+					<div id="tab-content" class = "tab-content" style="padding: 5px 0 0 0;">
+						<div class="row" style="padding: 10px;">
+							<div class="row"  style="padding-left: 10px;padding-right: 10px;">
+								<div class="col-sm-4">
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label">{% trans 'Đơn vị' %}</label>
+										<select id="mdLisDept" class="form-control chosen-select"
+											data-placeholder="{% trans '---------------------Chọn đơn vị -------------------' %}" required="required">
+											<option value=""></option>
+											{% for dept in depts %}
+												<option value="{{ dept.id }}" name="{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
+											{% endfor %}
+										</select>
+										<label for="mdLisDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+									</div>
+								</div>
+								
+								
+								<div class="col-sm-4">
+									<div class="form-group" style="padding:5px 0;">
+										<label class="control-label">{% trans 'Mã tài sản' %}</label>
+										<input type="text" style="padding: 8px;" id ="mdAssetSerial" name="mdAssetSerial" placeholder="{% trans 'Mã tài sản' %}"
+											class="form-control" value="" maxlength="20" required="required">
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label">{% trans 'Tên tài sản' %}</label>
+											<input type="text" style="padding: 8px;" id="mdAssetName" name="mdAssetName" placeholder="{% trans 'Tên tài sản ' %}"
+												class="form-control" value="" maxlength="50" required="required">
+									</div>
+								</div>
+							</div>
+							<div id="addDiv">
+								<div class="row" style="padding-left: 10px;padding-right: 10px;">
+								<div class="col-sm-6" >
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label"> {% trans 'Nguyên giá' %}</label>
+										<div class="input-group">
+											<input type="text" style="padding: 8px;" id="mdAssetOriginal" name="mdAssetOriginal" style="padding: 8px;text-align: right;" class="form-control numberic" placeholder="{% trans 'Nguyên giá' %}" maxlength="10" required="required">
+											<span class="input-group-addon " style="background:#EEE">VND</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6" >
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label"> {% trans 'Giá trị còn lại' %}</label>
+										<div class="input-group">
+											<input type="text" style="padding: 8px;" id="mdAssetRemain" name="mdAssetRemain" style="padding: 8px;text-align: right;" class="form-control numberic" placeholder="{% trans 'Giá trị còn lại' %}" maxlength="10" required="required">
+											<span class="input-group-addon " style="background:#EEE">VND</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							</div>
+							
+							<div class="row" style="padding-left: 10px;padding-right: 10px;">
+									<div class="col-sm-12">
+										<div class="form-group" style="padding: 0px 0;">
+											<label class="control-label"> {% trans 'Ghi chú' %} </label>
+											<textarea class="form-control" id="mdAssetNote" name="txtNote" rows="2"
+													placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
+										</div>
+									</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+				<input type="hidden" id="hd_md_reamain" value="">
+				<div class="col-sm col-sm-offset-4" style="padding-bottom: 5px;">
+					<button class="btn btn-success mr5" onclick="onAddTable();">
+						<i class="fa fa-check"></i> {% trans 'Thực hiện' %}
+					</button>
+					<button class="btn btn-white mr5" data-dismiss="modal">
+						 {% trans 'Thoát' %} <i class="fa fa-forward"></i>
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %} 
 {% block scripts %}
@@ -359,10 +318,14 @@ $(document).ready(function(){
 		//get list capital
 		onGetCapital(asset_id);
 		//set view input text
-		$("#txtViewSerialId").val(serial);
-		$("#txtViewSerialName").val(name);
-		$("#txtViewSerialOriginal").val(original);
-		$("#txtViewProjectName").val(project_name);
+		$("#lbViewSerialId").html(serial);
+		$("#lbtViewSerialName").html(name);
+		$("#lbViewSerialOriginal").html(original+' vnđ');
+		$("#lbViewProjectName").html(project_name);
+		//clear input model
+		clearInput();
+		//
+		$('#btnShowPopUp').prop("disabled", false);
 		
 		$("#hd_parent_stock_asset_id").val(asset_id);
 		
@@ -370,8 +333,8 @@ $(document).ready(function(){
 		$("#txtViewSerialOriginal").formatCurrency();
 		
 	});
-	$("#slDept").change(function() {
-		$(".error[for][for='slDept']").hide();
+	$("#mdLisDept").change(function() {
+		$(".error[for][for='mdLisDept']").hide();
 	});
 	$("#txtAssetSerial").on("keydown", function (e) {
 	if(e.which === 32) 
@@ -381,14 +344,14 @@ $(document).ready(function(){
 	if(e.which === 32) 
 		return false;
 	});
-	$('#txtAssetOriginal').blur(function()
+	$('#mdAssetOriginal').blur(function()
 	{
 		$(this).attr('maxlength','20');
 		var temp=($(this).val()).toString();
 		$("#hd_cus_amount").val(temp);
 		$(this).formatCurrency();
 	});
-	$('#txtAssetOriginal').focus(function() 
+	$('#mdAssetOriginal').focus(function() 
 	{
 		$(this).attr('maxlength','15');
 		$(this).val($("#hd_cus_amount").val());
@@ -399,7 +362,8 @@ $(document).ready(function(){
 		checkTable();
 		arr_dept=[];
 		$('input[id^=hd_sum]').val('0');
-		
+		//clear input model
+		clearInput();
 		//hidden slDept
 		$("#slDept option").show();
 		$('#slDept').trigger('chosen:updated');
@@ -410,22 +374,22 @@ $(document).ready(function(){
 		if ( $(this).val() === '1')
 		{
 			
-			$('input[id^=txtAssetOriginal]').val('');
-			$('input[id^=txtAssetRemain]').val('');
+			$('input[id^=mdAssetOriginal]').val('');
+			$('input[id^=mdAssetRemain]').val('');
 			
-			$('input[id^=txtAssetOriginal]').prop("disabled", true);
-			$('input[id^=txtAssetRemain]').prop("disabled", true);
+			$('input[id^=mdAssetOriginal]').prop("disabled", true);
+			$('input[id^=mdAssetRemain]').prop("disabled", true);
 			$("#hd_radio").val($(this).val());
 		}
 		else
 		{
-			$('input[id^=txtAssetOriginal]').val('');
-			$('input[id^=txtAssetRemain]').val('');
+			$('input[id^=mdAssetOriginal]').val('');
+			$('input[id^=mdAssetRemain]').val('');
 			
-			$('input[id^=txtAssetOriginal]').prop("disabled", false);
-			$('input[id^=txtAssetRemain]').prop("disabled", false);
-			$('input[id^=txtAssetRemain]').numeric({negative : false });
-			$('input[id^=txtAssetOriginal]').numeric({negative : false });
+			$('input[id^=mdAssetOriginal]').prop("disabled", false);
+			$('input[id^=mdAssetRemain]').prop("disabled", false);
+			$('input[id^=mdAssetOriginal]').numeric({negative : false });
+			$('input[id^=mdAssetRemain]').numeric({negative : false });
 			$("#hd_radio").val($(this).val());
 		}
 	});
@@ -437,7 +401,7 @@ $(document).ready(function(){
 	{
 		var suscess =false;
 		//validate
-		var $valid = jQuery("#form-verify-asset-edit").valid();
+		var $valid = jQuery("#form-add-stock-asset-serial").valid();
 		if (!$valid)
 		{
 			$validator.focusInvalid();
@@ -445,16 +409,17 @@ $(document).ready(function(){
 		} else
 		{
 			
-			var asset_name = $("#txtAssetName").val();
-			var asset_serial = $("#txtAssetSerial").val();
-			var asset_note = $('#txtAssetNote').val();
-			var dept_name = $('#slDept option:selected').attr('name');
-			var dept_id = $('#slDept option:selected').attr('value');
+			var asset_name = $("#mdAssetName").val();
+			var asset_serial = $("#mdAssetSerial").val();
+			var asset_note = $('#mdAssetNote').val();
+			var dept_name = $('#mdLisDept option:selected').attr('name');
+			var dept_id = $('#mdLisDept option:selected').attr('value');
 			var stock_asset_serial_id =$('#slSerial option:selected').attr('id');
 			
 			checkSerial(asset_serial);
 			if(equal)
 			{
+				var stt = 1;
 				$("#tbView tr").each(function()
 				{
 					var capital_id = $(this).attr('id');
@@ -467,29 +432,52 @@ $(document).ready(function(){
 					}
 					else
 					{
-						var original = $("#txtAssetOriginal"+capital_id).val();
-						var remain = $("#txtAssetRemain"+capital_id).val();
+						var original = $("#mdAssetOriginal"+capital_id).val();
+						var remain = $("#mdAssetRemain"+capital_id).val();
 						
 					}
 					
 					var newRow = $('<tr capital_id="'+ capital_id +'" dept_id="'+dept_id+'" remain="'+remain+'"  original ="'+ original +'" asset_name ="'+ asset_name +'" asset_serial="'+ asset_serial +'" asset_note="'+asset_note+'" dept_id="'+ dept_id +'"></tr>');
-					var newcol = $('<td>'
-							+ dept_name
-							+ '</td><td>'
-							+ asset_serial
-							+ '</td><td>'
-							+ asset_name
-							+ '</td><td>'
-							+ capital_name
-							+ '</td><td style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
-							+ original
-							+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
-							+ remain
-							+ '</td><td>'
-							+ asset_note
-							+ '</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('
-							+ "'" + dept_id + "'"
-							+ ');"><i class="fa fa-trash-o"></i></a></td>');
+					if(stt === 1)
+					{
+						var newcol = $('<td>'
+								+ dept_name
+								+ '</td><td>'
+								+ asset_serial
+								+ '</td><td>'
+								+ asset_name
+								+ '</td><td>'
+								+ capital_id
+								+ '</td><td style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
+								+ original
+								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
+								+ remain
+								+ '</td><td>'
+								+ asset_note
+								+ '</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('
+								+ "'" + dept_id + "'"
+								+ ');"><i class="fa fa-trash-o"></i></a></td>');
+					}
+					else
+					{
+						var newcol = $('<td>'
+								+ ''
+								+ '</td><td>'
+								+ ''
+								+ '</td><td>'
+								+ ''
+								+ '</td><td>'
+								+ capital_id
+								+ '</td><td style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
+								+ original
+								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
+								+ remain
+								+ '</td><td>'
+								+ ''
+								+ '</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('
+								+ "'" + dept_id + "'"
+								+ ');"><i class="fa fa-trash-o"></i></a></td>');
+					}
 					newRow.append(newcol);
 					if($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size() < $("#tbView tr").size() )
 					{
@@ -500,12 +488,16 @@ $(document).ready(function(){
 							tt(capital_id);
 							//check data
 							checkTable();
+							//clear input model
+							clearInput();
+							//hide model
+							$("#modalPermission").modal('hide');
 							$.message.notification('Thêm mới tài sản: '+ asset_name +' thành công','top',{'timeout':5000});
 						}
 						else
 						{
-							var original = $("#txtAssetOriginal"+capital_id).val();
-							var remain = $("#txtAssetRemain"+capital_id).val();
+							var original = $("#mdAssetOriginal"+capital_id).val();
+							var remain = $("#mdAssetRemain"+capital_id).val();
 							
 							var tempOri =parseFloat($("#hd_sum_original"+capital_id).val())
 							var tempRem =parseFloat($("#hd_sum_remain"+capital_id).val())
@@ -522,6 +514,10 @@ $(document).ready(function(){
 								$("#hd_sum_original"+capital_id).val(parseFloat(original) + tempOri);
 								$("#hd_sum_remain"+capital_id).val(parseFloat(remain) + tempRem);
 								$("#tbStockAssetSerial").append(newRow);
+								//hide model
+								$("#modalPermission").modal('hide');
+								//clear input model
+								clearInput();
 								suscess =true;
 								//check data
 								checkTable();
@@ -532,6 +528,7 @@ $(document).ready(function(){
 					if($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size() == $("#tbView tr").size() )
 						//removeInput
 						removeInput(dept_id);
+					stt +=1;
 				});
 				//check if add table suscess
 				if(suscess) 
@@ -543,6 +540,17 @@ $(document).ready(function(){
 			}
 		}
 		
+	}
+	//clear input
+	function clearInput()
+	{
+		var serial = $('#slSerial option:selected').attr('serial');
+		var index =0;
+		if($("#tbView tr").size() >0)
+			index = $("#tbStockAssetSerial tr").size()/$("#tbView tr").size() +1;
+		$("#mdAssetSerial").val(serial.toString() +"_"+index.toString());
+		$("#mdAssetName").val('');
+		$("#mdAssetNote").val('');
 	}
 	//tinh toan lại
 	function tt(capital_id)
@@ -615,19 +623,19 @@ $(document).ready(function(){
 				//addDiv
 				var div =$('<div class="row">'
 						+'<div class="col-sm-12">'
-						+'<div class="form-group" style="padding: 5px 0;margin-top: 10px;">'
-						+'<label class="control-label"> {% trans "'+capital_id+capital_name+'" %}</label>'
+						+'<div class="form-group" style="padding: 5px 0 0 10px;margin-top: 10px;">'
+						+'<label class="control-label"> {% trans "Nguồn vốn: '+capital_id+capital_name+'" %}</label>'
 						+'</div>'
-						+'<div class="col-sm-6" style="padding: 0 10px 0 0;">'
+						+'<div class="col-sm-6">'
 						+'<div class="input-group">'
-						+'<input type="text" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
+						+'<input type="text" name="mdAssetOriginal'+capital_id+'" id="mdAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
 						+'class="form-control numberic" maxlength="10" required="required" disabled="disabled">'
 						+'<span class="input-group-addon" style="background:#EEE">VND</span>'
 						+'</div>'
 						+'</div>'
-						+'<div class="col-sm-6" style="padding: 0 0 0 10px;">'
+						+'<div class="col-sm-6">'
 						+'<div class="input-group">'
-						+'<input type="text" name="txtAssetRemain'+capital_id+'" id="txtAssetRemain'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
+						+'<input type="text" name="mdAssetRemain'+capital_id+'" id="mdAssetRemain'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
 						+'class="form-control numberic" maxlength="10" required="required" disabled="disabled">'
 						+'<span class="input-group-addon" style="background:#EEE">VND</span>'
 						+'</div>'
@@ -718,7 +726,8 @@ $(document).ready(function(){
 			$("#slDept option[id][id='" + dept_id + "']").show();
 			$('#slDept').prop("selectedIndex", -1);
 			$('#slDept').trigger('chosen:updated');
-			
+			//clear input model
+			clearInput();
 			//check table
 			checkTable();
 			$.message.destroy()
@@ -804,8 +813,8 @@ $(document).ready(function(){
 		//clear input
 		$("#txtAssetSerial").val('');
 		$("#txtAssetName").val('');
-		$('input[id^=txtAssetOriginal]').val('');
-		$('input[id^=txtAssetRemain]').val('');
+		$('input[id^=mdAssetOriginal]').val('');
+		$('input[id^=mdAssetRemain]').val('');
 		$("#hd_cus_amount").val('');
 		$("#txtAssetNote").val('');
 		//hidden slDept
@@ -823,6 +832,11 @@ $(document).ready(function(){
 			$('#btnSubmit').prop("disabled", false);
 		else
 			$('#btnSubmit').prop("disabled", true);
+	}
+	//show pop up
+	function onShowPopUp()
+	{
+		$("#modalPermission").modal('show');
 	}
 	//edit table
 	function editTable()
