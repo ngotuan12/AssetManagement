@@ -99,7 +99,7 @@ def index(request):
 		context.update({'has_error':str(ex)})
 	finally:
 		context.update(csrf(request))
-		return render_to_response("asset/profile-asset.html", context,RequestContext(request))
+		return render_to_response("asset/distribute-asset.html", context,RequestContext(request))
 @login_required(login_url='/login/')
 @permission_required('myapp.verify_asset_edit', login_url='/permission-error/')
 def get_capital(request,asset_id):
