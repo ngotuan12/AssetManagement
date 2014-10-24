@@ -16,7 +16,7 @@
 					<div class="col-md-6" style="BORDER-RIGHT: #999999 1px dashed;">
 						<div class="panel panel-primary">
 							<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
-								<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'THÔNG TIN TÀI SẢN CHA' %}</h4>
+								<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'THÔNG TIN TÀI SẢN GỐC' %}</h4>
 							</div>
 							<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
 								{% if has_error %}
@@ -27,7 +27,7 @@
 								<div class="row"> 
 									<div class="col-sm-12">
 										<select id="slSerial" name="slSerial"class="form-control chosen-select"
-											data-placeholder="{% trans '------------------------------------------------------------Chọn tài sản cha----------------------------------------------------' %}">
+											data-placeholder="{% trans '------------------------------------------------------------Chọn tài sản gốc----------------------------------------------------' %}">
 											<option value=""></option>
 											{% for serial  in serials %}
 												<option id="{{ serial.id }}" value="{{ serial.id }}" name="{{ serial.name }}" serial ="{{ serial.serial }}" original="{{ serial.original_value }}" project_name="{{ serial.project_id.name }}" state = "{{ serial.state.name }}">{{ serial.serial }} - {{ serial.name }}</option>
@@ -81,7 +81,7 @@
 					<div class="col-md-6">
 							<div class="panel panel-primary">
 								<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
-									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'CHIA TÁCH TÀI SẢN CHA' %}</h4>
+									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'THÔNG TIN TÀI SẢN GỐC' %}</h4>
 								</div>
 								<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
 									<div class="row">
