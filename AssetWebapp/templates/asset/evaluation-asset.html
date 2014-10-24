@@ -506,7 +506,7 @@ function addRow(capital_id,capital_name,capital_original,capital_remain)
 				+'<label class="control-label"> {% trans "Nguồn vốn: '+capital_id+capital_name+'" %}</label>'
 				+'</div>'
 				+'<div class="col-sm-3" style="margin-bottom:10px;">'
-				+'<button id="btnAddCapital" class="btn btn-primary" onclick="onAddCapital();" style="float: right;">{% trans 'Thêm nguồn vốn' %} &nbsp;</button>'
+				+'<button id="btnAddCapital" class="btn btn-primary" onclick="return onAddCapital();" style="float: right;">{% trans 'Thêm nguồn vốn' %} &nbsp;</button>'
 				+'</div>';
 			else
 			{
@@ -560,10 +560,7 @@ function onSubmitFormEvaluation()
 function onAddCapital()
 {
 	$("#modalPermission").modal('show');
-	$("#evaluationAsset").submit(function (e) {
-		e.preventDefault();
-		e.stopPropagation();
-	});
+	return false;
 }
 //add captial
 function addCapital()
