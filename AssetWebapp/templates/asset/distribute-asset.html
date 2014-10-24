@@ -118,12 +118,13 @@
 									<table class="table table-bordered">
 										<thead>
 											<tr>
-												<th style="width: 20%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'ĐỢN VỊ' %}</th>
+												<th style="width: 15%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'ĐỢN VỊ' %}</th>
 												<th style="width:10%; text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MÃ TÀI SẢN' %}</th>
 												<th style="width:20%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
 												<th style="width:10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUỒN VỐN' %}</th>
 												<th style="width:10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
-												<th style="width:12%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CÒN LẠI' %}</th>
+												<th style="width:12%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GT CÒN LẠI' %}</th>
+												<th style="width:5%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'SL' %}</th>
 												<th style="width:28%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GHI CHÚ' %}</th>
 												<th style="text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'XÓA' %}</th>
 											</tr>
@@ -167,11 +168,27 @@
 					<div id="tab-content" class = "tab-content" style="padding: 5px 0 0 0;">
 						<div class="row" style="padding: 10px;">
 							<div class="row"  style="padding-left: 10px;padding-right: 10px;">
-								<div class="col-sm-4">
+								<div class="col-sm-6">
+									<div class="form-group" style="padding:5px 0;">
+										<label class="control-label">{% trans 'Mã tài sản' %}</label>
+										<input type="text" style="padding: 8px;" id ="mdAssetSerial" name="mdAssetSerial" placeholder="{% trans 'Mã tài sản' %}"
+											class="form-control" value="" maxlength="20" required="required">
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label">{% trans 'Tên tài sản' %}</label>
+											<input type="text" style="padding: 8px;" id="mdAssetName" name="mdAssetName" placeholder="{% trans 'Tên tài sản ' %}"
+												class="form-control" value="" maxlength="50" required="required">
+									</div>
+								</div>
+							</div>
+							<div class="row" style="padding-left: 10px;padding-right: 10px;">
+								<div class="col-sm-6">
 									<div class="form-group" style="padding: 5px 0;">
 										<label class="control-label">{% trans 'Đơn vị' %}</label>
 										<select id="mdLisDept" class="form-control chosen-select"
-											data-placeholder="{% trans '---------------------Chọn đơn vị -------------------' %}" required="required">
+											data-placeholder="{% trans '-----------------------------------------Chọn đơn vị -------------------------------------' %}" required="required">
 											<option value=""></option>
 											{% for dept in depts %}
 												<option value="{{ dept.id }}" name="{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
@@ -180,20 +197,11 @@
 										<label for="mdLisDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
-								
-								
-								<div class="col-sm-4">
-									<div class="form-group" style="padding:5px 0;">
-										<label class="control-label">{% trans 'Mã tài sản' %}</label>
-										<input type="text" style="padding: 8px;" id ="mdAssetSerial" name="mdAssetSerial" placeholder="{% trans 'Mã tài sản' %}"
-											class="form-control" value="" maxlength="20" required="required">
-									</div>
-								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-6">
 									<div class="form-group" style="padding: 5px 0;">
-										<label class="control-label">{% trans 'Tên tài sản' %}</label>
-											<input type="text" style="padding: 8px;" id="mdAssetName" name="mdAssetName" placeholder="{% trans 'Tên tài sản ' %}"
-												class="form-control" value="" maxlength="50" required="required">
+										<label class="control-label">{% trans 'Số lượng' %}</label>
+											<input type="text" style="padding: 8px;text-align: right;" id="mdAssetQuantity" name="mdAssetQuantity" placeholder="{% trans 'Số lượng ' %}"
+												class="form-control numberic" value="" maxlength="3" required="required">
 									</div>
 								</div>
 							</div>
@@ -411,6 +419,7 @@ $(document).ready(function(){
 			
 			var asset_name = $("#mdAssetName").val();
 			var asset_serial = $("#mdAssetSerial").val();
+			var asset_quantity = $("#mdAssetQuantity").val();
 			var asset_note = $('#mdAssetNote').val();
 			var dept_name = $('#mdLisDept option:selected').attr('name');
 			var dept_id = $('#mdLisDept option:selected').attr('value');
@@ -437,7 +446,7 @@ $(document).ready(function(){
 						
 					}
 					
-					var newRow = $('<tr capital_id="'+ capital_id +'" dept_id="'+dept_id+'" remain="'+remain+'"  original ="'+ original +'" asset_name ="'+ asset_name +'" asset_serial="'+ asset_serial +'" asset_note="'+asset_note+'" dept_id="'+ dept_id +'"></tr>');
+					var newRow = $('<tr capital_id="'+ capital_id +'" dept_id="'+dept_id+'" remain="'+remain+'"  original ="'+ original +'" asset_name ="'+ asset_name +'" asset_serial="'+ asset_serial +'" asset_note="'+asset_note+'" dept_id="'+ dept_id +'" asset_quantity="'+ asset_quantity +'"></tr>');
 					if(stt === 1)
 					{
 						var newcol = $('<td>'
@@ -452,6 +461,8 @@ $(document).ready(function(){
 								+ original
 								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
 								+ remain
+								+ '</td><td style="text-align:right;">'
+								+ asset_quantity
 								+ '</td><td>'
 								+ asset_note
 								+ '</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('
@@ -547,9 +558,11 @@ $(document).ready(function(){
 		var serial = $('#slSerial option:selected').attr('serial');
 		var index =0;
 		if($("#tbView tr").size() >0)
-			index = $("#tbStockAssetSerial tr").size()/$("#tbView tr").size() +1;
+			index = $("#tbStockAssetSerial tr").size()/$("#tbView tr").size();
+		index +=1;
 		$("#mdAssetSerial").val(serial.toString() +"_"+index.toString());
 		$("#mdAssetName").val('');
+		$("#mdAssetQuantity").val('');
 		$("#mdAssetNote").val('');
 	}
 	//tinh toan lại
@@ -665,7 +678,7 @@ $(document).ready(function(){
 			var name=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_name');
 			var serial=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_serial');
 			var note=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_note');
-			
+			var quantity=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_quantity');
 			$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").each(function(){
 				arr_capital +=$(this).attr('capital_id')+";";
 				arr_original +=$(this).attr('original')+";";
@@ -673,6 +686,7 @@ $(document).ready(function(){
 			});
 			var inputName = $('<input type="hidden" name="txtName'+dept_id+'" value="'+ name +'" >');
 			var inputSerial = $('<input type="hidden" name="txtSerial'+dept_id+'" value="'+ serial +'" >');
+			var inputQuantity = $('<input type="hidden" name="txtQuantity'+dept_id+'" value="'+ quantity +'" >');
 			var inputNote = $('<input type="hidden" name ="txtNote'+dept_id+'"  value="'+ note +'">');
 			
 			var inputArrRemain = $('<input type="hidden" name ="txtRemain'+dept_id+'"  value="'+ arr_remain +'">');
@@ -681,7 +695,7 @@ $(document).ready(function(){
 			
 			$("#divListSerial").append(inputName);
 			$("#divListSerial").append(inputSerial);
-			$("#divListSerial").append(inputNote);
+			$("#divListSerial").append(inputQuantity);
 			$("#divListSerial").append(inputNote);
 			$("#divListSerial").append(inputArrRemain);
 			$("#divListSerial").append(inputArrOriginal);

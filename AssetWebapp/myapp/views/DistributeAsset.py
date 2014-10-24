@@ -38,6 +38,7 @@ def index(request):
 				deptId = d
 				name = request.POST["txtName"+deptId]
 				serial = request.POST["txtSerial"+deptId]
+				asset_quantity  = request.POST["txtQuantity"+deptId]
 				note =request.POST["txtNote"+deptId]
 				arrRemainValue = request.POST["txtRemain"+deptId]
 				arrOriginalValue = request.POST["txtOriginal"+deptId]
@@ -72,7 +73,7 @@ def index(request):
 								#p_serial
 								serial,
 								#p_quantity
-								None,
+								asset_quantity,
 								#p_arr_capital
 								arrCapital,
 								#p_arr_original_value
