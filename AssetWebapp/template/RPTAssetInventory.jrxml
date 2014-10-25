@@ -124,9 +124,9 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="78" splitType="Stretch">
+		<band height="98" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="e24a30ce-a73c-4cf4-9272-c70b5297c632" x="54" y="0" width="220" height="58"/>
+				<reportElement uuid="e24a30ce-a73c-4cf4-9272-c70b5297c632" x="54" y="0" width="220" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -137,7 +137,7 @@
 				<text><![CDATA[Chỉ tiêu]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1e73158a-b557-4440-a447-42f64b6e0677" x="274" y="0" width="44" height="58"/>
+				<reportElement uuid="1e73158a-b557-4440-a447-42f64b6e0677" x="274" y="0" width="44" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -148,7 +148,7 @@
 				<text><![CDATA[Mã tài sản]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0fe6bef3-8c3a-4fef-842d-d0c52a476780" x="366" y="0" width="77" height="58"/>
+				<reportElement uuid="0fe6bef3-8c3a-4fef-842d-d0c52a476780" x="366" y="0" width="77" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -159,7 +159,7 @@
 				<text><![CDATA[Số thẻ TSCĐ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0253faf4-a32d-4dc6-9cd6-187832409125" x="727" y="0" width="71" height="58"/>
+				<reportElement uuid="0253faf4-a32d-4dc6-9cd6-187832409125" x="727" y="0" width="71" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -181,7 +181,7 @@
 				<text><![CDATA[Thời gian đưa vào sử dụng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b25dc3b3-1677-4bc3-8824-6eb084aae41d" x="997" y="0" width="85" height="58"/>
+				<reportElement uuid="b25dc3b3-1677-4bc3-8824-6eb084aae41d" x="997" y="0" width="85" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -192,7 +192,7 @@
 				<text><![CDATA[Hiện trạng sử dụng TSCĐ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c46813a6-c271-4533-8a42-2e1a8a95ab12" x="318" y="0" width="48" height="58"/>
+				<reportElement uuid="c46813a6-c271-4533-8a42-2e1a8a95ab12" x="318" y="0" width="48" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -203,7 +203,7 @@
 				<text><![CDATA[Đơn vị tính]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0c826cdb-83d3-4373-a790-d31f82a6ae1d" x="1082" y="0" width="98" height="58"/>
+				<reportElement uuid="0c826cdb-83d3-4373-a790-d31f82a6ae1d" x="1082" y="0" width="98" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -214,7 +214,7 @@
 				<text><![CDATA[Bộ phận sử dụng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f4478a98-655a-458a-a001-86edf0a90773" x="1801" y="20" width="93" height="38"/>
+				<reportElement uuid="f4478a98-655a-458a-a001-86edf0a90773" x="1801" y="38" width="93" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -226,7 +226,7 @@
  giá ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c4f7917a-8b2e-4f80-9813-4b105874dc1f" x="1894" y="20" width="86" height="38"/>
+				<reportElement uuid="c4f7917a-8b2e-4f80-9813-4b105874dc1f" x="1894" y="38" width="86" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -237,7 +237,7 @@
 				<text><![CDATA[Giá trị còn lại]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a2ca63fb-a49c-47ab-b110-93ca49b496ed" x="1980" y="20" width="92" height="38"/>
+				<reportElement uuid="a2ca63fb-a49c-47ab-b110-93ca49b496ed" x="1980" y="38" width="92" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -248,7 +248,7 @@
 				<text><![CDATA[Nguyên giá ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fef385be-842c-426c-a447-365fc1ab2878" x="2072" y="20" width="99" height="38"/>
+				<reportElement uuid="fef385be-842c-426c-a447-365fc1ab2878" x="2072" y="38" width="99" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -259,7 +259,7 @@
 				<text><![CDATA[Giá trị còn lại]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8a00990d-03f6-47b8-b466-2c83b9eb2fbc" x="2171" y="20" width="113" height="38"/>
+				<reportElement uuid="8a00990d-03f6-47b8-b466-2c83b9eb2fbc" x="2171" y="38" width="113" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -270,7 +270,7 @@
 				<text><![CDATA[Nguyên giá: Thừa (+); Thiếu (-)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8513658c-3601-4c31-a8b7-41050db7e364" x="2284" y="20" width="106" height="38"/>
+				<reportElement uuid="8513658c-3601-4c31-a8b7-41050db7e364" x="2284" y="38" width="106" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -282,7 +282,7 @@
 				<text><![CDATA[Giá trị còn lại: Thừa (+); Thiếu (-)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d4ab9ad7-f226-4c3b-a791-91847adaaa8f" x="1082" y="58" width="98" height="20"/>
+				<reportElement uuid="d4ab9ad7-f226-4c3b-a791-91847adaaa8f" x="1082" y="78" width="98" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -294,7 +294,7 @@
 				<text><![CDATA[O]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7c1022e5-11f5-4157-be7e-f08fa5bdf91a" x="1894" y="58" width="86" height="20"/>
+				<reportElement uuid="7c1022e5-11f5-4157-be7e-f08fa5bdf91a" x="1894" y="78" width="86" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -306,7 +306,7 @@
 				<text><![CDATA[2]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="051d1d3d-25ba-45b0-9bb9-0aab4e8f8842" x="798" y="58" width="130" height="20"/>
+				<reportElement uuid="051d1d3d-25ba-45b0-9bb9-0aab4e8f8842" x="798" y="78" width="130" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -318,7 +318,7 @@
 				<text><![CDATA[L]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="51b1b185-1379-4e5c-8a0b-fad3f64bf35d" x="54" y="58" width="220" height="20"/>
+				<reportElement uuid="51b1b185-1379-4e5c-8a0b-fad3f64bf35d" x="54" y="78" width="220" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -330,7 +330,7 @@
 				<text><![CDATA[B]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ae043672-3e12-44bb-8283-7f6f142decdf" x="997" y="58" width="85" height="20"/>
+				<reportElement uuid="ae043672-3e12-44bb-8283-7f6f142decdf" x="997" y="78" width="85" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -342,7 +342,7 @@
 				<text><![CDATA[N]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="74126b76-4a3e-4127-9bd9-1404524662c2" x="366" y="58" width="77" height="20"/>
+				<reportElement uuid="74126b76-4a3e-4127-9bd9-1404524662c2" x="366" y="78" width="77" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -354,7 +354,7 @@
 				<text><![CDATA[E]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1fd926c8-3b7e-402b-8457-40b0183051a3" x="274" y="58" width="44" height="20"/>
+				<reportElement uuid="1fd926c8-3b7e-402b-8457-40b0183051a3" x="274" y="78" width="44" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -366,7 +366,7 @@
 				<text><![CDATA[C]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cbbb1660-492d-4d20-98ca-8ddf56ba8446" x="2284" y="58" width="106" height="20"/>
+				<reportElement uuid="cbbb1660-492d-4d20-98ca-8ddf56ba8446" x="2284" y="78" width="106" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -379,7 +379,7 @@
 				<text><![CDATA[6=4-2]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="62c79c54-3dc8-4ade-8c5a-606f93941c17" x="2171" y="58" width="113" height="20"/>
+				<reportElement uuid="62c79c54-3dc8-4ade-8c5a-606f93941c17" x="2171" y="78" width="113" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -391,7 +391,7 @@
 				<text><![CDATA[5=3-1]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5fec2919-29f6-4b83-b511-6fe5df9dd45b" x="2072" y="58" width="99" height="20"/>
+				<reportElement uuid="5fec2919-29f6-4b83-b511-6fe5df9dd45b" x="2072" y="78" width="99" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -403,7 +403,7 @@
 				<text><![CDATA[4]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="00c9a49a-f495-457b-bb76-fb32dbd6c08a" x="1980" y="58" width="92" height="20"/>
+				<reportElement uuid="00c9a49a-f495-457b-bb76-fb32dbd6c08a" x="1980" y="78" width="92" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -415,7 +415,7 @@
 				<text><![CDATA[3]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b7f0ead4-21a5-46d5-8b86-e3e24d1ceba5" x="1801" y="58" width="93" height="20"/>
+				<reportElement uuid="b7f0ead4-21a5-46d5-8b86-e3e24d1ceba5" x="1801" y="78" width="93" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -427,7 +427,7 @@
 				<text><![CDATA[1]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="64d42375-a060-430e-a42d-9b8ecd0e55c1" x="727" y="58" width="71" height="20"/>
+				<reportElement uuid="64d42375-a060-430e-a42d-9b8ecd0e55c1" x="727" y="78" width="71" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -439,7 +439,7 @@
 				<text><![CDATA[K]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0e04bfd1-496b-4acd-a459-b72ef9e8eaff" x="318" y="58" width="48" height="20"/>
+				<reportElement uuid="0e04bfd1-496b-4acd-a459-b72ef9e8eaff" x="318" y="78" width="48" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -451,7 +451,7 @@
 				<text><![CDATA[D]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="24b51280-a21d-4fa2-99e6-b72bcc24baec" x="0" y="58" width="54" height="20"/>
+				<reportElement uuid="24b51280-a21d-4fa2-99e6-b72bcc24baec" x="0" y="78" width="54" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -463,7 +463,7 @@
 				<text><![CDATA[A]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d388bc16-2ccd-43e4-b0e7-9433d091cce8" x="0" y="0" width="54" height="58"/>
+				<reportElement uuid="d388bc16-2ccd-43e4-b0e7-9433d091cce8" x="0" y="0" width="54" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -474,7 +474,7 @@
 				<text><![CDATA[STT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="976e4fb9-0d07-4d3b-8212-f1e60a3b21ff" x="1801" y="0" width="179" height="20"/>
+				<reportElement uuid="976e4fb9-0d07-4d3b-8212-f1e60a3b21ff" x="1801" y="0" width="179" height="38"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -485,7 +485,7 @@
 				<text><![CDATA[Theo sổ kế toán]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3768bca9-d9c8-43b0-9b5a-f471b323a244" x="1980" y="0" width="191" height="20"/>
+				<reportElement uuid="3768bca9-d9c8-43b0-9b5a-f471b323a244" x="1980" y="0" width="191" height="38"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -496,7 +496,7 @@
 				<text><![CDATA[Theo kiểm kê]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f4db76ee-acfb-4f4f-b89b-2e09b2756838" x="2171" y="0" width="219" height="20"/>
+				<reportElement uuid="f4db76ee-acfb-4f4f-b89b-2e09b2756838" x="2171" y="0" width="219" height="38"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -508,7 +508,7 @@
 				<text><![CDATA[Chênh lệch]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5acf08d7-172b-453d-bc96-8c045401ce2b" x="443" y="58" width="71" height="20"/>
+				<reportElement uuid="5acf08d7-172b-453d-bc96-8c045401ce2b" x="443" y="78" width="71" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -520,7 +520,7 @@
 				<text><![CDATA[F]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="76562a86-cfbb-4643-a983-dbc0452442bd" x="443" y="0" width="71" height="58"/>
+				<reportElement uuid="76562a86-cfbb-4643-a983-dbc0452442bd" x="443" y="0" width="71" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -531,7 +531,7 @@
 				<text><![CDATA[Mã nguồn vốn]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1aba900b-fef4-4c6d-bb32-3eea9907ba9a" x="514" y="58" width="71" height="20"/>
+				<reportElement uuid="1aba900b-fef4-4c6d-bb32-3eea9907ba9a" x="514" y="78" width="71" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -543,7 +543,7 @@
 				<text><![CDATA[G]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c0d8b6c4-dee4-4290-b317-b4f7f701a0fb" x="514" y="0" width="71" height="58"/>
+				<reportElement uuid="c0d8b6c4-dee4-4290-b317-b4f7f701a0fb" x="514" y="0" width="71" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -554,7 +554,7 @@
 				<text><![CDATA[Mã nước sản xuất]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="57457ba3-9818-4fbb-b08e-a9bf7d02b51a" x="585" y="58" width="71" height="20"/>
+				<reportElement uuid="57457ba3-9818-4fbb-b08e-a9bf7d02b51a" x="585" y="78" width="71" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -566,7 +566,7 @@
 				<text><![CDATA[H]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="85cb9555-b4a2-4877-bc82-75d684d42f05" x="585" y="0" width="71" height="58"/>
+				<reportElement uuid="85cb9555-b4a2-4877-bc82-75d684d42f05" x="585" y="0" width="71" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -577,7 +577,7 @@
 				<text><![CDATA[Mã mục đích]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a3d4d98f-d729-4f15-ac2e-efe7b1fa13f4" x="656" y="58" width="71" height="20"/>
+				<reportElement uuid="a3d4d98f-d729-4f15-ac2e-efe7b1fa13f4" x="656" y="78" width="71" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -589,7 +589,7 @@
 				<text><![CDATA[I]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1596966b-e943-47c6-838c-01d08594ba76" x="656" y="0" width="71" height="58"/>
+				<reportElement uuid="1596966b-e943-47c6-838c-01d08594ba76" x="656" y="0" width="71" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -601,7 +601,7 @@
 sản xuất]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c629fedf-394f-43f8-b71d-09d95f2c2dfe" x="928" y="58" width="69" height="20"/>
+				<reportElement uuid="c629fedf-394f-43f8-b71d-09d95f2c2dfe" x="928" y="78" width="69" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -613,7 +613,7 @@ sản xuất]]></text>
 				<text><![CDATA[M]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fe52fb93-2f6a-4430-9d22-bbd74ece34fd" x="928" y="0" width="69" height="58"/>
+				<reportElement uuid="fe52fb93-2f6a-4430-9d22-bbd74ece34fd" x="928" y="0" width="69" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -624,7 +624,7 @@ sản xuất]]></text>
 				<text><![CDATA[Thời gian khấu hao]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="239c52a4-68c8-4837-a57e-efa79b4a3486" x="1180" y="20" width="130" height="38"/>
+				<reportElement uuid="239c52a4-68c8-4837-a57e-efa79b4a3486" x="1180" y="38" width="130" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -635,7 +635,7 @@ sản xuất]]></text>
 				<text><![CDATA[TT Viễn thông]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="11749f4a-1d6c-4c50-bba8-9b455502afd4" x="1180" y="0" width="250" height="20"/>
+				<reportElement uuid="11749f4a-1d6c-4c50-bba8-9b455502afd4" x="1180" y="0" width="250" height="38"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -646,7 +646,7 @@ sản xuất]]></text>
 				<text><![CDATA[Nơi đặt để]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3c97fc75-a578-4869-8565-90d71b4bebf4" x="1180" y="58" width="130" height="20"/>
+				<reportElement uuid="3c97fc75-a578-4869-8565-90d71b4bebf4" x="1180" y="78" width="130" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -658,7 +658,7 @@ sản xuất]]></text>
 				<text><![CDATA[Q]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="79ff8123-2f83-4b5a-8221-7fc2c25b4b5a" x="1310" y="58" width="120" height="20"/>
+				<reportElement uuid="79ff8123-2f83-4b5a-8221-7fc2c25b4b5a" x="1310" y="78" width="120" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -670,7 +670,7 @@ sản xuất]]></text>
 				<text><![CDATA[R]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="aa17949b-fe41-44cb-aeee-dd86bedf2680" x="1310" y="20" width="120" height="38"/>
+				<reportElement uuid="aa17949b-fe41-44cb-aeee-dd86bedf2680" x="1310" y="38" width="120" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -681,7 +681,7 @@ sản xuất]]></text>
 				<text><![CDATA[Phòng,ban]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="17deaffa-28e8-47fc-8b6b-01cc1b3d1369" x="1430" y="58" width="98" height="20"/>
+				<reportElement uuid="17deaffa-28e8-47fc-8b6b-01cc1b3d1369" x="1430" y="78" width="98" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -693,7 +693,7 @@ sản xuất]]></text>
 				<text><![CDATA[S]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c5bf24a1-46e3-419c-849b-1f8f056dcb9a" x="1430" y="0" width="98" height="58"/>
+				<reportElement uuid="c5bf24a1-46e3-419c-849b-1f8f056dcb9a" x="1430" y="0" width="98" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -705,7 +705,7 @@ sản xuất]]></text>
 (Mới, điều chuyển)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="99c68bf3-338e-45fd-9d3a-955c36b609f6" x="1631" y="58" width="59" height="20"/>
+				<reportElement uuid="99c68bf3-338e-45fd-9d3a-955c36b609f6" x="1631" y="78" width="59" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -728,7 +728,7 @@ sản xuất]]></text>
 				<text><![CDATA[Quyết định PTDT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fb0bef6d-b43e-4c7d-95c4-30ad59f5a768" x="1528" y="58" width="103" height="20"/>
+				<reportElement uuid="fb0bef6d-b43e-4c7d-95c4-30ad59f5a768" x="1528" y="78" width="103" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -740,7 +740,7 @@ sản xuất]]></text>
 				<text><![CDATA[T]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="77a472cf-a70d-4f2b-acd1-29a01cdda82f" x="1631" y="20" width="59" height="38"/>
+				<reportElement uuid="77a472cf-a70d-4f2b-acd1-29a01cdda82f" x="1631" y="20" width="59" height="58"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -751,7 +751,7 @@ sản xuất]]></text>
 				<text><![CDATA[Năm]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cc8d1268-9d42-4c80-8116-69bf417afce5" x="1528" y="20" width="103" height="38"/>
+				<reportElement uuid="cc8d1268-9d42-4c80-8116-69bf417afce5" x="1528" y="20" width="103" height="58"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -762,7 +762,7 @@ sản xuất]]></text>
 				<text><![CDATA[Số]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="77005c5e-3b4c-4337-8f22-f249af28af15" x="1690" y="58" width="56" height="20"/>
+				<reportElement uuid="77005c5e-3b4c-4337-8f22-f249af28af15" x="1690" y="78" width="56" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -774,7 +774,7 @@ sản xuất]]></text>
 				<text><![CDATA[V]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2437c709-31a3-46f2-91c7-4b5435eceefe" x="1690" y="0" width="56" height="58"/>
+				<reportElement uuid="2437c709-31a3-46f2-91c7-4b5435eceefe" x="1690" y="0" width="56" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -785,7 +785,7 @@ sản xuất]]></text>
 				<text><![CDATA[Tài khoản hạch toán]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="38a7be9d-dceb-4d35-b295-28b17517c1d1" x="1746" y="58" width="55" height="20"/>
+				<reportElement uuid="38a7be9d-dceb-4d35-b295-28b17517c1d1" x="1746" y="78" width="55" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -797,7 +797,7 @@ sản xuất]]></text>
 				<text><![CDATA[X]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b78a3a2a-3dd7-4a8f-b542-bcd7f36c9569" x="1746" y="0" width="55" height="58"/>
+				<reportElement uuid="b78a3a2a-3dd7-4a8f-b542-bcd7f36c9569" x="1746" y="0" width="55" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -808,7 +808,7 @@ sản xuất]]></text>
 				<text><![CDATA[Tình trạng hồ sơ (có,không)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="45d837b0-b781-4f30-b3b5-e3c021978ba9" x="798" y="38" width="67" height="20"/>
+				<reportElement uuid="45d837b0-b781-4f30-b3b5-e3c021978ba9" x="798" y="38" width="67" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -819,7 +819,7 @@ sản xuất]]></text>
 				<text><![CDATA[Tháng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="075d7eba-24de-4c10-b4ba-81b280de7f68" x="865" y="38" width="63" height="20"/>
+				<reportElement uuid="075d7eba-24de-4c10-b4ba-81b280de7f68" x="865" y="38" width="63" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -830,7 +830,7 @@ sản xuất]]></text>
 				<text><![CDATA[Năm]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2c853dc5-aa35-4618-b00e-0c0d8400ca7c" x="2390" y="0" width="110" height="58"/>
+				<reportElement uuid="2c853dc5-aa35-4618-b00e-0c0d8400ca7c" x="2390" y="0" width="110" height="78"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -842,7 +842,7 @@ sản xuất]]></text>
 				<text><![CDATA[Ghi chú]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="89a5aa6d-ca65-47ba-876c-fa30a563ad17" x="2390" y="58" width="110" height="20"/>
+				<reportElement uuid="89a5aa6d-ca65-47ba-876c-fa30a563ad17" x="2390" y="78" width="110" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -1003,7 +1003,7 @@ sản xuất]]></text>
 				<textFieldExpression><![CDATA[$F{INVEN_REMAIN}-$F{ACC_REMAIN}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="66db1266-1e49-4802-8830-53ad6e684670" style="RowColor" positionType="Float" stretchType="RelativeToTallestObject" x="2" y="0" width="54" height="20"/>
+				<reportElement uuid="66db1266-1e49-4802-8830-53ad6e684670" style="RowColor" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="54" height="20"/>
 				<box leftPadding="3">
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
