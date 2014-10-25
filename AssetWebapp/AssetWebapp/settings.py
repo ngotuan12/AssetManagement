@@ -69,7 +69,7 @@ WSGI_APPLICATION = 'AssetWebapp.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-    'default_1': {
+    'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'db',
         'USER': 'ASSET',
@@ -77,7 +77,7 @@ DATABASES = {
         'HOST': '10.0.3.10',
         'PORT': '1521',
     },
-    'default': {
+    'default_1': {
         'ENGINE': 'oraclepool',
         'NAME': 'db',
         'USER': 'ASSET',
@@ -131,6 +131,8 @@ LOGOUT_URL = '/logout/'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/common"
 REPORT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/report"
+LOG_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/log"
+UPLOAD_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/upload"
 TEMPLATE_DEBUG = DEBUG
 TEMPLATE_DIRS = (
                 os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/templates",
@@ -140,3 +142,11 @@ TEMPLATE_DIRS = (
 REPORT_SERVER = 'http://localhost:8080/AssetServer/'
 REPORT_SERVICE = 'ReportService'
 PERMISSION_SERVICE = 'AuthorizationService'
+if not os.path.exists(STATIC_ROOT):
+    os.makedirs(STATIC_ROOT)
+if not os.path.exists(REPORT_ROOT):
+    os.makedirs(REPORT_ROOT)
+if not os.path.exists(LOG_ROOT):
+    os.makedirs(LOG_ROOT)
+if not os.path.exists(UPLOAD_ROOT):
+    os.makedirs(UPLOAD_ROOT)

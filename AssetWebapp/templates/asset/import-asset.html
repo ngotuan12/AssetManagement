@@ -1,0 +1,135 @@
+{% extends "base.html" %} 
+{% load i18n %}
+{% block styles %}
+<link rel="stylesheet" href="/css/increment-asset.css" />
+<link rel="stylesheet" href="/css/bootstrap-fileupload.min.css" />
+<style>
+.preview {
+	width: 200px;
+	border: solid 1px #dedede;
+	padding: 10px;
+}
+
+#preview {
+	color: #cc0000;
+	font-size: 12px
+}
+
+#log {
+	color: #cc0000;
+	font-size: 12px;
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	height:450px;
+	overflow-y: scroll;
+	overflow-x: auto;
+	padding: 5px;
+}
+</style>
+{% endblock styles%}
+{% block content %}
+<div class="contentpanel no-padding">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title"
+				style="text-align: center; line-height: 10px">THÊM TÀI SẢN THEO FILE</h4>
+		</div>
+	</div>
+	<div class="col-md-6">
+			
+			<div class="panel panel-default">
+				<div class="panel-body"  style="min-height: 500px;font-family: 'Time new roman';">
+					<h4 class="panel-title">{% trans 'CHỌN FILE ĐỂ IMPORT' %}</h4>
+					<p>
+						{% trans 'Định dạng file phải là' %}
+						<code>.xls</code>
+					</p>
+					<form id="imageform" method="post" enctype="multipart/form-data" action="{%url 'upload-asset'%}">
+						{% csrf_token %}
+						<label for="file-input" >Browse your computer:</label> <input type="file" name="file-input" id="file-input" accept=".xls">
+					</form>
+					<div id='preview'></div>
+					<div class="row row-pad-20"style="margin-top: 20px">
+						<div class="col-sm col-sm-offset-4">
+							<button class="btn btn-primary" onclick="return on_test();">{% trans 'Test import' %}</button>
+							&nbsp; <a class="btn btn-primary" href="{% url 'module' %}">{% trans 'Commit' %}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- panel-default -->
+	</div>
+	<div class="col-md-6">
+
+		<form id="form1" class="form-horizontal">
+			<div class="panel panel-default">
+				<div class="panel-body"  style="min-height: 500px">
+					<div id="log"></div>
+				</div>
+				<!-- panel-body -->
+			</div>
+			<!-- panel-default -->
+		</form>
+
+	</div>
+</div>
+
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+<script src="/js/bootstrap-fileupload.min.js"></script>
+
+<script src="/js/jquery.form.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/loading.js"></script>
+<script src="/js/message.js"></script>
+<script src="/js/api.js"></script>
+<script>
+	jQuery(document).ready(function()
+	{
+		//$("#log").load("/log/log.html");
+
+		$('#file-input').live('change', function()
+		{
+			$("#preview").html('');
+			if($(this).val()!=="")
+			{
+				$("#preview").html('<img src="/images/loader.gif" alt="Uploading...."/>');
+				$("#imageform").ajaxForm({
+					target : '#preview'
+				}).submit();
+			}
+		});
+	});
+	function on_test()
+	{
+		if(typeof($("#uploaded-file").val())!=='undefined')
+		{
+			var url = "{% url 'test-import-asset' %}";
+			
+			var params = {'csrfmiddlewaretoken' : $.cookie('csrftoken'),'uploaded-file' : $("#uploaded-file").val(),};
+			
+			$.api({
+				url:url,
+				params:params,
+				success: function(data){
+					$("#log").load("/log/"+data.log_file);
+				},
+				error: function(data)
+				{
+					$("#log").append(data.message);
+				},
+			});
+			//alert($("#uploaded-file").val())
+		}
+		return false;
+	}
+</script>
+{% endblock scripts%}

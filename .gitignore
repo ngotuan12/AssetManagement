@@ -10,3 +10,4 @@ sqlnet.log
 /RemoteSystemsTempFiles
 /Servers
 /AssetWebapp/report
+/AssetWebapp/upload

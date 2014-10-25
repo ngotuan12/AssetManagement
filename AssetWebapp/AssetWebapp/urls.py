@@ -15,5 +15,6 @@ urlpatterns = patterns('',
     url(r'^error-page/$', 'myapp.views.Error.error', name='error-page'),
     # Static directory
     url(regex=r'^report/(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.REPORT_ROOT, 'show_indexes' : True, }),
+    url(regex=r'^log/(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.LOG_ROOT, 'show_indexes' : True, }),
     url(regex=r'^(?P<path>.*)$', view='django.views.static.serve', kwargs={'document_root': settings.STATIC_ROOT, 'show_indexes' : False, }),
 )

@@ -1,0 +1,917 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	
+	<div class="contentpanel no-padding" style="background:#828283">
+			<div class="panel panel-primary">
+			<!-- <div class="panel-heading">
+				<h4 class="panel-title" style="text-align:center;line-height:10px">{% trans 'PHÂN BỔ TÀI SẢN' %}</h4>
+			</div> -->
+			
+			<div class="panel-body">
+				<div class="row" style="margin-left: -20px;margin-right: -20px;">
+					<div class="col-md-6" style="BORDER-RIGHT: #999999 1px dashed;">
+						<div class="panel panel-primary">
+							<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+								<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'THÔNG TIN TÀI SẢN GỐC' %}</h4>
+							</div>
+							<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+								{% if has_error %}
+									<div class="panel">
+										<label class="error">{{ has_error }}</label>
+									</div>
+								{% endif %}
+								<div class="row"> 
+									<div class="col-sm-12">
+										<select id="slSerial" name="slSerial"class="form-control chosen-select"
+											data-placeholder="{% trans '------------------------------------------------------------Chọn tài sản gốc----------------------------------------------------' %}">
+											<option value=""></option>
+											{% for serial  in serials %}
+												<option id="{{ serial.id }}" value="{{ serial.id }}" name="{{ serial.name }}" serial ="{{ serial.serial }}" original="{{ serial.original_value }}" project_name="{{ serial.project_id.name }}" state = "{{ serial.state.name }}">{{ serial.serial }} - {{ serial.name }}</option>
+											{% endfor %}
+										</select>
+										<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+									</div>
+									<div class="col-sm-12">
+										<div class="people-item" style="padding-left: 0px;padding-bottom: 0px;font-size: 14px;">
+											<div class="media">
+												<div class="media-body">
+													<div class="text-muted">
+														<p><span class="span-style">Tên TS: </span><span style="font-family: initial;" id="lbViewSerialName">T/t Mở rộng mạng cáp nội hạt trạm TBình, Thanh An, THưng 06-08 (94p0781)</span></p>
+													</div>
+													<div class="text-muted">
+														<p><span class="span-style">Mã TS: </span><span style="font-family: initial;" id="lbViewSerialId">00109011601599</span></p>
+													</div>
+													<div class="text-muted">
+														<p><span class="span-style">Dự án: </span><span style="font-family: initial;" id="lbViewProjectName">T/t Mở rộng mạng cáp nội hạt trạm TBình</span></p>
+													</div>
+													<div class="text-muted">
+														<p><span class="span-style">Giá trị: </span><span style="font-family: initial;" id="lbViewSerialOriginal">562,123,123đ</span></p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row" style="margin-top: 6px;"> 
+										<div class="col-sm-4">
+											<div class="rdio rdio-primary" style="margin-top: 5px;">
+												<input type="radio" name="radio" value="1" id="radioPrimary" checked="checked">
+												<label for="radioPrimary">{% trans 'Phân bổ đều' %}</label>
+											</div>
+										</div>
+										
+										<div class="col-sm-4">
+											<div class="rdio rdio-primary" style="margin-top: 5px;">
+												<input type="radio" name="radio" value="0" id="radioPrimary1">
+												<label for="radioPrimary1">{% trans 'Phân bổ không đều' %}</label>
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<button id="btnShowPopUp" class="btn btn-primary" onclick="onShowPopUp();" style="float: right;" disabled="disabled"><span class="glyphicon glyphicon-plus" ></span>{% trans 'Tài sản con' %} &nbsp;</button>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'THÔNG TIN TÀI SẢN GỐC' %}</h4>
+								</div>
+								<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group" style="padding: 5px 0;">
+												<label class="control-label"> {% trans 'Danh sách nguồn vốn' %}</label>
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th style="width: 10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MNV' %}</th>
+															<th style="width:54%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN NGUỒN VỐN' %}</th>
+															<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
+															<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GT CÒN LẠI' %}</th>
+														</tr>
+													</thead>
+													<tbody id="tbView">
+														
+													</tbody>
+												</table>
+												<!-- <button id="btnViewDetail" class="btn btn-primary" onclick="" style="float: right;margin-top: 2%;" disabled="disabled">{% trans 'Xem chi tiết' %} &nbsp;</button> -->
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="table-responsive ">
+							<div class="panel panel-primary">
+								<!-- <div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'DANH SÁCH TÀI SẢN CON' %}</h4>
+								</div> -->
+								<div class="panel-body" style="padding: 0px !important;margin-top: 1%;">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th style="width: 15%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'ĐỢN VỊ' %}</th>
+												<th style="width:10%; text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MÃ TÀI SẢN' %}</th>
+												<th style="width:20%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
+												<th style="width:10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUỒN VỐN' %}</th>
+												<th style="width:10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
+												<th style="width:12%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GT CÒN LẠI' %}</th>
+												<th style="width:5%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'SL' %}</th>
+												<th style="width:28%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GHI CHÚ' %}</th>
+												<th style="text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'XÓA' %}</th>
+											</tr>
+										</thead>
+										<tbody id="tbStockAssetSerial">
+										
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div><!-- table-responsive -->
+						<div class="col-sm-12" style="padding-left: 0px;padding-right: 0px; margin-top: -15px;">
+							<button id="btnSubmit" class="btn btn-primary" onclick="onValidate();" style="float: right; margin-bottom: 15px;" disabled="disabled">{% trans 'Thực hiện phân tách' %} &nbsp;</button>
+						</div>
+					</div>
+				</div>
+			</div><!-- panel body-->
+			<form  class="form form-bordered" method="post" id="form-list-stock-asset" action="">
+				{% csrf_token %}
+				<div id="divListSerial">
+					<input type="hidden" name="hd_parent_stock_asset_id" id="hd_parent_stock_asset_id" value="">
+					<input type="hidden" name="hd_ls_dept_id" id="hd_ls_dept_id" value="">
+				</div>
+			</form>
+	</div>
+</div>
+<!-- pop up -->
+<div class="modal fade" id="modalPermission" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg-4" style="width: 70%;">
+			<div class="modal-content" style="background-color: #e4e7ea;">
+			<form class="form form-bordered" method="post" id="form-add-stock-asset-serial" novalidate="novalidate">
+			<input type="hidden" id="hd_cus_amount" value="">
+			<input type="hidden" id="hd_radio" value="1">
+				<div class="modal-body">
+					<div class="profile-header" style="margin-bottom: 0">
+						<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+						<h3 class="profile-name" style="text-align: center;">{% trans 'Thêm tài sản con' %}</h3>
+					</div>
+					<div id="tab-content" class = "tab-content" style="padding: 5px 0 0 0;">
+						<div class="row" style="padding: 10px;">
+							<div class="row"  style="padding-left: 10px;padding-right: 10px;">
+								<div class="col-sm-6">
+									<div class="form-group" style="padding:5px 0;">
+										<label class="control-label">{% trans 'Mã tài sản' %}</label>
+										<input type="text" style="padding: 8px;" id ="mdAssetSerial" name="mdAssetSerial" placeholder="{% trans 'Mã tài sản' %}"
+											class="form-control" value="" maxlength="20" required="required">
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label">{% trans 'Tên tài sản' %}</label>
+											<input type="text" style="padding: 8px;" id="mdAssetName" name="mdAssetName" placeholder="{% trans 'Tên tài sản' %}"
+												class="form-control" value="" maxlength="50" required="required">
+									</div>
+								</div>
+							</div>
+							<div class="row" style="padding-left: 10px;padding-right: 10px;">
+								<div class="col-sm-6">
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label">{% trans 'Đơn vị' %}</label>
+										<select id="mdLisDept" class="form-control chosen-select"
+											data-placeholder="{% trans '-----------------------------------------Chọn đơn vị -------------------------------------' %}" required="required">
+											<option value=""></option>
+											{% for dept in depts %}
+												<option value="{{ dept.id }}" name="{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
+											{% endfor %}
+										</select>
+										<label for="mdLisDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label">{% trans 'Số lượng' %}</label>
+											<input type="text" style="padding: 8px;text-align: right;" id="mdAssetQuantity" name="mdAssetQuantity" placeholder="{% trans 'Số lượng ' %}"
+												class="form-control numberic" value="" maxlength="3" required="required">
+									</div>
+								</div>
+							</div>
+							<div id="addDiv">
+								<div class="row" style="padding-left: 10px;padding-right: 10px;">
+								<div class="col-sm-6" >
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label"> {% trans 'Nguyên giá' %}</label>
+										<div class="input-group">
+											<input type="text" style="padding: 8px;" id="mdAssetOriginal" name="mdAssetOriginal" style="padding: 8px;text-align: right;" class="form-control numberic" placeholder="{% trans 'Nguyên giá' %}" maxlength="10" required="required">
+											<span class="input-group-addon " style="background:#EEE">VND</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6" >
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label"> {% trans 'Giá trị còn lại' %}</label>
+										<div class="input-group">
+											<input type="text" style="padding: 8px;" id="mdAssetRemain" name="mdAssetRemain" style="padding: 8px;text-align: right;" class="form-control numberic" placeholder="{% trans 'Giá trị còn lại' %}" maxlength="10" required="required">
+											<span class="input-group-addon " style="background:#EEE">VND</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							</div>
+							
+							<div class="row" style="padding-left: 10px;padding-right: 10px;">
+									<div class="col-sm-12">
+										<div class="form-group" style="padding: 0px 0;">
+											<label class="control-label"> {% trans 'Ghi chú' %} </label>
+											<textarea class="form-control" id="mdAssetNote" name="txtNote" rows="2"
+													placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
+										</div>
+									</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+				<input type="hidden" id="hd_md_reamain" value="">
+				<div class="col-sm col-sm-offset-4" style="padding-bottom: 5px;">
+					<button class="btn btn-success mr5" onclick="onAddTable();">
+						<i class="fa fa-check"></i> {% trans 'Thực hiện' %}
+					</button>
+					<button class="btn btn-white mr5" data-dismiss="modal">
+						 {% trans 'Thoát' %} <i class="fa fa-forward"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %} 
+{% block scripts %}
+
+
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.datatables.min.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+<script src="/js/jquery.confirm.js"></script>
+<script src="/js/message.js"></script>
+
+<script src="/js/jquery.formatCurrency.vi-VN.js"></script>
+<script src="/js/jquery.formatCurrency-1.4.0.js"></script>
+
+<script src="/js/custom.js"></script>
+<script src="/js/loading.js"></script>
+
+<script>
+$(document).ready(function(){
+	
+	// Select
+	jQuery(".table-responsive  select").chosen({
+				'min-width' : '150px',
+				'white-space' : 'nowrap',
+				disable_search_threshold : 10
+			});
+	// Chosen Select
+	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
+	
+	//slSerial 
+	$("#slSerial").change(function() {
+		$('#btnAdd').prop("disabled", false);
+		$('#btnViewDetail').prop("disabled", false);
+		$('#tbStockAssetSerial tr').remove();
+		arr_dept=[];
+		//check data
+		checkTable();
+		removeInput('');
+		//hidden slDept
+		$("#slDept option").show();
+		$('#slDept').prop("selectedIndex", -1);
+		$('#slDept').trigger('chosen:updated');
+
+		$("#mdLisDept option").show();
+		$('#mdLisDept').prop("selectedIndex", -1);
+		$('#mdLisDept').trigger('chosen:updated');
+		//
+		var $radios = $('input:radio[name=radio]');
+		$radios.filter('[value=1]').prop('checked', true);
+		$radios.filter('[value!=1]').prop('checked', false);
+		
+		var asset_id =$('#slSerial option:selected').attr('id');
+		var serial =$('#slSerial option:selected').attr('serial');
+		var original = $('#slSerial option:selected').attr('original');
+		var name =$('#slSerial option:selected').attr('name');
+		var project_name = $('#slSerial option:selected').attr('project_name');
+		//get list capital
+		onGetCapital(asset_id);
+		//set view input text
+		$("#lbViewSerialId").html(serial);
+		$("#lbtViewSerialName").html(name);
+		$("#lbViewSerialOriginal").html(original+' vnđ');
+		$("#lbViewProjectName").html(project_name);
+		//clear input model
+		clearInput();
+		//
+		$('#btnShowPopUp').prop("disabled", false);
+		
+		$("#hd_parent_stock_asset_id").val(asset_id);
+		
+		//format currency
+		$("#txtViewSerialOriginal").formatCurrency();
+		
+	});
+	$("#mdLisDept").change(function() {
+		$(".error[for][for='mdLisDept']").hide();
+	});
+	$("#txtAssetSerial").on("keydown", function (e) {
+	if(e.which === 32) 
+		return false;
+	});
+	$("#mdAssetSerial").on("keydown", function (e) {
+	if(e.which === 32) 
+		return false;
+	});
+	$('#mdAssetOriginal').blur(function()
+	{
+		$(this).attr('maxlength','20');
+		var temp=($(this).val()).toString();
+		$("#hd_cus_amount").val(temp);
+		$(this).formatCurrency();
+	});
+	$('#mdAssetOriginal').focus(function() 
+	{
+		$(this).attr('maxlength','15');
+		$(this).val($("#hd_cus_amount").val());
+	});
+	$('input:radio[name="radio"]').change(function(){
+		$('#tbStockAssetSerial tr').remove();
+		//check data
+		checkTable();
+		arr_dept=[];
+		$('input[id^=hd_sum]').val('0');
+		//clear input model
+		clearInput();
+		//hidden slDept
+		$("#slDept option").show();
+		$('#slDept').trigger('chosen:updated');
+
+		$("#mdLisDept option").show();
+		$('#mdLisDept').trigger('chosen:updated');
+		//
+		if ( $(this).val() === '1')
+		{
+			
+			$('input[id^=mdAssetOriginal]').val('');
+			$('input[id^=mdAssetRemain]').val('');
+			
+			$('input[id^=mdAssetOriginal]').prop("disabled", true);
+			$('input[id^=mdAssetRemain]').prop("disabled", true);
+			$("#hd_radio").val($(this).val());
+		}
+		else
+		{
+			$('input[id^=mdAssetOriginal]').val('');
+			$('input[id^=mdAssetRemain]').val('');
+			
+			$('input[id^=mdAssetOriginal]').prop("disabled", false);
+			$('input[id^=mdAssetRemain]').prop("disabled", false);
+			$('input[id^=mdAssetOriginal]').numeric({negative : false });
+			$('input[id^=mdAssetRemain]').numeric({negative : false });
+			$("#hd_radio").val($(this).val());
+		}
+	});
+});
+	var arr_dept = [];
+	var equal =true;
+	//add table
+	function onAddTable()
+	{
+		var suscess =false;
+		//validate
+		var $valid = jQuery("#form-add-stock-asset-serial").valid();
+		if (!$valid)
+		{
+			$validator.focusInvalid();
+			return false;
+		} else
+		{
+			
+			var asset_name = $("#mdAssetName").val();
+			var asset_serial = $("#mdAssetSerial").val();
+			var asset_quantity = $("#mdAssetQuantity").val();
+			var asset_note = $('#mdAssetNote').val();
+			var dept_name = $('#mdLisDept option:selected').attr('name');
+			var dept_id = $('#mdLisDept option:selected').attr('value');
+			var stock_asset_serial_id =$('#slSerial option:selected').attr('id');
+			
+			checkSerial(asset_serial);
+			if(equal)
+			{
+				var stt = 1;
+				$("#tbView tr").each(function()
+				{
+					var capital_id = $(this).attr('id');
+					var capital_name= $(this).attr('name');
+					if($('#hd_radio').val() === '1')
+					{
+						var original = $(this).attr('original')*$("#tbView tr").size()/($("#tbStockAssetSerial tr[stock_asset_serial_id][stock_asset_serial_id='"+stock_asset_serial_id+"']").size()+$("#tbView tr").size());
+						var remain = $(this).attr('remain')*$("#tbView tr").size()/($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size()+$("#tbView tr").size());
+						
+					}
+					else
+					{
+						var original = $("#mdAssetOriginal"+capital_id).val();
+						var remain = $("#mdAssetRemain"+capital_id).val();
+						
+					}
+					
+					var newRow = $('<tr capital_id="'+ capital_id +'" dept_id="'+dept_id+'" remain="'+remain+'"  original ="'+ original +'" asset_name ="'+ asset_name +'" asset_serial="'+ asset_serial +'" asset_note="'+asset_note+'" dept_id="'+ dept_id +'" asset_quantity="'+ asset_quantity +'"></tr>');
+					if(stt === 1)
+					{
+						var newcol = $('<td>'
+								+ dept_name
+								+ '</td><td>'
+								+ asset_serial
+								+ '</td><td>'
+								+ asset_name
+								+ '</td><td>'
+								+ capital_id
+								+ '</td><td style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
+								+ original
+								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
+								+ remain
+								+ '</td><td style="text-align:right;">'
+								+ asset_quantity
+								+ '</td><td>'
+								+ asset_note
+								+ '</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('
+								+ "'" + dept_id + "'"
+								+ ');"><i class="fa fa-trash-o"></i></a></td>');
+					}
+					else
+					{
+						var newcol = $('<td>'
+								+ ''
+								+ '</td><td>'
+								+ ''
+								+ '</td><td>'
+								+ ''
+								+ '</td><td>'
+								+ capital_id
+								+ '</td><td style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
+								+ original
+								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
+								+ remain
+								+ '</td><td style="text-align:right;">'
+								+ asset_quantity
+								+ '</td><td>'
+								+ ''
+								+ '</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('
+								+ "'" + dept_id + "'"
+								+ ');"><i class="fa fa-trash-o"></i></a></td>');
+					}
+					newRow.append(newcol);
+					if($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size() < $("#tbView tr").size() )
+					{
+						if($('#hd_radio').val() === '1')
+						{
+							$("#tbStockAssetSerial").append(newRow);
+							suscess =true;
+							tt(capital_id);
+							//check data
+							checkTable();
+							//clear input model
+							clearInput();
+							//hide model
+							$("#modalPermission").modal('hide');
+							$.message.notification('Thêm mới tài sản: '+ asset_name +' thành công','top',{'timeout':5000});
+						}
+						else
+						{
+							var original = $("#mdAssetOriginal"+capital_id).val();
+							var remain = $("#mdAssetRemain"+capital_id).val();
+							
+							var tempOri =parseFloat($("#hd_sum_original"+capital_id).val())
+							var tempRem =parseFloat($("#hd_sum_remain"+capital_id).val())
+							
+							if((parseFloat(original)+tempOri) > parseFloat($(this).attr('original')) || (parseFloat(remain)+tempRem)> parseFloat($(this).attr('remain')))
+							{
+								$.message.warning('Nguyên giá hoặc giá trị còn lại lớn hơn giá trị thực');
+								RemoveRow(dept_id);
+								$("#slDept option[id][id="+ dept_id +"]").attr("selected","selected");
+								$("#slDept").trigger("chosen:updated");
+							}
+							else
+							{
+								$("#hd_sum_original"+capital_id).val(parseFloat(original) + tempOri);
+								$("#hd_sum_remain"+capital_id).val(parseFloat(remain) + tempRem);
+								$("#tbStockAssetSerial").append(newRow);
+								//hide model
+								$("#modalPermission").modal('hide');
+								//clear input model
+								clearInput();
+								suscess =true;
+								//check data
+								checkTable();
+								$.message.notification('Thêm mới tài sản: '+ asset_name +' thành công','top',{'timeout':5000});
+							}
+						}
+					}
+					if($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size() == $("#tbView tr").size() )
+						//removeInput
+						removeInput(dept_id);
+					stt +=1;
+				});
+				//check if add table suscess
+				if(suscess) 
+					arr_dept.push(dept_id);
+			}
+			else
+			{
+				$.message.warning('Mã tài sản con :'+asset_serial +' đã tồn tại !!!');
+			}
+		}
+		
+	}
+	//clear input
+	function clearInput()
+	{
+		var serial = $('#slSerial option:selected').attr('serial');
+		var index =0;
+		if($("#tbView tr").size() >0)
+			index = $("#tbStockAssetSerial tr").size()/$("#tbView tr").size();
+		index +=1;
+		$("#mdAssetSerial").val(serial.toString() +"_"+index.toString());
+		$("#mdAssetName").val('');
+		$("#mdAssetQuantity").val('');
+		$("#mdAssetNote").val('');
+	}
+	//tinh toan lại
+	function tt(capital_id)
+	{
+		if(capital_id !="")
+		{
+			var original = $("#tbView tr[id][id='"+ capital_id +"']").attr('original')/$("#tbStockAssetSerial tr td[name][name='original'][capital_id][capital_id='"+capital_id+"']").size();
+			$("#tbStockAssetSerial tr td[name][name='original'][capital_id][capital_id='"+capital_id+"']").html(original.toFixed(2));
+			
+			var remain = $("#tbView tr[id][id='"+ capital_id +"']").attr('remain')/$("#tbStockAssetSerial tr td[name][name='remain'][capital_id][capital_id='"+capital_id+"']").size();
+			$("#tbStockAssetSerial tr td[name][name='remain'][capital_id][capital_id='"+capital_id+"']").html(remain.toFixed(2));
+			
+			$("#tbStockAssetSerial tr[capital_id][capital_id='"+capital_id+"']").attr("original",original.toFixed(2));
+			$("#tbStockAssetSerial tr[capital_id][capital_id='"+capital_id+"']").attr("remain",remain.toFixed(2));
+			
+			var t1 =$("#tbView tr[id][id='"+ capital_id +"']").attr('original') -($("#tbStockAssetSerial tr td[name][name='original'][capital_id][capital_id='"+capital_id+"']").last().html()*($("#tbStockAssetSerial tr td[name][name='original'][capital_id][capital_id='"+capital_id+"']").size() - 1));
+			var t2 =$("#tbView tr[id][id='"+ capital_id +"']").attr('remain') -($("#tbStockAssetSerial tr td[name][name='remain'][capital_id][capital_id='"+capital_id+"']").last().html()*($("#tbStockAssetSerial tr td[name][name='original'][capital_id][capital_id='"+capital_id+"']").size() - 1));
+			
+			$("#tbStockAssetSerial tr td[name][name='original'][capital_id][capital_id='"+capital_id+"']").last().html(t1.toFixed(2));
+			$("#tbStockAssetSerial tr td[name][name='remain'][capital_id][capital_id='"+capital_id+"']").last().html(t2.toFixed(2));
+			
+			$("#tbStockAssetSerial tr[capital_id][capital_id='"+capital_id+"']").last().attr("original",t1.toFixed(2));
+			$("#tbStockAssetSerial tr[capital_id][capital_id='"+capital_id+"']").last().attr("remain",t2.toFixed(2));
+		}
+		else
+		{
+			$("#tbView tr").each(function(){
+				var capital_id = $(this).attr('id');
+				tt(capital_id);
+			});
+		}
+	}
+	//get capital
+	function onGetCapital(asset_id)
+	{
+		//show loading
+		$.fn.loading.show();
+		
+		var csrftoken = $.cookie('csrftoken');
+		var posting = $.post("/get-list-capital"+"/"+asset_id.toString()+"/", {
+			'csrfmiddlewaretoken' : csrftoken,
+		});
+		posting.done(function(data) 
+		{
+			$("#tbView tr").remove();
+			$("#addDiv div").remove();
+			$("#addDiv input").remove();
+			//alert(JSON.stringify(data))
+			capitals = data.capitals
+			for(var i=0;i<capitals.length ;i++)
+			{
+				capital = capitals[i];
+				var capital_id = capital.capital_id;
+				var capital_name = capital.name;
+				var capital_original = capital.original_value;
+				var capital_remain = capital.remain_value;
+				var newRow = $('<tr id="'+ capital_id +'" name="'+capital_name+'" original="'+capital_original+'" remain="'+ capital_remain +'"></tr>');
+				var newcol = $('<td>'
+						+ capital_id
+						+ '</td><td>'
+						+ capital_name
+						+ '</td><td style="text-align:right;">'
+						+ capital_original
+						+ '</td><td style="text-align:right;">'
+						+ capital_remain
+						+ '</td>');
+				newRow.append(newcol);
+				$("#tbView").append(newRow);
+				
+				//addDiv
+				var div =$('<div class="row">'
+						+'<div class="col-sm-12">'
+						+'<div class="form-group" style="padding: 5px 0 0 10px;margin-top: 10px;">'
+						+'<label class="control-label"> {% trans "Nguồn vốn: '+capital_id+capital_name+'" %}</label>'
+						+'</div>'
+						+'<div class="col-sm-6">'
+						+'<div class="input-group">'
+						+'<input type="text" name="mdAssetOriginal'+capital_id+'" id="mdAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
+						+'class="form-control numberic" maxlength="10" required="required" disabled="disabled">'
+						+'<span class="input-group-addon" style="background:#EEE">VND</span>'
+						+'</div>'
+						+'</div>'
+						+'<div class="col-sm-6">'
+						+'<div class="input-group">'
+						+'<input type="text" name="mdAssetRemain'+capital_id+'" id="mdAssetRemain'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
+						+'class="form-control numberic" maxlength="10" required="required" disabled="disabled">'
+						+'<span class="input-group-addon" style="background:#EEE">VND</span>'
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+'</div>');
+					$("#addDiv").append(div);
+					var hd_sum_original =$('<input type="hidden" id="hd_sum_original'+capital_id+'" value="0">');
+					var hd_sum_remain =$('<input type="hidden" id="hd_sum_remain'+capital_id+'" value="0">');
+					$("#addDiv").append(hd_sum_original);
+					$("#addDiv").append(hd_sum_remain);
+			}
+			//hide loading
+			$.fn.loading.hide();
+		});
+	}
+	function onValidate()
+	{
+		var ls_dept="";
+		for(var i=0;i<arr_dept.length;i++){
+			
+			var dept_id =arr_dept[i];
+			var arr_capital="";
+			var arr_original="";
+			var arr_remain="";
+			ls_dept += dept_id +",";
+			var name=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_name');
+			var serial=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_serial');
+			var note=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_note');
+			var quantity=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_quantity');
+			$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").each(function(){
+				arr_capital +=$(this).attr('capital_id')+";";
+				arr_original +=$(this).attr('original')+";";
+				arr_remain +=$(this).attr('remain')+";";
+			});
+			var inputName = $('<input type="hidden" name="txtName'+dept_id+'" value="'+ name +'" >');
+			var inputSerial = $('<input type="hidden" name="txtSerial'+dept_id+'" value="'+ serial +'" >');
+			var inputQuantity = $('<input type="hidden" name="txtQuantity'+dept_id+'" value="'+ quantity +'" >');
+			var inputNote = $('<input type="hidden" name ="txtNote'+dept_id+'"  value="'+ note +'">');
+			
+			var inputArrRemain = $('<input type="hidden" name ="txtRemain'+dept_id+'"  value="'+ arr_remain +'">');
+			var inputArrOriginal = $('<input type="hidden" name ="txtOriginal'+dept_id+'"  value="'+ arr_original +'">');
+			var inputArrCapital = $('<input type="hidden" name ="txtCapital'+dept_id+'"  value="'+ arr_capital +'">');
+			
+			$("#divListSerial").append(inputName);
+			$("#divListSerial").append(inputSerial);
+			$("#divListSerial").append(inputQuantity);
+			$("#divListSerial").append(inputNote);
+			$("#divListSerial").append(inputArrRemain);
+			$("#divListSerial").append(inputArrOriginal);
+			$("#divListSerial").append(inputArrCapital);
+			//alert("name:"+name+"serial:"+serial+"note:"+note+"arr_capital:"+arr_capital+"arr_original:"+arr_original+"arr_remain:"+arr_remain);
+		}
+		ls_dept = ls_dept.substr(0,ls_dept.length-1);
+		$("#hd_ls_dept_id").val(ls_dept);
+		$("#form-list-stock-asset").submit();
+	}
+	function Remove(dept_id)
+	{
+		confirm = $.message.confirm('Bạn có chắc chắn bỏ tài sản con này ? ');
+		confirm.on('message.confirm',function(){
+			//tinh toan lai
+			if($('#hd_radio').val() === '1')
+			{
+				//delete tr on table
+				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").remove();
+				tt("");
+			}
+			else
+			{
+				//delete tr on table
+				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").each(function(){
+					var capital_id =$(this).attr('capital_id');
+					var original =parseFloat($(this).attr('original'));
+					var remain =parseFloat($(this).attr('remain'));
+					var sum_original =parseFloat($("#hd_sum_original"+capital_id).val());
+					var sum_remain =parseFloat($("#hd_sum_remain"+capital_id).val());
+					
+					$("#hd_sum_original"+capital_id).val(sum_original-original);
+					$("#hd_sum_remain"+capital_id).val(sum_remain-remain)
+				});
+				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").remove();
+			}
+			// remove
+			var index =arr_dept.indexOf(dept_id);
+			if(index != -1)
+				arr_dept.splice(index,1);
+			//show slSerial
+			$("#slDept option[id][id='" + dept_id + "']").show();
+			$('#slDept').prop("selectedIndex", -1);
+			$('#slDept').trigger('chosen:updated');
+			//clear input model
+			clearInput();
+			//check table
+			checkTable();
+			$.message.destroy()
+		});
+	}
+	function RemoveRow(dept_id)
+	{
+			//tinh toan lai
+			if($('#hd_radio').val() === '1')
+			{
+				//delete tr on table
+				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").remove();
+				tt("");
+			}
+			else
+			{
+				//delete tr on table
+				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").each(function(){
+					var capital_id =$(this).attr('capital_id');
+					var original =parseFloat($(this).attr('original'));
+					var remain =parseFloat($(this).attr('remain'));
+					var sum_original =parseFloat($("#hd_sum_original"+capital_id).val());
+					var sum_remain =parseFloat($("#hd_sum_remain"+capital_id).val());
+					
+					$("#hd_sum_original"+capital_id).val(sum_original-original);
+					$("#hd_sum_remain"+capital_id).val(sum_remain-remain)
+				});
+				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").remove();
+			}
+			// remove
+			var index =arr_dept.indexOf(dept_id);
+			if(index != -1)
+				arr_dept.splice(index,1);
+			//show slSerial
+			$("#slDept option[id][id='" + dept_id + "']").show();
+			$('#slDept').prop("selectedIndex", -1);
+			$('#slDept').trigger('chosen:updated');
+			
+			//check table
+			checkTable();
+	}
+	function onEdit(dept_id)
+	{
+
+		var original = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('original');
+		var asset_name = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('asset_name');
+		var asset_serial = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('asset_serial');
+		var asset_note = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('asset_note');
+		var dept_id = $(
+				"#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id + "']")
+				.attr('dept_id');
+
+		$("#hd_md_reamain").val(original.replace(/,/g, ""));
+
+		$("#mdAssetSerial").val(asset_serial);
+		$("#mdAssetName").val(asset_name);
+		$("#mdAssetOriginal").val(original);
+		$("#mdAssetNote").val(asset_note);
+
+		$("#mdLisDept option[value][value='" + dept_id + "']").show();
+		$("#mdLisDept option[value=" + dept_id + "]").attr("selected",
+				"selected");
+		$("#mdLisDept").trigger("chosen:updated");
+
+		$("#slDept option[value][value='" + dept_id + "']").show();
+		$('#slDept').trigger('chosen:updated');
+
+		//format currency
+		$("#mdAssetOriginal").formatCurrency();
+
+		$("#modalPermission").modal('show');
+	}
+	function removeInput(dept_id)
+	{
+		//clear input
+		$("#txtAssetSerial").val('');
+		$("#txtAssetName").val('');
+		$('input[id^=mdAssetOriginal]').val('');
+		$('input[id^=mdAssetRemain]').val('');
+		$("#hd_cus_amount").val('');
+		$("#txtAssetNote").val('');
+		//hidden slDept
+		$("#slDept option[value][value='" + dept_id + "']").hide();
+		$('#slDept').prop("selectedIndex", -1);
+		$('#slDept').trigger('chosen:updated');
+
+		$("#mdLisDept option[value][value='" + dept_id + "']").hide();
+		$('#mdLisDept').prop("selectedIndex", -1);
+		$('#mdLisDept').trigger('chosen:updated');
+	}
+	function checkTable()
+	{
+		if ($("#tbStockAssetSerial tr").size() > 0)
+			$('#btnSubmit').prop("disabled", false);
+		else
+			$('#btnSubmit').prop("disabled", true);
+	}
+	//show pop up
+	function onShowPopUp()
+	{
+		$("#modalPermission").modal('show');
+	}
+	//edit table
+	function editTable()
+	{
+
+		//validate
+		var $valid = jQuery("#edit_stock_table").valid();
+		if (!$valid)
+		{
+			$validator.focusInvalid();
+			return false;
+		} else
+		{
+			var original = $("#mdAssetOriginal").val();
+			var asset_name = $("#mdAssetName").val();
+			var asset_serial = $("#mdAssetSerial").val();
+			var asset_note = $('#mdAssetNote').val();
+			var dept_name = $('#mdLisDept option:selected').attr('name');
+			var dept_id = $('#mdLisDept option:selected').attr('value');
+
+			var tr = $("#tbStockAssetSerial tr[dept_id][dept_id ='" + dept_id
+					+ "']");
+			tr.find("td").remove();
+			var newcol = $('<td>'
+					+ asset_serial
+					+ '</td><td>'
+					+ asset_name
+					+ '</td><td>'
+					+ dept_name
+					+ '</td><td>'
+					+ original
+					+ '</td><td>'
+					+ asset_note
+					+ '</td><td class="table-action"><a href="#" onclick="onEdit('
+					+ "'"
+					+ dept_id
+					+ "'"
+					+ ');"><i class="fa fa-pencil"></i></a><a href="#" class="delete-row" onclick="Remove('
+					+ "'" + dept_id + "'"
+					+ ');"><i class="fa fa-trash-o"></i></a></td>');
+			tr.append(newcol);
+
+			$("#modalPermission").modal('hide');
+		}
+	}
+	function checkSerial(serial)
+	{
+		equal=true;
+		$("#tbStockAssetSerial tr").each(function(){
+			var s = $(this).attr('asset_serial');
+			if(serial.toUpperCase() === s.toUpperCase())
+				equal=false;
+		});
+		
+	}
+	jQuery(window).load(function()
+	{
+		$(".numberic").numeric({negative : false });
+		$("form:not(.filter) :input:visible:enabled:first").focus();
+	});
+</script>
+{% endblock scripts%}

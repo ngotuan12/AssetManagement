@@ -5,70 +5,200 @@
 {% endblock %}
 {% block content %}
 <div class="contentpanel no-padding" style="background: #828283">
-	<div class="col-md">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">{% trans 'ĐÁNH GIÁ LẠI TÀI SẢN' %}</h4>
+	<div class="panel panel-primary">
+		<!-- <div class="panel-heading">
+			<h4 class="panel-title"
+				style="text-align: center; line-height: 0px">{% trans 'ĐÁNH GIÁ LẠI TÀI SẢN' %}</h4>
+		</div> -->
+		<div class="panel-body" style="padding-top: 10px;">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="form-group" style="padding: 0px 0;">
+						<label class="control-label"> {% trans 'Đơn vị' %} </label>
+						<select id="slDept" class="form-control chosen-select"
+							data-placeholder="{% trans 'Đơn vị' %}" name = "slDept" required="required">
+							<option value=""></option>
+							{% for dept in depts %}
+								<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+							{% endfor%}
+						</select>
+						<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+					</div>
+					
+				</div>
+				
+				<div class="col-lg-4">
+					<div class="form-group" style="padding: 0px 0;">
+						<label class="control-label"> {% trans 'Kho' %} </label>
+						<select id="slStock" class="form-control chosen-select"
+							data-placeholder="{% trans 'Kho' %}" 
+							name = "slStock" disabled="disabled" required="required">
+							<option value=""></option>
+						</select>
+						<label for="slStock" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+					</div>
+					
+				</div>
+				
+				<div class="col-lg-4">
+					<div class="form-group" style="padding: 0px 0;">
+						<label class="control-label"> {% trans 'Số thẻ TSCD' %} </label>
+						<select id="slSerial" class="form-control chosen-select"
+							data-placeholder="{% trans 'Số thẻ TSCĐ' %}" 
+							name = "slSerial" disabled="disabled" required="required">
+							<option value=""></option>
+							<option value="United States">TTVTT</option>
+						</select>
+						<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+					</div>
+					
+				</div>
+				
 			</div>
-			<form method="post" novalidate="novalidate" id="evaluationAsset">
-				<input type="hidden" name = "txtAssetID" id ="txtAssetID">
-				{% csrf_token %}
-				<input type="hidden" name="hd_cost_amount" id="hd_cus_amount">
-				<div class="panel-body">
-					{% if has_error %}
-						<div class="panel">
-							<label class="error">{{ has_error }}</label>
+			<!-- END ROW -->
+			<div class="row">
+				<div class="col-md-6" style="BORDER-RIGHT: #999999 1px dashed;">
+					<div class="panel panel-primary">
+						<div class="panel-heading" style="height: 35px !important;padding-top: 5px !important;padding-left: 6px !important">
+							<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'THÔNG TIN TÀI SẢN' %}</h4>
 						</div>
-					{% endif %}
-					<div class="row row-pad-5">
-						<div class="alert alert-info">
+						<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+							<div class="row"> 
+								<div class="col-sm-12">
+									<div class="people-item" style="padding-left: 0px;padding-bottom: 0px;font-size: 14px;">
+										<div class="media">
+											<div class="media-body">
+												<div class="text-muted">
+													<p><span class="span-style">Tên TS: </span><span style="font-family: initial;" id="lbViewSerialName">T/t Mở rộng mạng cáp nội hạt trạm TBình, Thanh An, THưng 06-08 (94p0781)</span></p>
+												</div>
+												<div class="text-muted">
+													<p><span class="span-style">Mã TS: </span><span style="font-family: initial;" id="lbViewSerialId">00109011601599</span></p>
+												</div>
+												<div class="text-muted">
+													<p><span class="span-style">Mục đích SD: </span><span style="font-family: initial;" id="lbViewGoalName">321-- Cho dịch vụ cố định</span></p>
+												</div>
+												<div class="text-muted">
+													<p><span class="span-style">Trạng thái TS: </span><span style="font-family: initial;" id="lbViewStateName">314-- Tài sản còn giá trị.</span></p>
+												</div>
+												<div class="text-muted">
+													<p><span class="span-style">Giá trị: </span><span style="font-family: initial;" id="lbViewSerialOriginal">562,123,123</span><span style="font-family: initial;"> vnđ</span><span class="span-style" style="margin-left: 50px;">Thời gian sử dụng: </span><span style="font-family: initial;" id="lbViewIntervalValue">12</span><span style="font-family: initial;"> năm</span></p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group" style="padding: 0px 0;">
+										<label class="control-label"> {% trans 'Nguồn vốn' %}</label>
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th style="width: 10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MNV' %}</th>
+													<th style="width:54%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN NGUỒN VỐN' %}</th>
+													<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
+													<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GT CÒN LẠI' %}</th>
+												</tr>
+											</thead>
+											<tbody id="tbView">
+												
+											</tbody>
+										</table>
+										<!-- <button id="btnAddCapital" class="btn btn-primary" onclick="onAddCapital();" style="float: right;">{% trans 'Thêm nguồn vốn' %} &nbsp;</button> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-6"">
+					<div class="panel panel-primary">
+						<div class="panel-heading" style="height: 35px !important;padding-top: 5px !important;padding-left: 6px !important">
+							<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'NHẬP THÔNG TIN ĐÁNH GIÁ LẠI TÀI SẢN' %}</h4>
+						</div>
+						<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+							{% if has_error %}
+								<div class="panel">
+									<label class="error">{{ has_error }}</label>
+								</div>
+							{% endif %}
+							<form method="post" novalidate="novalidate" id="evaluationAsset">
+							{% csrf_token %}
+							<input type="hidden" name="hd_stock_asset_serial_id" id="hd_stock_asset_serial_id" value="">
+							<input type="hidden" name="hd_ls_capital__id" id="hd_ls_capital__id" value="">
+							<div class="row"> 
+								<div class="col-sm-4">
+									<div class="form-group" style="padding: 0px 0;">
+										<label class="control-label"> {% trans 'Thời gian sử dụng' %}</label>
+										<div class="input-group">
+											<input type="text" id="txtInterval" name="txtInterval" style="padding: 8px; text-align: right;" 
+												placeholder="{% trans 'Thời gian sử dụng' %}" class="form-control numberic" maxlength="2" required="required">
+											<span class="input-group-addon" style="background:#EEE">Năm</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group" style="padding: 0px 0;">
+										<label class="control-label"> {% trans 'Mục đích sử dụng' %} </label>
+										<select id="slGoal" name="slGoal"class="form-control chosen-select"
+											data-placeholder="{% trans 'Mục đích sử dụng' %}" required="required">
+											<option value=""></option>
+											{% for goal in goals %}
+												<option value="{{ goal.id }}">{{ goal.id }} - {{ goal.name }}</option>
+											{% endfor %}
+										</select>
+										<label for="slGoal" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group" style="padding: 0px 0;">
+										<label class="control-label"> {% trans 'Trạng thái' %} </label>
+										<select id="slState" name="slState"class="form-control chosen-select"
+											data-placeholder="{% trans 'Trạng thái ...' %}" required="required">
+											<option value=""></option>
+											{% for state in states %}
+												<option value="{{ state.id }}">{{ state.id }} - {{ state.name }}</option>
+											{% endfor %}
+										</select>
+										<label for="slState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+									</div>
+								</div>
+							</div>
+							<!-- END ROW -->
+							<div id="addDiv" style="margin-top: 15px;">
+								<div class="row" style="margin-bottom:2px;">
+									<div class="col-sm-12">
+										<label class="control-label"> {% trans 'Nguồn vốn A' %} </label>
+									</div>
+									<div class="col-sm-6">
+										<div class="input-group">
+											<input name="txtAssetOriginal425" id="txtAssetOriginal425"
+												style="padding: 8px; text-align: right;"
+												placeholder="Nguyên giá" class="form-control numberic"
+												maxlength="10" required="required" disabled="disabled"
+												type="text">
+											<span class="input-group-addon" style="background:#EEE">VND</span>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="input-group">
+											<input name="txtAssetOriginal425" id="txtAssetOriginal425"
+												style="padding: 8px; text-align: right;"
+												placeholder="Giá trị còn lại" class="form-control numberic"
+												maxlength="10" required="required" disabled="disabled"
+												type="text">
+											<span class="input-group-addon" style="background:#EEE">VND</span>
+										</div>
+									</div>
+								</div>
+								<!-- END ROW -->
+							</div>
 							<div class="row">
-								<div class="col-lg-3">
+								<div class="col-sm-6">
 									<div class="form-group">
-										<label class="control-label"> {% trans 'Đơn vị' %} </label>
-										<select id="slDept" class="form-control chosen-select"
-											data-placeholder="{% trans 'Đơn vị' %}" name = "slDept" required="required">
-											<option value=""></option>
-											{% for dept in depts %}
-												<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
-											{% endfor%}
-										</select>
-										<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
-									</div>
-									
-								</div>
-								<div class="col-lg-3">
-									<div class="form-group">
-										<label class="control-label"> {% trans 'Kho' %} </label>
-										<select id="slStock" class="form-control chosen-select"
-											data-placeholder="{% trans 'Kho' %}" 
-											name = "slStock" disabled="disabled" required="required">
-											<option value=""></option>
-										</select>
-										<label for="slStock" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
-									</div>
-									
-								</div>
-								<div class="col-lg-3">
-									<div class="form-group">
-										<label class="control-label"> {% trans 'Số thẻ TSCD' %} </label>
-										<select id="slSerial" class="form-control chosen-select"
-											data-placeholder="{% trans 'Số thẻ TSCĐ' %}" 
-											name = "slSerial" disabled="disabled" required="required">
-											<option value=""></option>
-											<option value="United States">TTVTT</option>
-										</select>
-										<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
-									</div>
-									
-								</div>
-								
-								<div class="col-lg-3">
-									<div class="form-group">
-										<label class="control-label"> {% trans 'Lý do' %} </label>
+										<label class="control-label"> {% trans 'Lý do' %} </label>
 										<select id="slReason" class="form-control chosen-select"
-											data-placeholder="{% trans 'Lý do' %}" 
+											data-placeholder="{% trans 'Lý do' %}" 
 											name = "slReason" required="required">
 											<option value=""></option>
 											{% for reason in reasons_inc %}
@@ -81,104 +211,74 @@
 										<label for="slReason" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
 								</div>
+								<div class="col-sm-6">
+									<div class="form-group" style="padding: 0px 0";>
+									<label class="control-label"> {% trans 'Ghi chú' %} </label>
+									<textarea class="form-control" id="txtNote" name="txtNote" rows="1" style="height: 40px;"
+										placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
+									</div>
+								</div>
 							</div>
-							
+							<!-- END ROW -->
+							</form>
 							<div class="row">
-								<div class="col-lg-3">
-									<div class="form-group">
-										<label class="control-label"> {% trans 'Giá trị còn lại cũ' %}</label>
-										<input type="text" id="current-remain-amount" 
-											placeholder="{% trans 'Giá trị còn lại cũ' %}" class="form-control" disabled="disabled">
-									</div>
-								</div>
-							
-								<div class="col-lg-3">
-									<label>{% trans 'Thời gian sử dụng cũ' %}</label>
-									<input type="text" id="current-txtInterval" placeholder=" {% trans 'Thời gian sử dụng cũ' %}" class="form-control" disabled="disabled">
-								</div>
-							
-								<div class="col-lg-3">
-									<div class="form-group">
-									<label class="control-label"> {% trans 'Trạng thái cũ' %} </label>
-									<select id="current-slState" class="form-control chosen-select"
-										data-placeholder="{% trans 'Trạng thái cũ...' %}" disabled="disabled">
-										<option value=""></option>
-										{% for state in states%}
-											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
-										{% endfor %}
-									</select>
-								</div>
-								</div>
-							
-								<div class="col-lg-3">
-									<div class="form-group">
-										<label class="control-label">{% trans 'Ngày đánh giá lại tài sản' %}</label>
-										<div class="input-group">
-											<input type="text" class="form-control"
-												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày đánh giá lại tài sản' %}" id="dt_evalution"
-												name = "dt_evalution" required>
-											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										</div>
-									</div>
-								</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label class="control-label"> {% trans 'Giá trị còn lại' %}</label>
-									<input type="text" name="txtRemainAmount" id="remain-amount" 
-										placeholder="{% trans 'Giá trị còn lại' %}" class="form-control numberic" required maxlength="20">
+								<div class="col-sm-12">
+									<button id="btnSubmit" class="btn btn-primary" onclick="return onSubmitFormEvaluation();" style="float: right;margin-top: 15px;" disabled="disabled">{% trans 'Thực hiện' %}</button>
 								</div>
 							</div>
-							
-							<div class="col-lg-4">
-								<label>{% trans 'Thời gian sử dụng' %}</label>
-								<input type="text" id="txtInterval" name="txtInterval" placeholder=" {% trans 'Thời gian sử dụng...' %}" class="form-control numberic" required maxlength="2">
-							</div>
-							
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label class="control-label"> {% trans 'Trạng thái' %} </label>
-									<select id="slState" name="slState"class="form-control chosen-select"
-										data-placeholder="{% trans 'Trạng thái ...' %}" required="required">
-										<option value=""></option>
-										{% for state in states%}
-											<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
-										{% endfor %}
-									</select>
-									<label for="slState" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
-								</div>
-							</div>
-							
-						</div>
-						
-						<div class="row">
-							<div class="col-lg">
-								<div class="form-group">
-										<textarea class="form-control" id="txtNote" name="txtNote" rows="5"
-											placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
-								</div>
-							</div>
-						</div>
-						</div>
-						
-						
-					</div>
-					
-					<div class="row">
-						<div class="col-sm col-sm-offset-5">
-							<!-- <button class="btn btn-primary">In biên bản</button> -->
-							<button class="btn btn-primary" onclick="return onSubmitFormEvaluation();">{% trans 'Thực hiện' %}</button>
 						</div>
 					</div>
 				</div>
-				<!-- panel body-->
-			</form>
+			</div>
+			<!-- END ROW -->
 		</div>
-		<!-- panel -->
 	</div>
+	<!-- panel -->
 </div>
+<!-- CREATE POP UP -->
+<div class="modal fade" id="modalPermission" tabindex="-1" role="dialog"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg-4" style="width: 50%;">
+			<div class="modal-content" style="background-color: #e4e7ea;">
+				<div class="modal-body">
+					<div class="profile-header" style="margin-bottom: 0">
+						<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+						<h3 class="profile-name" style="font-family: Arial,Helvetica,sans-serif;text-align: center;">{% trans 'THÊM NGUỒN VỐN' %}</h3>
+					</div>
+					<div id="tab-content" class = "tab-content" style="padding: 5px 0 0 0;">
+					<form method="post" novalidate="novalidate" id="capitalFormSubmit">
+							{% csrf_token %}
+						<div class="row" style="padding: 10px;">
+							<div class="row"  style="padding-left: 10px;padding-right: 10px;">
+								<div class="col-sm-12">
+									<div class="form-group" style="padding: 5px 0;">
+										<label class="control-label">{% trans 'Đơn vị' %}</label>
+										<select id="mdLisCapital" class="form-control chosen-select"
+											data-placeholder="{% trans '-------------------------------------------------Chọn nguồn vốn--------------------------------------------------------------------' %}" required="required">
+											<option value=""></option>
+											{% for capital in capitals %}
+												<option value="{{ capital.id }}" name="{{ capital.name }}">{{ capital.id }} - {{ capital.name }}</option>
+											{% endfor %}
+										</select>
+										<label for="mdLisCapital" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div>
+				<div class="col-sm col-sm-offset-4" style="padding-bottom: 5px;padding-top: 10px;">
+					<button class="btn btn-success mr5" onclick="addCapital();">
+						<i class="fa fa-check"></i> {% trans 'Thực hiện' %}
+					</button>
+					<button class="btn btn-white mr5" data-dismiss="modal" onclick="hideModel();">
+						 {% trans 'Thoát' %} <i class="fa fa-forward"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %} 
 {% block scripts %}
 <script src="/js/jquery-1.10.2.min.js"></script>
@@ -205,127 +305,66 @@
 <script>
 var tid;
 $(document).ready(function(){
-// Chosen Select
+	// Chosen Select
 	$(".chosen-select").chosen({
 		'width' : '100%',
 		'white-space' : 'nowrap'
 	});
-	// Date Picker
-	$('#dt_evalution').datepicker({dateFormat: 'dd/mm/yy',maxDate: '0',});
-	$("#dt_evalution").datepicker("setDate",new Date());
-	// Input Masks
-	$("#dt_evalution").mask("99/99/9999");
 	
+	//slDept change
 	$( "#slDept" ).change(function() {
 		$(".error[for][for='slDept']").hide();
-		clearVal('dept');
-		onGetStock($(this).find('option:selected').val());
+		//clear input
+		clearInput();
+		$('#slSerial').chosen('destroy');
+		$('#slSerial option[value!=""]').remove();
+		$('#slSerial').prop("selectedIndex", -1);
+		$('#slSerial').prop("disabled", true);
+		$('#slSerial').chosen();
+		
+		
+		var dept_id=$(this).find('option:selected').val();
+		onGetStock(dept_id);
+		
 	});
-	
+	//slStock change
 	$( "#slStock" ).change(function() {
 		$(".error[for][for='slStock']").hide();
-		clearVal('stock');
-		onGetCode($(this).find('option:selected').val());
+		//clear input
+		clearInput();
+		var stock_id=$(this).find('option:selected').val();
+		onGetCode(stock_id);
 	});
+	//slSerial change
 	$( "#slSerial" ).change(function() {
 		$(".error[for][for='slSerial']").hide();
-		clearVal('serial');
-		var original = $(this).find('option:selected').attr('original-value');
-		var remain = $(this).find('option:selected').attr('remain-value');
-		var asset_id = $(this).find('option:selected').attr('asset-id');
-		var state_id = $(this).find('option:selected').attr('state-id');
-		var state_name = $(this).find('option:selected').attr('state-name');
-		var interval = $(this).find('option:selected').attr('interval');
-		$("#current-remain-amount").val(remain);
-		$("#current-remain-amount").formatCurrency();
-		$("#current-txtInterval").val(interval);
-		$("#txtAssetID").val(asset_id);
+		var serial_id=$(this).find('option:selected').val();
+		onGetCapital(serial_id);
 		
-		//checked slState
-		$('#current-slState').val(state_id);
-		
-		$('#current-slState').chosen('destroy');
-		$('#current-slState').chosen();
+		//reset stt
+		stt=1;
 	});
-	$( "#slReason" ).change(function() {
-		$(".error[for][for='slReason']").hide();
+	//slGoal change
+	$("#slGoal").change(function() {
+		$(".error[for][for='slGoal']").hide();
 	});
-	$( "#slState" ).change(function() {
+	//slState change
+	$("#slState").change(function() {
 		$(".error[for][for='slState']").hide();
 	});
-	tid = setTimeout(hideNotification, 2000);
-	
-	$('#remain-amount').blur(function()
-	{
-		$(this).attr('maxlength','20');
-		var temp=($(this).val()).toString();
-		$("#hd_cus_amount").val(temp);
-		$(this).formatCurrency();
+	//slReason change
+	$("#slReason").change(function() {
+		$(".error[for][for='slReason']").hide();
 	});
-	$('#remain-amount').focus(function() 
-	{
-		$(this).attr('maxlength','15');
-		$(this).val($("#hd_cus_amount").val());
-	}); 
-	
+	//mdLisCapital change
+	$("#mdLisCapital").change(function() {
+		$(".error[for][for='mdLisCapital']").hide();
+	});
 	//validate
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 });
-
-function hideNotification()
-{
-	if($("#alert-success")!=null)
-		$("#alert-success").remove();
-	clearTimeout(tid);
-}
-function onSubmitFormEvaluation()
-{
-	var $valid = jQuery('#evaluationAsset').valid();
-	if(!$valid) 
-	{
-		$validator.focusInvalid();
-		return false;
-	}
-	jQuery('#evaluationAsset').submit();
-	
-}
-function onGetCode(stock_id)
-{
-	//show loading
-	$.fn.loading.show();
-	
-	var csrftoken = $.cookie('csrftoken');
-	var posting = $.post("/get-list-serial"+"/"+stock_id.toString()+"/", {
-		'csrfmiddlewaretoken' : csrftoken,
-	});
-	posting.done(function(data) 
-	{
-		serials = data.serials;
-		if(stocks.length>0)
-			$('#slSerial').prop("disabled", false);
-		$('#slSerial option[value!=""]').remove();
-		for(var i=0;i<serials.length ;i++)
-		{
-			serial = serials[i];
-			option = $("<option></option>")
-			option.attr("value",serial.id)
-			option.attr("original-value",serial.original_value)
-			option.attr("remain-value",serial.remain_value)
-			option.attr("asset-id",serial.asset)
-			option.attr("state-id",serial.state)
-			option.attr("state-name",serial.name)
-			option.attr("interval",serial.interval)
-			option.text(serial.serial+"-"+serial.name)
-			$('#slSerial').append(option)
-		}
-		$('#slSerial').chosen('destroy');
-		$('#slSerial').prop("selectedIndex", -1);
-		$('#slSerial').chosen();
-		
-		//hide loading
-		$.fn.loading.hide();
-	});
-}
+var stt=1;
+//get stock order dept_id
 function onGetStock(dept_id)
 {
 	//show loading
@@ -358,20 +397,219 @@ function onGetStock(dept_id)
 		
 	});
 }
-function clearVal( slName ){
+//get stock_asset order by stock_id
+function onGetCode(stock_id)
+{
+	//show loading
+	$.fn.loading.show();
 	
-	if(slName == "dept")
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-stock-serial"+"/"+stock_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
 	{
-		$('#slSerial').prop("disabled", true);
+		serials = data.serials;
+		if(serials.length>0)
+			$('#slSerial').prop("disabled", false);
 		$('#slSerial option[value!=""]').remove();
-		$("#slSerial").prop("selectedIndex", -1).chosen('destroy').chosen();
+		for(var i=0;i<serials.length ;i++)
+		{
+			serial = serials[i];
+			option = $("<option></option>")
+			option.attr("value",serial.id)
+			option.attr("name",serial.name)
+			option.attr("serial",serial.serial)
+			option.attr("original-value",serial.original_value)
+			option.attr("remain-value",serial.remain_value)
+			option.attr("state-id",serial.state_id)
+			option.attr("state-name",serial.state_name)
+			option.attr("goal-id",serial.goal_id)
+			option.attr("goal-name",serial.goal_name)
+			option.attr("interval",serial.interval)
+			option.text(serial.serial+"-"+serial.name)
+			$('#slSerial').append(option)
+		}
+		$('#slSerial').chosen('destroy');
+		$('#slSerial').prop("selectedIndex", -1);
+		$('#slSerial').chosen();
+		
+		//hide loading
+		$.fn.loading.hide();
+	});
+}
+//get capital
+function onGetCapital(asset_id)
+{
+	//show loading
+	$.fn.loading.show();
+	
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-capital"+"/"+asset_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		$("#tbView tr").remove();
+		$("#addDiv div").remove();
+		//alert(JSON.stringify(data))
+		capitals = data.capitals
+		for(var i=0;i<capitals.length ;i++)
+		{
+			capital = capitals[i];
+			var capital_id = capital.capital_id;
+			var capital_name = capital.name;
+			var capital_original = capital.original_value;
+			var capital_remain = capital.remain_value;
+			//add div into table
+			addRow(capital_id,capital_name,capital_original,capital_remain);
+			//hide capital 
+			hideCapital(capital_id);
+		}
+		//show value input view
+		$("#lbViewSerialId").html($("#slSerial").find('option:selected').attr('serial'));
+		$("#lbViewSerialName").html($("#slSerial").find('option:selected').attr('name'));
+		$("#lbViewIntervalValue").html($("#slSerial").find('option:selected').attr('interval'));
+		$("#lbViewGoalName").html($("#slSerial").find('option:selected').attr('goal-id')+"-"+$("#slSerial").find('option:selected').attr('goal-name'));
+		$("#lbViewStateName").html($("#slSerial").find('option:selected').attr('state-id')+"-"+$("#slSerial").find('option:selected').attr('state-name'));
+		$("#lbViewSerialOriginal").html($("#slSerial").find('option:selected').attr('original-value'));
+		
+		$("#lbViewSerialOriginal").formatCurrency();
+		//open button
+		//$('#btnAddCapital').prop("disabled", false);
+		$('#btnSubmit').prop("disabled", false);
+		$('input[id^=txtAssetRemain]').numeric({negative : false });
+		$('input[id^=txtAssetOriginal]').numeric({negative : false });
+		//hide loading
+		$.fn.loading.hide();
+	});
+}
+//add row into table
+function addRow(capital_id,capital_name,capital_original,capital_remain)
+{
+	var newRow = $('<tr id="'+ capital_id +'" name="'+capital_name+'" original="'+capital_original+'" remain="'+ capital_remain +'"></tr>');
+	var newcol = $('<td>'
+			+ capital_id
+			+ '</td><td>'
+			+ capital_name
+			+ '</td><td style="text-align:right;">'
+			+ capital_original
+			+ '</td><td style="text-align:right;">'
+			+ capital_remain
+			+ '</td>');
+	newRow.append(newcol);
+	$("#tbView").append(newRow);
+	
+			var div='<div class="row" style="margin-bottom:2px;">';
+			if(stt === 1)
+				div +='<div class="col-sm-9" style="margin-bottom:10px;">'
+				+'<label class="control-label"> {% trans "Nguồn vốn: '+capital_id+capital_name+'" %}</label>'
+				+'</div>'
+				+'<div class="col-sm-3" style="margin-bottom:10px;">'
+				+'<button id="btnAddCapital" class="btn btn-primary" onclick="return onAddCapital();" style="float: right;">{% trans 'Thêm nguồn vốn' %} &nbsp;</button>'
+				+'</div>';
+			else
+			{
+				div +='<div class="col-sm-12">'
+					+'<label class="control-label"> {% trans "Nguồn vốn: '+capital_id+capital_name+'" %}</label>'
+					+'</div>'
+			}
+			div +='<div class="col-sm-6">'
+			+'<div class="input-group">'
+			+'<input type="text" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
+			+'class="form-control numberic" maxlength="10" required="required">'
+			+'<span class="input-group-addon" style="background:#EEE">VND</span>'
+			+'</div>'
+			+'</div>'
+			+'<div class="col-sm-6">'
+			+'<div class="input-group">'
+			+'<input type="text" name="txtAssetRemain'+capital_id+'" id="txtAssetRemain'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
+			+'class="form-control numberic" maxlength="10" required="required">'
+			+'<span class="input-group-addon" style="background:#EEE">VND</span>'
+			+'</div>'
+			+'</div>'
+			+'</div>';
+			var div1 =$(div);
+		$("#addDiv").append(div1);
+		stt+=1;
+}
+//Validate form
+function onSubmitFormEvaluation()
+{
+	var $valid = jQuery('#evaluationAsset').valid();
+	if(!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
 	}
-	$("#slState").prop("selectedIndex", -1).chosen('destroy').chosen();
-	$("#txtAssetID").val('');
-	$("#txtInterval").val('');
-	$("#remain-amount").val('');
-	$("#hd_cus_amount").val('');
-	$("#txtNote").val('');
+	else
+	{
+		//
+		var lsCapital ="";
+		$("#tbView tr").each(function(){
+			lsCapital +=$(this).attr("id")+";";
+			
+		});
+		lsCapital = lsCapital.substr(0,lsCapital.length-1);
+		$("#hd_ls_capital__id").val(lsCapital);
+		$("#hd_stock_asset_serial_id").val($("#slSerial").find('option:selected').val());
+		$("#evaluationAsset").submit();
+	}
+}
+//event add capital
+function onAddCapital()
+{
+	$("#modalPermission").modal('show');
+	return false;
+}
+//add captial
+function addCapital()
+{
+	
+	var $valid = jQuery('#capitalFormSubmit').valid();
+	if(!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	else
+	{
+		var capital_id = $("#mdLisCapital").find('option:selected').val();
+		var capital_name = $("#mdLisCapital").find("option:selected").attr("name");
+		var capital_original = "0";
+		var capital_remain = "0 ";
+		//add row
+		addRow(capital_id,capital_name,capital_original,capital_remain);
+		//hide  dept selected
+		hideCapital(capital_id);
+		//hide model
+		hideModel();
+	}
+	
+}
+//hide model
+function hideModel()
+{
+	$("#modalPermission").modal('hide');
+}
+//clear Input
+function clearInput()
+{
+	$("#tbView tr").remove();
+	$("#addDiv div").remove();
+	
+}
+//hide option selected  list dept
+function hideCapital(capital_id){
+	$("#mdLisCapital option[value][value='"+capital_id+"']").hide();
+	$('#mdLisCapital').prop("selectedIndex", -1);
+	$('#mdLisCapital').trigger('chosen:updated');
+}
+//show option selected  list dept
+function showCapital(capital_id){
+	$("#mdLisCapital option[value][value='"+capital_id+"']").show();
+	$('#mdLisCapital').prop("selectedIndex", -1);
+	$('#mdLisCapital').trigger('chosen:updated');
 }
 jQuery(window).load(function(){
 	$(".numberic").numeric({ negative : false });

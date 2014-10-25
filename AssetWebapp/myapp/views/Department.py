@@ -2,16 +2,17 @@ import json
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
+from myapp.importer.DepartmentImporter import DepartmentImporter
 from myapp.models.Dept import Dept
 from myapp.util.DateEncoder import DateEncoder
-from django.http.response import HttpResponseRedirect
 
 
 @login_required(login_url='/login/')
-@permission_required('myapp.view_department',login_url='/permission-error/')
+@permission_required('myapp.view_department', login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:
@@ -44,17 +45,17 @@ def index(request):
 				if(dept.is_leaf == 1):
 					row.update({'icon':'/tree/css/zTreeStyle/img/diy/8.png'})
 			except Dept.DoesNotExist:
-				row.update({'open':True,'iconOpen':'/tree/css/zTreeStyle/img/diy/1_open.png', 'iconClose':'/tree/css/zTreeStyle/img/diy/1_close.png'})
+				row.update({'open':True, 'iconOpen':'/tree/css/zTreeStyle/img/diy/1_open.png', 'iconClose':'/tree/css/zTreeStyle/img/diy/1_close.png'})
 			depts.append(row)
-		context.update({'data':json.dumps(depts,cls=DateEncoder)})
+		context.update({'data':json.dumps(depts, cls=DateEncoder)})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
 		context.update(csrf(request))
 	return render_to_response("department/department.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.add_department',login_url='/permission-error/')
-def add(request,parent_id):
+@permission_required('myapp.add_department', login_url='/permission-error/')
+def add(request, parent_id):
 	context = {}
 	try:
 		parent = Dept.objects.get(id=parent_id)
@@ -85,8 +86,8 @@ def add(request,parent_id):
 		context.update(csrf(request))
 	return render_to_response("department/add-department.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.edit_department',login_url='/permission-error/')
-def edit(request,dept_id):
+@permission_required('myapp.edit_department', login_url='/permission-error/')
+def edit(request, dept_id):
 	context = {}
 	try:
 		dept = Dept.objects.get(id=dept_id)
@@ -99,7 +100,7 @@ def edit(request,dept_id):
 			address = request.POST["txtAddress"]
 			tel = request.POST["txtTel"]
 			fax = request.POST["txtFax"]
-			#update
+			# update
 			dept.code = code
 			dept.name = name
 			dept.address = address
@@ -118,8 +119,8 @@ def edit(request,dept_id):
 		context.update(csrf(request))
 	return render_to_response("department/edit-department.html", context, RequestContext(request))
 @login_required(login_url='/login/')
-@permission_required('myapp.delete_department',login_url='/permission-error/')
-def delete(request,dept_id):
+@permission_required('myapp.delete_department', login_url='/permission-error/')
+def delete(request, dept_id):
 	context = {}
 	try:
 		if request.POST:
@@ -129,3 +130,8 @@ def delete(request,dept_id):
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 		return HttpResponseRedirect("/department/")
+def import_from_excel(request):
+	importer = DepartmentImporter(file_path="D:\import.xls", import_type=2)
+	importer.do_import()
+# 	importer.worksheet[0]
+	return HttpResponse("OK")
