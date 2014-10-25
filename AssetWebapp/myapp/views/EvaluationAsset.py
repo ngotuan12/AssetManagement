@@ -20,6 +20,7 @@ from myapp.models.Country import Country
 from myapp.models.Dept import Dept
 from myapp.models.List import List
 from myapp.models.Stock import Stock
+from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.Supplier import Supplier
 
 
@@ -72,20 +73,22 @@ def index(request):
             arr_original_value =""
             arr_remain_value =""
             arr_capital_id=str(ls_capital_id)+";"
+            stockAssetSerial = StockAssetSerial.objects.get(id=stock_asset_serial_id)
+            p_serial = stockAssetSerial.serial
             for c in arrCapitalId :
                 capitalId =c
                 arr_original_value += str(request.POST["txtAssetOriginal"+capitalId])+ ";"
                 arr_remain_value += str(request.POST["txtAssetRemain"+capitalId])+ ";"
-            print("username: "+username)
-            print("stock_asset_serial_id: "+stock_asset_serial_id)
-            print("state_id: "+state_id)
-            print("goal_id: "+goal_id)
-            print("reason_id: "+reason_id)
-            print("note: "+note)
-            print("interval: "+interval)
-            print("arr_original_value: "+arr_original_value)
-            print("arr_remain_value: "+arr_remain_value)
-            print("arr_capital_id: "+arr_capital_id)
+#             print("username: "+username)
+#             print("stock_asset_serial_id: "+stock_asset_serial_id)
+#             print("state_id: "+state_id)
+#             print("goal_id: "+goal_id)
+#             print("reason_id: "+reason_id)
+#             print("note: "+note)
+#             print("interval: "+interval)
+#             print("arr_original_value: "+arr_original_value)
+#             print("arr_remain_value: "+arr_remain_value)
+#             print("arr_capital_id: "+arr_capital_id)
             
             # Get parameter
 #             username = request.user.username
@@ -98,9 +101,9 @@ def index(request):
 #             stockAssetSerial = StockAssetSerial.objects.get(id=serial_id)
 #             
 #             p_serial = stockAssetSerial.serial
-# #             p_error =""
+#             p_error =""
 #             cursor = connection.cursor()
-#             
+#              
 #             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
 #                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
 #             p_error = cursor.var(cx_Oracle.STRING).var

@@ -253,9 +253,9 @@
 							<div class="row"  style="padding-left: 10px;padding-right: 10px;">
 								<div class="col-sm-12">
 									<div class="form-group" style="padding: 5px 0;">
-										<label class="control-label">{% trans 'Đơn vị' %}</label>
+										<label class="control-label">{% trans 'Đơn vị' %}</label>
 										<select id="mdLisCapital" class="form-control chosen-select"
-											data-placeholder="{% trans '-------------------------------------------------Chọn nguồn vốn--------------------------------------------------------------------' %}" required="required">
+											data-placeholder="{% trans '-------------------------------------------------Chọn nguồn vốn--------------------------------------------------------------------' %}" required="required">
 											<option value=""></option>
 											{% for capital in capitals %}
 												<option value="{{ capital.id }}" name="{{ capital.name }}">{{ capital.id }} - {{ capital.name }}</option>

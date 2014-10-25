@@ -170,15 +170,15 @@
 							<div class="row"  style="padding-left: 10px;padding-right: 10px;">
 								<div class="col-sm-6">
 									<div class="form-group" style="padding:5px 0;">
-										<label class="control-label">{% trans 'Mã tài sản' %}</label>
-										<input type="text" style="padding: 8px;" id ="mdAssetSerial" name="mdAssetSerial" placeholder="{% trans 'Mã tài sản' %}"
+										<label class="control-label">{% trans 'Mã tài sản' %}</label>
+										<input type="text" style="padding: 8px;" id ="mdAssetSerial" name="mdAssetSerial" placeholder="{% trans 'Mã tài sản' %}"
 											class="form-control" value="" maxlength="20" required="required">
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group" style="padding: 5px 0;">
-										<label class="control-label">{% trans 'Tên tài sản' %}</label>
-											<input type="text" style="padding: 8px;" id="mdAssetName" name="mdAssetName" placeholder="{% trans 'Tên tài sản ' %}"
+										<label class="control-label">{% trans 'Tên tài sản' %}</label>
+											<input type="text" style="padding: 8px;" id="mdAssetName" name="mdAssetName" placeholder="{% trans 'Tên tài sản' %}"
 												class="form-control" value="" maxlength="50" required="required">
 									</div>
 								</div>
@@ -186,9 +186,9 @@
 							<div class="row" style="padding-left: 10px;padding-right: 10px;">
 								<div class="col-sm-6">
 									<div class="form-group" style="padding: 5px 0;">
-										<label class="control-label">{% trans 'Đơn vị' %}</label>
+										<label class="control-label">{% trans 'Đơn vị' %}</label>
 										<select id="mdLisDept" class="form-control chosen-select"
-											data-placeholder="{% trans '-----------------------------------------Chọn đơn vị -------------------------------------' %}" required="required">
+											data-placeholder="{% trans '-----------------------------------------Chọn đơn vị -------------------------------------' %}" required="required">
 											<option value=""></option>
 											{% for dept in depts %}
 												<option value="{{ dept.id }}" name="{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
@@ -483,6 +483,8 @@ $(document).ready(function(){
 								+ original
 								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
 								+ remain
+								+ '</td><td style="text-align:right;">'
+								+ asset_quantity
 								+ '</td><td>'
 								+ ''
 								+ '</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('
