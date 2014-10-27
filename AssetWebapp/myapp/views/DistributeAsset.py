@@ -28,6 +28,12 @@ from myapp.models.StockAssetSerial import StockAssetSerial
 def index(request):
 	context = {}
 	try:
+		serials = StockAssetSerial.objects.raw("select * "+
+									"FROM stock_asset_serial "+ 
+									"WHERE parent_id is null ")
+		context.update({'serials':serials})
+		context.update({'states':List.objects.filter(list_type='4')})
+		context.update({'depts':Dept.objects.all()})
 		if(request.POST):
 			lsDeptId = request.POST["hd_ls_dept_id"]
 			asset_serial_id = request.POST["hd_parent_stock_asset_id"]
@@ -91,11 +97,10 @@ def index(request):
 				if p_error.getvalue() is not None:
 					raise Exception(p_error.getvalue())
 			context.update({'has_success':_(u"Giao dịch thành công")})
-		serials = StockAssetSerial.objects.all()
-		
+		serials = StockAssetSerial.objects.raw("select * "+
+									"FROM stock_asset_serial "+ 
+									"WHERE num_sub = '0' ")
 		context.update({'serials':serials})
-		context.update({'states':List.objects.filter(list_type='4')})
-		context.update({'depts':Dept.objects.all()})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

@@ -79,59 +79,43 @@ def index(request):
                 capitalId =c
                 arr_original_value += str(request.POST["txtAssetOriginal"+capitalId])+ ";"
                 arr_remain_value += str(request.POST["txtAssetRemain"+capitalId])+ ";"
-#             print("username: "+username)
-#             print("stock_asset_serial_id: "+stock_asset_serial_id)
-#             print("state_id: "+state_id)
-#             print("goal_id: "+goal_id)
-#             print("reason_id: "+reason_id)
-#             print("note: "+note)
-#             print("interval: "+interval)
-#             print("arr_original_value: "+arr_original_value)
-#             print("arr_remain_value: "+arr_remain_value)
-#             print("arr_capital_id: "+arr_capital_id)
-            
             # Get parameter
-#             username = request.user.username
-#             serial_id = request.POST["slSerial"]
-#             state_id = request.POST["slState"]
-#             reason_id = request.POST["slReason"]
-#             note = request.POST["txtNote"]
-#             remain_amount = request.POST["hd_cost_amount"]
-#             interval = request.POST["txtInterval"]
-#             stockAssetSerial = StockAssetSerial.objects.get(id=serial_id)
-#             
-#             p_serial = stockAssetSerial.serial
-#             p_error =""
-#             cursor = connection.cursor()
-#              
-#             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
-#                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
-#             p_error = cursor.var(cx_Oracle.STRING).var
-#             cursor.callproc("pck_asset.update_asset",
-#                         (
-#                             #p_error
-#                             p_error,
-#                             #p_serial
-#                             p_serial,
-#                             #p_remain_amount
-#                             remain_amount,
-#                             #p_interval
-#                             interval,
-#                             #p_state_id
-#                             state_id,
-#                             #p_note
-#                             note,
-#                             #p_username
-#                             username,
-#                             #p_reason
-#                             reason_id
-#                         ))
-# #             print(p_error.getvalue())
-#             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
-#                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
-#             cursor.close()
-#             if p_error.getvalue() is not None:
-#                 raise Exception(p_error.getvalue())
+            p_error =""
+            cursor = connection.cursor()
+              
+            cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
+                                       "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
+            p_error = cursor.var(cx_Oracle.STRING).var
+            cursor.callproc("pck_asset.update_asset",
+                        (
+                            #p_error
+                            p_error,
+                            #p_serial
+                            p_serial,
+                            #p_arr_capital
+                            arr_capital_id,
+                            #p_arr_original_value
+                            arr_original_value,
+                            #p_arr_remain_amount
+                            arr_remain_value,
+                            #p_interval
+                            interval,
+                            #p_state_id
+                            state_id,
+                            #p_goal_id
+                            goal_id,
+                            #p_note
+                            note,
+                            #p_user_name
+                            username,
+                            #p_reason_id
+                            reason_id
+                        ))
+            cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
+                                       "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
+            cursor.close()
+            if p_error.getvalue() is not None:
+                raise Exception(p_error.getvalue())
             context.update({'has_success':_(u"Giao dịch thành công")})
     except Exception as ex:
         context.update({'has_error':str(ex)})
