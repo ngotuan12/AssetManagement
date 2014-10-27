@@ -30,7 +30,7 @@
 											data-placeholder="{% trans '------------------------------------------------------------Chọn tài sản gốc----------------------------------------------------' %}">
 											<option value=""></option>
 											{% for serial  in serials %}
-												<option id="{{ serial.id }}" value="{{ serial.id }}" name="{{ serial.name }}" serial ="{{ serial.serial }}" original="{{ serial.original_value }}" project_name="{{ serial.project_id.name }}" state = "{{ serial.state.name }}">{{ serial.serial }} - {{ serial.name }}</option>
+												<option id="{{ serial.id }}" value="{{ serial.id }}" name="{{ serial.name }}" serial ="{{ serial.serial }}" remain="{{ serial.remain_value }}" original="{{ serial.original_value }}" quantity="{{ serial.quantity }}"  project_name="{{ serial.project_id.name }}" state = "{{ serial.state.name }}">{{ serial.serial }} - {{ serial.name }}</option>
 											{% endfor %}
 										</select>
 										<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
@@ -43,13 +43,25 @@
 														<p><span class="span-style">Tên TS: </span><span style="font-family: initial;" id="lbViewSerialName">T/t Mở rộng mạng cáp nội hạt trạm TBình, Thanh An, THưng 06-08 (94p0781)</span></p>
 													</div>
 													<div class="text-muted">
-														<p><span class="span-style">Mã TS: </span><span style="font-family: initial;" id="lbViewSerialId">00109011601599</span></p>
+														<p>
+															<span class="span-style">Mã TS: </span>
+															<span style="font-family: initial;" id="lbViewSerialId">000000000000000</span>
+															<span class="span-style" style="margin-left: 100px">Số lượng: </span>
+															<span style="font-family: initial;" id="lbViewSerialQuantity">0</span>
+														</p>
 													</div>
 													<div class="text-muted">
 														<p><span class="span-style">Dự án: </span><span style="font-family: initial;" id="lbViewProjectName">T/t Mở rộng mạng cáp nội hạt trạm TBình</span></p>
 													</div>
 													<div class="text-muted">
-														<p><span class="span-style">Giá trị: </span><span style="font-family: initial;" id="lbViewSerialOriginal">562,123,123đ</span></p>
+														<p>
+															<span class="span-style">Nguyên giá: </span>
+															<span style="font-family: initial;" id="lbViewSerialOriginal">0</span>
+															<span style="font-family: initial;"> vnđ</span>
+															<span class="span-style" style="margin-left: 50px">Giá trị còn lại: </span>
+															<span style="font-family: initial;" id="lbViewSerialRemain">0</span>
+															<span style="font-family: initial;"> vnđ</span>
+														</p>
 													</div>
 												</div>
 											</div>
@@ -163,7 +175,7 @@
 					<div class="profile-header" style="margin-bottom: 0">
 						<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-						<h3 class="profile-name" style="text-align: center;">{% trans 'Thêm tài sản con' %}</h3>
+						<h3 class="profile-name" style="text-align: center;">{% trans 'THÊM TÀI SẢN CON' %}</h3>
 					</div>
 					<div id="tab-content" class = "tab-content" style="padding: 5px 0 0 0;">
 						<div class="row" style="padding: 10px;">
@@ -191,7 +203,7 @@
 											data-placeholder="{% trans '-----------------------------------------Chọn đơn vị -------------------------------------' %}" required="required">
 											<option value=""></option>
 											{% for dept in depts %}
-												<option value="{{ dept.id }}" name="{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
+												<option id="{{ dept.id }}" value="{{ dept.id }}" name="{{ dept.name }}">{{ dept.code }} - {{ dept.name }}</option>
 											{% endfor %}
 										</select>
 										<label for="mdLisDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
@@ -302,13 +314,14 @@ $(document).ready(function(){
 		$('#btnViewDetail').prop("disabled", false);
 		$('#tbStockAssetSerial tr').remove();
 		arr_dept=[];
+		sum_quantity =0;
 		//check data
 		checkTable();
 		removeInput('');
-		//hidden slDept
-		$("#slDept option").show();
-		$('#slDept').prop("selectedIndex", -1);
-		$('#slDept').trigger('chosen:updated');
+		//hidden mdLisDept
+		$("#mdLisDept option").show();
+		$('#mdLisDept').prop("selectedIndex", -1);
+		$('#mdLisDept').trigger('chosen:updated');
 
 		$("#mdLisDept option").show();
 		$('#mdLisDept').prop("selectedIndex", -1);
@@ -321,6 +334,8 @@ $(document).ready(function(){
 		var asset_id =$('#slSerial option:selected').attr('id');
 		var serial =$('#slSerial option:selected').attr('serial');
 		var original = $('#slSerial option:selected').attr('original');
+		var remain = $('#slSerial option:selected').attr('remain');
+		var quantity = $('#slSerial option:selected').attr('quantity');
 		var name =$('#slSerial option:selected').attr('name');
 		var project_name = $('#slSerial option:selected').attr('project_name');
 		//get list capital
@@ -328,8 +343,13 @@ $(document).ready(function(){
 		//set view input text
 		$("#lbViewSerialId").html(serial);
 		$("#lbtViewSerialName").html(name);
-		$("#lbViewSerialOriginal").html(original+' vnđ');
+		$("#lbViewSerialOriginal").html(original);
+		$("#lbViewSerialRemain").html(remain);
+		$("#lbViewSerialQuantity").html(quantity);
 		$("#lbViewProjectName").html(project_name);
+		
+		$("#lbViewSerialOriginal").formatCurrency();
+		$("#lbViewSerialRemain").formatCurrency();
 		//clear input model
 		clearInput();
 		//
@@ -369,12 +389,13 @@ $(document).ready(function(){
 		//check data
 		checkTable();
 		arr_dept=[];
+		sum_quantity =0;
 		$('input[id^=hd_sum]').val('0');
 		//clear input model
 		clearInput();
-		//hidden slDept
-		$("#slDept option").show();
-		$('#slDept').trigger('chosen:updated');
+		//hidden mdLisDept
+		$("#mdLisDept option").show();
+		$('#mdLisDept').trigger('chosen:updated');
 
 		$("#mdLisDept option").show();
 		$('#mdLisDept').trigger('chosen:updated');
@@ -404,6 +425,7 @@ $(document).ready(function(){
 });
 	var arr_dept = [];
 	var equal =true;
+	var sum_quantity =0;
 	//add table
 	function onAddTable()
 	{
@@ -425,6 +447,10 @@ $(document).ready(function(){
 			var dept_id = $('#mdLisDept option:selected').attr('value');
 			var stock_asset_serial_id =$('#slSerial option:selected').attr('id');
 			
+			var quantity_bool =true;
+			var remain_bool =true;
+			var original_bool =true;
+			
 			checkSerial(asset_serial);
 			if(equal)
 			{
@@ -433,20 +459,32 @@ $(document).ready(function(){
 				{
 					var capital_id = $(this).attr('id');
 					var capital_name= $(this).attr('name');
+					var tbView_original = $(this).attr('original');
+					var tbView_remain = $(this).attr('remain');
+					var tempOri =parseFloat($("#hd_sum_original"+capital_id).val())
+					var tempRem =parseFloat($("#hd_sum_remain"+capital_id).val())
+					var original=0.00;
+					var remain=0.00;
 					if($('#hd_radio').val() === '1')
 					{
-						var original = $(this).attr('original')*$("#tbView tr").size()/($("#tbStockAssetSerial tr[stock_asset_serial_id][stock_asset_serial_id='"+stock_asset_serial_id+"']").size()+$("#tbView tr").size());
-						var remain = $(this).attr('remain')*$("#tbView tr").size()/($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size()+$("#tbView tr").size());
-						
+						if((parseInt(asset_quantity)+sum_quantity) === parseInt($("#lbViewSerialQuantity").html()))
+						{
+							original = (tbView_original - tempOri).toFixed(2);
+							remain =  (tbView_remain - tempRem).toFixed(2);
+						}
+						else
+						{
+							original = (tbView_original*asset_quantity/$("#lbViewSerialQuantity").html()).toFixed(2);
+							remain =  (tbView_remain*asset_quantity/$("#lbViewSerialQuantity").html()).toFixed(2);
+						}
 					}
 					else
 					{
-						var original = $("#mdAssetOriginal"+capital_id).val();
-						var remain = $("#mdAssetRemain"+capital_id).val();
-						
+						original = $("#mdAssetOriginal"+capital_id).val();
+						remain = $("#mdAssetRemain"+capital_id).val();
 					}
 					
-					var newRow = $('<tr capital_id="'+ capital_id +'" dept_id="'+dept_id+'" remain="'+remain+'"  original ="'+ original +'" asset_name ="'+ asset_name +'" asset_serial="'+ asset_serial +'" asset_note="'+asset_note+'" dept_id="'+ dept_id +'" asset_quantity="'+ asset_quantity +'"></tr>');
+					var newRow = $('<tr capital_id="'+ capital_id +'" dept_id="'+dept_id+'" remain="'+remain+'"  original ="'+ original +'" quantity ="'+ asset_quantity +'"y asset_name ="'+ asset_name +'" asset_serial="'+ asset_serial +'" asset_note="'+asset_note+'" dept_id="'+ dept_id +'" asset_quantity="'+ asset_quantity +'"></tr>');
 					if(stt === 1)
 					{
 						var newcol = $('<td>'
@@ -492,35 +530,43 @@ $(document).ready(function(){
 								+ ');"><i class="fa fa-trash-o"></i></a></td>');
 					}
 					newRow.append(newcol);
+					
 					if($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size() < $("#tbView tr").size() )
 					{
 						if($('#hd_radio').val() === '1')
 						{
-							$("#tbStockAssetSerial").append(newRow);
-							suscess =true;
-							tt(capital_id);
-							//check data
-							checkTable();
-							//clear input model
-							clearInput();
-							//hide model
-							$("#modalPermission").modal('hide');
-							$.message.notification('Thêm mới tài sản: '+ asset_name +' thành công','top',{'timeout':5000});
+							if((parseInt(asset_quantity)+sum_quantity)> parseInt($("#lbViewSerialQuantity").html()))
+								quantity_bool =false;
+							else
+							{
+								
+								$("#hd_sum_original"+capital_id).val(parseFloat(original) + tempOri);
+								$("#hd_sum_remain"+capital_id).val(parseFloat(remain) + tempRem);
+								
+								$("#tbStockAssetSerial").append(newRow);
+								suscess =true;
+								//check data
+								checkTable();
+								//clear input model
+								clearInput();
+								//hide model
+								$("#modalPermission").modal('hide');
+								$.message.notification('Thêm mới tài sản: '+ asset_name +' thành công','top',{'timeout':5000});
+							}
 						}
 						else
 						{
-							var original = $("#mdAssetOriginal"+capital_id).val();
-							var remain = $("#mdAssetRemain"+capital_id).val();
-							
-							var tempOri =parseFloat($("#hd_sum_original"+capital_id).val())
-							var tempRem =parseFloat($("#hd_sum_remain"+capital_id).val())
-							
-							if((parseFloat(original)+tempOri) > parseFloat($(this).attr('original')) || (parseFloat(remain)+tempRem)> parseFloat($(this).attr('remain')))
+							if((parseFloat(original)+tempOri) > parseFloat($(this).attr('original')) || (parseFloat(remain)+tempRem)> parseInt($(this).attr('remain')) ||(parseInt(asset_quantity)+sum_quantity)> parseFloat($("#lbViewSerialQuantity").html()))
 							{
-								$.message.warning('Nguyên giá hoặc giá trị còn lại lớn hơn giá trị thực');
+								if((parseFloat(original)+tempOri) > parseFloat($(this).attr('original')))
+									original_bool =false;
+								else if((parseFloat(remain)+tempRem)> parseFloat($(this).attr('remain')))
+									remain_bool =false;
+								else
+									quantity_bool =false;
 								RemoveRow(dept_id);
-								$("#slDept option[id][id="+ dept_id +"]").attr("selected","selected");
-								$("#slDept").trigger("chosen:updated");
+								$("#mdLisDept option[id][id="+ dept_id +"]").attr("selected","selected");
+								$("#mdLisDept").trigger("chosen:updated");
 							}
 							else
 							{
@@ -544,12 +590,26 @@ $(document).ready(function(){
 					stt +=1;
 				});
 				//check if add table suscess
-				if(suscess) 
+				if(suscess)
+				{
 					arr_dept.push(dept_id);
+					sum_quantity += parseInt(asset_quantity);
+				}
+					
 			}
 			else
 			{
 				$.message.warning('Mã tài sản con :'+asset_serial +' đã tồn tại !!!');
+			}
+			//alert error
+			if( !quantity_bool|| !remain_bool || !original_bool)
+			{
+				if(!quantity_bool)
+					$.message.warning('Số lượng tài sản con lớn hơn số lượng tài sản gốc!!!');
+				else if(!remain_bool)
+					$.message.warning('Giá trị còn lại tài sản con lớn hơn số lượng tài sản gốc!!!');
+				else
+					$.message.warning('Nguyên giá tài sản con lớn hơn số lượng tài sản gốc!!!');
 			}
 		}
 		
@@ -572,6 +632,7 @@ $(document).ready(function(){
 	{
 		if(capital_id !="")
 		{
+			
 			var original = $("#tbView tr[id][id='"+ capital_id +"']").attr('original')/$("#tbStockAssetSerial tr td[name][name='original'][capital_id][capital_id='"+capital_id+"']").size();
 			$("#tbStockAssetSerial tr td[name][name='original'][capital_id][capital_id='"+capital_id+"']").html(original.toFixed(2));
 			
@@ -670,78 +731,98 @@ $(document).ready(function(){
 	function onValidate()
 	{
 		var ls_dept="";
-		for(var i=0;i<arr_dept.length;i++){
-			
-			var dept_id =arr_dept[i];
-			var arr_capital="";
-			var arr_original="";
-			var arr_remain="";
-			ls_dept += dept_id +",";
-			var name=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_name');
-			var serial=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_serial');
-			var note=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_note');
-			var quantity=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_quantity');
-			$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").each(function(){
-				arr_capital +=$(this).attr('capital_id')+";";
-				arr_original +=$(this).attr('original')+";";
-				arr_remain +=$(this).attr('remain')+";";
-			});
-			var inputName = $('<input type="hidden" name="txtName'+dept_id+'" value="'+ name +'" >');
-			var inputSerial = $('<input type="hidden" name="txtSerial'+dept_id+'" value="'+ serial +'" >');
-			var inputQuantity = $('<input type="hidden" name="txtQuantity'+dept_id+'" value="'+ quantity +'" >');
-			var inputNote = $('<input type="hidden" name ="txtNote'+dept_id+'"  value="'+ note +'">');
-			
-			var inputArrRemain = $('<input type="hidden" name ="txtRemain'+dept_id+'"  value="'+ arr_remain +'">');
-			var inputArrOriginal = $('<input type="hidden" name ="txtOriginal'+dept_id+'"  value="'+ arr_original +'">');
-			var inputArrCapital = $('<input type="hidden" name ="txtCapital'+dept_id+'"  value="'+ arr_capital +'">');
-			
-			$("#divListSerial").append(inputName);
-			$("#divListSerial").append(inputSerial);
-			$("#divListSerial").append(inputQuantity);
-			$("#divListSerial").append(inputNote);
-			$("#divListSerial").append(inputArrRemain);
-			$("#divListSerial").append(inputArrOriginal);
-			$("#divListSerial").append(inputArrCapital);
-			//alert("name:"+name+"serial:"+serial+"note:"+note+"arr_capital:"+arr_capital+"arr_original:"+arr_original+"arr_remain:"+arr_remain);
+		var kq=true; 
+		if($('#hd_radio').val() === '1')
+		{
+			if(sum_quantity < parseInt($("#lbViewSerialQuantity").html()))
+				$.message.warning('Tổng số lượng tài sản con chưa bằng số lượng tài sản gốc!!!');
 		}
-		ls_dept = ls_dept.substr(0,ls_dept.length-1);
-		$("#hd_ls_dept_id").val(ls_dept);
-		$("#form-list-stock-asset").submit();
+		else
+		{
+			
+			$("#tbView tr").each(function()
+			{
+				var capital_id = $(this).attr('id');
+				var tbView_original = $(this).attr('original');
+				var tbView_remain = $(this).attr('remain');
+				
+				var tempOri =parseFloat($("#hd_sum_original"+capital_id).val())
+				var tempRem =parseFloat($("#hd_sum_remain"+capital_id).val())
+				if(tempOri < tbView_original || tempRem < tbView_remain || sum_quantity < parseInt($("#lbViewSerialQuantity").html()))
+					kq=false;
+			});
+			if(!kq)
+				$.message.warning('Tổng nguyên giá,giá trị còn lại hoặc số lượng tài sản con chưa bằng số lượng tài sản gốc!!!');
+		}
+		if(kq)
+		{
+			for(var i=0;i<arr_dept.length;i++){
+				var dept_id =arr_dept[i];
+				var arr_capital="";
+				var arr_original="";
+				var arr_remain="";
+				ls_dept += dept_id +",";
+				var name=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_name');
+				var serial=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_serial');
+				var note=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_note');
+				var quantity=$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('asset_quantity');
+				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").each(function(){
+					arr_capital +=$(this).attr('capital_id')+";";
+					arr_original +=$(this).attr('original')+";";
+					arr_remain +=$(this).attr('remain')+";";
+				});
+				var inputName = $('<input type="hidden" name="txtName'+dept_id+'" value="'+ name +'" >');
+				var inputSerial = $('<input type="hidden" name="txtSerial'+dept_id+'" value="'+ serial +'" >');
+				var inputQuantity = $('<input type="hidden" name="txtQuantity'+dept_id+'" value="'+ quantity +'" >');
+				var inputNote = $('<input type="hidden" name ="txtNote'+dept_id+'"  value="'+ note +'">');
+				
+				var inputArrRemain = $('<input type="hidden" name ="txtRemain'+dept_id+'"  value="'+ arr_remain +'">');
+				var inputArrOriginal = $('<input type="hidden" name ="txtOriginal'+dept_id+'"  value="'+ arr_original +'">');
+				var inputArrCapital = $('<input type="hidden" name ="txtCapital'+dept_id+'"  value="'+ arr_capital +'">');
+				
+				$("#divListSerial").append(inputName);
+				$("#divListSerial").append(inputSerial);
+				$("#divListSerial").append(inputQuantity);
+				$("#divListSerial").append(inputNote);
+				$("#divListSerial").append(inputArrRemain);
+				$("#divListSerial").append(inputArrOriginal);
+				$("#divListSerial").append(inputArrCapital);
+				//alert("name:"+name+"serial:"+serial+"note:"+note+"arr_capital:"+arr_capital+"arr_original:"+arr_original+"arr_remain:"+arr_remain);
+			}
+			ls_dept = ls_dept.substr(0,ls_dept.length-1);
+			$("#hd_ls_dept_id").val(ls_dept);
+			$("#form-list-stock-asset").submit();
+		}
+		
 	}
 	function Remove(dept_id)
 	{
 		confirm = $.message.confirm('Bạn có chắc chắn bỏ tài sản con này ? ');
 		confirm.on('message.confirm',function(){
 			//tinh toan lai
-			if($('#hd_radio').val() === '1')
-			{
-				//delete tr on table
-				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").remove();
-				tt("");
-			}
-			else
-			{
-				//delete tr on table
-				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").each(function(){
-					var capital_id =$(this).attr('capital_id');
-					var original =parseFloat($(this).attr('original'));
-					var remain =parseFloat($(this).attr('remain'));
-					var sum_original =parseFloat($("#hd_sum_original"+capital_id).val());
-					var sum_remain =parseFloat($("#hd_sum_remain"+capital_id).val());
-					
-					$("#hd_sum_original"+capital_id).val(sum_original-original);
-					$("#hd_sum_remain"+capital_id).val(sum_remain-remain)
-				});
-				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").remove();
-			}
+			var quantity =parseFloat($("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('quantity'));
+			sum_quantity -= parseInt(quantity);
+			//delete tr on table
+			$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").each(function(){
+				var capital_id =$(this).attr('capital_id');
+				var original =parseFloat($(this).attr('original'));
+				var remain =parseFloat($(this).attr('remain'));
+				
+				var sum_original =parseFloat($("#hd_sum_original"+capital_id).val());
+				var sum_remain =parseFloat($("#hd_sum_remain"+capital_id).val());
+				
+				$("#hd_sum_original"+capital_id).val(sum_original-original);
+				$("#hd_sum_remain"+capital_id).val(sum_remain-remain);
+			});
+			$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").remove();
 			// remove
 			var index =arr_dept.indexOf(dept_id);
 			if(index != -1)
 				arr_dept.splice(index,1);
 			//show slSerial
-			$("#slDept option[id][id='" + dept_id + "']").show();
-			$('#slDept').prop("selectedIndex", -1);
-			$('#slDept').trigger('chosen:updated');
+			$("#mdLisDept option[value][value='" + dept_id + "']").show();
+			$('#mdLisDept').prop("selectedIndex", -1);
+			$('#mdLisDept').trigger('chosen:updated');
 			//clear input model
 			clearInput();
 			//check table
@@ -756,7 +837,7 @@ $(document).ready(function(){
 			{
 				//delete tr on table
 				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").remove();
-				tt("");
+				//tt("");
 			}
 			else
 			{
@@ -765,11 +846,13 @@ $(document).ready(function(){
 					var capital_id =$(this).attr('capital_id');
 					var original =parseFloat($(this).attr('original'));
 					var remain =parseFloat($(this).attr('remain'));
+					var quantity =parseFloat($(this).attr('quantity'));
+					
 					var sum_original =parseFloat($("#hd_sum_original"+capital_id).val());
 					var sum_remain =parseFloat($("#hd_sum_remain"+capital_id).val());
 					
 					$("#hd_sum_original"+capital_id).val(sum_original-original);
-					$("#hd_sum_remain"+capital_id).val(sum_remain-remain)
+					$("#hd_sum_remain"+capital_id).val(sum_remain-remain);
 				});
 				$("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").remove();
 			}
@@ -778,9 +861,9 @@ $(document).ready(function(){
 			if(index != -1)
 				arr_dept.splice(index,1);
 			//show slSerial
-			$("#slDept option[id][id='" + dept_id + "']").show();
-			$('#slDept').prop("selectedIndex", -1);
-			$('#slDept').trigger('chosen:updated');
+			$("#mdLisDept option[id][id='" + dept_id + "']").show();
+			$('#mdLisDept').prop("selectedIndex", -1);
+			$('#mdLisDept').trigger('chosen:updated');
 			
 			//check table
 			checkTable();
@@ -816,8 +899,8 @@ $(document).ready(function(){
 				"selected");
 		$("#mdLisDept").trigger("chosen:updated");
 
-		$("#slDept option[value][value='" + dept_id + "']").show();
-		$('#slDept').trigger('chosen:updated');
+		$("#mdLisDept option[value][value='" + dept_id + "']").show();
+		$('#mdLisDept').trigger('chosen:updated');
 
 		//format currency
 		$("#mdAssetOriginal").formatCurrency();
@@ -833,10 +916,10 @@ $(document).ready(function(){
 		$('input[id^=mdAssetRemain]').val('');
 		$("#hd_cus_amount").val('');
 		$("#txtAssetNote").val('');
-		//hidden slDept
-		$("#slDept option[value][value='" + dept_id + "']").hide();
-		$('#slDept').prop("selectedIndex", -1);
-		$('#slDept').trigger('chosen:updated');
+		//hidden mdLisDept
+		$("#mdLisDept option[value][value='" + dept_id + "']").hide();
+		$('#mdLisDept').prop("selectedIndex", -1);
+		$('#mdLisDept').trigger('chosen:updated');
 
 		$("#mdLisDept option[value][value='" + dept_id + "']").hide();
 		$('#mdLisDept').prop("selectedIndex", -1);

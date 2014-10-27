@@ -17,6 +17,7 @@ from myapp.models.Reason import Reason
 # Create your models here.
 class StockAssetSerial(models.Model):
     id = models.IntegerField(primary_key=True,db_column="id")
+    parent_id = models.ForeignKey('self',db_column='parent_id')
     stock = models.ForeignKey(Stock,db_column='stock_id')
     asset = models.ForeignKey(Asset,db_column="asset_id")
     serial = models.CharField(max_length=100,db_column="serial")
