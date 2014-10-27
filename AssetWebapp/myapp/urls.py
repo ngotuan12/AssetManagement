@@ -49,7 +49,8 @@ urlpatterns = patterns('',
     url(r'^verify-asset/$', VerifyAsset.index, name='verify-asset'),
     url(r'^verify-asset/(?P<serial_id>\w+)/$', VerifyAsset.verify),
     # profile asset
-	url(r'^distribute-asset/$', DistributeAsset.index, name='distribute-asset'),
+    url(r'^distribute-asset/$', DistributeAsset.index, name='distribute-asset'),
+    url(r'^view-distribute-asset/(?P<stock_asset_serial_id>\w+)/$', DistributeAsset.view_distribute_asset, name='view-distribute-asset'),
     # revaluate asset
     url(r'^revaluate-asset/$', RevaluateAsset.index),
     # evaluation asset

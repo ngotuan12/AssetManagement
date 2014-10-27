@@ -19,7 +19,6 @@ from django.utils.translation import ugettext as _
 from myapp.models.CapitalValue import CapitalValue
 from myapp.models.Dept import Dept
 from myapp.models.List import List
-from myapp.models.Staff import Staff
 from myapp.models.StockAssetSerial import StockAssetSerial
 
 
@@ -97,15 +96,36 @@ def index(request):
 				if p_error.getvalue() is not None:
 					raise Exception(p_error.getvalue())
 			context.update({'has_success':_(u"Giao dịch thành công")})
+			context.update({'asset_serial_id':asset_serial_id})
 		serials = StockAssetSerial.objects.raw("select * "+
 									"FROM stock_asset_serial "+ 
-									"WHERE num_sub = '0' ")
+									"WHERE num_sub > 0 ")
 		context.update({'serials':serials})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
 		context.update(csrf(request))
 		return render_to_response("asset/distribute-asset.html", context,RequestContext(request))
+@login_required(login_url='/login/')
+def view_distribute_asset(request,stock_asset_serial_id):
+	context = {}
+	try:
+		stock_asset = StockAssetSerial.objects.get(id =stock_asset_serial_id)
+		capital_values = CapitalValue.objects.filter(stock_asset_serial =stock_asset_serial_id)
+		capitals_qs = List.objects.raw("""
+                                SELECT a.id, a.stock_asset_serial_id, a.capital_id,b.name,b.code, a.original_value,
+                                    a.remain_value, a.description 
+                                FROM capital_value a,list b 
+                                WHERE a.capital_id = b.id AND stock_asset_serial_id="""+stock_asset_serial_id+"""
+                                """)
+		context.update({'stock_asset':stock_asset})
+		context.update({'capital_values':capital_values})
+		context.update({'capitals':capitals_qs})
+	except Exception as ex:
+		context.update({'has_error':str(ex)})
+	finally:
+		context.update(csrf(request))
+		return render_to_response("asset/view-distribute-asset.html", context,RequestContext(request))
 @login_required(login_url='/login/')
 @permission_required('myapp.verify_asset_edit', login_url='/permission-error/')
 def get_capital(request,asset_id):
