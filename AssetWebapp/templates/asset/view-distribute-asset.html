@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block styles %}
+	<link href="/css/increment-asset.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+	
+	<div class="contentpanel no-padding" style="background:#828283">
+			<div class="panel panel-primary">
+			<!-- <div class="panel-heading">
+				<h4 class="panel-title" style="text-align:center;line-height:10px">{% trans 'PHÂN BỔ TÀI SẢN' %}</h4>
+			</div> -->
+			
+			<div class="panel-body">
+				<div class="row" style="margin-left: -20px;margin-right: -20px;">
+					<div class="col-md-6" style="BORDER-RIGHT: #999999 1px dashed;">
+						<div class="panel panel-primary">
+							<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+								<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'THÔNG TIN TÀI SẢN GỐC' %}</h4>
+							</div>
+							<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+								{% if has_error %}
+									<div class="panel">
+										<label class="error">{{ has_error }}</label>
+									</div>
+								{% endif %}
+								<div class="row"> 
+									<div class="col-sm-12">
+										<div class="people-item" style="padding-left: 0px;padding-bottom: 0px;font-size: 14px;">
+											<div class="media">
+												<div class="media-body">
+													<div class="text-muted">
+														<p><span class="span-style">Tên TS: </span><span style="font-family: initial;" id="lbViewSerialName">{{ stock_asset.name }}</span></p>
+													</div>
+													<div class="text-muted">
+														<p>
+															<span class="span-style">Mã TS: </span>
+															<span style="font-family: initial;" id="lbViewSerialId">{{ stock_asset.serial }}</span>
+															<span class="span-style" style="margin-left: 100px">Số lượng: </span>
+															<span style="font-family: initial;" id="lbViewSerialQuantity">{{ stock_asset.quantity }}</span>
+														</p>
+													</div>
+													<div class="text-muted">
+														<p><span class="span-style">Dự án: </span><span style="font-family: initial;" id="lbViewProjectName">{{ stock_asset.project_id.name }}</span></p>
+													</div>
+													<div class="text-muted">
+														<p>
+															<span class="span-style">Nguyên giá: </span>
+															<span style="font-family: initial;" id="lbViewSerialOriginal">{{ stock_asset.original_value }}</span>
+															<span style="font-family: initial;"> vnđ</span>
+															<span class="span-style" style="margin-left: 50px">Giá trị còn lại: </span>
+															<span style="font-family: initial;" id="lbViewSerialRemain">{{ stock_asset.remain_value }}</span>
+															<span style="font-family: initial;"> vnđ</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+							<div class="panel panel-primary">
+								<div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'THÔNG TIN TÀI SẢN GỐC' %}</h4>
+								</div>
+								<div class="panel-body" style="padding: 0px !important;margin-top: 2%;">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group" style="padding: 5px 0;">
+												<label class="control-label"> {% trans 'Danh sách nguồn vốn' %}</label>
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th style="width: 5%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'STT' %}</th>
+															<th style="width: 10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MNV' %}</th>
+															<th style="width:50%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN NGUỒN VỐN' %}</th>
+															<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
+															<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GTCL' %}</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for capital in capitals %}
+															<tr>
+																<td>{{ forloop.counter }}</td>
+																<td>{{ capital.capital_id }}</td>
+																<td>{{ capital.name }}</td>
+																<td style="text-align: right;">{{ capital.original_value }}</td>
+																<td style="text-align: right;">{{capital.remain_value }}</td>
+															</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+												<!-- <button id="btnViewDetail" class="btn btn-primary" onclick="" style="float: right;margin-top: 2%;" disabled="disabled">{% trans 'Xem chi tiết' %} &nbsp;</button> -->
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="table-responsive ">
+							<div class="panel panel-primary">
+								<!-- <div class="panel-heading" style="height: 40px !important;padding-top: 10px !important;padding-left: 6px !important">
+									<h4 class="panel-title" style="font-family: Arial,Helvetica,sans-serif;">{% trans 'DANH SÁCH TÀI SẢN CON' %}</h4>
+								</div> -->
+								<div class="panel-body" style="padding: 0px !important;margin-top: 1%;">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th style="width: 5%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'STT' %}</th>
+												<th style="width: 15%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'ĐỢN VỊ' %}</th>
+												<th style="width:10%; text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'MÃ TÀI SẢN' %}</th>
+												<th style="width:20%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %}</th>
+												<th style="width:10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUỒN VỐN' %}</th>
+												<th style="width:10%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
+												<th style="width:12%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GT CÒN LẠI' %}</th>
+												<th style="width:5%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'SL' %}</th>
+												<th style="width:28%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GHI CHÚ' %}</th>
+											</tr>
+										</thead>
+										<tbody>
+										{% for capital_value in capital_values %}
+											<tr>
+												<td>{{ forloop.counter }}</td>
+												<td>{{ capital_value.stock_asset_serial.stock.dept.name }}</td>
+												<td>{{ capital_value.stock_asset_serial.serial }}</td>
+												<td>{{ capital_value.stock_asset_serial.name }}</td>
+												<td>{{ capital_value.capital.id }}</td>
+												<td style="text-align: right;">{{ capital_value.original_value }}</td>
+												<td style="text-align: right;">{{ capital_value.remain_value }}</td>
+												<td style="text-align: right;">{{ capital_value.stock_asset_serial.quantity }}</td>
+												<td>{{ capital_value.description }}</td>
+											</tr>
+										{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div><!-- table-responsive -->
+						<div class="col-sm-12" style="padding-left: 0px;padding-right: 0px; margin-top: -15px;">
+							<button class="btn btn-primary" onclick="location.href = '/distribute-asset/';" margin-bottom: 15px;">{% trans 'Quay lại' %}</button>
+						</div>
+					</div>
+				</div>
+			</div><!-- panel body-->
+	</div>
+</div>
+<!-- pop up -->
+{% endblock %} 
+{% block scripts %}
+
+
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.datatables.min.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+<script src="/js/jquery.confirm.js"></script>
+<script src="/js/message.js"></script>
+
+<script src="/js/jquery.formatCurrency.vi-VN.js"></script>
+<script src="/js/jquery.formatCurrency-1.4.0.js"></script>
+
+<script src="/js/custom.js"></script>
+<script src="/js/loading.js"></script>
+
+<script>
+$(document).ready(function(){
+	
+	// Select
+	jQuery(".table-responsive  select").chosen({
+				'min-width' : '150px',
+				'white-space' : 'nowrap',
+				disable_search_threshold : 10
+			});
+	// Chosen Select
+	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
+	$("#lbViewSerialOriginal").formatCurrency();
+	$("#lbViewSerialRemain").formatCurrency();
+});
+</script>
+{% endblock scripts%}
