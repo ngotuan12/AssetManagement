@@ -522,7 +522,7 @@ $(document).ready(function(){
 								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
 								+ remain
 								+ '</td><td style="text-align:right;">'
-								+ asset_quantity
+								+ ''
 								+ '</td><td>'
 								+ ''
 								+ '</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('
@@ -545,13 +545,6 @@ $(document).ready(function(){
 								
 								$("#tbStockAssetSerial").append(newRow);
 								suscess =true;
-								//check data
-								checkTable();
-								//clear input model
-								clearInput();
-								//hide model
-								$("#modalPermission").modal('hide');
-								$.message.notification('Thêm mới tài sản: '+ asset_name +' thành công','top',{'timeout':5000});
 							}
 						}
 						else
@@ -573,20 +566,11 @@ $(document).ready(function(){
 								$("#hd_sum_original"+capital_id).val(parseFloat(original) + tempOri);
 								$("#hd_sum_remain"+capital_id).val(parseFloat(remain) + tempRem);
 								$("#tbStockAssetSerial").append(newRow);
-								//hide model
-								$("#modalPermission").modal('hide');
-								//clear input model
-								clearInput();
 								suscess =true;
-								//check data
-								checkTable();
-								$.message.notification('Thêm mới tài sản: '+ asset_name +' thành công','top',{'timeout':5000});
+								
 							}
 						}
 					}
-					if($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size() == $("#tbView tr").size() )
-						//removeInput
-						removeInput(dept_id);
 					stt +=1;
 				});
 				//check if add table suscess
@@ -594,22 +578,28 @@ $(document).ready(function(){
 				{
 					arr_dept.push(dept_id);
 					sum_quantity += parseInt(asset_quantity);
+					$("#modalPermission").modal('hide');
+					//remove input
+					if($("#tbStockAssetSerial tr[dept_id][dept_id='"+dept_id+"']").size() === $("#tbView tr").size() )
+						removeInput(dept_id);
+					//clear input model
+					clearInput();
+					//check data
+					checkTable();
+					//sucess
+					$.message.notification('Thêm mới tài sản: '+ asset_name +' thành công','top',{'timeout':5000});
+				}
+				else
+				{
+					//alert error
+					if(!quantity_bool)
+						$.message.warning('Số lượng tài sản con lớn hơn số lượng tài sản gốc!!!');
+					else if(!remain_bool)
+						$.message.warning('Giá trị còn lại tài sản con lớn hơn giá trị còn lại tài sản gốc!!!');
+					else
+						$.message.warning('Nguyên giá tài sản con lớn hơn nguyên giá tài sản gốc!!!');
 				}
 					
-			}
-			else
-			{
-				$.message.warning('Mã tài sản con :'+asset_serial +' đã tồn tại !!!');
-			}
-			//alert error
-			if( !quantity_bool|| !remain_bool || !original_bool)
-			{
-				if(!quantity_bool)
-					$.message.warning('Số lượng tài sản con lớn hơn số lượng tài sản gốc!!!');
-				else if(!remain_bool)
-					$.message.warning('Giá trị còn lại tài sản con lớn hơn số lượng tài sản gốc!!!');
-				else
-					$.message.warning('Nguyên giá tài sản con lớn hơn số lượng tài sản gốc!!!');
 			}
 		}
 		
@@ -735,7 +725,10 @@ $(document).ready(function(){
 		if($('#hd_radio').val() === '1')
 		{
 			if(sum_quantity < parseInt($("#lbViewSerialQuantity").html()))
+			{
+				kq=false;
 				$.message.warning('Tổng số lượng tài sản con chưa bằng số lượng tài sản gốc!!!');
+			}
 		}
 		else
 		{
@@ -984,12 +977,21 @@ $(document).ready(function(){
 	function checkSerial(serial)
 	{
 		equal=true;
+		var asset_quantity = $("#mdAssetQuantity").val();
 		$("#tbStockAssetSerial tr").each(function(){
 			var s = $(this).attr('asset_serial');
 			if(serial.toUpperCase() === s.toUpperCase())
 				equal=false;
 		});
-		
+		if(!equal)
+		{
+			$.message.warning('Mã tài sản con :'+serial +' đã tồn tại !!!');
+		}
+		else if(asset_quantity <=0 )
+		{
+			equal=false;
+			$.message.warning('Số lượng phải lớn hơn 0!!!');
+		}
 	}
 	jQuery(window).load(function()
 	{
