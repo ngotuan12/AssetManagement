@@ -292,6 +292,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 {% endblock %} 
 {% block scripts %}
 <script src="/js/jquery-1.10.2.min.js"></script>
@@ -547,6 +548,8 @@ function addRow(capital_id,capital_name,capital_original,capital_remain)
 			var div1 =$(div);
 		$("#addDiv").append(div1);
 		stt+=1;
+		$('input[id^=txtAssetOriginal]').numeric({negative : false });
+		$('input[id^=txtAssetRemain]').numeric({negative : false });
 }
 //Validate form
 function onSubmitFormEvaluation()
@@ -600,7 +603,6 @@ function addCapital()
 		//hide model
 		hideModel();
 	}
-	
 }
 //hide model
 function hideModel()
