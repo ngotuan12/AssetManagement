@@ -46,10 +46,10 @@
 													<div class="text-muted">
 														<p>
 															<span class="span-style">Nguyên giá: </span>
-															<span style="font-family: initial;" id="lbViewSerialOriginal">{{ stock_asset.original_value }}</span>
+															<span style="font-family: initial;" id="lbViewSerialOriginal"></span>
 															<span style="font-family: initial;"> vnđ</span>
 															<span class="span-style" style="margin-left: 50px">Giá trị còn lại: </span>
-															<span style="font-family: initial;" id="lbViewSerialRemain">{{ stock_asset.remain_value }}</span>
+															<span style="font-family: initial;" id="lbViewSerialRemain"></span>
 															<span style="font-family: initial;"> vnđ</span>
 														</p>
 													</div>
@@ -82,12 +82,12 @@
 															<th style="width:18%;text-align: center;font-family: Arial,Helvetica,sans-serif;">{% trans 'GTCL' %}</th>
 														</tr>
 													</thead>
-													<tbody>
-														{% for capital in capitals %}
-															<tr>
+													<tbody id="tbParent">
+														{% for capital in capital_value_parent %}
+															<tr original="{{ capital.original_value }}" remain="{{ capital.remain_value }}">
 																<td>{{ forloop.counter }}</td>
-																<td>{{ capital.capital_id }}</td>
-																<td>{{ capital.name }}</td>
+																<td>{{ capital.capital.code }}</td>
+																<td>{{ capital.capital.name }}</td>
 																<td style="text-align: right;">{{ capital.original_value }}</td>
 																<td style="text-align: right;">{{capital.remain_value }}</td>
 															</tr>
@@ -123,17 +123,17 @@
 											</tr>
 										</thead>
 										<tbody>
-										{% for capital_value in capital_values %}
+										{% for capital in lsCapital_value_child %}
 											<tr>
 												<td>{{ forloop.counter }}</td>
-												<td>{{ capital_value.stock_asset_serial.stock.dept.name }}</td>
-												<td>{{ capital_value.stock_asset_serial.serial }}</td>
-												<td>{{ capital_value.stock_asset_serial.name }}</td>
-												<td>{{ capital_value.capital.id }}</td>
-												<td style="text-align: right;">{{ capital_value.original_value }}</td>
-												<td style="text-align: right;">{{ capital_value.remain_value }}</td>
-												<td style="text-align: right;">{{ capital_value.stock_asset_serial.quantity }}</td>
-												<td>{{ capital_value.description }}</td>
+												<td>{{ capital.stock_asset_serial.stock.dept.name }}</td>
+												<td>{{ capital.stock_asset_serial.serial }}</td>
+												<td>{{ capital.stock_asset_serial.name }}</td>
+												<td>{{ capital.capital.code }}</td>
+												<td style="text-align: right;">{{ capital.original_value }}</td>
+												<td style="text-align: right;">{{ capital.remain_value }}</td>
+												<td style="text-align: right;">{{ capital.stock_asset_serial.quantity }}</td>
+												<td>{{ capital.description }}</td>
 											</tr>
 										{% endfor %}
 										</tbody>
@@ -192,8 +192,25 @@ $(document).ready(function(){
 	// Chosen Select
 	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
+});
+var originalTemp =0.00;
+var remainTemp=0.00;
+function tt()
+{
+	originalTemp =0.00;
+	remainTemp=0.00;
+	$("#tbParent tr").each(function(){
+		originalTemp +=parseFloat($(this).attr('original'));
+		remainTemp +=parseFloat($(this).attr('remain'));
+	});
+	$("#lbViewSerialOriginal").html(originalTemp);
+	$("#lbViewSerialRemain").html(remainTemp);
 	$("#lbViewSerialOriginal").formatCurrency();
 	$("#lbViewSerialRemain").formatCurrency();
+}
+jQuery(window).load(function()
+{
+	tt();
 });
 </script>
 {% endblock scripts%}
