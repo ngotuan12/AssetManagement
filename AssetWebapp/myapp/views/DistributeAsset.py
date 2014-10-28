@@ -112,15 +112,18 @@ def view_distribute_asset(request,stock_asset_serial_id):
 	try:
 		stock_asset = StockAssetSerial.objects.get(id =stock_asset_serial_id)
 		capital_values = CapitalValue.objects.filter(stock_asset_serial =stock_asset_serial_id)
-		capitals_qs = List.objects.raw("""
-                                SELECT a.id, a.stock_asset_serial_id, a.capital_id,b.name,b.code, a.original_value,
-                                    a.remain_value, a.description 
-                                FROM capital_value a,list b 
-                                WHERE a.capital_id = b.id AND stock_asset_serial_id="""+stock_asset_serial_id+"""
-                                """)
+		lsStock_asset = StockAssetSerial.objects.filter(parent_serial = stock_asset.serial)
+		lsCapital_values =CapitalValue.objects.filter(stock_asset_serial__in =lsStock_asset)
+		
+# 		capitals_qs = List.objects.raw("""
+#                                 SELECT a.id, a.stock_asset_serial_id, a.capital_id,b.name,b.code, a.original_value,
+#                                     a.remain_value, a.description 
+#                                 FROM capital_value a,list b 
+#                                 WHERE a.capital_id = b.id AND stock_asset_serial_id="""+stock_asset_serial_id+"""
+#                                 """)
 		context.update({'stock_asset':stock_asset})
 		context.update({'capital_values':capital_values})
-		context.update({'capitals':capitals_qs})
+		context.update({'capitals':lsCapital_values})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

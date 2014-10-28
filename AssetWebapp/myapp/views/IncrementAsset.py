@@ -60,7 +60,7 @@ def index(request):
 			asset_id = request.POST["slAsset"]
 			reason_id = request.POST["slReason"]
 			method_id = request.POST["slMethod"]
-			capital_id = request.POST["slCapital"]
+			arr_capital_id = request.POST["hd_arr_capital"]
 			country_id = request.POST["slCountry"]
 			supplier_id = request.POST["slSupplier"]
 			dept_id = request.POST["slDept"]
@@ -72,9 +72,9 @@ def index(request):
 			up_date = request.POST["dtUpDate"]
 			product_date = request.POST["dtProductDate"]
 			atrophy_date = request.POST["dtAtrophyDate"]
-			origin_price = request.POST["txtOriginPrice"]
+			arr_origin_price = request.POST["hd_arr_original"]
 			serial = request.POST["txtSerial"]
-			remain_amount = request.POST["txtRemainAmount"]
+			arr_remain_amount = request.POST["hd_arr_remain"]
 			note = request.POST["txtNote"]
 			unit_code = request.POST["slUnit"]
 			power = request.POST["txtPower"]
@@ -109,10 +109,10 @@ def index(request):
 							asset_id,
 							#p_serial
 							serial,
-							#p_original_value
-							origin_price,
-							#p_remain_value
-							remain_amount,
+							#p_arr_original_value
+							arr_origin_price,
+							#p_arr_remain_value
+							arr_remain_amount,
 							#p_import_date
 							up_date,
 							#p_use_date
@@ -125,8 +125,8 @@ def index(request):
 							country_id,
 							#p_supplier_id
 							supplier_id,
-							#p_capital_id
-							capital_id,
+							#p_arr_capital_id
+							arr_capital_id,
 							#p_amortize_id
 							method_id,
 							#p_reason_id
