@@ -225,82 +225,86 @@
 							</div>
 							
 							<div class="col-lg-6" style="padding: 0px;">
-								<div class="col-lg-4">
-									<label>{% trans 'Phương pháp tính' %}</label>
-									<select id="slMethod" class="form-control chosen-select"
-										data-placeholder="{% trans 'Phương pháp tính' %}" 
-										name = "slMethod" required="required">
-										<option value=""></option>
-										{% for method in methods %}
-											<option value="{{ method.id }}">{{ method.code }} - {{ method.name }}</option>
-										{% endfor%}
-									</select>
-									<label for="slMethod" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+								<div class="col-lg-12" style="padding: 0px;margin-bottom: 0px;">
+									<div class="col-lg-4">
+										<label>{% trans 'Phương pháp tính' %}</label>
+										<select id="slMethod" class="form-control chosen-select"
+												data-placeholder="{% trans 'Phương pháp tính' %}" 
+												name = "slMethod" required="required">
+												<option value=""></option>
+												{% for method in methods %}
+													<option value="{{ method.id }}">{{ method.code }} - {{ method.name }}</option>
+												{% endfor%}
+											</select>
+											<label for="slMethod" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+										</div>
+										
+										<div class="col-lg-4">
+											<label>{% trans 'Số năm khấu hao' %}</label>
+											<input type="text" style="padding: 8px;" name="txtInterval" placeholder="{% trans 'Số năm khấu hao' %}"
+												class="form-control numberic" maxlength="2" required="required">
+										</div>
+										
+										<div class="col-lg-4">
+											<label>{% trans 'Ngày tính khấu hao' %}</label>
+											<div class="input-group">
+												<input type="text" style="padding: 8px;" class="form-control"
+													data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày tính khấu hao' %}" id="atrophy_date"
+													name = "dtAtrophyDate" required>
+												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											</div>
+										</div>
 								</div>
+								<div class="col-lg-12" style="padding: 0px;margin-bottom: 0px;">
+									<div class="col-lg-4">
+										<label>{% trans 'Model' %}</label>
+										<input type="text" style="padding: 8px;" id="txtModel" name="txtModel" placeholder="{% trans 'Model' %}"
+											class="form-control" required maxlength="15">
+									</div>
+									<div class="col-lg-4">
+										<label> {% trans 'Số seri' %}</label>
+										<input type="text" style="padding: 8px;" id="txtProductSeri" name="txtProductSeri" placeholder="{% trans 'Số seri' %}"
+											class="form-control" required maxlength="15">
+									</div>
 								
-								<div class="col-lg-4">
-									<label>{% trans 'Số năm khấu hao' %}</label>
-									<input type="text" style="padding: 8px;" name="txtInterval" placeholder="{% trans 'Số năm khấu hao' %}"
-										class="form-control numberic" maxlength="2" required="required">
-								</div>
-								
-								<div class="col-lg-4">
-									<label>{% trans 'Ngày tính khấu hao' %}</label>
-									<div class="input-group">
-										<input type="text" style="padding: 8px;" class="form-control"
-											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày tính khấu hao' %}" id="atrophy_date"
-											name = "dtAtrophyDate" required>
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									<div class="col-lg-4">
+										<label>{% trans 'Công xuất' %}</label>
+										<input type="text" style="padding: 8px;" name="txtPower" placeholder="{% trans 'Công xuất' %}"
+											class="form-control numberic" maxlength="10" required="required">
 									</div>
 								</div>
-								
-								<div class="col-lg-4">
-									<label>{% trans 'Model' %}</label>
-									<input type="text" style="padding: 8px;" id="txtModel" name="txtModel" placeholder="{% trans 'Model' %}"
-										class="form-control" required maxlength="15">
-								</div>
-								<div class="col-lg-4">
-									<label> {% trans 'Số seri' %}</label>
-									<input type="text" style="padding: 8px;" id="txtProductSeri" name="txtProductSeri" placeholder="{% trans 'Số seri' %}"
-										class="form-control" required maxlength="15">
-								</div>
+								<div class="col-lg-12" style="padding: 0px;margin-bottom: 0px;">
+									<div class="col-lg-4">
+										<label>{% trans 'Ngày mua' %}</label>
+										<div class="input-group">
+											
+											<input type="text" style="padding: 8px;" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày mua' %}" id="buy_date"
+												name = "dtBuyDate" required> <span
+												class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
 							
-								<div class="col-lg-4">
-									<label>{% trans 'Công xuất' %}</label>
-									<input type="text" style="padding: 8px;" name="txtPower" placeholder="{% trans 'Công xuất' %}"
-										class="form-control numberic" maxlength="10" required="required">
-								</div>
-								
-								<div class="col-lg-4">
-								<label>{% trans 'Ngày mua' %}</label>
-								<div class="input-group">
+									<div class="col-lg-4">
+										<label>{% trans 'Ngày ghi tăng' %}</label>
+										<div class="input-group">
+										<input type="text" style="padding: 8px;" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày ghi tăng' %}" id="up_date"
+												name = "dtUpDate" required>
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
 									
-									<input type="text" style="padding: 8px;" class="form-control"
-										data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày mua' %}" id="buy_date"
-										name = "dtBuyDate" required> <span
-										class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									<div class="col-lg-4">
+										<label>{% trans 'Ngày bắt đầu sử dụng' %}</label>
+										<div class="input-group">
+											<input type="text" style="padding: 8px;" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày bắt đầu sử dụng' %}" id="start_use_date"
+												name = "dtStartUseDate" required>
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
 								</div>
-							</div>
-							
-							<div class="col-lg-4">
-								<label>{% trans 'Ngày ghi tăng' %}</label>
-								<div class="input-group">
-									<input type="text" style="padding: 8px;" class="form-control"
-										data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày ghi tăng' %}" id="up_date"
-										name = "dtUpDate" required>
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-								</div>
-							</div>
-								
-							<div class="col-lg-4">
-								<label>{% trans 'Ngày bắt đầu sử dụng' %}</label>
-								<div class="input-group">
-									<input type="text" style="padding: 8px;" class="form-control"
-										data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày bắt đầu sử dụng' %}" id="start_use_date"
-										name = "dtStartUseDate" required>
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-								</div>
-							</div>
 							</div>
 						</div>
 						<div class="row row-pad-5">
@@ -503,12 +507,18 @@ $(document).ready(function(){
   $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
   
   // Date Picker
-  $('#dtDecision').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#buy_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#start_use_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#up_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#atrophy_date').datepicker({dateFormat: 'dd/mm/yy',});
-  $('#product_date').datepicker({dateFormat: 'dd/mm/yy',});
+  $('#dtDecision').datepicker({dateFormat: 'dd/mm/yy',maxDate: new Date() });
+  $("#dtDecision").datepicker("setDate",new Date());
+  $('#buy_date').datepicker({dateFormat: 'dd/mm/yy',maxDate: new Date()});
+  $("#buy_date").datepicker("setDate",new Date());
+  $('#start_use_date').datepicker({dateFormat: 'dd/mm/yy',maxDate: new Date()});
+  $("#start_use_date").datepicker("setDate",new Date());
+  $('#up_date').datepicker({dateFormat: 'dd/mm/yy',maxDate: new Date()});
+  $("#up_date").datepicker("setDate",new Date());
+  $('#atrophy_date').datepicker({dateFormat: 'dd/mm/yy',maxDate: new Date()});
+  $("#atrophy_date").datepicker("setDate",new Date());
+  $('#product_date').datepicker({dateFormat: 'dd/mm/yy',maxDate: new Date()});
+  $("#product_date").datepicker("setDate",new Date());
   // Input Masks
   $("#dtDecision").mask("99/99/9999");
   $("#datepicker").mask("99/99/9999");
