@@ -98,7 +98,7 @@ def index(request):
 			context.update({'asset_serial_id':asset_serial_id})
 		serials = StockAssetSerial.objects.raw("select * "+
 									"FROM stock_asset_serial "+ 
-									"WHERE num_sub > 0 ")
+									"WHERE num_sub = 0 AND ROWNUM <=10")
 		context.update({'serials':serials})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
