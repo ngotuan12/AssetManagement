@@ -10,9 +10,8 @@ import cx_Oracle
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.db import connection
-from django.forms.models import model_to_dict
-from django.http.response import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render_to_response, resolve_url
+from django.http.response import  HttpResponse
+from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.utils.translation import ugettext as _
 
@@ -111,19 +110,12 @@ def view_distribute_asset(request,stock_asset_serial_id):
 	context = {}
 	try:
 		stock_asset = StockAssetSerial.objects.get(id =stock_asset_serial_id)
-		capital_values = CapitalValue.objects.filter(stock_asset_serial =stock_asset_serial_id)
-		lsStock_asset = StockAssetSerial.objects.filter(parent_serial = stock_asset.serial)
-		lsCapital_values =CapitalValue.objects.filter(stock_asset_serial__in =lsStock_asset)
-		
-# 		capitals_qs = List.objects.raw("""
-#                                 SELECT a.id, a.stock_asset_serial_id, a.capital_id,b.name,b.code, a.original_value,
-#                                     a.remain_value, a.description 
-#                                 FROM capital_value a,list b 
-#                                 WHERE a.capital_id = b.id AND stock_asset_serial_id="""+stock_asset_serial_id+"""
-#                                 """)
+		capital_value_parent = CapitalValue.objects.filter(stock_asset_serial =stock_asset_serial_id)
+		lsStock_asset_child = StockAssetSerial.objects.filter(parent_serial = stock_asset.serial)
+		lsCapital_value_child =CapitalValue.objects.filter(stock_asset_serial__in =lsStock_asset_child)
 		context.update({'stock_asset':stock_asset})
-		context.update({'capital_values':capital_values})
-		context.update({'capitals':lsCapital_values})
+		context.update({'capital_value_parent':capital_value_parent})
+		context.update({'lsCapital_value_child':lsCapital_value_child})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
@@ -137,7 +129,7 @@ def get_capital(request,asset_id):
                                 SELECT a.id, a.stock_asset_serial_id, a.capital_id,b.name,b.code, a.original_value,
                                     a.remain_value, a.description 
                                 FROM capital_value a,list b 
-                                WHERE a.capital_id = b.id AND stock_asset_serial_id="""+asset_id+"""
+                                WHERE a.capital_id = b.id AND a.stock_asset_serial_id="""+asset_id+"""
                                 """)
 		capitals = []
 		for capital in capitals_qs:

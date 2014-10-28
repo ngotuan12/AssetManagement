@@ -341,15 +341,11 @@ $(document).ready(function(){
 		//get list capital
 		onGetCapital(asset_id);
 		//set view input text
+
 		$("#lbViewSerialId").html(serial);
 		$("#lbtViewSerialName").html(name);
-		$("#lbViewSerialOriginal").html(original);
-		$("#lbViewSerialRemain").html(remain);
 		$("#lbViewSerialQuantity").html(quantity);
 		$("#lbViewProjectName").html(project_name);
-		
-		$("#lbViewSerialOriginal").formatCurrency();
-		$("#lbViewSerialRemain").formatCurrency();
 		//clear input model
 		clearInput();
 		//
@@ -423,6 +419,8 @@ $(document).ready(function(){
 		}
 	});
 });
+	var originalTemp =0.00;
+	var remainTemp =0.00;
 	var arr_dept = [];
 	var equal =true;
 	var sum_quantity =0;
@@ -458,6 +456,7 @@ $(document).ready(function(){
 				$("#tbView tr").each(function()
 				{
 					var capital_id = $(this).attr('id');
+					var capital_code =$(this).attr('code');
 					var capital_name= $(this).attr('name');
 					var tbView_original = $(this).attr('original');
 					var tbView_remain = $(this).attr('remain');
@@ -494,7 +493,7 @@ $(document).ready(function(){
 								+ '</td><td>'
 								+ asset_name
 								+ '</td><td>'
-								+ capital_id
+								+ capital_code
 								+ '</td><td style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
 								+ original
 								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
@@ -664,18 +663,23 @@ $(document).ready(function(){
 			$("#tbView tr").remove();
 			$("#addDiv div").remove();
 			$("#addDiv input").remove();
+			originalTemp=0.00;
+			remainTemp=0.00;
 			//alert(JSON.stringify(data))
 			capitals = data.capitals
 			for(var i=0;i<capitals.length ;i++)
 			{
 				capital = capitals[i];
 				var capital_id = capital.capital_id;
+				var capital_code = capital.code;
 				var capital_name = capital.name;
 				var capital_original = capital.original_value;
 				var capital_remain = capital.remain_value;
-				var newRow = $('<tr id="'+ capital_id +'" name="'+capital_name+'" original="'+capital_original+'" remain="'+ capital_remain +'"></tr>');
+				originalTemp +=parseFloat(capital_original);
+				remainTemp +=parseFloat(capital_remain);
+				var newRow = $('<tr id="'+ capital_id +'" code="'+ capital_code +'" name="'+capital_name+'" original="'+capital_original+'" remain="'+ capital_remain +'"></tr>');
 				var newcol = $('<td>'
-						+ capital_id
+						+ capital_code
 						+ '</td><td>'
 						+ capital_name
 						+ '</td><td style="text-align:right;">'
@@ -714,6 +718,12 @@ $(document).ready(function(){
 					$("#addDiv").append(hd_sum_original);
 					$("#addDiv").append(hd_sum_remain);
 			}
+			
+			$("#lbViewSerialOriginal").html(originalTemp);
+			$("#lbViewSerialRemain").html(remainTemp);
+			$("#lbViewSerialOriginal").formatCurrency();
+			$("#lbViewSerialRemain").formatCurrency();
+			
 			//hide loading
 			$.fn.loading.hide();
 		});
@@ -745,7 +755,7 @@ $(document).ready(function(){
 					kq=false;
 			});
 			if(!kq)
-				$.message.warning('Tổng nguyên giá,giá trị còn lại hoặc số lượng tài sản con chưa bằng số lượng tài sản gốc!!!');
+				$.message.warning('Tổng nguyên giá,giá trị còn lại hoặc số lượng tài sản con chưa bằng tài sản gốc!!!');
 		}
 		if(kq)
 		{
@@ -780,17 +790,17 @@ $(document).ready(function(){
 				$("#divListSerial").append(inputArrRemain);
 				$("#divListSerial").append(inputArrOriginal);
 				$("#divListSerial").append(inputArrCapital);
-				//alert("name:"+name+"serial:"+serial+"note:"+note+"arr_capital:"+arr_capital+"arr_original:"+arr_original+"arr_remain:"+arr_remain);
+				alert("name:"+name+"serial:"+serial+"note:"+note+"arr_capital:"+arr_capital+"arr_original:"+arr_original+"arr_remain:"+arr_remain);
 			}
 			ls_dept = ls_dept.substr(0,ls_dept.length-1);
 			$("#hd_ls_dept_id").val(ls_dept);
-			$("#form-list-stock-asset").submit();
+			//$("#form-list-stock-asset").submit();
 		}
 		
 	}
 	function Remove(dept_id)
 	{
-		confirm = $.message.confirm('Bạn có chắc chắn bỏ tài sản con này ? ');
+		confirm = $.message.confirm('Bạn có chắc muốn bỏ tài sản con này ? ');
 		confirm.on('message.confirm',function(){
 			//tinh toan lai
 			var quantity =parseFloat($("#tbStockAssetSerial tr[dept_id][dept_id='"+ dept_id +"']").first().attr('quantity'));
