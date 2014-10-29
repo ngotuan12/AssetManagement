@@ -16,7 +16,7 @@ from django.utils.translation import ugettext as _
 from myapp.models.List import List
 from myapp.models.Staff import Staff
 from myapp.models.StockAssetSerial import StockAssetSerial
-
+from myapp.models.Dept import Dept
 
 @login_required(login_url='/login/')
 @permission_required('myapp.verify_asset', login_url='/permission-error/')
@@ -28,8 +28,8 @@ def index(request):
 			arrSerial = slSerial.split(',')
 			for s in arrSerial:
 				serial = s
-				remain_amount = request.POST["txtRemain"+serial]
-				
+				arr_remain_amount = request.POST["txtRemain"+serial]
+				arr_capital_id = request.POST["txtCapital"+serial]
 				state_id = request.POST["txtState"+serial]
 				check_no = request.POST["txtCheckNo"+serial]
 				staff_code = request.POST["txtStaff"+serial]
@@ -52,8 +52,10 @@ def index(request):
 								staff_code,
 								#p_serial
 								p_serial,
-								#p_remain_amount
-								remain_amount,
+								#p_arr_capital
+								arr_capital_id,
+								#p_arr_remain_amount
+								arr_remain_amount,
 								#p_interval
 								None,
 								#p_state_id
@@ -72,9 +74,11 @@ def index(request):
 					raise Exception(p_error.getvalue())
 			context.update({'has_success':_(u"Giao dịch thành công")})
 		serials = StockAssetSerial.objects.all()
+		serials=[]
 		context.update({'serials':serials})
 		context.update({'states':List.objects.filter(list_type='4')})
 		context.update({'staffs':Staff.objects.all()})
+		context.update({'depts':Dept.objects.all()})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

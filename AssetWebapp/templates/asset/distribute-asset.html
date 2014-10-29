@@ -795,6 +795,7 @@ $(document).ready(function(){
 			ls_dept = ls_dept.substr(0,ls_dept.length-1);
 			$("#hd_ls_dept_id").val(ls_dept);
 			$("#form-list-stock-asset").submit();
+			$('#btnSubmit').prop("disabled", true);
 		}
 		
 	}
@@ -830,7 +831,7 @@ $(document).ready(function(){
 			clearInput();
 			//check table
 			checkTable();
-			$.message.destroy()
+			$.message.destroy();
 		});
 	}
 	function RemoveRow(dept_id)
