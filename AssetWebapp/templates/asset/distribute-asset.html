@@ -515,7 +515,7 @@ $(document).ready(function(){
 								+ '</td><td>'
 								+ ''
 								+ '</td><td>'
-								+ capital_id
+								+ capital_code
 								+ '</td><td style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
 								+ original
 								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
@@ -524,9 +524,9 @@ $(document).ready(function(){
 								+ ''
 								+ '</td><td>'
 								+ ''
-								+ '</td><td class="table-action"><a href="#" class="delete-row" onclick="Remove('
-								+ "'" + dept_id + "'"
-								+ ');"><i class="fa fa-trash-o"></i></a></td>');
+								+ '</td><td>'
+								+''
+								+'</td>');
 					}
 					newRow.append(newcol);
 					
@@ -790,7 +790,7 @@ $(document).ready(function(){
 				$("#divListSerial").append(inputArrRemain);
 				$("#divListSerial").append(inputArrOriginal);
 				$("#divListSerial").append(inputArrCapital);
-				//alert("name:"+name+"serial:"+serial+"note:"+note+"arr_capital:"+arr_capital+"arr_original:"+arr_original+"arr_remain:"+arr_remain);
+				//alert("name:"+name+"serial:"+serial+"quantity: "+quantity+"note:"+note+"arr_capital:"+arr_capital+"arr_original:"+arr_original+"arr_remain:"+arr_remain);
 			}
 			ls_dept = ls_dept.substr(0,ls_dept.length-1);
 			$("#hd_ls_dept_id").val(ls_dept);
