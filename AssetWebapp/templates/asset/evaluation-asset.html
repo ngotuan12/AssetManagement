@@ -355,7 +355,6 @@ $(document).ready(function(){
 		$(".error[for][for='slSerial']").hide();
 		var serial_id=$(this).find('option:selected').val();
 		onGetCapital(serial_id);
-		
 		//reset stt
 		stt=1;
 	});
@@ -379,6 +378,8 @@ $(document).ready(function(){
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 });
 var stt=1;
+var originalTemp =0.00;
+var remainTemp=0.00;
 //get stock order dept_id
 function onGetStock(dept_id)
 {
@@ -487,12 +488,9 @@ function onGetCapital(asset_id)
 		$("#lbViewIntervalValue").html($("#slSerial").find('option:selected').attr('interval'));
 		$("#lbViewGoalName").html($("#slSerial").find('option:selected').attr('goal-id')+"-"+$("#slSerial").find('option:selected').attr('goal-name'));
 		$("#lbViewStateName").html($("#slSerial").find('option:selected').attr('state-id')+"-"+$("#slSerial").find('option:selected').attr('state-name'));
-		$("#lbViewSerialOriginal").html($("#slSerial").find('option:selected').attr('original-value'));
-		$("#lbViewSerialRemain").html($("#slSerial").find('option:selected').attr('remain-value'));
 		
-		$("#lbViewSerialOriginal").formatCurrency();
-		$("#lbViewSerialRemain").formatCurrency();
-		//open button
+		//total original,remain
+		total();
 		//$('#btnAddCapital').prop("disabled", false);
 		$('#btnSubmit').prop("disabled", false);
 		$('input[id^=txtAssetRemain]').numeric({negative : false });
@@ -628,6 +626,20 @@ function showCapital(capital_id){
 	$("#mdLisCapital option[value][value='"+capital_id+"']").show();
 	$('#mdLisCapital').prop("selectedIndex", -1);
 	$('#mdLisCapital').trigger('chosen:updated');
+}
+//sum original,remain
+function total()
+{
+	originalTemp =0.00;
+	remainTemp=0.00;
+	$("#tbView tr").each(function(){
+		originalTemp +=parseFloat($(this).attr('original'));
+		remainTemp +=parseFloat($(this).attr('remain'));
+	});
+	$("#lbViewSerialOriginal").html(originalTemp);
+	$("#lbViewSerialRemain").html(remainTemp);
+	$("#lbViewSerialOriginal").formatCurrency();
+	$("#lbViewSerialRemain").formatCurrency();
 }
 jQuery(window).load(function(){
 	$(".numberic").numeric({ negative : false });
