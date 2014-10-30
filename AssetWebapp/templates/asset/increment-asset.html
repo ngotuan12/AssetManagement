@@ -404,7 +404,7 @@
 							</div>
 	
 							<div class="col-lg-4">
-								<button class="btn btn-primary  btn-block" style="min-height: 75px;" onclick=" return onSUbmitFormIncrement();">Thực hiện</button>
+								<button id="btnSubmit" class="btn btn-primary  btn-block" style="min-height: 75px;" onclick=" return onSUbmitFormIncrement();">Thực hiện</button>
 							</div>
 						</div>
 					</div>
@@ -442,7 +442,7 @@
 											data-placeholder="{% trans '-------------------------------------------------Chọn nguồn vốn--------------------------------------------------------------------' %}" required="required">
 											<option value=""></option>
 											{% for capital in capitals %}
-												<option value="{{ capital.id }}" name="{{ capital.name }}">{{ capital.id }} - {{ capital.name }}</option>
+												<option value="{{ capital.id }}" code="{{ capital.code }}" name="{{ capital.name }}">{{ capital.code }} - {{ capital.name }}</option>
 											{% endfor %}
 										</select>
 										<label for="mdLisCapital" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
@@ -665,6 +665,7 @@ $(document).ready(function(){
 			$("#hd_arr_original").val(arr_original_temp);
 			$("#hd_arr_remain").val(arr_remain_temp);
 			jQuery('#incrementAsset').submit();
+			$('#btnSubmit').prop("disabled", true);
 		}
 	}
 	//event add capital
@@ -687,10 +688,11 @@ $(document).ready(function(){
 		{
 			var capital_id = $("#mdLisCapital").find('option:selected').val();
 			var capital_name = $("#mdLisCapital").find("option:selected").attr("name");
+			var capital_code = $("#mdLisCapital").find("option:selected").attr("code");
 			var capital_original = $("#mdOriginal").val();
 			var capital_remain = $("#mdRemain").val();
 			//add row
-			addRow(capital_id,capital_name,capital_original,capital_remain);
+			addRow(capital_id,capital_code,capital_name,capital_original,capital_remain);
 			//hide  dept selected
 			hideCapital(capital_id);
 			//hide model
@@ -717,12 +719,12 @@ $(document).ready(function(){
 		$("#modalPermission").modal('hide');
 	}
 	//add row into table
-	function addRow(capital_id,capital_name,capital_original,capital_remain)
+	function addRow(capital_id,capital_code,capital_name,capital_original,capital_remain)
 	{
 		$("#tbView tr[support]").remove();
-		var newRow = $('<tr id="'+ capital_id +'" name="'+capital_name+'" original="'+capital_original+'" remain="'+ capital_remain +'"></tr>');
+		var newRow = $('<tr id="'+ capital_id +'" code="'+ capital_code +'" name="'+capital_name+'" original="'+capital_original+'" remain="'+ capital_remain +'"></tr>');
 		var newcol = $('<td style="width:325px;">'
-				+ capital_id +'-'+capital_name
+				+ capital_code +'-'+capital_name
 				+ '</td><td style="text-align:right;min-width:120px;">'
 				+ capital_original
 				+ '</td><td style="text-align:right;min-width:119px;">'
@@ -737,7 +739,7 @@ $(document).ready(function(){
 	function Remove(capital_id)
 	{
 		;
-		confirm = $.message.confirm('Bạn có chắc không muốn sử dụng nguồn vốn '+ $("#tbView tr[id][id= '"+capital_id+"']").attr('id')+' ? ');
+		confirm = $.message.confirm('Bạn có chắc không muốn sử dụng nguồn vốn '+ $("#tbView tr[id][id= '"+capital_id+"']").attr('code')+' ? ');
 		confirm.on('message.confirm',function(){
 			
 			$("#tbView tr[id][id= '"+capital_id+"']").remove();

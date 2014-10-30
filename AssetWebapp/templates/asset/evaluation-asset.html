@@ -571,6 +571,7 @@ function onSubmitFormEvaluation()
 		$("#hd_ls_capital__id").val(lsCapital);
 		$("#hd_stock_asset_serial_id").val($("#slSerial").find('option:selected').val());
 		$("#evaluationAsset").submit();
+		$('#btnSubmit').prop("disabled", true);
 	}
 }
 //event add capital

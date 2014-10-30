@@ -22,7 +22,7 @@ from myapp.models.Reason import Reason
 from myapp.models.Stock import Stock
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.Supplier import Supplier
-
+from myapp.models.CapitalValue import CapitalValue
 
 @login_required(login_url='/login/')
 @permission_required('myapp.edit_increment_asset', login_url='/permission-error/')
@@ -30,6 +30,7 @@ def index(request,asset_id):
 	context = {}
 	try:
 		stockAssetSerial = StockAssetSerial.objects.get(id=asset_id)
+		capital_values = CapitalValue.objects.filter(stock_asset_serial =asset_id)
 		assets = Asset.objects.raw("select id, NAME,code,parent_code "+
 									"FROM asset "+ 
 									"WHERE connect_by_isleaf = 1 "+
@@ -48,6 +49,7 @@ def index(request,asset_id):
 					'capitals':List.objects.filter(list_type='3')})
 		
 		context.update({'stockAssetSerial':stockAssetSerial})
+		context.update({'capital_values':capital_values})
 		context.update({'countries':Country.objects.all()})
 		context.update({'suppliers':Supplier.objects.all()})
 		context.update({'depts':Dept.objects.all()})
@@ -64,7 +66,7 @@ def index(request,asset_id):
 			asset_id = request.POST["slAsset"]
 			reason_id = request.POST["slReason"]
 			method_id = request.POST["slMethod"]
-			capital_id = request.POST["slCapital"]
+			arr_capital_id = request.POST["hd_arr_capital"]
 			country_id = request.POST["slCountry"]
 			supplier_id = request.POST["slSupplier"]
 			dept_id = request.POST["slDept"]
@@ -76,9 +78,9 @@ def index(request,asset_id):
 			up_date = request.POST["dtUpDate"]
 			product_date = request.POST["dtProductDate"]
 			atrophy_date = request.POST["dtAtrophyDate"]
-			origin_price = request.POST["txtOriginPrice"]
+			arr_origin_price = request.POST["hd_arr_original"]
 			serial = request.POST["txtSerial"]
-			remain_amount = request.POST["txtRemainAmount"]
+			arr_remain_amount = request.POST["hd_arr_remain"]
 			note = request.POST["txtNote"]
 			unit_code = request.POST["slUnit"]
 			power = request.POST["txtPower"]
@@ -98,92 +100,92 @@ def index(request,asset_id):
 			if request.POST.get("ckChildAsset"):
 				parent_serial = request.POST["slParent"]
 				
-			cursor = connection.cursor()
-			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
-                                       "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
-			p_error = cursor.var(cx_Oracle.STRING).var
-			cursor.callproc("pck_stock_trans.update_asset_serial",
-						(
-							#p_error
-							p_error,
-							#p_stock_serial_id
-							stock_asset_serial_id,
-							#p_stock_id
-							stock_id,
-							#p_ie_stock_id
-							None,
-							#p_asset_id
-							asset_id,
-							#p_serial
-							serial,
-							#p_original_value
-							origin_price,
-							#p_remain_value
-							remain_amount,
-							#p_import_date
-							up_date,
-							#p_use_date
-							start_use_date,
-							#p_state_id
-							state_id,
-							#p_goal_id
-							goal_id,
-							#p_country_id
-							country_id,
-							#p_supplier_id
-							supplier_id,
-							#p_capital_id
-							capital_id,
-							#p_amortize_id
-							method_id,
-							#p_reason_id
-							reason_id,
-							#p_dept_id
-							dept_id,
-							#p_staff_id
-							None,
-							#p_username
-							request.user.username,
-							#p_note
-							note,
-							#p_buy_date
-							buy_date,
-							#p_amortize_date
-							atrophy_date,
-							#p_project_id
-							project_id,
-							#p_unit
-							unit_code,
-							#p_product_date
-							product_date,
-							#p_power
-							power,
-							#p_source
-							source_code,
-							#p_decision_no
-							decision_no,
-							#p_document_status
-							document_status,
-							#p_name
-							asset_name,
-							#p_interval
-							interval,
-							#p_parent_serial
-							parent_serial,
-							#p_decision_date
-							decision_date,
-							#p_quantity
-							quantity,
-							#p_model
-							model,
-							#p_product_seri
-							product_seri
-						))
-			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
-                                       "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
-			cursor.close()
-			if p_error.getvalue() is not None:
-				raise Exception(p_error.getvalue())
+# 			cursor = connection.cursor()
+# 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
+#                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
+# 			p_error = cursor.var(cx_Oracle.STRING).var
+# 			cursor.callproc("pck_stock_trans.update_asset_serial",
+# 						(
+# 							#p_error
+# 							p_error,
+# 							#p_stock_serial_id
+# 							stock_asset_serial_id,
+# 							#p_stock_id
+# 							stock_id,
+# 							#p_ie_stock_id
+# 							None,
+# 							#p_asset_id
+# 							asset_id,
+# 							#p_serial
+# 							serial,
+# 							#p_arr_original_value
+# 							arr_origin_price,
+# 							#p_arr_remain_value
+# 							arr_remain_amount,
+# 							#p_import_date
+# 							up_date,
+# 							#p_use_date
+# 							start_use_date,
+# 							#p_state_id
+# 							state_id,
+# 							#p_goal_id
+# 							goal_id,
+# 							#p_country_id
+# 							country_id,
+# 							#p_supplier_id
+# 							supplier_id,
+# 							#p_arr_capital_id
+# 							arr_capital_id,
+# 							#p_amortize_id
+# 							method_id,
+# 							#p_reason_id
+# 							reason_id,
+# 							#p_dept_id
+# 							dept_id,
+# 							#p_staff_id
+# 							None,
+# 							#p_username
+# 							request.user.username,
+# 							#p_note
+# 							note,
+# 							#p_buy_date
+# 							buy_date,
+# 							#p_amortize_date
+# 							atrophy_date,
+# 							#p_project_id
+# 							project_id,
+# 							#p_unit
+# 							unit_code,
+# 							#p_product_date
+# 							product_date,
+# 							#p_power
+# 							power,
+# 							#p_source
+# 							source_code,
+# 							#p_decision_no
+# 							decision_no,
+# 							#p_document_status
+# 							document_status,
+# 							#p_name
+# 							asset_name,
+# 							#p_interval
+# 							interval,
+# 							#p_parent_serial
+# 							parent_serial,
+# 							#p_decision_date
+# 							decision_date,
+# 							#p_quantity
+# 							quantity,
+# 							#p_model
+# 							model,
+# 							#p_product_seri
+# 							product_seri
+# 						))
+# 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
+#                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
+# 			cursor.close()
+# 			if p_error.getvalue() is not None:
+# 				raise Exception(p_error.getvalue())
 			context.update({'has_success':_(u"Sửa tài sản thành công")})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
