@@ -211,6 +211,7 @@ $(document).ready(function(){
 		$(".error[for][for='slStaff']").hide();
 	});
 	$( "#slStockSource" ).change(function() {
+		$(".error[for][for='slStockSource']").hide();
 		var id_name ='slSerialSource';
 		onGetCode($(this).find('option:selected').val(),id_name);
 	});
