@@ -496,10 +496,6 @@ function onGetCapital(asset_id)
 		$('#btnSubmit').prop("disabled", false);
 		$('input[id^=txtAssetRemain]').numeric({negative : false });
 		$('input[id^=txtAssetOriginal]').numeric({negative : false });
-		//input blur
-		$('#txtNote').blur(function() {
-			alert( "Handler for .blur() called." );
-		});
 		//hide loading
 		$.fn.loading.hide();
 	});
@@ -649,7 +645,7 @@ function total()
 }
 jQuery(window).load(function(){
 	$(".numberic").numeric({ negative : false });
-	//$("form:not(.filter) :input:visible:enabled:first").focus();
+	$("form:not(.filter) :input:visible:enabled:first").focus();
 });
 </script>
 {% endblock scripts%}

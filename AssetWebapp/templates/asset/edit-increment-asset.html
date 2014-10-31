@@ -210,8 +210,8 @@
 											{% for capital_value in capital_values %}
 												<tr id="{{ capital_value.capital.id }}" code="{{ capital_value.capital.code }}" name="{{ capital_value.capital.name }}" original="{{ capital_value.original_value }}" remain="{{ capital_value.remain_value }}">
 													<td style="width: 295px;">{{ capital_value.capital.code }}-{{ capital_value.capital.name }}</td>
-													<td style="width:120px;text-align: right;">{{ capital_value.original_value }}</td>
-													<td style="width:120px;text-align: right;">{{ capital_value.remain_value }}</td>
+													<td class="currency" style="width:120px;text-align: right;">{{ capital_value.original_value }}</td>
+													<td class="currency" style="width:120px;text-align: right;">{{ capital_value.remain_value }}</td>
 													<td class="table-action" style="text-align:left;min-width:30px;border-right:#fff;">
 														<a href="#" onclick="onEditCapital('{{ capital_value.capital.id }}')"><i class="fa fa-pencil"></i></a>
 														<a href="#" class="delete-row" onclick="Remove('{{ capital_value.capital.id }}');"><i class="fa fa-trash-o"></i></a>
@@ -540,6 +540,9 @@
 <script src="/js/jquery.numeric.js"></script>
 <script src="/js/message.js"></script>
 
+<script src="/js/jquery.formatCurrency.vi-VN.js"></script>
+<script src="/js/jquery.formatCurrency-1.4.0.js"></script>
+
 <script src="/js/custom.js"></script>
 <script src="/js/loading.js"></script>
 <script>
@@ -594,9 +597,6 @@ $(document).ready(function(){
 		if(e.which === 32) 
 			return false;
 		});
-	//validate
-	$.validator.setDefaults({ ignore: ":hidden:not(select)" });
-	});
 	//change slDept
 	$('#slDept').change(function(){
 						$(".error[for][for='slDept']").hide();
@@ -645,16 +645,27 @@ $(document).ready(function(){
 		$(".error[for][for='slUnit']").hide();
 	});
 	
-	jQuery(window).load(function()
-	{
-		$("#tbView tr[id]").each(function(){
-			var capital_id= $(this).attr('id');
-			//hide  dept selected
-			hideCapital(capital_id);
-		});
-		$(".numberic").numeric({ negative : false });
-		$("form:not(.filter) :input:visible:enabled:first").focus();
+	$('#mdOriginal').blur(function() {
+		$(this).formatCurrency();
 	});
+	$('#mdOriginal').focus(function() 
+	{
+		var temp =$(this).val().replace(/,/g,"");
+		$(this).val(temp);
+	});
+	$('#mdRemain').blur(function() {
+		$(this).formatCurrency();
+	});
+	$('#mdRemain').focus(function() 
+	{
+		var temp =$(this).val().replace(/,/g,"");
+		$(this).val(temp);
+	});
+	
+	//validate
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" });
+	});
+	
 	function onGetStock(dept_id)
 	{
 		//show loading
@@ -744,6 +755,9 @@ $(document).ready(function(){
 		$("#mdOriginal").val(original);
 		$("#mdRemain").val(remain);
 		
+		$("#mdOriginal").formatCurrency();
+		$("#mdRemain").formatCurrency();
+		
 		$("#mdLisCapital option[value][value='"+capital_id+"']").show();
 		$("#mdLisCapital option[value][value='"+capital_id+"']").attr('selected','selected');
 		$('#mdLisCapital').trigger('chosen:updated');
@@ -808,7 +822,7 @@ $(document).ready(function(){
 	function addRow(capital_id,capital_code,capital_name,capital_original,capital_remain)
 	{
 		$("#tbView tr[support]").remove();
-		var newRow = $('<tr id="'+ capital_id +'" code="'+ capital_code +'" name="'+capital_name+'" original="'+capital_original+'" remain="'+ capital_remain +'"></tr>');
+		var newRow = $('<tr id="'+ capital_id +'" code="'+ capital_code +'" name="'+capital_name+'" original="'+capital_original.replace(/,/g,"")+'" remain="'+ capital_remain.replace(/,/g,"") +'"></tr>');
 		var newcol = $('<td style="width:295px;">'
 				+ capital_code +'-'+capital_name
 				+ '</td><td style="text-align:right;min-width:120px;">'
@@ -834,8 +848,8 @@ $(document).ready(function(){
 		current.attr('id',capital_id);
 		current.attr('code',capital_code);
 		current.attr('name',capital_name);
-		current.attr('original',capital_original);
-		current.attr('remain',capital_remain);
+		current.attr('original',capital_original.replace(/,/g,""));
+		current.attr('remain',capital_remain.replace(/,/g,""));
 		var newcol = $('<td style="width:295px;">'
 				+ capital_code +'-'+capital_name
 				+ '</td><td style="text-align:right;min-width:120px;">'
@@ -871,8 +885,17 @@ $(document).ready(function(){
 			
 			$.message.destroy()
 		});
-		
-			
 	}
+	jQuery(window).load(function()
+	{
+		$("#tbView tr[id]").each(function(){
+			var capital_id= $(this).attr('id');
+			//hide  dept selected
+			hideCapital(capital_id);
+		});
+		$(".currency").formatCurrency();
+		$(".numberic").numeric({ negative : false });
+		$("form:not(.filter) :input:visible:enabled:first").focus();
+	});
 </script>
 {% endblock scripts%}
