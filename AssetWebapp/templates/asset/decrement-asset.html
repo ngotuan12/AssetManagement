@@ -55,22 +55,24 @@
 									<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-lg-4">
-									<label>{% trans 'Nguồn Vốn' %}</label>
-									<input type="text" name="txtCapitalAmount" id="capital-amount"
-										placeholder="{% trans 'Nguồn Vốn' %}" class="form-control" disabled="disabled">
-								</div>
-
-								<div class="col-lg-4">
-									<label>{% trans 'Nguyên Giá' %}</label>
-									<input type="text" name="txtOriginalAmount" id="original-amount" 
-										placeholder="{% trans 'Nguyên Giá' %}" class="form-control" disabled="disabled">
-								</div>
-								<div class="col-lg-4">
-									<label>{% trans 'Giá trị còn lại' %}</label>
-									<input type="text" name="txtRemainAmount" id="remain-amount" 
-										placeholder="{% trans 'Giá trị còn lại' %}" class="form-control" disabled="disabled">
+							<div id="addDiv">
+								<div class="row">
+									<div class="col-lg-4">
+										<label>{% trans 'Nguồn Vốn' %}</label>
+										<input type="text" name="txtCapitalAmount" id="capital-amount"
+											placeholder="{% trans 'Nguồn Vốn' %}" style="padding: 8px;" class="form-control" disabled="disabled">
+									</div>
+	
+									<div class="col-lg-4">
+										<label>{% trans 'Nguyên Giá' %}</label>
+										<input type="text" name="txtOriginalAmount" id="original-amount" 
+											placeholder="{% trans 'Nguyên Giá' %}" style="padding: 8px;" class="form-control" disabled="disabled">
+									</div>
+									<div class="col-lg-4">
+										<label>{% trans 'Giá trị còn lại' %}</label>
+										<input type="text" name="txtRemainAmount" id="remain-amount" 
+											placeholder="{% trans 'Giá trị còn lại' %}" style="padding: 8px;" class="form-control" disabled="disabled">
+									</div>
 								</div>
 							</div>
 							
@@ -90,7 +92,7 @@
 								<div class="col-lg-6">
 									<label>{% trans 'Ngày ghi giảm' %}</label>
 									<div class="input-group">
-										<input type="text" class="form-control" name="dtDecrementDate"
+										<input type="text" class="form-control" style="padding: 8px;" name="dtDecrementDate" 
 											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày ghi giảm (mm/dd/yyyy)' %}" id="dtDecrementDate" required> <span
 											class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									</div>
@@ -151,6 +153,7 @@ $(document).ready(function(){
 	// Date Picker
 	$('#dtDecrementDate').datepicker({
 		dateFormat : 'dd/mm/yy',
+		maxDate: new Date(),
 	});
 	
 	// Input Masks
@@ -168,6 +171,9 @@ $(document).ready(function(){
 	});
 	$( "#slSerial" ).change(function() {
 		$(".error[for][for='slSerial']").hide();
+		var asset_id =$(this).find('option:selected').attr('stock-asset-id');
+		//get list capital
+		onGetCapital(asset_id);
 		var original = $(this).find('option:selected').attr('original-value');
 		var remain = $(this).find('option:selected').attr('remain-value');
 		var asset_id = $(this).find('option:selected').attr('asset-id');
@@ -182,6 +188,65 @@ $(document).ready(function(){
 	//validate
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
 });
+//get capital
+function onGetCapital(asset_id)
+{
+	//show loading
+	$.fn.loading.show();
+	
+	var csrftoken = $.cookie('csrftoken');
+	var posting = $.post("/get-list-capital"+"/"+asset_id.toString()+"/", {
+		'csrfmiddlewaretoken' : csrftoken,
+	});
+	posting.done(function(data) 
+	{
+		$("#addDiv div").remove();
+		capitals = data.capitals
+		for(var i=0;i<capitals.length ;i++)
+		{
+			capital = capitals[i];
+			var capital_id = capital.capital_id;
+			var capital_name = capital.name;
+			var capital_code =capital.code;
+			var capital_original = capital.original_value;
+			var capital_remain = capital.remain_value;
+			//add div into table
+			addRow(capital_id,capital_code,capital_name,capital_original,capital_remain);
+		}
+		$.fn.loading.hide();
+	});
+}
+//add row into table
+function addRow(capital_id,capital_code,capital_name,capital_original,capital_remain)
+{
+	var div='<div class="row">';
+	
+		div +='<div class="col-lg-4">'
+			+'<label>{% trans "Nguồn vốn: '+capital_code+'" %}</label>'
+			+'<input type="text" style="padding: 8px;" value="'+capital_name+'" placeholder="{% trans 'Nguồn vốn' %}"'
+			+'class="form-control numberic" maxlength="10" required="required" disabled="disabled">'
+			+'</div>';
+		div +='<div class="col-lg-4">'
+			+'<label> {% trans "Nguyên giá" %}</label>'
+			+'<div class="input-group">'
+			+'<input type="text" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" value="'+capital_original+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
+			+'class="form-control numberic" maxlength="10" required="required" disabled="disabled">'
+			+'<span class="input-group-addon" style="background:#EEE">VND</span>'
+			+'</div>'
+			+'</div>'
+			+'<div class="col-lg-4">'
+			+'<label> {% trans "Giá trị còn lại" %}</label>'
+			+'<div class="input-group">'
+			+'<input type="text" name="txtAssetRemain'+capital_id+'" id="txtAssetRemain'+capital_id+'" value="'+capital_remain+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
+			+'class="form-control numberic" maxlength="10" required="required" disabled="disabled">'
+			+'<span class="input-group-addon" style="background:#EEE">VND</span>'
+			+'</div>'
+			+'</div>'
+			+'</div>';
+	var div1 =$(div);
+	$("#addDiv").append(div1);
+	
+}
 function onSubmitFormDecrement()
 {
 	var $valid = jQuery('#decrementAsset').valid();
@@ -223,6 +288,7 @@ function onGetCode(stock_id)
 			option.attr("original-value",serial.original_value)
 			option.attr("remain-value",serial.remain_value)
 			option.attr("asset-id",serial.asset)
+			option.attr("stock-asset-id",serial.id)
 			option.text(serial.serial+"-"+serial.name)
 			$('#slSerial').append(option)
 		}
