@@ -491,16 +491,22 @@
 							<div class="row"  style="padding-left: 10px;padding-right: 10px;">
 								<div class="col-sm-6">
 									<div class="form-group" style="padding: 5px 0;">
-										<label class="control-label">{% trans 'Nguyên giá' %}</label>
-										<input type="text" style="padding: 8px;text-align: right;" id="mdOriginal" name="mdOriginal" placeholder="{% trans 'Nguyên giá' %}"
-										class="form-control numberic" required maxlength="20">
+											<label class="control-label">{% trans 'Nguyên giá' %}</label>
+											<div class="input-group">
+												<input type="text" style="padding: 8px;text-align: right;" id="mdOriginal" name="mdOriginal" placeholder="{% trans 'Nguyên giá' %}"
+												class="form-control numberic" required maxlength="20">
+												<span class="input-group-addon" style="background:#EEE">VND</span>
+											</div>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group" style="padding: 5px 0;">
 										<label class="control-label">{% trans 'giá trị còn lại' %}</label>
-										<input type="text" style="padding: 8px; text-align: right;" id="mdRemain" name="mdRemain" placeholder="{% trans 'Giá trị còn lại' %}"
-										class="form-control numberic" required maxlength="20">
+										<div class="input-group">
+											<input type="text" style="padding: 8px; text-align: right;" id="mdRemain" name="mdRemain" placeholder="{% trans 'Giá trị còn lại' %}"
+											class="form-control numberic" required maxlength="20">
+											<span class="input-group-addon" style="background:#EEE">VND</span>
+										</div>
 									</div>
 								</div>
 							</div>
