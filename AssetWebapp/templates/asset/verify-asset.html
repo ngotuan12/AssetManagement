@@ -156,7 +156,7 @@
 										<div class="form-group" style="padding: 0px 0;">
 											<label class="control-label"> {% trans 'Tài sản' %} </label>
 											<select id="slSerial" name="slSerial"class="form-control chosen-select"
-												data-placeholder="{% trans '------------------------------------Chọn tài sản------------------------------' %}" disabled="disabled">
+												data-placeholder="{% trans '------------------------------------Chọn tài sản------------------------------' %}" disabled="disabled">
 												<option value=""></option>
 												{% for serial  in serials %}
 													<option value="{{ serial.id }}" name="{{ serial.name }}" serial ="{{ serial.serial }}" original="{{ serial.original_value }}" remain="{{ serial.remain_value }}" state = "{{ serial.state.name }}">{{ serial.serial }} - {{ serial.name }}</option>
@@ -869,7 +869,7 @@ function removeInput(serial)
 }
 function Remove(serial)
 {
-	confirm = $.message.confirm('Bạn có chắc không muốn đánh giá tài sản '+ serial +' ? ');
+	confirm = $.message.confirm('Bạn không muốn đánh giá tài sản '+ serial +' ? ');
 	confirm.on('message.confirm',function(){
 		// remove
 		var index =arr_dept.indexOf(serial);
