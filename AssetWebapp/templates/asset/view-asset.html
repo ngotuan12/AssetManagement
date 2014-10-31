@@ -101,8 +101,9 @@
 										<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'STT' %}</th>
 										<th style="width: 12%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'MÃ TÀI SẢN' %} </th>
 										<th style="width: 25%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN TÀI SẢN' %} </th>
+										<th style="width: 11%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUỒN VỐN' %} </th>
 										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGUYÊN GIÁ' %}</th>
-										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'GIÁ TRỊ CÒN LẠI' %}</th>
+										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'GT CÒN LẠI' %}</th>
 										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TRẠNG THÁI' %}</th>
 										<th style="width: 8%;text-align: left;font-family: Arial,Helvetica,sans-serif;"></th> 
 									</tr>
@@ -111,15 +112,16 @@
 									{% for asset in stockeAssets %}
 									<tr class="odd gradeX" asset_id ="{{ asset.asset.id }}" asset_code="{{ asset.asset.code }}">
 										<td>{{ forloop.counter }}</td>
-										<td>{{ asset.serial }}</td>
-										<td>{{ asset.name }}</td>
+										<td>{{ asset.stock_asset_serial.serial }}</td>
+										<td>{{ asset.stock_asset_serial.name }}</td>
+										<td>{{ asset.capital.code }}</td>
 										<td class="currency" style="text-align: right;">{{ asset.original_value }}</td>
 										<td class="currency" style="text-align: right;">{{ asset.remain_value }}</td>
-										<td >{{ asset.state.name }}</td>
+										<td >{{ asset.stock_asset_serial.state.name }}</td>
 										<td class="table-action">
-											<a href="/edit-increment-asset/{{ asset.id }}/" title="Sửa" ><i class="fa fa-pencil"></i></a>
-											<a href="#" title="In" id="btn-print" print-src="/invoice/{{ asset.id }}/"><i class="fa fa-print mr5"></i></a>
-											<a href="/get-list-serial-his/{{ asset.serial }}/" title="Lịch sử" target="_blank"><i class="fa fa-list-alt"></i></a>
+											<a href="/edit-increment-asset/{{ asset.stock_asset_serial.id }}/" title="Sửa" ><i class="fa fa-pencil"></i></a>
+											<a href="#" title="In" id="btn-print" print-src="/invoice/{{ asset.stock_asset_serial.id }}/"><i class="fa fa-print mr5"></i></a>
+											<a href="/get-list-serial-his/{{ asset.stock_asset_serial.serial }}/" title="Lịch sử" target="_blank"><i class="fa fa-list-alt"></i></a>
 										</td>
 									</tr>
 									{% endfor %}

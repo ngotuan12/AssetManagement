@@ -16,7 +16,7 @@ from myapp.models.Reason import Reason
 from myapp.models.Stock import Stock
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.Supplier import Supplier
-
+from myapp.models.CapitalValue import CapitalValue
 
 @login_required(login_url='/login/')
 @permission_required('myapp.view_asset', login_url='/permission-erro/r')
@@ -57,7 +57,8 @@ def index(request):
 			if request.POST["txtOriginal"] :
 				original = float(request.POST["txtOriginal"])
 				stockAsset = stockAsset.filter(original_value = original)
-			context.update({'stockeAssets':stockAsset})
+				lsCapital_value_child =CapitalValue.objects.filter(stock_asset_serial__in =stockAsset)
+			context.update({'stockeAssets':lsCapital_value_child})
 			context.update({'original':original,'stock_id':stock_id,'country_id':country_id,'asset_id':asset_id,'goal_id':goal_id,'state_id':state_id})
 		else :
 			asset_id = '-1'
@@ -68,7 +69,8 @@ def index(request):
 			original = '-1'
 			
 			stockAsset = StockAssetSerial.objects.all().order_by('-import_date')
-			context.update({'stockeAssets':stockAsset})
+			lsCapital_value_child =CapitalValue.objects.filter(stock_asset_serial__in =stockAsset)
+			context.update({'stockeAssets':lsCapital_value_child})
 			context.update({'original':original,'stock_id':stock_id,'country_id':country_id,'asset_id':asset_id,'goal_id':goal_id,'state_id':state_id})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
