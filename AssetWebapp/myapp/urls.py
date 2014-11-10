@@ -111,6 +111,7 @@ urlpatterns = patterns('',
     url(r'^report/asset-inventory-report/$', Report.view_Asset_Inventory_report , name='asset-inventory-report'),
     url(r'^report/verify-asset-report/$', Report.verify_asset_report , name='verify-asset-report'),
     url(r'^report/asset-by-project-report/$', Report.asset_project_report , name='asset-by-project-report'),
+    url(r'^report/asset_amortization_report/$', Report.asset_amortization_report ,name='asset_amortization_report'),
     #import asset
     url(r'^asset/import/$', ImportAsset.index, name='import-asset'),
     url(r'^asset/import/test/$', ImportAsset.test_import, name='test-import-asset'),

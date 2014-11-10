@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block styles %}
+	<link href="../../css/style.default.css" rel="stylesheet">
+{% endblock styles %}
+
+{% block content-header %} 
+	<div class="pageheader">
+	<h2>
+		<i class="fa fa-home"></i>{% trans 'Báo cáo tài sản cố định tổng hợp' %}
+	</h2>
+	<div class="breadcrumb-wrapper">
+		<ol class="breadcrumb">
+			
+		</ol>
+	</div>
+</div>
+{% endblock %}
+			
+{% block content %}
+<div class="contentpanel">
+	<form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="form-asset-report">
+		{% csrf_token %}
+		<div class="panel panel-primary">
+			
+				<div class="panel-heading">
+				<h4 class="panel-title"
+					style="text-align: center; line-height: 10px">{% trans 'Báo cáo tài sản cố định' %}</h4>
+				</div>
+				<div class="panel-body">
+				{% if has_error %}
+					<div class="panel">
+						<label id="error-text" class="error">{{ has_error }}</label>
+					</div>
+				{% endif %}
+				<div class="alert alert-info">
+				<div class="row row-pad-5">
+				<div class="form-group ">
+					
+					<label class="col-sm-2 control-label">{% trans 'Nguồn vốn' %}</label>
+					<div class="col-sm-8">
+						<select id="" class="form-control chosen-select"
+							data-placeholder="{% trans 'Nguồn vốn' %}" 
+							name="optCapital">
+							<option value="">-----{% trans 'Tất cả nguồn vốn' %}------</option> 
+							{% for capital in capitals%}
+								<option value="{{capital.id}}">{{capital.name}}</option> 
+							{% endfor %}
+						</select>
+
+					</div>
+				</div>
+				<div class="form-group ">
+					<label class="col-sm-2 control-label">{% trans 'Năm sử dụng' %}</label>
+					<div class="col-sm-8">
+						<div class="input-group">
+							<input type="text" class="form-control"
+										data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Năm sử dụng' %}" id="use-date"
+										name = "dtUseDate">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group ">
+					<label class="col-sm-2 control-label">{% trans 'Hiện trạng' %}</label>
+					<div class="col-sm-8">
+						<select  name="optStatus" class="form-control chosen-select" data-placeholder="{% trans 'Nguồn vốn' %}" >
+							<option value="">------{% trans 'Tất cả hiện trạng' %}-------</option>
+							{% for status  in statuses %}
+							<option value={{status.id}}>{{status.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+			</div>
+			</div>
+			</div>
+				</div>
+		</div>
+		
+		<div class="row">
+				<div class="col-sm col-sm-offset-5">
+					<button class="btn btn-primary" onclick="return onSubmit();">{% trans 'Thực hiện' %}</button>&nbsp;
+					<a class="btn btn-default" href="/home">{% trans 'Thoát' %}</a>
+				</div>
+			 </div>
+	</form>
+	
+</div>
+{% endblock content %}
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+
+<script src="/js/jquery.autogrow-textarea.js"></script>
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+<script src="/js/jquery-ui-1.10.3.min.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.numeric.js"></script>
+
+<script src="/js/custom.js"></script>
+<script>
+	$(document).ready(function(){
+		 $(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+		 $('#use-date').datepicker({dateFormat: 'dd/mm/yy',});
+		 $("#use-date").mask("99/99/9999");
+	})
+	function onSubmit()
+	{
+		
+		
+		jQuery('#form-asset-report').submit();
+	}
+</script>
+{% endblock scripts%}

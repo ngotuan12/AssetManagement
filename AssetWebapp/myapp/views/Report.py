@@ -98,3 +98,8 @@ def asset_project_report(request):
 		context.update({'has_error':str(ex)})
 	context.update(csrf(request))
 	return render_to_response("report/report-asset-by-project.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.asset_project_report', login_url='/permission-error/')
+def asset_amortization_report(request):
+	context={}
+	return render_to_response("report/report-amortization.html", context, RequestContext(request))
