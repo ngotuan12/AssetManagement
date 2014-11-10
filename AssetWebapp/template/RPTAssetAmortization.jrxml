@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetAmortization" language="groovy" pageWidth="1500" pageHeight="842" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab8461ac-922f-4713-884f-8ee820cf98d2">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetAmortization" language="groovy" pageWidth="1500" pageHeight="1000" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab8461ac-922f-4713-884f-8ee820cf98d2">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="678"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="p_month" class="java.lang.String">
-		<defaultValueExpression><![CDATA["1/1/2014"]]></defaultValueExpression>
+	<parameter name="p_to_date" class="java.lang.String">
+		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_dept_id" class="java.lang.String"/>
+	<parameter name="p_dept_id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_from_date" class="java.lang.String">
+		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[select * from table(pck_report.report_amotize_sum_capital(trunc(to_date($P{p_month},'dd/mm/yyyy'),'mm'),$P{p_dept_id}))]]>
+		<![CDATA[select * from TABLE (pck_report.report_amotize_sum_capital(trunc(to_date($P{p_from_date},'dd/mm/yyyy'),'mm'),trunc(to_date($P{p_to_date},'dd/mm/yyyy'),'mm'),$P{p_dept_id}))]]>
 	</queryString>
 	<field name="ROW_NUM" class="java.math.BigDecimal"/>
 	<field name="DEPT" class="java.lang.String"/>
@@ -58,7 +63,7 @@
 				<textElement verticalAlignment="Top">
 					<font fontName="Times New Roman" size="14" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("MM/yyyy").format(new Date($P{p_month}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("MM/yyyy").format(new Date($P{p_to_date}))]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="42173414-60bb-4ab9-bcaa-660d8c2b9de4" x="0" y="59" width="649" height="20"/>
@@ -86,7 +91,7 @@
 				<textElement verticalAlignment="Top">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("MM/yyyy").format(new Date($P{p_month}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("MM/yyyy").format(new Date($P{p_from_date}))]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
