@@ -12,6 +12,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 import requests
 
+from myapp.models.Dept import Dept
 from myapp.models.List import List
 from myapp.util import client
 import xmlrpclib
@@ -102,4 +103,49 @@ def asset_project_report(request):
 @permission_required('myapp.asset_project_report', login_url='/permission-error/')
 def asset_amortization_report(request):
 	context={}
+	try:
+		depts =Dept.objects.all()
+		context.update({'depts':depts})
+		if request.POST:
+			authorization = client.getAuthorization(request.user.username)
+			dept_id=request.POST['slDept']
+			from_date = request.POST["dtFromDate"]
+			to_date = request.POST["dtToDate"]
+			params_object = {
+								"p_from_date":from_date,
+								"p_to_date":to_date,
+								"p_dept_id":dept_id
+							}
+			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetAmortization", params_object,"EXCEL")
+			return HttpResponseRedirect('/report/' + fileOut)
+	except xmlrpclib.ProtocolError:
+		context.update({'has_error':'Không kết nối được server report'})
+	except Exception as ex:
+		context.update({'has_error':str(ex)})
+	context.update(csrf(request))
 	return render_to_response("report/report-amortization.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.asset_project_report', login_url='/permission-error/')
+def asset_sum_amortization_report(request):
+	context={}
+	try:
+		depts =Dept.objects.all()
+		context.update({'depts':depts})
+		if request.POST:
+			authorization = client.getAuthorization(request.user.username)
+			dept_id=request.POST['slDept']
+			from_date = request.POST["dtFromDate"]
+			to_date = request.POST["dtToDate"]
+			params_object = {
+								"p_from_date":from_date,
+								"p_to_date":to_date,
+								"p_dept_id":dept_id
+							}
+			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetAmortizationSum", params_object,"EXCEL")
+			return HttpResponseRedirect('/report/' + fileOut)
+	except xmlrpclib.ProtocolError:
+		context.update({'has_error':'Không kết nối được server report'})
+	except Exception as ex:
+		context.update({'has_error':str(ex)})
+	context.update(csrf(request))
+	return render_to_response("report/report-sum-amortization.html", context, RequestContext(request))

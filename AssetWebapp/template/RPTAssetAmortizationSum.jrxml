@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetAmortizationSum" language="groovy" pageWidth="1500" pageHeight="842" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2044df1-64e8-4b64-a98e-e06710eabdfe">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="540"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
@@ -113,7 +113,7 @@
 	<columnHeader>
 		<band height="100" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="76eba4ad-87e8-4f17-8087-6bceb9c1b66a" x="0" y="0" width="25" height="100"/>
+				<reportElement uuid="76eba4ad-87e8-4f17-8087-6bceb9c1b66a" x="0" y="0" width="35" height="100"/>
 				<box>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
@@ -125,7 +125,7 @@
 				<text><![CDATA[STT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="110a59ac-1bbd-436f-b0c4-7dab3506c76f" x="25" y="0" width="343" height="100"/>
+				<reportElement uuid="110a59ac-1bbd-436f-b0c4-7dab3506c76f" x="35" y="0" width="333" height="100"/>
 				<box>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
@@ -146,7 +146,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TỔNG KH]]></text>
+				<text><![CDATA[TỔNG KHẤU HAO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="24667e42-8986-40cb-a531-65b7e397e0d0" positionType="Float" stretchType="RelativeToTallestObject" x="500" y="40" width="120" height="60"/>
@@ -157,7 +157,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Máy móc, thiết bị động lực]]></text>
+				<text><![CDATA[MÁY MÓC,THIẾT BỊ ĐỌNG LỰC]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="3ba75bab-a5a8-49db-88c6-519f929d5aca" positionType="Float" stretchType="RelativeToTallestObject" x="620" y="40" width="120" height="60"/>
@@ -168,7 +168,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Máy móc, thiết bị công tác]]></text>
+				<text><![CDATA[MÁY MÓC,THIẾT BỊ CÔNG TÁC]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="de6bfee8-ef31-4373-b611-2c0189b69ff8" positionType="Float" stretchType="RelativeToTallestObject" x="740" y="40" width="120" height="60"/>
@@ -179,7 +179,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Dụng cụ đo lường, thí nghiệm   ]]></text>
+				<text><![CDATA[DỤNG CỤ ĐO LƯỜNG,THÍ NGHIỆM]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="4e56700d-a781-49bc-8655-ef87adbf5499" positionType="Float" stretchType="RelativeToTallestObject" x="860" y="40" width="120" height="60"/>
@@ -190,7 +190,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Thiết bị và phương tiện vận tải]]></text>
+				<text><![CDATA[THIẾT BỊ VÀ PHƯƠNG TIỆN VẬN TẢI]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="744357cc-dc27-446b-a22c-8c80265bb8ec" positionType="Float" stretchType="RelativeToTallestObject" x="980" y="40" width="120" height="60"/>
@@ -201,7 +201,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Dụng cụ quản lý]]></text>
+				<text><![CDATA[DỤNG CỤ QUẢN LÝ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="9bcc772a-a504-48d1-a19f-3dfd9ae5fa18" positionType="Float" stretchType="RelativeToTallestObject" x="1100" y="40" width="120" height="60"/>
@@ -212,7 +212,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nhà cửa, vật kiến trúc]]></text>
+				<text><![CDATA[NHÀ CỬA,VẬT KIẾN TRÚC]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="b5f80b68-0ec4-4ce0-af00-424a4faf8cfa" positionType="Float" stretchType="RelativeToTallestObject" x="1220" y="40" width="120" height="60"/>
@@ -223,7 +223,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TSCĐ hữu hình khác chưa quy định trong các nhóm trên]]></text>
+				<text><![CDATA[TSCĐ HỮU HÌNH KHÁC CHỨA QUY ĐỊNH TRONG CÁC NHÓM TRÊN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="271eab14-e83b-428e-a945-6bc9432b6319" positionType="Float" stretchType="RelativeToTallestObject" x="1340" y="40" width="120" height="60"/>
@@ -234,7 +234,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TSCĐ vô hình]]></text>
+				<text><![CDATA[TSCĐ VÔ HÌNH]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="113b5ee0-5a11-4744-a949-2ef74d1d8b1a" x="500" y="20" width="960" height="20"/>
@@ -265,7 +265,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement uuid="142019e4-314f-47ee-b8f3-c61c0f3c1dc6" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="25" height="20"/>
+				<reportElement uuid="142019e4-314f-47ee-b8f3-c61c0f3c1dc6" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="35" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -276,7 +276,7 @@
 				<textFieldExpression><![CDATA[$F{ROW_NUM}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
-				<reportElement uuid="f19cc16c-06f2-4342-b1fd-c12bce36ab4d" positionType="Float" stretchType="RelativeToTallestObject" x="25" y="0" width="343" height="20"/>
+				<reportElement uuid="f19cc16c-06f2-4342-b1fd-c12bce36ab4d" positionType="Float" stretchType="RelativeToTallestObject" x="35" y="0" width="333" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
