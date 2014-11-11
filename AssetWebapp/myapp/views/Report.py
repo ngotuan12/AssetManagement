@@ -107,7 +107,7 @@ def asset_amortization_report(request):
 		depts =Dept.objects.all()
 		context.update({'depts':depts})
 		if request.POST:
-			dept_id =None
+			dept_id = ''
 			if request.POST['slDept']:
 				dept_id=request.POST['slDept']
 			from_date = request.POST["dtFromDate"]
@@ -134,7 +134,7 @@ def asset_sum_amortization_report(request):
 		depts =Dept.objects.all()
 		context.update({'depts':depts})
 		if request.POST:
-			dept_id =None
+			dept_id = ''
 			if request.POST['slDept']:
 				dept_id=request.POST['slDept']
 			from_date = request.POST["dtFromDate"]
