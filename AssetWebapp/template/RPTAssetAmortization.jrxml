@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetAmortization" language="groovy" pageWidth="1500" pageHeight="1000" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab8461ac-922f-4713-884f-8ee820cf98d2">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="655"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_to_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
@@ -45,6 +45,9 @@
 	</variable>
 	<variable name="sum_amortize_bussiness" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{AMORTIZE_BUSSINESS}]]></variableExpression>
+	</variable>
+	<variable name="sum_amortize_other" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMORTIZE_OTHER}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -113,7 +116,7 @@
 				<text><![CDATA[STT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b35b56be-b55b-4f73-9fc5-7a3fefe2d348" x="31" y="0" width="279" height="20"/>
+				<reportElement uuid="b35b56be-b55b-4f73-9fc5-7a3fefe2d348" x="31" y="0" width="469" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -125,7 +128,7 @@
 				<text><![CDATA[ĐƠN VỊ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="75e8b0ac-9b7f-4c7e-81a8-1382c0d22d35" x="310" y="0" width="120" height="20"/>
+				<reportElement uuid="75e8b0ac-9b7f-4c7e-81a8-1382c0d22d35" x="500" y="0" width="120" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -137,7 +140,7 @@
 				<text><![CDATA[KH THÁNG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="07e976f5-84c7-4882-a156-0789c78c3f24" x="430" y="0" width="120" height="20"/>
+				<reportElement uuid="07e976f5-84c7-4882-a156-0789c78c3f24" x="620" y="0" width="120" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -149,7 +152,7 @@
 				<text><![CDATA[KH LŨY KẾ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fe8a9e5b-1458-4bc1-9566-186c83f60e61" x="550" y="0" width="120" height="20"/>
+				<reportElement uuid="fe8a9e5b-1458-4bc1-9566-186c83f60e61" x="740" y="0" width="120" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -161,7 +164,7 @@
 				<text><![CDATA[KH NGÂN SÁCH]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="475ad3bf-b72e-4c64-9fb4-92688f9f67fa" x="670" y="0" width="120" height="20"/>
+				<reportElement uuid="475ad3bf-b72e-4c64-9fb4-92688f9f67fa" x="860" y="0" width="120" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -173,7 +176,7 @@
 				<text><![CDATA[KH VAY]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ee4d8590-fbf0-499d-bf27-097d83520173" x="790" y="0" width="120" height="20"/>
+				<reportElement uuid="ee4d8590-fbf0-499d-bf27-097d83520173" x="980" y="0" width="120" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -185,7 +188,7 @@
 				<text><![CDATA[KH CƠ BẢN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a6863a86-f1e2-4667-8634-d41f5db4bf84" x="910" y="0" width="120" height="20"/>
+				<reportElement uuid="a6863a86-f1e2-4667-8634-d41f5db4bf84" x="1100" y="0" width="120" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -194,10 +197,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[KH TCT]]></text>
+				<text><![CDATA[KH XD CƠ BẢN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cf0d7389-9d5b-44be-a6b2-b9cb0a55832c" x="1030" y="0" width="120" height="20"/>
+				<reportElement uuid="cf0d7389-9d5b-44be-a6b2-b9cb0a55832c" x="1220" y="0" width="120" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -209,19 +212,7 @@
 				<text><![CDATA[KH KHÁC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="834391b0-e8d1-4886-9c54-adfc94cf52cf" x="1150" y="0" width="120" height="20"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[KH PHÚC LỢI]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="79fd48b1-6286-44a1-9a46-9d7d7911b5ce" x="1270" y="0" width="190" height="20"/>
+				<reportElement uuid="834391b0-e8d1-4886-9c54-adfc94cf52cf" x="1340" y="0" width="120" height="20"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -229,9 +220,9 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[KH CHỜ NGUỒN]]></text>
+				<text><![CDATA[KH KINH DOANH]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -249,7 +240,7 @@
 				<textFieldExpression><![CDATA[$F{ROW_NUM}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="baf1fbb8-2e6a-4c78-8a52-06fc4693fee2" positionType="Float" stretchType="RelativeToTallestObject" x="31" y="0" width="279" height="20"/>
+				<reportElement uuid="baf1fbb8-2e6a-4c78-8a52-06fc4693fee2" positionType="Float" stretchType="RelativeToTallestObject" x="31" y="0" width="469" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -260,7 +251,7 @@
 				<textFieldExpression><![CDATA[$F{DEPT}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="adfaaf40-d8d2-447f-82db-4b4f5ab84be3" positionType="Float" stretchType="RelativeToTallestObject" x="310" y="0" width="120" height="20"/>
+				<reportElement uuid="adfaaf40-d8d2-447f-82db-4b4f5ab84be3" positionType="Float" stretchType="RelativeToTallestObject" x="500" y="0" width="120" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -271,7 +262,7 @@
 				<textFieldExpression><![CDATA[$F{AMORTIZE_MONTH}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="5b0bb79d-a524-4e67-a408-f3e5a23378ac" positionType="Float" stretchType="RelativeToTallestObject" x="430" y="0" width="120" height="20"/>
+				<reportElement uuid="5b0bb79d-a524-4e67-a408-f3e5a23378ac" positionType="Float" stretchType="RelativeToTallestObject" x="620" y="0" width="120" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -282,7 +273,7 @@
 				<textFieldExpression><![CDATA[$F{AMORTIZE_PREVIOUS_MONTH}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="78d8ad1f-68ef-4fdd-a73c-041231494008" positionType="Float" stretchType="RelativeToTallestObject" x="550" y="0" width="120" height="20"/>
+				<reportElement uuid="78d8ad1f-68ef-4fdd-a73c-041231494008" positionType="Float" stretchType="RelativeToTallestObject" x="740" y="0" width="120" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -293,7 +284,7 @@
 				<textFieldExpression><![CDATA[$F{AMORTIZE_NATIONAL_BUDGET}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="bf416686-d3d5-48c6-a3bd-b7dbd4c02fc7" positionType="Float" stretchType="RelativeToTallestObject" x="670" y="0" width="120" height="20"/>
+				<reportElement uuid="bf416686-d3d5-48c6-a3bd-b7dbd4c02fc7" positionType="Float" stretchType="RelativeToTallestObject" x="860" y="0" width="120" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -304,7 +295,7 @@
 				<textFieldExpression><![CDATA[$F{AMORTIZE_LOAN}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="14949176-05cf-417d-a8ef-ecfc29ca117f" positionType="Float" stretchType="RelativeToTallestObject" x="790" y="0" width="120" height="20"/>
+				<reportElement uuid="14949176-05cf-417d-a8ef-ecfc29ca117f" positionType="Float" stretchType="RelativeToTallestObject" x="980" y="0" width="120" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -315,7 +306,7 @@
 				<textFieldExpression><![CDATA[$F{AMORTIZE_BASIC}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="9f93517b-e0f3-4085-8977-661643787428" positionType="Float" stretchType="RelativeToTallestObject" x="910" y="0" width="120" height="20"/>
+				<reportElement uuid="9f93517b-e0f3-4085-8977-661643787428" positionType="Float" stretchType="RelativeToTallestObject" x="1100" y="0" width="120" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -326,7 +317,7 @@
 				<textFieldExpression><![CDATA[$F{AMORTIZE_CONTRUCTION}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="8c99121a-3d01-470e-beea-aef8ab209f7b" positionType="Float" stretchType="RelativeToTallestObject" x="1030" y="0" width="120" height="20"/>
+				<reportElement uuid="8c99121a-3d01-470e-beea-aef8ab209f7b" positionType="Float" stretchType="RelativeToTallestObject" x="1220" y="0" width="120" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -337,26 +328,16 @@
 				<textFieldExpression><![CDATA[$F{AMORTIZE_OTHER}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="b0a6b2c1-e981-4bea-ada1-f9085f049605" positionType="Float" stretchType="RelativeToTallestObject" x="1150" y="0" width="120" height="20"/>
-				<box>
-					<leftPen lineWidth="0.5" lineStyle="Solid"/>
-					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_BUSSINESS}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="cf4a9b3d-ccb3-4d54-9726-0a3cff0679b8" x="1270" y="0" width="190" height="20"/>
+				<reportElement uuid="b0a6b2c1-e981-4bea-ada1-f9085f049605" positionType="Float" stretchType="RelativeToTallestObject" x="1340" y="0" width="120" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
+				<textFieldExpression><![CDATA[$F{AMORTIZE_BUSSINESS}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -367,9 +348,9 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="99" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="77ac46c1-7a42-456b-9324-1e907a13c06c" mode="Opaque" x="31" y="0" width="279" height="20" backcolor="#CCCCFF"/>
+				<reportElement uuid="77ac46c1-7a42-456b-9324-1e907a13c06c" mode="Opaque" x="31" y="0" width="469" height="20" backcolor="#CCCCFF"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -378,19 +359,8 @@
 				</textElement>
 				<text><![CDATA[TỔNG CỘNG]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="60764a02-985b-4bfc-b919-6a58d44d4ab4" mode="Opaque" x="1030" y="0" width="120" height="20" backcolor="#CCCCFF"/>
-				<box>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
 			<textField pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="9ebf76fa-f4ff-46bd-8394-9b9033389f1d" mode="Opaque" x="310" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+				<reportElement uuid="9ebf76fa-f4ff-46bd-8394-9b9033389f1d" mode="Opaque" x="500" y="0" width="120" height="20" backcolor="#CCCCFF"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -401,7 +371,7 @@
 				<textFieldExpression><![CDATA[$V{sum_amortize_month}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="45f35b1e-fcf0-4138-8e0c-ca9dcd197260" mode="Opaque" x="430" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+				<reportElement uuid="45f35b1e-fcf0-4138-8e0c-ca9dcd197260" mode="Opaque" x="620" y="0" width="120" height="20" backcolor="#CCCCFF"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -412,7 +382,7 @@
 				<textFieldExpression><![CDATA[$V{sum_amortize_prev_month}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="c04930e8-bd31-45fa-98e5-52b5d4d4fdd5" mode="Opaque" x="550" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+				<reportElement uuid="c04930e8-bd31-45fa-98e5-52b5d4d4fdd5" mode="Opaque" x="740" y="0" width="120" height="20" backcolor="#CCCCFF"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -423,7 +393,7 @@
 				<textFieldExpression><![CDATA[$V{sum_amortize_national_budget}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="57ce1bd6-6978-40ed-b1ed-99a5e255a030" mode="Opaque" x="670" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+				<reportElement uuid="57ce1bd6-6978-40ed-b1ed-99a5e255a030" mode="Opaque" x="860" y="0" width="120" height="20" backcolor="#CCCCFF"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -434,7 +404,7 @@
 				<textFieldExpression><![CDATA[$V{sum_amortize_loan}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="b7556ea6-df5c-45db-b601-6a0d3b94d189" mode="Opaque" x="790" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+				<reportElement uuid="b7556ea6-df5c-45db-b601-6a0d3b94d189" mode="Opaque" x="980" y="0" width="120" height="20" backcolor="#CCCCFF"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -445,7 +415,7 @@
 				<textFieldExpression><![CDATA[$V{sum_amortize_basic}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="f99be999-e811-42b5-a361-2040ab775823" mode="Opaque" x="910" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+				<reportElement uuid="f99be999-e811-42b5-a361-2040ab775823" mode="Opaque" x="1100" y="0" width="120" height="20" backcolor="#CCCCFF"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -456,18 +426,7 @@
 				<textFieldExpression><![CDATA[$V{sum_amortize_countruction}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.0000;-###0.0000" isBlankWhenNull="true">
-				<reportElement uuid="8f9bf90c-bd8e-4efc-bb71-f65294b25bb7" mode="Opaque" x="1150" y="0" width="120" height="20" backcolor="#CCCCFF"/>
-				<box>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_amortize_bussiness}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="b47580cc-154e-40d5-982d-1cc5a4efde59" mode="Opaque" x="1270" y="0" width="190" height="20" backcolor="#CCCCFF"/>
+				<reportElement uuid="8f9bf90c-bd8e-4efc-bb71-f65294b25bb7" mode="Opaque" x="1340" y="0" width="120" height="20" backcolor="#CCCCFF"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -476,10 +435,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$V{sum_amortize_bussiness}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement uuid="2fb0e57c-620d-4759-899a-f6766479d9cb" x="0" y="79" width="430" height="20"/>
+				<reportElement uuid="2fb0e57c-620d-4759-899a-f6766479d9cb" x="0" y="80" width="430" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
 				</textElement>
@@ -493,7 +452,7 @@
 				<text><![CDATA[NGƯỜI LẬP BIỂU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="92b57fe8-9b11-4828-8939-956dab7b0946" x="430" y="59" width="480" height="20"/>
+				<reportElement uuid="92b57fe8-9b11-4828-8939-956dab7b0946" x="430" y="60" width="480" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
@@ -514,7 +473,7 @@
 				<text><![CDATA[(Ký,họ tên)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="58426945-2947-477e-8b1a-a4d80a39de16" x="910" y="79" width="550" height="20"/>
+				<reportElement uuid="58426945-2947-477e-8b1a-a4d80a39de16" x="910" y="80" width="550" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
 				</textElement>
@@ -525,7 +484,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[ Ngày ..........  tháng .......... năm 2014]]></text>
+				<text><![CDATA[ Ngày ..........  tháng .......... năm 20.......]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="3457230b-8215-45b3-909a-0e858c76dceb" mode="Opaque" x="0" y="0" width="31" height="20" backcolor="#CCCCFF"/>
@@ -538,6 +497,27 @@
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="19315585-9cc4-478d-8522-621cd85f99e4" x="0" y="20" width="1460" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="22f282fc-5d62-4872-a422-94625d44a9a9" x="0" y="40" width="910" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="###0.0000">
+				<reportElement uuid="17fed0ff-0235-456a-adc2-b01b02f6596f" mode="Opaque" x="1220" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sum_amortize_other}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
