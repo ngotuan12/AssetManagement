@@ -39,8 +39,8 @@
 							<label>{% trans 'Đơn vị' %}</label>
 							<select id="slDept" class="form-control chosen-select"
 								data-placeholder="{% trans 'Đơn vị' %}" 
-								name = "slDept" required="required">
-								<option value=""></option>
+								name = "slDept">
+								<option value="">-------------------------------------{% trans 'Tất cả' %}-------------------------------------</option>
 								{% for dept in depts %}
 									<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 								{% endfor%}

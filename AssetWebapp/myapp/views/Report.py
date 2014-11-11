@@ -107,10 +107,12 @@ def asset_amortization_report(request):
 		depts =Dept.objects.all()
 		context.update({'depts':depts})
 		if request.POST:
-			authorization = client.getAuthorization(request.user.username)
-			dept_id=request.POST['slDept']
+			dept_id =None
+			if request.POST['slDept']:
+				dept_id=request.POST['slDept']
 			from_date = request.POST["dtFromDate"]
 			to_date = request.POST["dtToDate"]
+			authorization = client.getAuthorization(request.user.username)
 			params_object = {
 								"p_from_date":from_date,
 								"p_to_date":to_date,
@@ -132,10 +134,12 @@ def asset_sum_amortization_report(request):
 		depts =Dept.objects.all()
 		context.update({'depts':depts})
 		if request.POST:
-			authorization = client.getAuthorization(request.user.username)
-			dept_id=request.POST['slDept']
+			dept_id =None
+			if request.POST['slDept']:
+				dept_id=request.POST['slDept']
 			from_date = request.POST["dtFromDate"]
 			to_date = request.POST["dtToDate"]
+			authorization = client.getAuthorization(request.user.username)
 			params_object = {
 								"p_from_date":from_date,
 								"p_to_date":to_date,
