@@ -104,10 +104,10 @@
 	$(document).ready(function(){
 		$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 		
-		$('#dtFromDate').datepicker({dateFormat: 'mm/dd/yy',maxDate:new Date(),onSelect: function(dateText) {
+		$('#dtFromDate').datepicker({dateFormat: 'dd/mm/yy',maxDate:new Date(),onSelect: function(dateText) {
 			jQuery("#dtToDate").datepicker('option', 'minDate', dateText);
 		}});
-		$('#dtToDate').datepicker({dateFormat: 'mm/dd/yy',maxDate:new Date(),onSelect: function(dateText) {
+		$('#dtToDate').datepicker({dateFormat: 'dd/mm/yy',maxDate:new Date(),onSelect: function(dateText) {
 			jQuery("#dtFromDate").datepicker('option', 'maxDate', dateText);
 		}});
 		
