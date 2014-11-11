@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetAmortization" language="groovy" pageWidth="1500" pageHeight="1000" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab8461ac-922f-4713-884f-8ee820cf98d2">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="186"/>
+	<property name="ireport.x" value="655"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_to_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
@@ -62,27 +62,6 @@
 				<text><![CDATA[BẢNG TÍNH KHẤU HAO CƠ BẢN (THEO CV 3724 KTTK)]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="27c1c419-770c-4ca9-bab6-4b3165efd1b6" x="784" y="59" width="676" height="20"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Times New Roman" size="14" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/yyyy").format(new Date($P{p_to_date}))]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="42173414-60bb-4ab9-bcaa-660d8c2b9de4" x="0" y="59" width="649" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Từ tháng: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ee44bdb0-cec4-4c4e-81ed-7362f6db4e61" x="706" y="59" width="78" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Đến tháng: ]]></text>
-			</staticText>
-			<textField>
 				<reportElement uuid="bcb0074c-fd03-4158-96b8-aaaa111ccbb6" x="0" y="0" width="1460" height="20"/>
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
@@ -90,11 +69,11 @@
 				<textFieldExpression><![CDATA["Văn phòng "+$F{DEPT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7627b64d-a702-496b-b61c-23a3c99936aa" x="649" y="59" width="57" height="20"/>
-				<textElement verticalAlignment="Top">
+				<reportElement uuid="7627b64d-a702-496b-b61c-23a3c99936aa" x="0" y="59" width="1460" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/yyyy").format(new Date($P{p_from_date}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Từ tháng: "+new SimpleDateFormat("dd/yyyy").format(new Date($P{p_from_date}))+" đến tháng: "+new SimpleDateFormat("dd/yyyy").format(new Date($P{p_to_date}))]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -452,13 +431,6 @@
 				<text><![CDATA[NGƯỜI LẬP BIỂU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="92b57fe8-9b11-4828-8939-956dab7b0946" x="430" y="60" width="480" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[KẾ TOÁN TRƯỞNG]]></text>
-			</staticText>
-			<staticText>
 				<reportElement uuid="0f64e733-d06b-49a5-8261-6e2186982b1b" x="910" y="60" width="550" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
@@ -466,7 +438,7 @@
 				<text><![CDATA[GIÁM ĐỐC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="19371d12-c87e-4b77-ba2a-5e5faa8e01af" x="430" y="79" width="480" height="20"/>
+				<reportElement uuid="19371d12-c87e-4b77-ba2a-5e5faa8e01af" x="430" y="80" width="480" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
 				</textElement>
@@ -518,6 +490,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sum_amortize_other}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="be220889-d147-4711-b12a-96462e3a2f3b" x="430" y="60" width="480" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KẾ TOÁN TRƯỞNG]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
