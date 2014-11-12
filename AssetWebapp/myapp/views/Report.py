@@ -122,7 +122,7 @@ def asset_amortization_report(request):
 								"p_to_date":to_date,
 								"p_dept_id":dept_id
 							}
-			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetAmortization", params_object,"EXCEL")
+			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetAmortization", params_object,"PDF")
 			return HttpResponseRedirect('/report/' + fileOut)
 	except xmlrpclib.ProtocolError:
 		context.update({'has_error':'Không kết nối được server report'})
@@ -153,7 +153,7 @@ def asset_sum_amortization_report(request):
 								"p_to_date":to_date,
 								"p_dept_id":dept_id
 							}
-			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetAmortizationSum", params_object,"EXCEL")
+			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetAmortizationSum", params_object,"PDF")
 			return HttpResponseRedirect('/report/' + fileOut)
 	except xmlrpclib.ProtocolError:
 		context.update({'has_error':'Không kết nối được server report'})
