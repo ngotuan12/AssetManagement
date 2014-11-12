@@ -112,6 +112,10 @@ def asset_amortization_report(request):
 				dept_id=request.POST['slDept']
 			from_date = request.POST["dtFromDate"]
 			to_date = request.POST["dtToDate"]
+			arrFromDate = from_date.split('/')
+			arrTomDate = to_date.split('/')
+			from_date ="01"+"/"+arrFromDate[1]+"/"+arrFromDate[2]
+			to_date ="01"+"/"+arrTomDate[1]+"/"+arrTomDate[2]
 			authorization = client.getAuthorization(request.user.username)
 			params_object = {
 								"p_from_date":from_date,
@@ -139,6 +143,10 @@ def asset_sum_amortization_report(request):
 				dept_id=request.POST['slDept']
 			from_date = request.POST["dtFromDate"]
 			to_date = request.POST["dtToDate"]
+			arrFromDate = from_date.split('/')
+			arrTomDate = to_date.split('/')
+			from_date ="01"+"/"+arrFromDate[1]+"/"+arrFromDate[2]
+			to_date ="01"+"/"+arrTomDate[1]+"/"+arrTomDate[2]
 			authorization = client.getAuthorization(request.user.username)
 			params_object = {
 								"p_from_date":from_date,
