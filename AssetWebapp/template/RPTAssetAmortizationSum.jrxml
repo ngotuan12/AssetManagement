@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetAmortizationSum" language="groovy" pageWidth="1500" pageHeight="842" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2044df1-64e8-4b64-a98e-e06710eabdfe">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="513"/>
-	<property name="ireport.y" value="1"/>
+	<property name="ireport.x" value="203"/>
+	<property name="ireport.y" value="90"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
 	</parameter>
@@ -82,7 +82,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Từ tháng: "+ new SimpleDateFormat("MM/yyyy").format(new Date($P{p_from_date}))+" đến tháng: "+ new SimpleDateFormat("MM/yyyy").format(new Date($P{p_to_date}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Từ tháng: "+ new SimpleDateFormat("dd/yyyy").format(new Date($P{p_from_date}))+" đến tháng: "+ new SimpleDateFormat("dd/yyyy").format(new Date($P{p_to_date}))]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
