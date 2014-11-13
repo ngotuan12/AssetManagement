@@ -35,25 +35,22 @@
 					<li><a href="/transfer-asset/"><i
 							class="fa fa-caret-right"></i>{% trans 'ĐIỀU CHUYỂN TÀI SẢN'%}</a></li>
 				</ul></li>
-			<li class="nav-parent"><a href="#"><i
-					class="fa fa-bar-chart-o"></i> <span>{% trans 'BÁO CÁO'%}</span></a>
+			<li class="nav-parent"><a href="#"><i class="fa fa-bar-chart-o"></i> <span>{% trans 'BÁO CÁO'%}</span></a>
 				<ul class="children">
 					<li><a href="/card-asset/"><i class="fa fa-caret-right"></i>{% trans 'THẺ TÀI SẢN'%}</a></li>
-					<li><a href="/report/verify-asset-report/"><i
-							class="fa fa-caret-right"></i>{% trans 'BÁO CÁO KIỂM KÊ TS CỐ ĐỊNH'%}</a></li>
-					<li><a href="/report/asset-by-project-report/"><i class="fa fa-caret-right"></i>{% trans 'BCTS THEO DỰ ÁN'%}</a></li>
-					<li><a href="/report/asset-inventory-report/"><i
-							class="fa fa-caret-right"></i>{% trans 'BÁO CÁO TỔNG HỢP TS CỐ ĐỊNH'%}</a></li>
+					<li><a href="/report/verify-asset-report/"><i class="fa fa-caret-right"></i>{% trans 'BCTS KIỂM KÊ'%}</a></li>
+					<li><a href="/report/asset-inventory-report/"><i class="fa fa-caret-right"></i>{% trans 'BCTS TỔNG HỢP'%}</a></li>
 					<li><a href="/report/asset_amortization_report/"><i class="fa fa-caret-right"></i>{% trans 'BCTS KH CƠ BẢN'%}</a></li>
+					<li><a href="/report/asset-by-project-report/"><i class="fa fa-caret-right"></i>{% trans 'BCTS THEO DỰ ÁN'%}</a></li>
 					<li><a href="/report/asset_sum_amortization_report/"><i class="fa fa-caret-right"></i>{% trans 'BCTS KH ĐỊNH KHOẢN'%}</a></li>
-				</ul></li>
-			
+				</ul>
+			</li>
 			<!-- Tiện ích -->
 			<li class="nav-parent"><a href="#"><i
-					class="fa fa-file-text"></i> <span>{% trans 'Tiện ích'%}</span></a>
+					class="fa fa-file-text"></i> <span>{% trans 'TIỆN ÍCH'%}</span></a>
 				<ul class="children">
-					<li><a href="{% url 'import-asset'%}"><i class="fa fa-caret-right"></i>{% trans 'Thêm tài sản từ file'%}</a></li>
-					<li><a href="{% url 'import-department'%}"><i class="fa fa-caret-right"></i>{% trans 'Thêm phòng ban từ file'%}</a></li>
+					<li><a href="{% url 'import-asset'%}"><i class="fa fa-caret-right"></i>{% trans 'THÊM TS TỪ FILE' %}</a></li>
+					<li><a href="{% url 'import-department'%}"><i class="fa fa-caret-right"></i>{% trans 'THÊM PB TỪ FILE' %}</a></li>
 				</ul>
 			</li>
 			<!-- END Tiện ích -->
