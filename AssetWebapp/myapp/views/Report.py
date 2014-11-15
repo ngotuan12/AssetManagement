@@ -6,7 +6,7 @@ Created on Apr 3, 2014
 '''
 
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.context_processors import csrf
+from django.core.context_processors import csrf, request
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
@@ -170,8 +170,10 @@ def asset_change_report(request):
 		context.update({'depts':depts})
 		if request.POST:
 			dept_id = ''
+			dept_name = '-1'
 			if request.POST['slDept']:
 				dept_id=request.POST['slDept']
+				dept_name =request.POST['hd_dept_name']
 			from_date = request.POST["dtFromDate"]
 			to_date = request.POST["dtToDate"]
 # 			arrFromDate = from_date.split('/')
@@ -182,7 +184,8 @@ def asset_change_report(request):
 			params_object = {
 								"p_from_date":from_date,
 								"p_to_date":to_date,
-								"p_dept_id":dept_id
+								"p_dept_id":dept_id,
+								"p_dept_name":dept_name
 							}
 			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetChange", params_object,"PDF")
 			return HttpResponseRedirect('/report/' + fileOut)

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetChange" language="groovy" pageWidth="1500" pageHeight="842" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b5431f12-062f-4cb9-8619-3cf14dae1dd9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="8"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
 	</parameter>
@@ -10,6 +10,9 @@
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_dept_id" class="java.lang.String"/>
+	<parameter name="p_dept_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA["-1"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select * from TABLE (pck_report.report_change_sum_asset(to_date($P{p_from_date},'dd/mm/yyyy'),to_date($P{p_to_date},'dd/mm/yyyy'),$P{p_dept_id}))]]>
 	</queryString>
@@ -72,7 +75,7 @@
 ? "I.Nguyên giá TSCĐ"
 : $F{FLAG}.toString().substring(0, 1) == "II"
 ? "II.Giá trị đã hao mòn"
-: ""]]></textFieldExpression>
+: "III.Giá trị còn lại"]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement uuid="c5f3d12f-f559-403e-be9b-ba1060051cd5" x="380" y="0" width="120" height="20"/>
@@ -158,298 +161,6 @@
 				</staticText>
 			</band>
 		</groupHeader>
-		<groupFooter>
-			<band height="113">
-				<textField>
-					<reportElement uuid="a44bc9ae-0bdc-4987-8ad1-201a3d4582da" x="0" y="0" width="380" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Times New Roman" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["III.Giá trịcòn lại"]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement uuid="f65359e4-4363-47c1-a2e9-b408d2c5d8bc" x="860" y="0" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="9efe1b22-c95b-42a0-87fb-0a37a528d6c3" x="740" y="0" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="4f3a6c2b-37d9-4c14-8cb4-a755c9cfa4f6" x="500" y="0" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="04cfacda-9876-4782-9a80-2990efe58d56" x="1220" y="0" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="e5481bb5-55b2-46a3-a30a-800216c5681a" x="620" y="0" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="dbcba0f5-b2a5-42ea-b96e-8c5615e45f1d" x="380" y="0" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="cee62bfb-7173-49cb-9aea-6b61bd58f20f" x="1100" y="0" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="e676e639-a7fa-4614-af4c-09e8b53a6be6" x="980" y="0" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="846e8942-a5d8-4ac4-9557-73577fb1ce45" x="1340" y="0" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="34269b7b-2aec-44d8-91d7-c7a42ea8e1f6" x="1100" y="20" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="a249fcb3-b067-4d84-9493-75f6c2f6c068" x="1220" y="20" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="bc16b259-4995-455f-9e51-a6bd94dba228" x="740" y="20" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="452d5727-ebad-414a-97d0-4876185280c9" x="620" y="20" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="bd3dd02a-95d6-4711-9de0-e0ec5c60432c" x="860" y="20" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="9b06ddcf-6d4e-4ac7-a7e2-fba62087b53e" x="500" y="20" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<textField>
-					<reportElement uuid="20219529-b002-4c6a-b696-94414bd8b235" x="0" y="20" width="380" height="20"/>
-					<box leftPadding="5">
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Times New Roman" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["1. Số dư đầu kỳ"]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement uuid="8722c55e-e77b-4c8a-b08e-e442d6e17eac" x="1340" y="20" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="5ecdc5f4-c469-47cc-8c46-9fb344d12c8b" x="980" y="20" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="1a876f55-4dff-4e4a-b6db-f918dda66060" x="1340" y="40" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="f4f4ff43-0e86-4eec-9cff-a3313b435f47" x="380" y="40" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="0e34a55e-7090-472d-b7e6-063d84f7b4a5" x="860" y="40" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="4d01e563-bd67-473b-bc4d-7545dec4e3ed" x="620" y="40" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="2b0481ec-91f2-4785-8929-3a7a220e631b" x="500" y="40" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<textField>
-					<reportElement uuid="97e8cffc-06a9-4fe8-bde4-0e2c026520ec" x="0" y="40" width="380" height="20"/>
-					<box leftPadding="5">
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Times New Roman" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA["2. Số dư cuối kỳ"]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement uuid="f3306229-f169-4e25-9811-84697e872338" x="1220" y="40" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="2487aba8-0597-46e9-a0ae-8bc52fd302ad" x="1100" y="40" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="9462589a-61e0-4a94-a035-c05771fecc3d" x="980" y="40" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="8aa4f707-7548-4e39-a528-6b84ad59dcc3" x="740" y="40" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement/>
-					<text><![CDATA[]]></text>
-				</staticText>
-				<textField pattern="#,##0">
-					<reportElement uuid="a5464de7-7842-4a18-83b1-5a81a0cf5d8e" x="380" y="20" width="120" height="20"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Times New Roman" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vTONG}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="gFlag2" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement uuid="a6964eb0-5fb0-4845-b7f2-78822a163f8c" positionType="Float" stretchType="RelativeToTallestObject" x="500" y="20" width="120" height="20"/>
-					<box>
-						<leftPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Times New Roman" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{vMMTBDL}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupFooter>
 	</group>
 	<group name="gFlag2">
 		<groupExpression><![CDATA[$F{FLAG}]]></groupExpression>
@@ -663,9 +374,7 @@
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{vTONG}
-
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{vTONG}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -680,7 +389,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Từ tháng: "+ new SimpleDateFormat("dd/yyyy").format(new Date($P{p_from_date}))+" đến tháng: "+ new SimpleDateFormat("dd/yyyy").format(new Date($P{p_to_date}))]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Từ ngày: "+ new SimpleDateFormat("dd/MM/yyyy").format(new Date($P{p_from_date}))+" đến ngày: "+ new SimpleDateFormat("dd/MM/yyyy").format(new Date($P{p_to_date}))]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="e68144f2-f430-4ef4-a75e-87fcefd7dec4" x="730" y="0" width="730" height="20"/>
@@ -695,14 +404,18 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Viễn Thông"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{p_dept_name}.toString() != "-1"
+? "Viễn Thông "+$P{p_dept_name}
+:"Tất cả các đơn vị"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="7bbc3016-a5fb-4703-a87f-4fa334717070" x="0" y="20" width="730" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Văn phòng "]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{p_dept_name}.toString() != "-1"
+? "Văn phòng "+$P{p_dept_name}
+:""]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="e5c670d5-0ad6-4c01-963b-126e23bda056" x="0" y="80" width="1460" height="20"/>
@@ -959,9 +672,8 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{FLAG}.toString().substring(2, 3) != "1"
-? $F{TONG}
-:"KKK"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TONG}
+]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

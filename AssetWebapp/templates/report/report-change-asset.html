@@ -42,7 +42,7 @@
 								name = "slDept">
 								<option value="">-------------------------------------{% trans 'Tất cả' %}-------------------------------------</option>
 								{% for dept in depts %}
-									<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
+									<option name="{{ dept.name }}" value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 								{% endfor%}
 							</select>
 							<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
@@ -80,6 +80,7 @@
 				</div>
 			</div>
 		</div>
+		<input type="hidden" id="hd_dept_name" name="hd_dept_name" value="">
 	</form>
 </div>
 {% endblock content %}
@@ -116,6 +117,10 @@
 		//change slDept
 		$('#slDept').change(function(){
 			$(".error[for][for='slDept']").hide();
+			var dept_id =$(this).find('option:selected').val();
+			if(dept_id !=="")
+				var dept_name =$(this).find('option:selected').attr('name');
+			$("#hd_dept_name").val(dept_name);
 		});
 		//validate
 		$.validator.setDefaults({ ignore: ":hidden:not(select)" })
