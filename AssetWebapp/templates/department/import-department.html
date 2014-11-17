@@ -32,7 +32,7 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h4 class="panel-title"
-				style="text-align: center; line-height: 10px">{% trans 'THÊM TÀI SẢN THEO FILE' %}</h4>
+				style="text-align: center; line-height: 10px">{% trans 'THÊM PHÒNG BAN THEO FILE' %}</h4>
 		</div>
 	</div>
 	<div class="col-md-6">
@@ -44,7 +44,7 @@
 						{% trans 'Định dạng file phải là' %}
 						<code>.xls</code>
 					</p>
-					<form id="imageform" method="post" enctype="multipart/form-data" action="{%url 'upload-asset'%}">
+					<form id="imageform" method="post" enctype="multipart/form-data" action="{%url 'upload-department'%}">
 						{% csrf_token %}
 						<label for="file-input" >Browse your computer:</label> <input type="file" name="file-input" id="file-input" accept=".xls">
 					</form>
@@ -112,11 +112,12 @@
 			}
 		});
 	});
+	
 	function do_import()
 	{
 		if(typeof($("#uploaded-file").val())!=='undefined')
 		{
-			var url = "{% url 'do-import-asset' %}";
+			var url = "{% url 'do-import-department' %}";
 			
 			var params = {'csrfmiddlewaretoken' : $.cookie('csrftoken'),'uploaded-file' : $("#uploaded-file").val(),};
 			

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 
 from django.contrib.auth.decorators import login_required, permission_required
@@ -9,6 +10,11 @@ from django.template.context import RequestContext
 from myapp.importer.DepartmentImporter import DepartmentImporter
 from myapp.models.Dept import Dept
 from myapp.util.DateEncoder import DateEncoder
+import xlrd
+from django.db import connection
+import cx_Oracle
+import xlwt
+from datetime import datetime
 
 
 @login_required(login_url='/login/')
@@ -131,7 +137,48 @@ def delete(request, dept_id):
 		context.update({'has_error':str(ex)})
 		return HttpResponseRedirect("/department/")
 def import_from_excel(request):
-	importer = DepartmentImporter(file_path="D:\import.xls", import_type=2)
-	importer.do_import()
-# 	importer.worksheet[0]
-	return HttpResponse("OK")
+	context={}
+	try:
+		if(request.POST):
+			input_excel=request.FILES["file-input"]
+			work_book = xlrd.open_workbook(file_contents=input_excel.read())
+			sheet= work_book.sheet_by_index(0)
+			to_row = sheet.nrows
+			to_columns=6
+			cursor = connection.cursor()
+			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
+                                       "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
+			result_book=xlwt.Workbook(encoding='utf-8')
+			result_sheet=result_book.add_sheet("Result")
+			result_path="C:/Users/vinhndq/Desktop/result"+datetime.now().strftime("%Y%m%d%H%M%S")+".xls"
+			font_err = xlwt.XFStyle()
+			font_err.font.colour_index = xlwt.Style.colour_map['red']
+			font_success = xlwt.XFStyle()
+			font_success.font.colour_index = xlwt.Style.colour_map['blue']
+			#copy file
+			for i in range(0,to_row):
+				p_error = cursor.var(cx_Oracle.STRING).var
+				values=[]
+				values.append(p_error)
+				for j in range(0,to_columns):
+					cell_value=sheet.cell_value(i,j)
+					values.append(cell_value)
+					result_sheet.write(i,j,cell_value)
+				if i!=0:
+					values.append(request.user.username)
+					try:
+						cursor.callproc("pck_import.department",values)
+						if(p_error.getvalue() is not None):
+							result_sheet.write(i,to_columns+1,p_error.getvalue(),font_err)
+						else:
+							result_sheet.write(i,to_columns+1,"Thành công",font_success)
+					except Exception as ex1:
+						result_sheet.write(i,to_columns+1,str(ex1),font_err)
+				else:
+					result_sheet.write(i,to_columns+1,"Kết quả")
+			result_book.save(result_path)
+			return HttpResponseRedirect(result_path)
+		return render_to_response("department/import-department.html", context, RequestContext(request))
+	except Exception as ex:
+		context.update({"has_error":str(ex)})
+		return HttpResponseRedirect("/department/import/")

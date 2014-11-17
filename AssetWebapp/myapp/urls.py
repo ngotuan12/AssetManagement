@@ -19,7 +19,9 @@ urlpatterns = patterns('',
     url(r'^department/add/(?P<parent_id>\w+)/$', Department.add, name='add-department'),
     url(r'^department/edit/(?P<dept_id>\w+)/$', Department.edit, name='edit-department'),
     url(r'^department/delete/(?P<dept_id>\w+)/$', Department.delete, name='delete-department'),
-    url(r'^department/import/$', Department.import_from_excel, name='import-department'),
+    url(r'^department/import/$', ImportDepartment.index, name='import-department'),
+    url(r'^department/import/test/$', ImportDepartment.do_import, name='do-import-department'),
+    url(r'^department/upload/$', ImportDepartment.upload, name='upload-department'),
     # Country
     url(r'^country/$', ListCountry.index, name='country'),
 	# App
@@ -116,6 +118,6 @@ urlpatterns = patterns('',
     url(r'^report/asset_change_report/$', Report.asset_change_report ,name='asset_change_report'),
     #import asset
     url(r'^asset/import/$', ImportAsset.index, name='import-asset'),
-    url(r'^asset/import/test/$', ImportAsset.test_import, name='test-import-asset'),
+    url(r'^asset/import/test/$', ImportAsset.do_import, name='do-import-asset'),
     url(r'^asset/upload/$', ImportAsset.upload, name='upload-asset'),
 )

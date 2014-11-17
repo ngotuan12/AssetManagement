@@ -23,7 +23,7 @@ import cx_Oracle
 
 def index(request):
     context={}
-    return render_to_response("asset/import-asset.html", context, RequestContext(request))
+    return render_to_response("department/import-department.html", context, RequestContext(request))
 def upload(request):
     if request.method == 'POST':
         try:
@@ -46,7 +46,7 @@ def do_import(request):
             work_book = xlrd.open_workbook(UPLOAD_ROOT + "/" + file_name)
             sheet= work_book.sheet_by_index(0)
             to_row = sheet.nrows
-            to_columns=25
+            to_columns=6
             cursor = connection.cursor()
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
@@ -71,7 +71,7 @@ def do_import(request):
                 if i!=0:
                     values.append(request.user.username)
                     try:
-                        cursor.callproc("pck_import.asset",values)
+                        cursor.callproc("pck_import.department",values)
                         if(p_error.getvalue() is not None):
                             result_sheet.write(i,to_columns+1,p_error.getvalue(),font_err)
                         else:
