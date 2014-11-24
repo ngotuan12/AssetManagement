@@ -300,7 +300,7 @@ $(document).ready(function(){
 			});
 	// Chosen Select
 	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
-	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
+	$.validator.setDefaults({ ignore: ":hidden:not(select)" });
 	//slSerial 
 	$("#slSerial").change(function() {
 		$('#btnAdd').prop("disabled", false);
@@ -485,9 +485,9 @@ $(document).ready(function(){
 								+ asset_name
 								+ '</td><td>'
 								+ capital_code
-								+ '</td><td style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
+								+ '</td><td class="currency" style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
 								+ original
-								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
+								+ '</td><td class="currency" style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
 								+ remain
 								+ '</td><td style="text-align:right;">'
 								+ asset_quantity
@@ -507,9 +507,9 @@ $(document).ready(function(){
 								+ ''
 								+ '</td><td>'
 								+ capital_code
-								+ '</td><td style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
+								+ '</td><td class="currency" style="text-align:right;" name="original" capital_id="'+ capital_id +'">'
 								+ original
-								+ '</td><td style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
+								+ '</td><td class="currency" style="text-align:right;" name="remain" capital_id="'+ capital_id +'">'
 								+ remain
 								+ '</td><td style="text-align:right;">'
 								+ ''
@@ -589,7 +589,7 @@ $(document).ready(function(){
 					else
 						$.message.warning('Nguyên giá tài sản con lớn hơn nguyên giá tài sản gốc!!!');
 				}
-					
+				$('.currency').formatCurrency({ colorize:true, region: 'vi-VN' });
 			}
 		}
 		
@@ -673,13 +673,14 @@ $(document).ready(function(){
 						+ capital_code
 						+ '</td><td>'
 						+ capital_name
-						+ '</td><td style="text-align:right;">'
+						+ '</td><td class="currency" style="text-align:right;">'
 						+ capital_original
-						+ '</td><td style="text-align:right;">'
+						+ '</td><td class="currency" style="text-align:right;">'
 						+ capital_remain
 						+ '</td>');
 				newRow.append(newcol);
 				$("#tbView").append(newRow);
+				$('.currency').formatCurrency({ colorize:true, region: 'vi-VN' });
 				
 				//addDiv
 				var div =$('<div class="row">'
