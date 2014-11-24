@@ -19,17 +19,27 @@ from myapp.models.CapitalValue import CapitalValue
 from myapp.models.Dept import Dept
 from myapp.models.List import List
 from myapp.models.StockAssetSerial import StockAssetSerial
-
+from myapp.util.DateEncoder import DateEncoder
 
 @login_required(login_url='/login/')
 @permission_required('myapp.verify_asset', login_url='/permission-error/')
 def index(request):
 	context = {}
 	try:
-		serials = StockAssetSerial.objects.raw("select * "+
-									"FROM stock_asset_serial "+ 
-									"WHERE parent_id is null ")
-		context.update({'serials':serials})
+		serials = StockAssetSerial.objects.raw("SELECT a.id,a.name,a.serial,a.quantity,b.name project_name "+
+									"FROM stock_asset_serial a,list b "+ 
+									"WHERE a.project_id =b.id AND a.num_sub = 0 ")
+		
+		stock_asset_serials = []
+		for serial in serials:
+			row = {}
+			row.update({'id':serial.id})
+			row.update({'name':serial.name})
+			row.update({'serial':serial.serial})
+			row.update({'quantity':serial.quantity})
+			row.update({'project_name':serial.project_name})
+			stock_asset_serials.append(row)
+		context.update({'data':json.dumps(stock_asset_serials,cls=DateEncoder)})
 		context.update({'states':List.objects.filter(list_type='4')})
 		context.update({'depts':Dept.objects.all()})
 		if(request.POST):

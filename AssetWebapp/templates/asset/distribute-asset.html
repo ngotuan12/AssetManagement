@@ -28,10 +28,6 @@
 									<div class="col-sm-12">
 										<select id="slSerial" name="slSerial"class="form-control chosen-select"
 											data-placeholder="{% trans '------------------------------------------------------------Chọn tài sản gốc----------------------------------------------------' %}">
-											<option value=""></option>
-											{% for serial  in serials %}
-												<option id="{{ serial.id }}" value="{{ serial.id }}" name="{{ serial.name }}" serial ="{{ serial.serial }}" remain="{{ serial.remain_value }}" original="{{ serial.original_value }}" quantity="{{ serial.quantity }}"  project_name="{{ serial.project_id.name }}" state = "{{ serial.state.name }}">{{ serial.serial }} - {{ serial.name }}</option>
-											{% endfor %}
 										</select>
 										<label for="slSerial" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 									</div>
@@ -297,7 +293,6 @@
 
 <script>
 $(document).ready(function(){
-	
 	// Select
 	jQuery(".table-responsive  select").chosen({
 				'min-width' : '150px',
@@ -307,7 +302,6 @@ $(document).ready(function(){
 	// Chosen Select
 	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
-	
 	//slSerial 
 	$("#slSerial").change(function() {
 		$('#btnAdd').prop("disabled", false);
@@ -333,8 +327,6 @@ $(document).ready(function(){
 		
 		var asset_id =$('#slSerial option:selected').attr('id');
 		var serial =$('#slSerial option:selected').attr('serial');
-		var original = $('#slSerial option:selected').attr('original');
-		var remain = $('#slSerial option:selected').attr('remain');
 		var quantity = $('#slSerial option:selected').attr('quantity');
 		var name =$('#slSerial option:selected').attr('name');
 		var project_name = $('#slSerial option:selected').attr('project_name');
@@ -1004,14 +996,41 @@ $(document).ready(function(){
 			$.message.warning('Số lượng phải lớn hơn 0!!!');
 		}
 	}
+	function init()
+	{
+		serials = {{ data|safe }};
+		
+		$('#slSerial option[value!=""]').remove();
+		for(var i=0;i<serials.length;i++)
+		{
+			serial = serials[i];
+			option = $("<option></option>");
+			option.attr("id",serial.id);
+			option.attr("value",serial.id);
+			option.attr("name",serial.name);
+			option.attr("serial",serial.serial);
+			option.attr("quantity",serial.quantity);
+			option.attr("project_name",serial.project_name);
+			option.text(serial.serial+"-"+serial.name);
+			$('#slSerial').append(option);
+		}
+		$('#slSerial').chosen('destroy');
+		$('#slSerial').prop("selectedIndex", -1);
+		$('#slSerial').chosen();
+		
+		$("#slSerial_chosen").width('100%');
+	}
 	jQuery(window).load(function()
 	{
 		var has_success ='{{ has_success }}';
 		var asset_serial_id ='{{ asset_serial_id }}'
 		if(has_success)
 			window.location.replace("/view-distribute-asset/"+asset_serial_id+"/");
+		//init
+		init();
 		$(".numberic").numeric({negative : false });
 		$("form:not(.filter) :input:visible:enabled:first").focus();
+		
 	});
 </script>
 {% endblock scripts%}

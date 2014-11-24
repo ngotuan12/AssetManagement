@@ -5,7 +5,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report\
 	, Goal, AssetVolatility, ListCountry, App, BarCode, PrintAsset, ReleaseAsset\
-	, JoinAsset, ViewAssetHis, DistributeAsset, ImportAsset
+	, JoinAsset, ViewAssetHis, DistributeAsset, ImportAsset,ImportDepartment
 
 
 urlpatterns = patterns('',
