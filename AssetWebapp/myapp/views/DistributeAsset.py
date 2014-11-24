@@ -106,10 +106,6 @@ def index(request):
 					raise Exception(p_error.getvalue())
 			context.update({'has_success':_(u"Giao dịch thành công")})
 			context.update({'asset_serial_id':asset_serial_id})
-		serials = StockAssetSerial.objects.raw("select * "+
-									"FROM stock_asset_serial "+ 
-									"WHERE num_sub = 0 ")
-		context.update({'serials':serials})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
