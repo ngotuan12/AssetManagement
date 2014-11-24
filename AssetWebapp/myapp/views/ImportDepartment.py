@@ -45,6 +45,7 @@ def do_import(request):
             file_name = request.POST["uploaded-file"]
             work_book = xlrd.open_workbook(UPLOAD_ROOT + "/" + file_name)
             sheet= work_book.sheet_by_index(0)
+            from_row=1
             to_row = sheet.nrows
             to_columns=6
             cursor = connection.cursor()
@@ -60,7 +61,7 @@ def do_import(request):
             font_success.font.colour_index = xlwt.Style.colour_map['blue']
             #copy file
             success=0
-            for i in range(0,to_row):
+            for i in range(from_row,to_row):
                 p_error = cursor.var(cx_Oracle.STRING).var
                 values=[]
                 values.append(p_error)
