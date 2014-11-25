@@ -107,7 +107,7 @@ def getListStock(request,dept_id):
 def getListSerial(request,stock_id):
 	try:
 		stock = Stock.objects.get(id=stock_id)
-		serials = StockAssetSerial.objects.filter(stock=stock)
+		serials = StockAssetSerial.objects.filter(stock=stock,num_sub=0)
 		infors =[]
 		for serial in serials:
 			infors.append(model_to_dict(serial))
