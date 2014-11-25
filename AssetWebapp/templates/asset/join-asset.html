@@ -71,7 +71,7 @@
 			</div>
 			<div class="row row-pad-0">
 			
-				<div class="col-md-6" style="padding-top: 10px;">
+				<div class="col-md-6" style="padding-top: 0px;">
 					<div class="col-md-12" >
 						<label>{% trans 'TÌM TÀI SẢN CHA' %}</label> <input type="text"
 							id = "txtParentSearch" placeholder="{% trans 'Tìm ..' %}"
@@ -82,7 +82,7 @@
 					</div>
 				</div>
 				
-				<div class="col-md-6" style="padding-top: 10px;">
+				<div class="col-md-6" style="padding-top: 0px;">
 					<div class="col-md-12">
 						<label>{% trans 'TÌM TÀI SẢN CON' %}</label> <input type="text"
 							id = "txtChildSearch" placeholder="{% trans 'Tìm ..' %}"
@@ -99,7 +99,7 @@
 					{% csrf_token %}
 					<input type="hidden" name="hd_ListChildSerial" id="hd_ListChildSerial" value="">
 					<input type="hidden" name="hd_ParentSerial" id="hd_ParentSerial" value="">
-					<div class="col-lg-12">
+					<div class="col-lg-12" style="padding: 0 15px 0 15px;">
 						<label>{% trans 'Ghi chú' %}</label>
 						<textarea class="form-control" name="txtNote" rows="2"
 							placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
