@@ -183,7 +183,6 @@ $(document).ready(function(){
 	});
 	$( "#slReason" ).change(function() {
 		$(".error[for][for='slReason']").hide();
-		onGetCode($(this).find('option:selected').val());
 	});
 	//validate
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
