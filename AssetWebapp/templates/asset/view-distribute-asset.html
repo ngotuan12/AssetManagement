@@ -88,8 +88,8 @@
 																<td>{{ forloop.counter }}</td>
 																<td>{{ capital.capital.code }}</td>
 																<td>{{ capital.capital.name }}</td>
-																<td style="text-align: right;">{{ capital.original_value }}</td>
-																<td style="text-align: right;">{{capital.remain_value }}</td>
+																<td class="currency" style="text-align: right;">{{ capital.original_value }}</td>
+																<td class="currency" style="text-align: right;">{{capital.remain_value }}</td>
 															</tr>
 														{% endfor %}
 													</tbody>
@@ -130,8 +130,8 @@
 												<td>{{ capital.stock_asset_serial.serial }}</td>
 												<td>{{ capital.stock_asset_serial.name }}</td>
 												<td>{{ capital.capital.code }}</td>
-												<td style="text-align: right;">{{ capital.original_value }}</td>
-												<td style="text-align: right;">{{ capital.remain_value }}</td>
+												<td class="currency" style="text-align: right;">{{ capital.original_value }}</td>
+												<td class="currency" style="text-align: right;">{{ capital.remain_value }}</td>
 												<td style="text-align: right;">{{ capital.stock_asset_serial.quantity }}</td>
 												<td>{{ capital.description }}</td>
 											</tr>
@@ -211,6 +211,7 @@ function tt()
 jQuery(window).load(function()
 {
 	tt();
+	$('.currency').formatCurrency({ colorize:true, region: 'vi-VN' });
 });
 </script>
 {% endblock scripts%}

@@ -1022,10 +1022,6 @@ $(document).ready(function(){
 	}
 	jQuery(window).load(function()
 	{
-		var has_success ='{{ has_success }}';
-		var asset_serial_id ='{{ asset_serial_id }}'
-		if(has_success)
-			window.location.replace("/view-distribute-asset/"+asset_serial_id+"/");
 		//init
 		init();
 		$(".numberic").numeric({negative : false });

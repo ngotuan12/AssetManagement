@@ -10,7 +10,7 @@ import cx_Oracle
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.db import connection
-from django.http.response import  HttpResponse
+from django.http.response import  HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.utils.translation import ugettext as _
@@ -21,10 +21,12 @@ from myapp.models.List import List
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.util.DateEncoder import DateEncoder
 
+
 @login_required(login_url='/login/')
 @permission_required('myapp.verify_asset', login_url='/permission-error/')
 def index(request):
 	context = {}
+	isPost =False
 	try:
 		serials = StockAssetSerial.objects.raw("SELECT a.id,a.name,a.serial,a.quantity,b.name project_name "+
 									"FROM stock_asset_serial a,list b "+ 
@@ -43,6 +45,8 @@ def index(request):
 		context.update({'states':List.objects.filter(list_type='4')})
 		context.update({'depts':Dept.objects.all()})
 		if(request.POST):
+			isPost =True
+			sucess =True
 			lsDeptId = request.POST["hd_ls_dept_id"]
 			asset_serial_id = request.POST["hd_parent_stock_asset_id"]
 			arrDeptId = lsDeptId.split(',')
@@ -103,14 +107,17 @@ def index(request):
 	                                       "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")
 				cursor.close()
 				if p_error.getvalue() is not None:
+					sucess =False
 					raise Exception(p_error.getvalue())
 			context.update({'has_success':_(u"Giao dịch thành công")})
-			context.update({'asset_serial_id':asset_serial_id})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:
 		context.update(csrf(request))
-		return render_to_response("asset/distribute-asset.html", context,RequestContext(request))
+		if isPost == True and sucess == True :
+			return HttpResponseRedirect('/view-distribute-asset/'+ asset_serial_id + '/')
+		else:
+			return render_to_response("asset/distribute-asset.html", context,RequestContext(request))
 @login_required(login_url='/login/')
 def view_distribute_asset(request,stock_asset_serial_id):
 	context = {}
