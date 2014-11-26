@@ -11,7 +11,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">{% trans 'Báo cáo tài sản cố định' %}</h4>
+					style="text-align: center; line-height: 10px">{% trans 'BÁO CÁO TÀI SẢN CỐ ĐỊNH' %}</h4>
 			</div>
 			<div class="panel-body">
 				{% if has_error %}
@@ -27,7 +27,7 @@
 								<select id="" class="form-control chosen-select"
 									data-placeholder="{% trans 'Nguồn vốn' %}"
 									name="optCapital">
-									<option value="">------{% trans 'Tất cả nguồn vốn' %}-------</option> 
+									<option value="">--------------------------------------------------------------------------------------{% trans 'Tất cả nguồn vốn' %}-----------------------------------------------------------------------</option> 
 									{% for capital in capitals%}
 										<option value="{{capital.id}}">{{capital.name}}</option> 
 									{% endfor %}
@@ -39,7 +39,7 @@
 							<div class="col-sm col-sm-offset-5">
 								<!-- <button class="btn btn-primary">In biên bản</button> -->
 								<button class="btn btn-primary" onclick="return onSubmitFormDecrement();">{% trans 'Thực hiện' %}</button>&nbsp;
-					<a class="btn btn-default" href="/home">{% trans 'Thoát' %}</a>
+					<a class="btn btn-default" href="/home" style="min-width: 95px;">{% trans 'Thoát' %}</a>
 							</div>
 						</div>
 					</div>

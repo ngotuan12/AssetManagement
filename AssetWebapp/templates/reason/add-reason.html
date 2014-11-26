@@ -16,37 +16,33 @@
 			<div class="alert alert-info">
 				<form action="" class="form-horizontal form-bordered" method="post" novalidate="novalidate" id="formReason">
 					{% csrf_token %}
-					<div class="form-group ">
-						<label class="col-sm-2 control-label">{% trans 'Mã lý do' %}</label>
-						<div class="col-sm-8">
-							<input name= "txtReasonCode" type="text" placeholder="{% trans 'Mã lý do' %}" class="form-control" value="" required maxlength="10">
+					<div class="row">
+						<div class="col-lg-4">
+							<label class="control-label">{% trans 'Mã lý do' %}</label>
+							<input name= "txtReasonCode" id="txtReasonCode" type="text" style="padding: 8px;" placeholder="{% trans 'Mã lý do' %}" class="form-control" value="" required maxlength="20">
 						</div>
-					</div>
-					<div class="form-group ">
-						<label class="col-sm-2 control-label">{% trans 'Tên lý do' %}</label>
-						<div class="col-sm-8">
-							<input name= "txtReasonName" type="text" placeholder="{% trans 'Tên lý do' %}" class="form-control" value="" required maxlength="200">
+						<div class="col-lg-4">
+							<label class="control-label">{% trans 'Tên lý do' %}</label>
+							<input name= "txtReasonName" type="text" style="padding: 8px;" placeholder="{% trans 'Tên lý do' %}" class="form-control" value="" required maxlength="200">
 						</div>
-					</div>
-					<div class="form-group ">
-						<label class="col-sm-2 control-label">{% trans 'Trạng thái' %}</label>
-						<div class="col-sm-8">
-							<select  name="optStatus" class="form-control" required>
+						<div class="col-lg-4">
+							<label class="control-label">{% trans 'Trạng thái' %}</label>
+							<select  name="optStatus" class="form-control chosen-select" required>
 								<option value="1" selected>{% trans 'Hiệu lực' %}</option>
 								<option value="0">{% trans 'Hết hiệu lực' %}</option>
 							</select>
 						</div>
 					</div>
-					<div class="form-group ">
-						<label class="col-sm-2 control-label">{% trans 'Mô tả' %}</label>
-						<div class="col-sm-8">
-							<input name= "txtDescription" type="text" placeholder="{% trans 'Mô tả' %}" class="form-control" value="" maxlength="500">
+					<div class="row ">
+						<div class="col-lg-12">
+							<label class="control-label">{% trans 'Mô tả' %}</label>
+							<textarea class="form-control" name="txtDescription" rows="3" placeholder="{% trans 'Mô tả' %}" maxlength="500"></textarea>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-sm-6 col-sm-offset-3">
-							<button class="btn btn-primary" onclick="return onValidate();">{% trans 'Lưu' %}</button>&nbsp;
-							<a class="btn btn-default" href="/reason/">{% trans 'Thoát' %}</a>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-sm-offset-5">
+							<button class="btn btn-primary" onclick="return onValidate();" style="min-width: 70px;">{% trans 'Lưu' %}</button>&nbsp;
+							<a class="btn btn-default" href="/reason/" style="min-width: 70px;">{% trans 'Thoát' %}</a>
 						</div>
 					</div>
 				</form>
@@ -64,10 +60,19 @@
 <script src="../../js/toggles.min.js"></script>
 <script src="../../js/retina.min.js"></script>
 <script src="../../js/jquery.cookies.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
 
 <script src="../../js/custom.js"></script>
 <script src="../../js/jquery.validate.min.js"></script>
 <script>
+	$(document).ready(function(){
+		// Chosen Select
+		$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+		$("#txtReasonCode").on("keydown", function (e) {
+			if(e.which === 32) 
+				return false;
+			});
+	});
 	function onValidate()
 	{
 		var $valid = jQuery('#formReason').valid();
@@ -76,7 +81,6 @@
 			$validator.focusInvalid();
 			return false;
 		}
-		alert("submit");
 		jQuery('#formReason').submit();
 	}
 </script>

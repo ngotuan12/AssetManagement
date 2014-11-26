@@ -23,12 +23,12 @@
 				<table class="table table-bordered" id="reasontable">
 					<thead>
 						<tr>
-							<th style='text-align:center'>{% trans 'STT' %}</th>
-							<th style='text-align:center'>{% trans 'MÃ LÝ DO' %}</th>
-							<th style='text-align:center'>{% trans 'TÊN LÝ DO' %}</th>
-							<th style='text-align:center'>{% trans 'TRẠNG THÁI' %}</th>
-							<th style='text-align:center'>{% trans 'MÔ TẢ' %}</th>
-							<th style='text-align:center'>{% trans 'SỬA/XÓA' %}</th>
+							<th style='width:5%; text-align:center;font-family: Arial,Helvetica,sans-serif;'>{% trans 'STT' %}</th>
+							<th style='width:10%;text-align:center;font-family: Arial,Helvetica,sans-serif;'>{% trans 'MÃ LÝ DO' %}</th>
+							<th style='width:30%;text-align:center;font-family: Arial,Helvetica,sans-serif;'>{% trans 'TÊN LÝ DO' %}</th>
+							<th style='width:15%;text-align:center;font-family: Arial,Helvetica,sans-serif;'>{% trans 'TRẠNG THÁI' %}</th>
+							<th style='width:35%;text-align:center;font-family: Arial,Helvetica,sans-serif;'>{% trans 'MÔ TẢ' %}</th>
+							<th style='width:5%;text-align:center;font-family: Arial,Helvetica,sans-serif;'>{% trans 'SỬA/XÓA' %}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -37,7 +37,11 @@
 							<td>{{forloop.counter}}</td>
 							<td><a href="/reason/{{ reason.id }}/">{{ reason.code }}</a></td>
 							<td>{{ reason.name }}</td>
-							<td>{% ifequal reason.status "1" trans 'Hiệu lực' %} {% else trans 'Hết hiệu lực' %} {% endifequal  %}</td>
+							{% if reason.status == '1' %}
+								<td>{% trans 'Hiệu lực' %}</td>
+							{% else %}
+								<td>{% trans 'Hết hiệu lực' %}</td>
+							{% endif %}
 							<td>{{ reason.description }}</td>
 							<td class="table-action">
 								<a href="/reason/{{ reason.id }}/"><i class="fa fa-pencil"></i></a>
