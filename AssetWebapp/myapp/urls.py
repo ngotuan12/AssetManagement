@@ -118,6 +118,7 @@ urlpatterns = patterns('',
     url(r'^report/asset_change_report/$', Report.asset_change_report ,name='asset_change_report'),
     #import asset
     url(r'^asset/import/$', ImportAsset.index, name='import-asset'),
-    url(r'^asset/import/test/$', ImportAsset.do_import, name='do-import-asset'),
+    url(r'^asset/import/test/$', ImportAsset.do_import_temp, name='do-import-temp'),
     url(r'^asset/upload/$', ImportAsset.upload, name='upload-asset'),
+    url(r'^asset/commit/$', ImportAsset.do_commit, name='do-commit-asset'),
 )

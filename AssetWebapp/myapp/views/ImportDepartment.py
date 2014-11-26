@@ -61,15 +61,15 @@ def do_import(request):
             font_success.font.colour_index = xlwt.Style.colour_map['blue']
             #copy file
             success=0
-            for i in range(from_row,to_row):
+            for i in range(0,to_row):
                 p_error = cursor.var(cx_Oracle.STRING).var
                 values=[]
                 values.append(p_error)
-                for j in range(0,to_columns):
+                for j in range(0,to_columns+1):
                     cell_value=sheet.cell_value(i,j)
                     values.append(cell_value)
                     result_sheet.write(i,j,cell_value)
-                if i!=0:
+                if i>=from_row:
                     values.append(request.user.username)
                     try:
                         cursor.callproc("pck_import.department",values)
@@ -80,7 +80,7 @@ def do_import(request):
                             result_sheet.write(i,to_columns+1,"Thành công",font_success)
                     except Exception as ex1:
                         result_sheet.write(i,to_columns+1,str(ex1),font_err)
-                else:
+                elif i==from_row-1:
                     result_sheet.write(i,to_columns+1,"Kết quả")
             result_book.save(result_path)
             return HttpResponse(json.dumps({"handle":"success","file_name":file_name,"total_record":to_row-1,"total_success":success,"total_error":to_row-1-success,"result_file":result_file_name},encoding='utf-8') ,content_type="application/json;charset=utf-8")

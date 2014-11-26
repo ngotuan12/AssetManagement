@@ -46,13 +46,19 @@
 					</p>
 					<form id="imageform" method="post" enctype="multipart/form-data" action="{%url 'upload-asset'%}">
 						{% csrf_token %}
-						<label for="file-input" >Browse your computer:</label> <input type="file" name="file-input" id="file-input" accept=".xls">
+						<label for="file-input" >{% trans 'Chọn file : ' %}</label> <input type="file" name="file-input" id="file-input" accept=".xls">
 					</form>
 					<div id='preview'></div>
+					<div style="margin-top: 20px">
+						<label>{% trans 'Mô tả :' %}</label> <input type="text"
+								id="description" name="description" placeholder="{% trans 'Mô tả' %}"
+								class="form-control" required maxlength="150">
+					</div>
 					<div class="row row-pad-20"style="margin-top: 20px">
 						<div class="col-sm col-sm-offset-4">
-							<button class="btn btn-primary" onclick="return do_import();">{% trans 'Import' %}</button>
-							<!--  &nbsp; <a class="btn btn-primary" href="{% url 'module' %}">{% trans 'Commit' %}</a>-->
+							<button class="btn btn-primary" onclick="return do_import_temp();">{% trans 'Import' %}</button>
+							 &nbsp; <button class="btn btn-primary" onclick="return do_commit_asset();" disabled="disabled" id="btnCommit">{% trans 'Commit' %}</button>
+							<input type="hidden" id="fileId"/>
 						</div>
 					</div>
 				</div>
@@ -112,26 +118,27 @@
 			}
 		});
 	});
-	function do_import()
+	function do_import_temp()
 	{
 		if(typeof($("#uploaded-file").val())!=='undefined')
 		{
-			var url = "{% url 'do-import-asset' %}";
-			
-			var params = {'csrfmiddlewaretoken' : $.cookie('csrftoken'),'uploaded-file' : $("#uploaded-file").val(),};
+			var url = "{% url 'do-import-temp' %}";
+			$("#fileId").val('');
+			var params = {'csrfmiddlewaretoken' : $.cookie('csrftoken'),'uploaded-file' : $("#uploaded-file").val(),'real-uploaded-file' : $("#real-uploaded-file").val(),'description':$("#description").val(),};
 			
 			$.api({
 				url:url,
 				params:params,
 				success: function(data){
-					$("#log").append(' <span style="color:blue"> Import thành công file '+data.file_name+'</span>'+
+					$("#log").append(data.log_error);
+					$("#log").append(' <span style="color:blue"> Load thành công file '+data.file_name+' vào bảng tạm (FileID:'+data.file_id+ ')</span>'+
 					   '<table style="color:blue">'+
 					        '<tr>'+
 					           '<td>Tổng số bản ghi:</td>'+
 					           '<td style="padding-left:5px">'+data.total_record+'</td>'+
 					       '</tr>'+
 					        '<tr>'+
-					           '<td>Số bản ghi thành công:</td>'+
+					           '<td>Số bản ghi load thành công:</td>'+
 					            '<td style="padding-left:5px">'+data.total_success+'</td>'+
 					       '</tr>'+
 					      '<tr>'+
@@ -139,7 +146,15 @@
 					           '<td style="padding-left:5px">'+data.total_error+'</td>'+
 					        '</tr>'+
 					    '</table>');
-					window.location.href = "/log/"+data.result_file
+					$("#fileId").val(data.file_id);
+					if(data.total_success>0)
+					{
+						$("#btnCommit").removeAttr("disabled");
+					}
+					else
+					{
+						$("#btnCommit").attr("disabled","disabled");
+					}
 				},
 				error: function(data)
 				{
@@ -149,6 +164,39 @@
 			//alert($("#uploaded-file").val())
 		}
 		return false;
+	}
+	
+	function do_commit_asset()
+	{
+		var fileId=$("#fileId").val();
+		alert(fileId);
+		if(fileId!=null&&fileId!='')
+		{
+			var url = "{% url 'do-commit-asset' %}";
+			
+			var params = {'csrfmiddlewaretoken' : $.cookie('csrftoken'),'file-id' :fileId,'real-uploaded-file' : $("#real-uploaded-file").val(),};
+			
+			$.api({
+				url:url,
+				params:params,
+				success: function(data){
+					$("#log").append('<br/>'+data.result);
+					window.location.href = "/report/"+data.result_file;
+						
+				},
+				error: function(data)
+				{
+					$("#log").append(data.message);
+				},
+			});
+			//alert($("#uploaded-file").val())
+		}
+		else
+		{
+			alert("Phải import dữ liệu vào bảng tạm trước");
+			return false;			
+		}
+		
 	}
 </script>
 {% endblock scripts%}
