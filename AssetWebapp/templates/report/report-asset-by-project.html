@@ -11,7 +11,7 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h4 class="panel-title"
-					style="text-align: center; line-height: 10px">{% trans 'Báo cáo tài sản theo dự án' %}</h4>
+					style="text-align: center; line-height: 10px">{% trans 'BÁO CÁO TÀI SẢN THEO DỰ ÁN' %}</h4>
 			</div>
 			<div class="panel-body">
 				{% if has_error %}
@@ -27,7 +27,7 @@
 								<select id="" class="form-control chosen-select"
 									data-placeholder="{% trans 'Dự án' %}"
 									name="slProject">
-									<option value="">------{% trans 'Tất cả dự án' %}-------</option> 
+									<option value="">--------------------------------------------------------------------------------{% trans 'Tất cả dự án' %}--------------------------------------------------------------------------------</option> 
 									{% for project in projects%}
 										<option value="{{project.id}}">{{project.name}}</option> 
 									{% endfor %}
