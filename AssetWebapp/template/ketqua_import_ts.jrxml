@@ -23,11 +23,11 @@
 	<field name="SOLUONG" class="java.math.BigDecimal"/>
 	<field name="NAM_SX" class="java.lang.String"/>
 	<field name="CONG_SUAT" class="java.lang.String"/>
-	<field name="THANG_SD" class="java.math.BigDecimal"/>
-	<field name="NAM_SD" class="java.math.BigDecimal"/>
-	<field name="TG_KHAUHAO" class="java.math.BigDecimal"/>
-	<field name="NGUYEN_GIA" class="java.math.BigDecimal"/>
-	<field name="GTCL" class="java.math.BigDecimal"/>
+	<field name="THANG_SD" class="java.lang.String"/>
+	<field name="NAM_SD" class="java.lang.String"/>
+	<field name="TG_KHAUHAO" class="java.lang.String"/>
+	<field name="NGUYEN_GIA" class="java.lang.String"/>
+	<field name="GTCL" class="java.lang.String"/>
 	<field name="DANG_SD" class="java.lang.String"/>
 	<field name="KHONG_SD" class="java.lang.String"/>
 	<field name="TTVT" class="java.lang.String"/>

@@ -12,7 +12,7 @@
 
 #preview {
 	color: #cc0000;
-	font-size: 12px
+	font-size: 12px;
 }
 
 #log {
@@ -169,7 +169,7 @@
 	function do_commit_asset()
 	{
 		var fileId=$("#fileId").val();
-		alert(fileId);
+		//alert(fileId);
 		if(fileId!=null&&fileId!='')
 		{
 			var url = "{% url 'do-commit-asset' %}";

@@ -47,7 +47,7 @@ def do_import(request):
             sheet= work_book.sheet_by_index(0)
             from_row=1
             to_row = sheet.nrows
-            to_columns=6
+            to_columns=7
             cursor = connection.cursor()
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
@@ -76,7 +76,7 @@ def do_import(request):
                         if(p_error.getvalue() is not None):
                             result_sheet.write(i,to_columns+1,p_error.getvalue(),font_err)
                         else:
-                            success=success+1
+                            success=+1
                             result_sheet.write(i,to_columns+1,"Thành công",font_success)
                     except Exception as ex1:
                         result_sheet.write(i,to_columns+1,str(ex1),font_err)

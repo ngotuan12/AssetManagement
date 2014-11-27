@@ -49,9 +49,8 @@ def do_import_temp(request):
             description = request.POST["description"]
             work_book = xlrd.open_workbook(UPLOAD_ROOT + "/" + file_name)
             sheet= work_book.sheet_by_index(0)
-            from_row=5
+            from_row=4
             to_row = sheet.nrows
-            to_columns=25
             cursor = connection.cursor()
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
@@ -73,6 +72,8 @@ def do_import_temp(request):
                 file_id=int(p_file_id.getvalue())
                 for i in range(from_row,to_row):
                     p_error = cursor.var(cx_Oracle.STRING).var
+                    print("stt: "+str(sheet.cell_value(i,0)))
+                    print("p_stt: "+str(sheet.cell_type(i,0)))
                     p_stt=sheet.cell_value(i,0)
                     p_goc=None
                     p_ts_con=None
@@ -85,13 +86,24 @@ def do_import_temp(request):
                     p_nuoc_sx=sheet.cell_value(i,7)
                     p_ma_mucdich=sheet.cell_value(i,8)
                     p_soluong=sheet.cell_value(i,9)
+                    print("p_soluong: "+str(sheet.cell_type(i,9)))
                     if(isinstance(p_soluong,str) and p_soluong.strip()==''):
                         p_soluong=None
                     p_nam_sx=sheet.cell_value(i,10)
-                    p_cong_suat=sheet.cell_value(i,11)
-                    p_thoigian_sd=datetime(*xlrd.xldate_as_tuple(sheet.cell_value(i,12), 0))
-                    p_thang_sd=p_thoigian_sd.strftime("%m")
-                    p_nam_sd=p_thoigian_sd.strftime("%Y")
+                    p_cong_suat=sheet.cell_value(i,11)                
+                    #p_thoigian_sd=datetime(*xlrd.xldate_as_tuple(sheet.cell_value(i,12), 0))
+                    print("p_thoigian_sd: "+str(sheet.cell_type(i,12)))
+                    print("")
+                    cell_type =sheet.cell_type(i,12)
+                    if cell_type == xlrd.XL_CELL_DATE:
+                        p_thoigian_sd=datetime(*xlrd.xldate_as_tuple(sheet.cell_value(i,12), work_book.datemode))
+                        p_nam_sd=p_thoigian_sd.strftime(" %d/%m/%Y")
+                    else:
+                        p_nam_sd=sheet.cell_value(i,12)
+                    #p_thang_sd=p_thoigian_sd.strftime("%m")
+                    #p_nam_sd=p_thoigian_sd.strftime("%Y")
+                    p_thang_sd=None
+                    #p_nam_sd=sheet.cell_value(i,12)
                     p_tg_khauhao=sheet.cell_value(i,13)
                     if(isinstance(p_tg_khauhao,str) and p_tg_khauhao.strip()==''):
                         p_tg_khauhao=None
