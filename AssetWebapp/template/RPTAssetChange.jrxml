@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetChange" language="groovy" pageWidth="1500" pageHeight="842" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b5431f12-062f-4cb9-8619-3cf14dae1dd9">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="200"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
@@ -63,7 +63,7 @@
 		<groupHeader>
 			<band height="20">
 				<textField>
-					<reportElement uuid="db657ccc-2ebf-4f88-8935-d67c981b4dc8" mode="Opaque" x="0" y="0" width="380" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="db657ccc-2ebf-4f88-8935-d67c981b4dc8" mode="Opaque" x="0" y="0" width="380" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -78,7 +78,7 @@
 : "III.Giá trị còn lại"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="c5f3d12f-f559-403e-be9b-ba1060051cd5" mode="Opaque" x="380" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="c5f3d12f-f559-403e-be9b-ba1060051cd5" mode="Opaque" x="380" y="0" width="120" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -87,7 +87,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="b5c6a17c-14fb-4c7a-b349-b1a75cc5eec7" mode="Opaque" x="500" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="b5c6a17c-14fb-4c7a-b349-b1a75cc5eec7" mode="Opaque" x="500" y="0" width="120" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -96,7 +96,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="cf2aa714-6b87-4c2a-ac62-8c97eedfa2f3" mode="Opaque" x="620" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="cf2aa714-6b87-4c2a-ac62-8c97eedfa2f3" mode="Opaque" x="620" y="0" width="120" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -105,7 +105,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="2e2e6d67-46e2-4c58-9774-bac93a51557b" mode="Opaque" x="740" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="2e2e6d67-46e2-4c58-9774-bac93a51557b" mode="Opaque" x="740" y="0" width="120" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -114,7 +114,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="7d0726dc-3638-4ee2-a5c4-70301de2fdee" mode="Opaque" x="860" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="7d0726dc-3638-4ee2-a5c4-70301de2fdee" mode="Opaque" x="860" y="0" width="120" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -123,7 +123,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="cb56c98c-7d6c-4e57-b327-44212ea29a23" mode="Opaque" x="980" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="cb56c98c-7d6c-4e57-b327-44212ea29a23" mode="Opaque" x="980" y="0" width="120" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -132,7 +132,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="8bd39bd8-aa78-47e1-8d89-c8e6dba0e1f5" mode="Opaque" x="1100" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="8bd39bd8-aa78-47e1-8d89-c8e6dba0e1f5" mode="Opaque" x="1100" y="0" width="120" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -141,7 +141,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="fa4d564d-857b-45e5-a6fa-151015b1b936" mode="Opaque" x="1220" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="fa4d564d-857b-45e5-a6fa-151015b1b936" mode="Opaque" x="1220" y="0" width="120" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -150,7 +150,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="9a068331-5e5f-4c45-a394-9188f075c232" mode="Opaque" x="1340" y="0" width="120" height="20" backcolor="#CCCCFF"/>
+					<reportElement uuid="9a068331-5e5f-4c45-a394-9188f075c232" mode="Opaque" x="1340" y="0" width="120" height="20" backcolor="#CCDEFF"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
