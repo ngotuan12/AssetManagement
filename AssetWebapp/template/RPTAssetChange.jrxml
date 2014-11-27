@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetChange" language="groovy" pageWidth="1500" pageHeight="842" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b5431f12-062f-4cb9-8619-3cf14dae1dd9">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="672"/>
-	<property name="ireport.y" value="7"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
 	</parameter>
@@ -71,9 +71,9 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{FLAG}.toString().substring(0, 1) == "I"
+					<textFieldExpression><![CDATA[$F{FLAG}.toString().substring(0, 1) == "1"
 ? "I.Nguyên giá TSCĐ"
-: $F{FLAG}.toString().substring(0, 1) == "II"
+: $F{FLAG}.toString().substring(0, 1) == "2"
 ? "II.Giá trị đã hao mòn"
 : "III.Giá trị còn lại"]]></textFieldExpression>
 				</textField>
@@ -672,8 +672,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{TONG}
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TONG}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
