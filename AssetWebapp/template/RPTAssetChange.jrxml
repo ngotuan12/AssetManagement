@@ -563,7 +563,7 @@
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="8ffe8bb3-6fd1-42e3-aeed-69efeebef528" x="0" y="0" width="380" height="20"/>
 				<box leftPadding="15">
 					<leftPen lineWidth="0.5"/>
