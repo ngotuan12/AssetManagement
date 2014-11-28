@@ -651,13 +651,14 @@ function addRow(capital_id,capital_code,capital_name,capital_original,capital_re
 			+ capital_code
 			+ '</td><td>'
 			+ capital_name
-			+ '</td><td style="text-align:right;">'
+			+ '</td><td class="currency" style="text-align:right;">'
 			+ capital_original
-			+ '</td><td style="text-align:right;">'
+			+ '</td><td class="currency" style="text-align:right;">'
 			+ capital_remain
 			+ '</td>');
 	newRow.append(newcol);
 	$("#tbView").append(newRow);
+	$('.currency').formatCurrency({ colorize:true, region: 'vi-VN' });
 	
 	var div='<div class="row" style="margin-bottom:2px;">';
 		div +='<div class="col-sm-12">'
@@ -782,7 +783,7 @@ function onAddTable() {
 						+ serial
 						+'</td><td>'
 						+ capital_code 
-						+'</td><td style="text-align:right;">'
+						+'</td><td class="currency" style="text-align:right;">'
 						+ remain 
 						+'</td><td>'
 						+ state 
@@ -805,7 +806,7 @@ function onAddTable() {
 						+ ''
 						+'</td><td>'
 						+ capital_code
-						+'</td><td style="text-align:right;">'
+						+'</td><td class="currency" style="text-align:right;">'
 						+ remain 
 						+'</td><td>'
 						+ '' 
@@ -830,6 +831,7 @@ function onAddTable() {
 		removeInput(serial);
 		//disnable button add
 		$('#btnAdd').prop("disabled", true);
+		$('.currency').formatCurrency({ colorize:true, region: 'vi-VN' });
 	}
 	
 	//check table
