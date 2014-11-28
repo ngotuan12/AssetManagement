@@ -4,6 +4,8 @@ Created on Apr 3, 2014
 
 @author: TuanNA
 '''
+import json
+from myapp.util.DateEncoder import DateEncoder
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf, request
@@ -86,8 +88,18 @@ def verify_asset_report(request):
 def asset_project_report(request):
 	context={}
 	try:
-		projects=List.objects.filter(list_type="7")
-		context.update({"projects":projects})
+# 		projects=List.objects.filter(list_type="7")
+		projects = List.objects.raw("SELECT a.id,a.name "+
+									"FROM list a "+ 
+									"WHERE a.list_type ='7'")
+		lsProjects = []
+		for project in projects:
+			row = {}
+			row.update({'id':project.id})
+			row.update({'name':project.name})
+			lsProjects.append(row)
+		context.update({'data':json.dumps(lsProjects,cls=DateEncoder)})
+# 		context.update({"projects":projects})
 		if request.POST:
 			project_id=request.POST['slProject']
 			authorization = client.getAuthorization(request.user.username)

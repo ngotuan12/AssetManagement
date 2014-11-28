@@ -24,13 +24,13 @@
 						<div class="form-group ">
 							<label class="col-sm-2 control-label">{% trans 'Dự án' %}</label>
 							<div class="col-sm-8">
-								<select id="" class="form-control chosen-select"
+								<select id="slProject" class="form-control chosen-select"
 									data-placeholder="{% trans 'Dự án' %}"
 									name="slProject">
 									<option value="">--------------------------------------------------------------------------------{% trans 'Tất cả dự án' %}--------------------------------------------------------------------------------</option> 
-									{% for project in projects%}
+									<!-- {% for project in projects%}
 										<option value="{{project.id}}">{{project.name}}</option> 
-									{% endfor %}
+									{% endfor %} -->
 								</select>
 		
 							</div>
@@ -71,6 +71,24 @@
 			'white-space' : 'nowrap'
 		});
 	});
+	function init()
+	{
+		projects = {{ data|safe }};
+		$('#slSerial option[value!=""]').remove();
+		for(var i=0;i<projects.length;i++)
+		{
+			project = projects[i];
+			option = $("<option></option>");
+			option.attr("value",project.id);
+			option.text(project.name);
+			$('#slProject').append(option);
+		}
+		$('#slProject').chosen('destroy');
+		$('#slProject').prop("selectedIndex", -1);
+		$('#slProject').chosen();
+		
+		$("#slProject_chosen").width('100%');
+	}
 	function onSubmitFormDecrement()
 	{
 		var $valid = jQuery('#formReport').valid();
@@ -81,5 +99,10 @@
 		}
 		jQuery('#formReport').submit();
 	}
+	jQuery(window).load(function()
+	{
+		//init
+		init();
+	});
 </script>
 {% endblock scripts%}
