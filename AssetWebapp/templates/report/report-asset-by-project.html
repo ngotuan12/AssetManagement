@@ -74,7 +74,7 @@
 	function init()
 	{
 		projects = {{ data|safe }};
-		$('#slSerial option[value!=""]').remove();
+		$('#slProject option[value!=""]').remove();
 		for(var i=0;i<projects.length;i++)
 		{
 			project = projects[i];
@@ -84,7 +84,7 @@
 			$('#slProject').append(option);
 		}
 		$('#slProject').chosen('destroy');
-		$('#slProject').prop("selectedIndex", -1);
+		$('#slProject').prop("selectedIndex", 0);
 		$('#slProject').chosen();
 		
 		$("#slProject_chosen").width('100%');
