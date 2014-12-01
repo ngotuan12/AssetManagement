@@ -72,13 +72,13 @@ def do_import_temp(request):
                 file_id=int(p_file_id.getvalue())
                 for i in range(from_row,to_row):
                     p_error = cursor.var(cx_Oracle.STRING).var
-                    print("stt: "+str(sheet.cell_value(i,0)))
-                    print("p_stt: "+str(sheet.cell_type(i,0)))
+                    #print("stt: "+str(sheet.cell_value(i,0)))
+                    #print("p_stt: "+str(sheet.cell_type(i,0)))
                     p_stt=sheet.cell_value(i,0)
                     p_goc=None
                     p_ts_con=None
                     p_ten_ts=sheet.cell_value(i,1)
-                    p_ma_da=None
+                    p_ma_da=sheet.cell_value(i,2)
                     p_donvi=sheet.cell_value(i,3)
                     p_stts=sheet.cell_value(i,4)
                     p_ma_nhandien=sheet.cell_value(i,5)
@@ -86,14 +86,14 @@ def do_import_temp(request):
                     p_nuoc_sx=sheet.cell_value(i,7)
                     p_ma_mucdich=sheet.cell_value(i,8)
                     p_soluong=sheet.cell_value(i,9)
-                    print("p_soluong: "+str(sheet.cell_type(i,9)))
+                    #print("p_soluong: "+str(sheet.cell_type(i,9)))
                     if(isinstance(p_soluong,str) and p_soluong.strip()==''):
                         p_soluong=None
                     p_nam_sx=sheet.cell_value(i,10)
                     p_cong_suat=sheet.cell_value(i,11)                
                     #p_thoigian_sd=datetime(*xlrd.xldate_as_tuple(sheet.cell_value(i,12), 0))
-                    print("p_thoigian_sd: "+str(sheet.cell_type(i,12)))
-                    print("")
+                    #print("p_thoigian_sd: "+str(sheet.cell_type(i,12)))
+                    #print("")
                     cell_type =sheet.cell_type(i,12)
                     if cell_type == xlrd.XL_CELL_DATE:
                         p_thoigian_sd=datetime(*xlrd.xldate_as_tuple(sheet.cell_value(i,12), work_book.datemode))
