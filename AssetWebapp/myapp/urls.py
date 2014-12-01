@@ -5,7 +5,7 @@ from myapp.views import Home, Department, FunctionList, IncrementAsset, \
 	RevaluateAsset, EvaluationAsset, TransferAsset, ListProject, ListSupplier, \
 	AssetState, Reason, JoinReleaseAsset, AmortizeAsset, AssetType, Report\
 	, Goal, AssetVolatility, ListCountry, App, BarCode, PrintAsset, ReleaseAsset\
-	, JoinAsset, ViewAssetHis, DistributeAsset, ImportAsset,ImportDepartment
+	, JoinAsset, ViewAssetHis, DistributeAsset, ImportAsset,ImportDepartment,Capital
 
 
 urlpatterns = patterns('',
@@ -90,6 +90,11 @@ urlpatterns = patterns('',
 	url(r'^goal/add/(?P<parent_id>\w+)/$', Goal.add, name='add-goal'),
 	url(r'^goal/edit/(?P<goal_id>\w+)/$', Goal.edit, name='edit-goal'),
 	url(r'^goal/delete/(?P<goal_id>\w+)/$', Goal.delete, name='delete-goal'),
+	# Capital
+	url(r'^capital/$', Capital.index, name='capital'),
+	url(r'^capital/add/(?P<parent_id>\w+)/$', Capital.add, name='add-capital'),
+	url(r'^capital/edit/(?P<capital_id>\w+)/$', Capital.edit, name='edit-capital'),
+	url(r'^capital/delete/(?P<capital_id>\w+)/$', Capital.delete, name='delete-capital'),
 	# AssetVolatility
 	url(r'^asset-volatility/$', AssetVolatility.index, name='asset-volatility'),
 	url(r'^volatility/add/(?P<parent_id>\w+)/$', AssetVolatility.add, name='add-asset-volatility'),

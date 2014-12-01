@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block styles %}
+<link href="/css/increment-asset.css" rel="stylesheet">
+<link rel="stylesheet" href="/tree/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<style>
+.ztree {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	height: 520px;
+	overflow-y: scroll;
+	overflow-x: auto;
+}
+
+.ztree li span.button.add {
+	margin-left: 2px;
+	margin-right: -1px;
+	background-position: -144px 0;
+	vertical-align: top;
+	*vertical-align: middle
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="contentpanel no-padding">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title"
+				style="text-align: center; line-height: 10px">{% trans 'SỬA THÔNG TIN NGUỒN VỐN' %}</h4>
+		</div>
+		<div class="panel-body" style="padding: 0 10px;">
+			<div class="row row-pad-5">
+				<form class="form-horizontal form-bordered" method="post" id="formAssetState" novalidate="novalidate" >
+					{% csrf_token %}
+					{% if has_error %}
+						<div class="col-sm panel">
+							<label class="error">{{ has_error }}</label>
+						</div>
+					{% endif %}
+					<div class="row row-pad-5">
+						<div class="alert alert-info">
+							<div class="row">
+								<div class="col-lg">
+									<label>{% trans 'Trực thuộc' %}</label>
+									<select class="form-control chosen-select"
+										data-placeholder="{% trans 'Trực thuộc' %}" name = "slParent" required>
+										{% for parent in parents %}
+											{% if parent.id|truncatechars:100 == capital.parent_id.id|truncatechars:100 %}
+												<option selected="selected" value="{{ parent.id }}">{{ parent.code }} - {{ parent.name }}</option>
+											{% else %}
+												{% if parent.parent_id.id|truncatechars:100 != capital.id|truncatechars:100 %}
+													<option value="{{ parent.id }}">{{ parent.code }} - {{ parent.name }}</option>
+												{% endif %}
+											{% endif %}
+										{% endfor%}
+									</select>
+									<label for="slParent" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-lg-6">
+									<label>{% trans 'Mã nguồn vốn' %}</label> <input type="text"
+										id="txtCode" name="txtCode" value="{{ capital.code }}" placeholder="{% trans 'Mã mục đích sử dụng' %}"
+										class="form-control" required maxlength="10">
+								</div>
+								<div class="col-lg-6">
+									<label>{% trans 'Tên nguồn vốn' %}</label> <input type="text"
+										id="txtName" name="txtName" value="{{ capital.name }}" placeholder="{% trans 'Tên mục đích sử dụng' %}"
+										class="form-control" required maxlength="100">
+								</div>
+								<div class="col-lg-12">
+									<label class="control-label">{% trans 'Mô tả' %}</label>
+									<textarea  class="form-control" rows="5" name="txtDescription" id="txtDescription" placeholder="{% trans 'Mô tả' %}" maxlength="100" required="required">{{ capital.description }}</textarea>
+								</div>
+							</div>
+							
+							<div class="row row-pad-5">
+								<div class="ckbox ckbox-default">
+									{% if capital.status == '1' %}
+										<input id="ckStatus" type="checkbox" name="ckStatus" checked="checked" > 
+									{% else %}
+										<input id="ckStatus" type="checkbox" name="ckStatus"> 
+									{% endif %}
+									<label for="ckStatus">{% trans 'Kích hoạt' %} </label>
+								</div>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="row row-pad-5">
+						<div class="col-sm col-sm-offset-5">
+							<button class="btn btn-primary" onclick="return onSubmit();">{% trans 'Thực hiện' %}</button>
+							&nbsp; <a class="btn btn-default" href="/capital/">{% trans 'Thoát' %}</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- contentpanel -->
+{% endblock %} 
+{% block scripts %}
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/modernizr.min.js"></script>
+<script src="/js/jquery.sparkline.min.js"></script>
+<script src="/js/toggles.min.js"></script>
+<script src="/js/retina.min.js"></script>
+<script src="/js/jquery.cookies.js"></script>
+<script src="/js/chosen.jquery.min.js"></script>
+
+<script src="/js/custom.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script>
+jQuery(document).ready(function() {
+	// Chosen Select
+	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+});
+function onSubmit() {
+	var $valid = jQuery('#formAssetState').validate();
+	if (!$valid) 
+	{
+		$validator.focusInvalid();
+		return false;
+	}
+	jQuery('#formAssetState').submit();
+}
+jQuery(window).load(function(){
+	$("form:not(.filter) :input:visible:enabled:first").focus();
+});
+</script>
+{% endblock scripts%}
