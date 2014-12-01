@@ -123,6 +123,10 @@
 jQuery(document).ready(function() {
 	// Chosen Select
 	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
+	$("#txtCode").on("keydown", function (e) {
+	if(e.which === 32) 
+		return false;
+	});
 });
 function onSubmit() {
 	var $valid = jQuery('#formAssetState').validate();
