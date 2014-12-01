@@ -39,7 +39,7 @@
 			<div class="alert alert-info" style="padding-top: 0px;padding-bottom: 15px;">
 				<div class="row row-pad-0">
 					<div class="col-md-5">
-						<label>{% trans 'BỘ PHẬN' %}</label>
+						<label class="control-label">{% trans 'BỘ PHẬN' %}</label>
 						<select id="slDept" class="form-control chosen-select"
 							data-placeholder="{% trans 'Bộ phận...' %}" 
 							name = "slDept" required="required">
@@ -51,7 +51,7 @@
 						<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 					</div>
 					<div class="col-md-7">
-						<label>{% trans 'KHO' %}</label>
+						<label class="control-label">{% trans 'KHO' %}</label>
 						<select id="slStock" class="form-control chosen-select"
 							data-placeholder="{% trans 'Kho...' %}" 
 							name = "slStock" required="required" disabled="disabled">
@@ -60,7 +60,7 @@
 								<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 							{% endfor%}
 						</select>
-						<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+						<label for="slStock" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 					</div>
 				</div>
 			</div>
@@ -68,7 +68,7 @@
 			<div class="row row-pad-0">
 				<div class="col-md-5" style="padding-top: 10px;">
 					<div class="col-md-12" style="BORDER-RIGHT: #999999 1px dashed;">
-						<label>{% trans 'TÌM KIẾM' %}</label> <input type="text"
+						<label class="control-label">{% trans 'TÌM KIẾM' %}</label> <input type="text"
 							id = "txtSearch" placeholder="{% trans 'Tìm ..' %}"
 							class="form-control" oninput="onChangeTree();">
 					</div>
@@ -83,7 +83,7 @@
 						</div>
 					{% endif %}
 					<div class="col-lg">
-						<label>{% trans 'DANH SÁCH TÀI SẢN MUỐN TÁCH' %}</label>
+						<label class="control-label">{% trans 'DANH SÁCH TÀI SẢN MUỐN TÁCH' %}</label>
 					</div>
 					<div class="col-lg">
 						<div class="table-responsive">
@@ -105,7 +105,7 @@
 							{% csrf_token %}
 							<input type="hidden" name="txtListSerial" id="txtListSerial" value="" required="required">
 							<div class="col-sm">
-								<label>{% trans 'Ghi chú' %}</label>
+								<label class="control-label">{% trans 'Ghi chú' %}</label>
 								<textarea class="form-control" name="txtNote" rows="3"
 									placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
 							</div>
