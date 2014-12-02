@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetChange" language="groovy" pageWidth="1500" pageHeight="842" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b5431f12-062f-4cb9-8619-3cf14dae1dd9">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="200"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
@@ -437,9 +437,9 @@
 		<band height="1" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="20" splitType="Stretch">
+		<band height="42" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="50cc190d-b8f4-43fd-8dd4-03a62a51d098" x="0" y="0" width="380" height="20"/>
+				<reportElement uuid="50cc190d-b8f4-43fd-8dd4-03a62a51d098" x="0" y="0" width="380" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -451,7 +451,7 @@
 				<text><![CDATA[CHỈ TIÊU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6a9ea2bc-baad-438d-a34c-ed7c8bbebe70" x="380" y="0" width="120" height="20"/>
+				<reportElement uuid="6a9ea2bc-baad-438d-a34c-ed7c8bbebe70" x="380" y="0" width="120" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -463,7 +463,7 @@
 				<text><![CDATA[TỔNG]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2996b590-5e0d-4553-b6f2-b873add6b990" x="500" y="0" width="120" height="20"/>
+				<reportElement uuid="2996b590-5e0d-4553-b6f2-b873add6b990" x="500" y="0" width="120" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -472,10 +472,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MMTBDL]]></text>
+				<text><![CDATA[MÁY MÓC THIẾT BỊ ĐỘNG LỰC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ee5e0fcb-1503-4c7e-aaf3-c8491ae2b31b" x="620" y="0" width="120" height="20"/>
+				<reportElement uuid="ee5e0fcb-1503-4c7e-aaf3-c8491ae2b31b" x="620" y="0" width="120" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -484,10 +484,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MMTBCT]]></text>
+				<text><![CDATA[MÁY MÓC THIẾT BỊ CÔNG TÁC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7bb9fd40-e916-4e18-9a5c-15ca56b70bf2" x="740" y="0" width="120" height="20"/>
+				<reportElement uuid="7bb9fd40-e916-4e18-9a5c-15ca56b70bf2" x="740" y="0" width="120" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -496,10 +496,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DCDLTN]]></text>
+				<text><![CDATA[DỤNG CỤ ĐO LƯỜNG THÍ NGHIỆM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ef3aa8fe-4645-4fd1-bcfa-982f347c1deb" x="860" y="0" width="120" height="20"/>
+				<reportElement uuid="ef3aa8fe-4645-4fd1-bcfa-982f347c1deb" x="860" y="0" width="120" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -508,10 +508,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TBPTVT]]></text>
+				<text><![CDATA[THIẾT BỊ PHƯƠNG TIỆN VẬN TẢI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d0c9cc42-833a-48db-9c5f-c82255d86c34" x="980" y="0" width="120" height="20"/>
+				<reportElement uuid="d0c9cc42-833a-48db-9c5f-c82255d86c34" x="980" y="0" width="120" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -520,10 +520,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DCQL]]></text>
+				<text><![CDATA[DỤNG CỤ QUẢN LÝ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bb983cb4-9e5c-4107-9bfb-0162a4b2c270" x="1100" y="0" width="120" height="20"/>
+				<reportElement uuid="bb983cb4-9e5c-4107-9bfb-0162a4b2c270" x="1100" y="0" width="120" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -532,10 +532,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NCVKT]]></text>
+				<text><![CDATA[NHÀ CỬA, VẬT KIẾN TRÚC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a6a8b10e-0851-4a26-96d2-79413bf6a6cf" x="1220" y="0" width="120" height="20"/>
+				<reportElement uuid="a6a8b10e-0851-4a26-96d2-79413bf6a6cf" x="1220" y="0" width="120" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -544,10 +544,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TSCDHH]]></text>
+				<text><![CDATA[TÀI SỐ CỐ ĐỊNH HỮU HÌNH]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2e145d46-6e1e-4aac-8528-19f685e1f185" x="1340" y="0" width="120" height="20"/>
+				<reportElement uuid="2e145d46-6e1e-4aac-8528-19f685e1f185" x="1340" y="0" width="120" height="42"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -557,7 +557,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TSCDVH]]></text>
+				<text><![CDATA[TÀI SẢN CỐ ĐỊNH VÔ HÌNH]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
