@@ -84,6 +84,7 @@
 										<label class="control-label">{% trans 'Ngày chuyển' %}</label>
 										<div class="input-group">
 											<input type="text" class="form-control"
+												style="padding:8px;"
 												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày chuyển' %}" id="dt_transfer"
 												name = "dt_transfer" required>
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -91,6 +92,36 @@
 									</div>
 								</div>
 								
+							</div>
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> {% trans 'Số QĐ' %} </label>
+										<input type="text" style="padding: 8px;" name="txtDecisionNo" placeholder="{% trans 'Số QĐ' %}" id="txtDecisionNo" maxlength="20"
+										class="form-control" required>
+									</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label">{% trans 'Người QĐ' %}</label>
+										<input type="text" style="padding: 8px;" name="txtDecisionerName" placeholder="{% trans 'Người QĐ' %}" maxlength="50"
+										class="form-control" required>
+									</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label">{% trans 'Ngày QĐ' %}</label>
+										<div class="input-group">
+											<input type="text" class="form-control" 
+												style="padding:8px;"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày chuyển' %}" id="dt_decision"
+												name = "dt_decision" required>
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
+								</div>								
 							</div>
 						</div>
 						<div class="alert alert-info">
@@ -141,7 +172,7 @@
 								<div class="col-lg">
 									<div class="form-group">
 										<label class="control-label"> {% trans 'Ghi chú' %} </label>
-										<textarea class="form-control" name="txtNote" rows="5"
+										<textarea class="form-control" name="txtNote" rows="2"
 												placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
 									</div>
 								</div>
@@ -196,6 +227,11 @@ $(document).ready(function(){
 		dateFormat: 'dd/mm/yy',
 		maxDate: '0',
 		});
+	$('#dt_decision').datepicker({
+		dateFormat: 'dd/mm/yy',
+		maxDate: '0',
+		});
+	$("#dt_decision").datepicker("setDate",new Date());
 	$("#dt_transfer").datepicker("setDate",new Date());
 	// Input Masks
 	$("#dt_transfer").mask("99/99/9999");
@@ -236,6 +272,11 @@ $(document).ready(function(){
 	
 	//validate
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
+	
+	$("#txtDecisionNo").on("keydown", function (e) {
+		if(e.which === 32) 
+			return false;
+		});
 });
 function onSubmitFormTransfer()
 {
