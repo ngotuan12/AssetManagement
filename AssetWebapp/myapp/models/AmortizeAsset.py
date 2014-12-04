@@ -16,8 +16,10 @@ from myapp.util.sequence import update_id
 class AmortizeAsset(models.Model):
     id = models.IntegerField(primary_key=True,db_column="id")
     month = models.DateTimeField(db_column="month")
-    serial_no = models.CharField(max_length=40,db_column="serial_no")
+    serial_no = models.CharField(max_length=40,db_column="serial_no")    
+    capital_id = models.FloatField(db_column="capital_id")
     amount = models.FloatField(db_column="amount")
+    adjustment = models.FloatField(db_column="adjustment")
     amortize = models.ForeignKey(List,db_column='amortize_id')
     status = models.CharField(max_length=1,db_column="status")
     create_date = models.DateTimeField(default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),db_column="create_date")

@@ -23,14 +23,14 @@
 						<label id="error-text" class="error">{{ has_error }}</label>
 					</div>
 				{% endif %}
-			<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="amortize-asset">
-		
-		{% csrf_token %}
+				<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="amortize-asset">		
+					{% csrf_token %}
 					<div class = "row row-pad-5">
 						<div class="col-lg-6">
 							<label> {% trans 'Tháng tính khấu hao' %}</label>
 							<div class="input-group">
 								<input type="text" class="form-control"
+									style ="padding:8px;"
 									data-provide="datepicker" data-date-format="mm/yy" placeholder="{% trans 'Tháng tính khấu hao' %}" id="amortize_month"
 									name = "dtAmortizeMonth" required> <span
 									class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -57,37 +57,48 @@
 					<input type="hidden" name="submitForm" value="calculate"/>
 						<div class="row row-pad-5" >
 						<div class="col-sm col-sm-offset-5" style='float:right'>
-								<button class="btn btn-primary" onclick=" return onCalculate();">{% trans 'Thực hiện' %}</button>
+								<button class="btn btn-primary" onclick=" return onCalculate();">{% trans 'Tính khấu hao' %}</button>
 						</div>
 					</div>
-					</form>
+				</form>
 				
 				<form class="form-horizontal form-bordered" novalidate="novalidate" method="post" id="approve-amortize-asset">
-			{% csrf_token %}
+					{% csrf_token %}
 						<div class="col-sm" >
 							<div class="table-responsive">
 								<table class="table table-bordered" id="childAssetTable">
 									<thead>
 										<tr>
-											<th style='width: 1%;text-align: center;font-family: Arial,Helvetica,sans-serif;' >{% trans 'CHỌN' %}</th>
-											<th style='width: 15%;text-align: center;font-family: Arial,Helvetica,sans-serif;'>{% trans 'SỐ THẺ TÀI SẢN' %} </th>
+											<!--<th style='width: 1%;text-align: center;font-family: Arial,Helvetica,sans-serif;' >{% trans 'CHỌN' %}</th> -->
+											<th style='width: 1%;text-align: center;font-family: Arial,Helvetica,sans-serif;' >											 	   												
+											<!--  {% trans 'CHỌN' %}--> 
+											<!--  <input type="checkbox" checked= "true" onclick="checkAll(this)">--> 												 
+											</th>											
+											<th style='width: 15%;text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'SỐ THẺ TÀI SẢN' %} </th>
 											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'THÁNG' %} </th>
+											<th style='width: 15%;text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'NGUỒN VỐN' %} </th>											
 											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'SỐ TIỀN' %} </th>
+											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'ĐIỀU CHỈNH' %} </th>											
 											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'PHƯƠNG PHÁP TÍNH' %} </th>
 											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'TRẠNG THÁI' %}</th>
 										</tr>
 									</thead>
-									<tbody id="child-asset-table-body">
+									<tbody id="child-asset-table-body">										
 										{% for amortizeAsset in amortize_assets %}
-										<tr class="odd gradeX" >
-											<td width='30'><input type="checkbox" id='{{ "child-asset-id-"|add:amortizeAsset.serial_no }}' 
+										<tr class="odd gradeX" id="{{ amortizeAsset.serial_no }}" value="{{ amortizeAsset.serial_no }}">
+											<!--<td width='30'><input type="checkbox" id='{{ "child-asset-id-"|add:amortizeAsset.serial_no }}'  
 												serial_no="{{ amortizeAsset.serial_no }}" month="{{ amortizeAsset.month|date:'m/Y' }}" 
 												onClick="chooseAsset(this.id,this.checked)"
 												{% if amortizeAsset.status != '00' %} disabled="disabled" {% endif %}
-												></td>
+												style="text-align: center;"
+												checked= "true"
+												></td> -->
+											<td width='30'></td>
 											<td width='100'>{{ amortizeAsset.serial_no }}</td>
 											<td>{{ amortizeAsset.month|date:'m/Y' }}</td>
+											<td width='100'>{{ amortizeAsset.capital_id }}</td>
 											<td class="currency" style="text-align: right;">{{ amortizeAsset.amount }}</td>
+											<td class="currency" style="text-align: right;">{{ amortizeAsset.adjustment }}</td>											
 											<td>{{ amortizeAsset.amortize.name }}</td>
 											{% if amortizeAsset.status == '00' %}
 												<td>
@@ -95,11 +106,14 @@
 												</td>
 											{% else %}
 												<td>
-													{% trans 'Đã duyệt' %}
+													{% if amortizeAsset.status == '02' %}												
+														{% trans 'Đã duyệt' %}
+													{% else %}
+														{% trans 'Unknow' %}													
+													{% endif %}
 												</td>
-											{% endif %}
-											
-										</tr>
+											{% endif %}											
+										</tr>																												
 										{% endfor %}
 									</tbody>
 								</table>
@@ -108,13 +122,19 @@
 						</div>
 						
 					<!-- row -->
-				<input type="hidden" name="submitForm" value="approved"/>
-			<select id="choosen-asset" style="display:none ">
+					<input type="hidden" name="submitForm" value="approved"/>
+					<select id="choosen-asset" style="display:none ">
+						 {% for amortizeAsset in amortize_assets %}
+						 	{% if amortizeAsset.status == '00' %}
+								<option serial_no="{{ amortizeAsset.serial_no }}" month="{{ amortizeAsset.month|date:'m/Y' }}"
+								></option>
+							{% endif %}		
+						{% endfor %} 															
 					</select>
 					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  />
 					<div class="row">
 						<div class="col-sm col-sm-offset-5" >
-								<button class="btn btn-primary" onclick=" return onApproved();">{% trans 'Thực hiện' %}</button>
+								<button class="btn btn-primary" onclick=" return onApproved();">{% trans 'Cập nhật' %}</button>
 						</div>
 					</div>	
 				</form>
@@ -221,7 +241,21 @@ function chooseAsset(id,checked){
 	{
 		$('#choosen-asset option[value="'+value+'"]').remove();
 	}
-	
 }
+function checkAll(bx) {
+	  var cbs = document.getElementsByTagName('input');
+	  for(var i=0; i < cbs.length; i++) 
+	  {
+	    if(cbs[i].type == 'checkbox') 
+	    {
+	      cbs[i].checked = bx.checked;
+	     // chooseAsset(cbs[i].id,cbs[i].checked);	      
+	    }
+	  }
+}
+jQuery(window).load(function()
+{
+	//alert($("#child-asset-table-body tr[id][id ='00111012002018_2']").attr('id'));
+});
 </script>
 {% endblock scripts%}
