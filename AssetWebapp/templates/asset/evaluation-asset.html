@@ -225,9 +225,31 @@
 									</div>
 								</div>
 								<div class="col-sm-6">
+									<label>{% trans 'Số quyết định' %}</label>
+									<input type="text" id="txtDecisionNo" name="txtDecisionNo" 
+											placeholder="{% trans 'Số quyết định' %}" style="padding: 8px;" class="form-control" maxlength="20" required>
+								</div>
+							</div>
+							<div class="row" style="margin-top: 5px;">
+								<div class="col-sm-6">
+									<label>{% trans 'Người quyết định' %}</label>
+									<input type="text" id="txtDecisionName" name="txtDecisionName" 
+											placeholder="{% trans 'Người quyết định' %}" style="padding: 8px;" class="form-control" maxlength="100" required>
+								</div>
+								<div class="col-sm-6">
+									<label>{% trans 'Ngày quyết định' %}</label>
+									<div class="input-group">
+										<input type="text" class="form-control" style="padding: 8px;" name="dtDecisionDate" id="dtDecisionDate" 
+											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày quyết định (mm/dd/yyyy)' %}" required> <span
+											class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="row" style="margin-top: 5px;">
+								<div class="col-sm-12">
 									<div class="form-group" style="padding: 0px 0";>
 									<label class="control-label"> {% trans 'Ghi chú' %} </label>
-									<textarea class="form-control" id="txtNote" name="txtNote" rows="1" style="height: 40px;"
+									<textarea class="form-control" id="txtNote" name="txtNote" rows="2"
 										placeholder="{% trans 'Ghi chú' %}" maxlength="100" required="required"></textarea>
 									</div>
 								</div>
@@ -325,7 +347,13 @@ $(document).ready(function(){
 		'width' : '100%',
 		'white-space' : 'nowrap'
 	});
-	
+	//date
+	$('#dtDecisionDate').datepicker({
+		dateFormat : 'dd/mm/yy',
+		maxDate: new Date(),
+	});
+	$("#dtDecisionDate").datepicker("setDate",new Date());
+	$('#dtDecisionDate').mask("99/99/9999");
 	//slDept change
 	$( "#slDept" ).change(function() {
 		$(".error[for][for='slDept']").hide();
@@ -377,6 +405,10 @@ $(document).ready(function(){
 	
 	//validate
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
+	$("#txtDecisionNo").on("keydown", function (e) {
+		if(e.which === 32) 
+			return false;
+		});
 });
 var stt=1;
 var originalTemp =0.00;

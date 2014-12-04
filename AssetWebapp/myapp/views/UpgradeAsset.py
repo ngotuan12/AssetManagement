@@ -35,6 +35,10 @@ def index(request):
             goad_id = request.POST["slGoal"]
             note = request.POST["txtNote"]
             
+            decisionNo = request.POST["txtDecisionNo"]
+            decisionName = request.POST["txtDecisionName"]
+            decisionDate = request.POST["dtDecisionDate"]
+            
             cursor = connection.cursor()
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'DD/MM/YYYY HH24:MI:SS.FF'")
@@ -56,7 +60,13 @@ def index(request):
                             #p_note
                             note,
                             #p_username
-                            username
+                            username,
+                            #p_decision_no
+                            decisionNo,
+                            #p_decisioner
+                            decisionName,
+                            #p_decision_date
+                            decisionDate
                         ))
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")

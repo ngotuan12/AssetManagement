@@ -47,6 +47,9 @@ urlpatterns = patterns('',
     # get list capital
     url(r'^get-list-capital/(?P<asset_id>\w+)/$', DistributeAsset.get_capital, name='get-capitals'),
     url(r'^get-list-stock-serial/(?P<stock_id>\w+)/$', EvaluationAsset.get_list_stock_serial, name='get-list-stock-serial'),
+    url(r'^get-serial-no/(?P<day>\w+)/(?P<month>\w+)/(?P<year>\w+)/$', IncrementAsset.get_serial_no, name='get-serial-no'),
+    url(r'^get-interval/(?P<asset_id>\w+)/$', IncrementAsset.get_interval, name='get-interval'),
+    
     # verify asset
     url(r'^verify-asset/$', VerifyAsset.index, name='verify-asset'),
     url(r'^verify-asset/(?P<serial_id>\w+)/$', VerifyAsset.verify),
