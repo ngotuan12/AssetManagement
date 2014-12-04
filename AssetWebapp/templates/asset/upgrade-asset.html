@@ -58,22 +58,22 @@
 								<div class="col-lg-3">
 									<label>{% trans 'Nguyên giá' %}</label>
 									<input type="text" name="txtOriginalAmount" id="txtOriginalAmount"
-										placeholder="{% trans 'Nguyên giá' %}" class="form-control numberic" disabled="disabled">
+										placeholder="{% trans 'Nguyên giá' %}" style="padding: 8px;" class="form-control numberic" disabled="disabled">
 								</div>
 								
 								<div class="col-lg-3">
 									<label>{% trans 'Thời hạn sử dụng cũ' %}</label>
-									<input type="text" id="txtIntervalCurrent" name="txtIntervalCurrent" placeholder="{% trans 'Thời hạn sử dụng cũ...' %}" class="form-control numberic" disabled="disabled">
+									<input type="text" id="txtIntervalCurrent" name="txtIntervalCurrent" placeholder="{% trans 'Thời hạn sử dụng cũ...' %}" style="padding: 8px;" class="form-control numberic" disabled="disabled">
 								</div>
 								
 								<div class="col-lg-3">
 									<label>{% trans 'Trạng thái cũ' %}</label>
-									<input type="text" id="txtStateCurrent" name="txtStateCurrent" placeholder="{% trans 'Trạng thái cũ...' %}" class="form-control" disabled="disabled">
+									<input type="text" id="txtStateCurrent" name="txtStateCurrent" placeholder="{% trans 'Trạng thái cũ...' %}" style="padding: 8px;" class="form-control" disabled="disabled">
 								</div>
 								
 								<div class="col-lg-3">
 									<label>{% trans 'Mục đích sử dụng cũ' %}</label>
-									<input type="text" id="txtGoalCurrent" name="txtGoalCurrent" placeholder="{% trans 'Mục đích sử dụng cũ...' %}" class="form-control" disabled="disabled">
+									<input type="text" id="txtGoalCurrent" name="txtGoalCurrent" placeholder="{% trans 'Mục đích sử dụng cũ...' %}" style="padding: 8px;" class="form-control" disabled="disabled">
 								</div>
 								
 							</div>
@@ -81,12 +81,12 @@
 								<div class="col-lg-3">
 									<label>{% trans 'Chi phí nâng cấp' %}</label>
 									<input type="text" name="txtCostAmount" id="cost-amount"
-										placeholder="{% trans 'Chi phí nâng cấp ...' %}" class="form-control numberic" required maxlength="15">
+										placeholder="{% trans 'Chi phí nâng cấp ...' %}" style="padding: 8px;" class="form-control numberic" required maxlength="15">
 								</div>
 								
 								<div class="col-lg-3">
 									<label>{% trans 'Thời hạn sử dụng mới' %}</label>
-									<input type="text" id="txtInterval" name="txtInterval" placeholder="{% trans 'Thời hạn sử dụng...' %}" class="form-control numberic" required maxlength="2">
+									<input type="text" id="txtInterval" style="padding: 8px;" name="txtInterval" placeholder="{% trans 'Thời hạn sử dụng...' %}" class="form-control numberic" required maxlength="2">
 								</div>
 								
 								<div class="col-lg-3">
@@ -114,9 +114,31 @@
 							</div>
 							
 							<div class="row">
+								<div class="col-lg-4">
+									<label>{% trans 'Số quyết định' %}</label>
+									<input type="text" id="txtDecisionNo" name="txtDecisionNo" 
+											placeholder="{% trans 'Số quyết định' %}" style="padding: 8px;" class="form-control" maxlength="20" required>
+								</div>
+								<div class="col-lg-4">
+									<label>{% trans 'Người quyết định' %}</label>
+									<input type="text" id="txtDecisionName" name="txtDecisionName" 
+											value="{{ decisionName }}"
+											placeholder="{% trans 'Người quyết định' %}" style="padding: 8px;" class="form-control" maxlength="100" required>
+								</div>
+								<div class="col-lg-4">
+									<label>{% trans 'Ngày quyết định' %}</label>
+									<div class="input-group">
+										<input type="text" class="form-control" style="padding: 8px;" name="dtDecisionDate" id="dtDecisionDate" 
+											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày quyết định (mm/dd/yyyy)' %}" required> <span
+											class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
 								<div class="col-lg">
 									<label class="control-label"> {% trans 'Ghi chú' %} </label>
-									<textarea class="form-control" id="txtNote" name="txtNote" rows="4"
+									<textarea class="form-control" id="txtNote" name="txtNote" rows="3"
 										placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
 								</div>
 							</div>
@@ -172,10 +194,15 @@ $(document).ready(function(){
 	$('#dtUpgradeDate').datepicker({
 		dateFormat : 'dd/mm/yy',
 	});
+	$('#dtDecisionDate').datepicker({
+		dateFormat : 'dd/mm/yy',
+		maxDate: new Date(),
+	});
 	$("#dtUpgradeDate").datepicker("setDate",new Date());
+	$("#dtDecisionDate").datepicker("setDate",new Date());
 	// Input Masks
 	$('#dtUpgradeDate').mask("99/99/9999");
-	
+	$('#dtDecisionDate').mask("99/99/9999");
 	$( "#slDept" ).change(function() {
 		$(".error[for][for='slDept']").hide();
 		clearVal('dept');
@@ -223,6 +250,10 @@ $(document).ready(function(){
 		$(this).val($("#hd_cus_amount").val());
 	});
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
+	$("#txtDecisionNo").on("keydown", function (e) {
+	if(e.which === 32) 
+		return false;
+	});
 });
 function onSubmitFormUpgrade()
 {

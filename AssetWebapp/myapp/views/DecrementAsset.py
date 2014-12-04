@@ -45,6 +45,11 @@ def index(request):
 			stock_id = request.POST["slStock"]
 			serial = request.POST["slSerial"]
 			asset_id = request.POST["txtAssetID"]
+			
+			decisionNo = request.POST["txtDecisionNo"]
+			decisionName = request.POST["txtDecisionName"]
+			decisionDate = request.POST["dtDecisionDate"]
+			
 # 			CapitalAmount_id = request.POST["txtCapitalAmount"]
 # 			OriginalAmount_id = request.POST["txtOriginalAmount"]
 # 			RemainAmount_id = request.POST["txtRemainAmount"]
@@ -78,7 +83,13 @@ def index(request):
 							# p_username
 							request.user.username,
 							# p_note	
-							note						
+							note,
+							#p_decision_no
+							decisionNo,
+							#p_decisioner
+							decisionName,
+							#p_decision_date
+							decisionDate
 						))
 			cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")

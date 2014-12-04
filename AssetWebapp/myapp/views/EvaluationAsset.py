@@ -69,6 +69,11 @@ def index(request):
             reason_id = request.POST["slReason"]
             note = request.POST["txtNote"]
             interval = request.POST["txtInterval"]
+            
+            decisionNo = request.POST["txtDecisionNo"]
+            decisionName = request.POST["txtDecisionName"]
+            decisionDate = request.POST["dtDecisionDate"]
+            
             arrCapitalId = ls_capital_id.split(';')
             arr_original_value =""
             arr_remain_value =""
@@ -109,7 +114,13 @@ def index(request):
                             #p_user_name
                             username,
                             #p_reason_id
-                            reason_id
+                            reason_id,
+                            #p_decision_no
+                            decisionNo,
+                            #p_decisioner
+                            decisionName,
+                            #p_decision_date
+                            decisionDate
                         ))
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' "  
                                        "NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF'")

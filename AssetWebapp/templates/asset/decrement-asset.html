@@ -75,7 +75,26 @@
 									</div>
 								</div>
 							</div>
-							
+							<div class="row">
+								<div class="col-lg-4">
+									<label>{% trans 'Số quyết định' %}</label>
+									<input type="text" id="txtDecisionNo" name="txtDecisionNo" 
+											placeholder="{% trans 'Số quyết định' %}" style="padding: 8px;" class="form-control" maxlength="20" required>
+								</div>
+								<div class="col-lg-4">
+									<label>{% trans 'Người quyết định' %}</label>
+									<input type="text" id="txtDecisionName" name="txtDecisionName" 
+											placeholder="{% trans 'Người quyết định' %}" style="padding: 8px;" class="form-control" maxlength="100" required>
+								</div>
+								<div class="col-lg-4">
+									<label>{% trans 'Ngày quyết định' %}</label>
+									<div class="input-group">
+										<input type="text" class="form-control" style="padding: 8px;" name="dtDecisionDate" id="dtDecisionDate" 
+											data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày quyết định (mm/dd/yyyy)' %}" required> <span
+											class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									</div>
+								</div>
+							</div>
 							<div class="row">
 								<div class="col-lg-6">
 									<label>{% trans 'Lý do giảm..' %}</label>
@@ -102,7 +121,7 @@
 							<div class="row">
 								<div class="col-lg">
 									<label>{% trans 'Ghi chú' %}</label>
-									<textarea class="form-control" name="txtNote" rows="4"
+									<textarea class="form-control" name="txtNote" rows="3"
 										placeholder="{% trans 'Ghi chú' %}" required maxlength="100"></textarea>
 								</div>
 							</div>
@@ -155,10 +174,15 @@ $(document).ready(function(){
 		dateFormat : 'dd/mm/yy',
 		maxDate: new Date(),
 	});
-	
+	$('#dtDecisionDate').datepicker({
+		dateFormat : 'dd/mm/yy',
+		maxDate: new Date(),
+	});
 	// Input Masks
 	$('#dtDecrementDate').mask("99/99/9999");
+	$('#dtDecisionDate').mask("99/99/9999");
 	$("#dtDecrementDate").datepicker("setDate",new Date());
+	$("#dtDecisionDate").datepicker("setDate",new Date());
 	$( "#slDept" ).change(function() {
 		$(".error[for][for='slDept']").hide();
 		clearVal();
@@ -186,6 +210,11 @@ $(document).ready(function(){
 	});
 	//validate
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" })
+	
+	$("#txtDecisionNo").on("keydown", function (e) {
+	if(e.which === 32) 
+		return false;
+	});
 });
 //get capital
 function onGetCapital(asset_id)
