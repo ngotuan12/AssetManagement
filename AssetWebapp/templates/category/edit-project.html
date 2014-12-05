@@ -52,6 +52,34 @@
 								</div>
 								
 							</div>
+							<div class="row">													
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> {% trans 'Số QĐ đầu tư' %}</label>
+										<input type="text" name="txtDecisionNo" class="form-control" value="{{ project.decision_no }}" placeholder="{% trans 'Số QĐ đầu tư' %}"  maxlength="40">
+									</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label"> {% trans 'Người phê duyệt' %}</label>
+										<input type="text" name="txtDecisioner" class="form-control" value="{{ project.decisioner }}" placeholder="{% trans 'Người phê duyệt' %}" maxlength="100">
+									</div>
+								</div>
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label">{% trans 'Ngày phê duyệt' %}</label>
+										<div class="input-group">
+											<input type="text" class="form-control"
+												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày phê duyệt' %}" id="dt_DecisionDate"
+												name = "dt_DecisionDate" >
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+									</div>
+								</div>
+								
+							</div>							
 							<div class="row">
 								<div class="col-lg">
 									<div class="form-group">
@@ -111,6 +139,10 @@ $(document).ready(function(){
 		dateFormat: 'dd/mm/yy',
 		maxDate: '0',
 		});
+	$('#dt_DecisionDate').datepicker({
+		dateFormat: 'dd/mm/yy',
+		maxDate: '0',
+		});	
 	var current_date = $("#hd_dt_project").val();
 	$("#dt_project").datepicker("setDate",current_date);
 	// Input Masks

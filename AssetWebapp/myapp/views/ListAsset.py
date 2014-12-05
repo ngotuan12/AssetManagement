@@ -41,7 +41,7 @@ def index(request):
 			method_id = request.POST["slMethod"]
 			source_id = request.POST["slSource"]
 			country_id = request.POST["slCountry"]
-			supplier_id = request.POST["slSupplier"]
+			supplier_id = request.POST["txtSupplier"]
 			dept_id = request.POST["slDept"]
 			stock_id = request.POST["slStock"]
 			goal_id = request.POST["slGoal"]

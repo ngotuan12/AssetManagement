@@ -29,8 +29,11 @@
 									<tr>
 										<th style="width: 5%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'STT' %}</th>
 										<th style="width: 12%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'MÃ DỰ ÁN' %} </th>
-										<th style="width: 35%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN DỰ ÁN' %} </th>
-										<th style="text-align: left;font-family: Arial,Helvetica,sans-serif;">MÔ TẢ</th>
+										<th style="width: 35%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'TÊN DỰ ÁN' %} </th>										
+										<th style="width: 12%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỐ QĐ đầu tư' %} </th>
+										<th style="width: 25%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGƯỜI QĐ' %} </th>										
+										<th style="width: 10%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NĂM QĐ' %}</th>
+										<th style="width: 25%;text-align: left;font-family: Arial,Helvetica,sans-serif;">MÔ TẢ</th>
 										<th style="width: 10%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'NGÀY TẠO' %}</th>
 										<th style="width: 10%;text-align: left;font-family: Arial,Helvetica,sans-serif;">{% trans 'SỬA/XÓA' %}</th> 
 									</tr>
@@ -41,6 +44,9 @@
 										<td>{{ forloop.counter }}</td>
 										<td>{{ project.code }}</td>
 										<td>{{ project.name|truncatechars:100 }}</td>
+										<td>{{ project.decision_no }}</td>
+										<td>{{ project.decisioner }}</td>										
+										<td>{{ project.decision_date|date:'Y' }}</td>
 										<td>{{ project.description|truncatechars:100 }}</td>
 										<td>{{ project.create_datetime|date:'d-m-Y' }}</td>
 										<td class="table-action">

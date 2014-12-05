@@ -49,7 +49,7 @@ def index(request):
 					'capitals':List.objects.filter(list_type='3')})
 		
 		context.update({'countries':Country.objects.all()})
-		context.update({'suppliers':Supplier.objects.all()})
+		#context.update({'suppliers':Supplier.objects.all()})
 		context.update({'depts':Dept.objects.all()})
 		context.update({'stocks':Stock.objects.all()})
 		context.update({'goals':List.objects.filter(list_type='2')})
@@ -67,7 +67,7 @@ def index(request):
 			arr_capital_code = request.POST["hd_arr_capital_code"]
 			arr_capital_name = request.POST["hd_arr_capital_name"]
 			country_id = request.POST["slCountry"]
-			supplier_id = request.POST["slSupplier"]
+			supplier_id = request.POST["txtSupplier"]
 			dept_id = request.POST["slDept"]
 			stock_id = request.POST["slStock"]
 			goal_id = request.POST["slGoal"]

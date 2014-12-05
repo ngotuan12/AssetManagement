@@ -39,13 +39,19 @@ def edit_project(request,project_id):
 			try:
 				project_code = request.POST['txtCode']
 				project_name = request.POST['txtName']
+				decision_no =  request.POST['txtDecisionNo']
+				decisioner =  request.POST['txtDecisioner']
+				decision_date =  datetime.strptime(request.POST['dt_DecisionDate'],'%d/%m/%Y')
 				project_desciption = request.POST['txtDescription']
-				project_createDate = datetime.strptime(request.POST['dt_project'],'%d/%M/%Y')
+				project_createDate = datetime.strptime(request.POST['dt_project'],'%d/%m/%Y')
 				
 				project.code = project_code
 				project.name=project_name
 				project.description=project_desciption
 				project.create_datetime = project_createDate
+				project.decision_no = decision_no
+				project.decisioner = decisioner
+				project.decision_date = decision_date				
 				check_project=List.objects.exclude(id = project_id).filter(code=project_code.lower,list_type='7')
 				if(len(check_project) > 0):
 					context.update({'has_error':_(u'Mã dự án đã tồn tại')})
@@ -67,6 +73,9 @@ def add_project(request):
 			try:
 				project_code = request.POST['txtCode']
 				project_name = request.POST['txtName']
+				decision_no =  request.POST['txtDecisionNo']
+				decisioner =  request.POST['txtDecisioner']
+				decision_date =  datetime.strptime(request.POST['dt_DecisionDate'],'%d/%M/%Y')				
 				project_desciption = request.POST['txtDescription']
 				project_createDate = datetime.strptime(request.POST['dt_project'],'%d/%M/%Y')
 				
@@ -76,6 +85,9 @@ def add_project(request):
 				project.description=project_desciption
 				project.create_datetime = project_createDate
 				project.list_type = '7'
+				project.decision_no = decision_no
+				project.decisioner = decisioner
+				project.decision_date = decision_date
 				check_project=List.objects.filter(code=project_code.lower,list_type='7')
 				if(len(check_project) > 0):
 					context.update({'has_error':_(u'Mã dự án đã tồn tại')})

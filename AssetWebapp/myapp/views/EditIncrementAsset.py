@@ -51,7 +51,7 @@ def index(request,asset_id):
 		context.update({'stockAssetSerial':stockAssetSerial})
 		context.update({'capital_values':capital_values})
 		context.update({'countries':Country.objects.all()})
-		context.update({'suppliers':Supplier.objects.all()})
+		#context.update({'suppliers':Supplier.objects.all()})
 		context.update({'depts':Dept.objects.all()})
 		context.update({'stocks':Stock.objects.all()})
 		context.update({'goals':List.objects.filter(list_type='2')})
@@ -68,7 +68,7 @@ def index(request,asset_id):
 			method_id = request.POST["slMethod"]
 			arr_capital_id = request.POST["hd_arr_capital"]
 			country_id = request.POST["slCountry"]
-			supplier_id = request.POST["slSupplier"]
+			supplier_id = request.POST["txtSupplier"]
 			dept_id = request.POST["slDept"]
 			stock_id = request.POST["slStock"]
 			goal_id = request.POST["slGoal"]

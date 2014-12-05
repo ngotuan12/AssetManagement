@@ -262,18 +262,18 @@
 									<div class="col-lg-4">
 										<label>{% trans 'Model' %}</label>
 										<input type="text" style="padding: 8px;" id="txtModel" name="txtModel" value="{{ stockAssetSerial.model }}" placeholder="{% trans 'Model' %}"
-											class="form-control" required maxlength="15">
+											class="form-control"  maxlength="15">
 									</div>
 									<div class="col-lg-4">
 										<label> {% trans 'Số seri' %}</label>
 										<input type="text" style="padding: 8px;" id="txtProductSeri" name="txtProductSeri" value="{{ stockAssetSerial.seri }}" placeholder="{% trans 'Số seri' %}"
-											class="form-control" required maxlength="15">
+											class="form-control"  maxlength="15">
 									</div>
 								
 									<div class="col-lg-4">
 										<label>{% trans 'Công xuất' %}</label>
 										<input type="text" style="padding: 8px;" name="txtPower" value="{{ stockAssetSerial.power }}" placeholder="{% trans 'Công xuất' %}"
-											class="form-control numberic" maxlength="10" required="required">
+											class="form-control numberic" maxlength="10" >
 									</div>
 								</div>
 								<div class="col-lg-12" style="padding: 0px;margin-bottom: 0px;">
@@ -283,7 +283,7 @@
 											
 											<input type="text" style="padding: 8px;" class="form-control"
 												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày mua' %}" id="buy_date"
-												name = "dtBuyDate" required> <span
+												name = "dtBuyDate" > <span
 												class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										</div>
 									</div>
@@ -369,7 +369,7 @@
 						
 						<div class="col-lg-2">
 							<label>{% trans 'Nhà cung cấp' %}</label>
-							<select id="slSupplier" class="form-control chosen-select"
+<!--  							<select id="slSupplier" class="form-control chosen-select"
 								data-placeholder="{% trans 'Nhà cung cấp' %}" 
 								name = "slSupplier" required="required">
 								<option value=""></option>
@@ -382,6 +382,10 @@
 								{% endfor%}
 							</select>
 							<label for="slSupplier" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+-->								
+							<input type="text" style="padding: 8px;" name="txtSupplier" value="{{ stockAssetSerial.supplier }}" placeholder="{% trans 'Nhà cung cấp' %}"
+								class="form-control" >
+												
 						</div>
 						
 						<div class="col-lg-2">
@@ -615,9 +619,9 @@ $(document).ready(function(){
 	$( "#slCountry" ).change(function() {
 		$(".error[for][for='slCountry']").hide();
 	});
-	$( "#slSupplier" ).change(function() {
-		$(".error[for][for='slSupplier']").hide();
-	});
+//	$( "#slSupplier" ).change(function() {
+//		$(".error[for][for='slSupplier']").hide();
+//	});
 	
 	$( "#slCapital" ).change(function() {
 		$(".error[for][for='slCapital']").hide();
