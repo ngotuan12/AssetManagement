@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rp_hientrang" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="8b59b64c-d993-4fc4-978a-115b1c355824">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="p_date" class="java.lang.String"/>
+	<parameter name="p_dept_id" class="java.lang.String"/>
+	<parameter name="p_dept_name" class="java.lang.String">
+		<defaultValueExpression><![CDATA["-1"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT decode(asset_lv,1,code,null) level1,decode(asset_lv,2,code,null) level2,
+    decode(asset_lv,3,code,null) level3,decode(asset_lv,4,code,null) level4,decode(asset_lv,5,code,null) level5,
+    code,NAME,interval,nvl(sta_value,0) sta_value,nvl(amortize_value,0) amortize_value,nvl(remain_value,0) remain_value, account_no
+FROM v_asset a,
+        (SELECT asset_id,sum(sta_value) sta_value,sum(amortize_value) amortize_value,sum(remain_value) remain_value,NULL flag
+        FROM (SELECT a.asset_id,
+                (CASE WHEN aa.reason_id<>16527 then aa.original_value-aa.old_original_value ELSE 0 end) sta_value,
+                (CASE WHEN aa.reason_id=16527 then aa.original_value-aa.old_original_value ELSE 0 end) amortize_value,
+                aa.original_value-aa.old_original_value remain_value
+              FROM capital_value_his aa, stock_asset_serial a
+              WHERE aa.stock_asset_serial_id=a.id
+              AND aa.capital_id IS NOT NULL
+              AND trunc(create_date) < trunc(to_date($P{p_date},'dd/mm/yyyy'))
+              AND stock_id IN (SELECT stock_id FROM stock s WHERE ($P{p_dept_id} IS NULL OR get_dept_stock(s.stock_id) = $P{p_dept_id}))
+              )
+        GROUP BY asset_id) b
+ WHERE a.id=b.asset_id(+)]]>
+	</queryString>
+	<field name="LEVEL1" class="java.lang.String"/>
+	<field name="LEVEL2" class="java.lang.String"/>
+	<field name="LEVEL3" class="java.lang.String"/>
+	<field name="LEVEL4" class="java.lang.String"/>
+	<field name="LEVEL5" class="java.lang.String"/>
+	<field name="CODE" class="java.lang.String"/>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="INTERVAL" class="java.math.BigDecimal"/>
+	<field name="STA_VALUE" class="java.math.BigDecimal"/>
+	<field name="AMORTIZE_VALUE" class="java.math.BigDecimal"/>
+	<field name="REMAIN_VALUE" class="java.math.BigDecimal"/>
+	<field name="ACCOUNT_NO" class="java.lang.String"/>
+	<background>
+		<band height="575" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="104" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5e1082b4-74b2-46f0-8ff2-75f1f8be4018" style="Title" x="186" y="56" width="473" height="44"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["HIỆN TRẠNG TÀI SẢN CỐ ĐỊNH NGÀY "+ $P{p_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0ea6378e-b136-47c7-9622-9a2132b78b4b" x="0" y="23" width="317" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_dept_name}.toString() != "-1" ? "Đơn vị báo cáo: Viễn Thông "+$P{p_dept_name} :"Tất cả các đơn vị"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="be5dcd13-f8cf-456b-bddb-4541c9233ee9" x="0" y="2" width="317" height="16"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TẬP ĐOÀN BƯU CHÍNH VIỄN THÔNG VIỆT NAM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ad2f9e3a-736d-4750-9044-970592fee36e" style="Column header" x="0" y="22" width="35" height="15" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cấp 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bdf109e1-0080-46c9-b86c-16b586c73f9e" style="Column header" x="35" y="22" width="35" height="15" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cấp 2 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4c679a1d-1397-49a0-bb31-172157cf141d" style="Column header" x="70" y="22" width="35" height="15" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cấp 3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5770713d-05b1-4d66-b706-c7e468060172" style="Column header" x="105" y="22" width="35" height="15" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cấp 4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d5bf672-9923-4f44-b963-0ae88ad676b4" style="Column header" x="140" y="22" width="35" height="15" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cấp 5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e23ef26d-0033-4b5e-8b57-e2d05d028589" style="Column header" x="175" y="0" width="200" height="37" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tên]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c4c44b2a-1d48-44ec-bcfa-47af228cff5b" style="Column header" x="375" y="0" width="55" height="37" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Thời gian sử dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a7b5e869-ba2c-4794-b03e-6f90f0c047b9" style="Column header" x="430" y="0" width="95" height="37" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nguyên giá]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4d46c550-670c-41db-ab5c-e0b0cdc4cecb" style="Column header" x="525" y="0" width="95" height="37" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KH Lũy kế ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0e6a6ee2-7b76-4baf-b756-3f2197aa1966" style="Column header" x="620" y="0" width="95" height="37" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Giá trị còn lại]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9930aa57-1e23-4ce1-a513-db68262fd842" style="Column header" x="715" y="0" width="70" height="37" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tài khoản]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4bb24726-8cb2-4266-aa6f-86a5b50b7e18" style="Column header" x="0" y="0" width="175" height="22" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+                    <font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã nhận diện]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="219ee4e4-2415-436e-bc11-81fbd9de23ab" x="0" y="0" width="792" height="15"/>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="58f60dc5-c671-40a1-9622-f0d7b0ae5ed6" style="Detail" x="0" y="0" width="35" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{LEVEL1}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="a61a4d24-38b8-4ec8-83a7-fff147d97bf1" style="Detail" x="35" y="0" width="35" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{LEVEL2}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="b9862e89-227a-4757-b488-f7303e757766" style="Detail" x="70" y="0" width="35" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{LEVEL3}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="fbe74d8b-88cf-4afc-a592-2ebbaf941b7c" style="Detail" x="105" y="0" width="35" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{LEVEL4}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="445789a8-9a75-4041-b064-e8e71653068f" style="Detail" x="140" y="0" width="35" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{LEVEL5}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="87cab438-36c3-4396-b8b3-d4f88957608e" style="Detail" x="175" y="0" width="200" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement >
+						<paragraph leftIndent="4"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="1e91f99d-e233-4599-998d-5f936d41124b" style="Detail" x="375" y="0" width="55" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{INTERVAL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="532d5174-b190-4206-aa9b-548cba930701" style="Detail" x="430" y="0" width="95" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{STA_VALUE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="d66f5c00-e84e-4105-a696-4f3745de4d9c" style="Detail" x="525" y="0" width="95" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{AMORTIZE_VALUE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement uuid="ec6ace81-ca07-4461-bc58-0d417a786ef3" style="Detail" x="620" y="0" width="95" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{REMAIN_VALUE}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="1d016ac5-87fb-474e-a709-6784702ccbec" style="Detail" x="715" y="0" width="70" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{ACCOUNT_NO}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ba8f6641-00bc-4dc1-a4f7-8dc86b979387" x="0" y="0" width="128" height="39"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Người lập
+(Ký, ghi rõ họ tên)
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1a1a0e0f-c2e4-4d84-98e6-f15334466b23" x="287" y="0" width="128" height="39"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kế toán trưởng
+(Ký, ghi rõ họ tên)
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5c040549-583f-42da-869e-6bc035c89809" x="595" y="1" width="154" height="38"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Thủ trưởng đơn vị
+(Ký, ghi rõ họ tên,đóng dấu)
+]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

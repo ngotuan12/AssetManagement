@@ -7,13 +7,13 @@ TimeZone
 IgnoreCommandList==help,dtfmt,lssrv,mysrv,lsthread,lssession,sysdate,lsparam,exit,chpwd
 ReloadCommandIDList==1,103
 FormatMessage==TRUE
-DefaultDatabase==TC_11
+DefaultDatabase==Oracle
 ConnectionPoolSize==20
 ConnCacheScheme==fixed_wait_scheme
 Encrypt==N
 Connection
 	Oracle
-		Url==jdbc:oracle:thin:@localhost:1521:orcl
+		Url==jdbc:oracle:thin:@10.0.3.10:1521:db
 		UserName==ASSET
 		Password==asset
 	MySQL
@@ -38,6 +38,6 @@ Report
 		MaxDay==5
 		DefaultTime==1
 		DefaultDay==5
-ExcelTemplatePath==F:/VINHNDQ/AssetManagement/AssetWebapp/template/
+ExcelTemplatePath==D:/Projects/VNPT/asset management/AssetManagement/AssetWebapp/template/
 TemplatePath==/report/sql/
-ReportOut==F:/VINHNDQ/AssetManagement/AssetWebapp/report/
+ReportOut==D:/Projects/VNPT/asset management/AssetManagement/AssetWebapp/report/

@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'db',
         'USER': 'ASSET',
         'PASSWORD': 'asset',
-        'HOST': '10.0.3.10',
+        'HOST': 'localhost',
         'PORT': '1521',
         'EXTRAS': {'min':1,  # start number of connections
                     'max':20,  # max number of connections
