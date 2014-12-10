@@ -17,6 +17,8 @@ import requests
 from myapp.models.ApDomain import ApDomain
 from myapp.models.Dept import Dept
 from myapp.models.List import List
+from myapp.models.StockAssetSerial import StockAssetSerial
+from myapp.views.PrintAsset import print_asset
 from myapp.util import client
 from myapp.util.DateEncoder import DateEncoder
 
@@ -249,3 +251,29 @@ def asset_daily_report(request):
 		context.update({'has_error':str(ex)})
 	context.update(csrf(request))
 	return render_to_response("report/report-daily-asset.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.asset_project_report', login_url='/permission-error/')
+def card_asset(request):
+	context={}
+	try:
+		ls_stock_asset_serials =StockAssetSerial.objects.filter(num_sub =0)
+		stock_asset_serials=[]
+		for st in ls_stock_asset_serials:
+			row = {}
+			row.update({'id':st.id})
+			row.update({'name':st.name})
+			row.update({'serial':st.serial})
+			stock_asset_serials.append(row)
+		context.update({'data':json.dumps(stock_asset_serials,cls=DateEncoder)})
+		if request.POST:
+			stock_asset_id = ''
+			if request.POST['slSerial']:
+				stock_asset_id=request.POST['slSerial']
+				print_asset(request, stock_asset_id)
+			print(stock_asset_id)
+	except xmlrpclib.ProtocolError:
+		context.update({'has_error':'Không kết nối được server report'})
+	except Exception as ex:
+		context.update({'has_error':str(ex)})
+	context.update(csrf(request))
+	return render_to_response("report/card-asset.html", context, RequestContext(request))
