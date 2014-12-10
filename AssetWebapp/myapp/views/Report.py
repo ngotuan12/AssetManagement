@@ -207,3 +207,34 @@ def asset_change_report(request):
 		context.update({'has_error':str(ex)})
 	context.update(csrf(request))
 	return render_to_response("report/report-change-asset.html", context, RequestContext(request))
+def asset_daily_report(request):
+	context={}
+	try:
+		depts =Dept.objects.all()
+		context.update({'depts':depts})
+		if request.POST:
+			dept_id = ''
+			dept_name = '-1'
+			if request.POST['slDept']:
+				dept_id=request.POST['slDept']
+				dept_name =request.POST['hd_dept_name']
+			from_date = request.POST["dtFromDate"]
+#			to_date = request.POST["dtToDate"]
+# 			arrFromDate = from_date.split('/')
+# 			arrTomDate = to_date.split('/')
+# 			from_date ="01"+"/"+arrFromDate[1]+"/"+arrFromDate[2]
+# 			to_date ="01"+"/"+arrTomDate[1]+"/"+arrTomDate[2]
+			authorization = client.getAuthorization(request.user.username)
+			params_object = {
+								"p_date":from_date,								
+								"p_dept_id":dept_id,
+								"p_dept_name":dept_name
+							}
+			fileOut = client.exportReportByJasper(authorization, request.user.username, "rp_hientrang", params_object,"EXCEL")
+			return HttpResponseRedirect('/report/' + fileOut)
+	except xmlrpclib.ProtocolError:
+		context.update({'has_error':'Không kết nối được server report'})
+	except Exception as ex:
+		context.update({'has_error':str(ex)})
+	context.update(csrf(request))
+	return render_to_response("report/report-daily-asset.html", context, RequestContext(request))
