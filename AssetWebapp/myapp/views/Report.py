@@ -5,7 +5,7 @@ Created on Apr 3, 2014
 @author: TuanNA
 '''
 import json
-from myapp.util.DateEncoder import DateEncoder
+import xmlrpclib
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf, request
@@ -14,10 +14,11 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 import requests
 
+from myapp.models.ApDomain import ApDomain
 from myapp.models.Dept import Dept
 from myapp.models.List import List
 from myapp.util import client
-import xmlrpclib
+from myapp.util.DateEncoder import DateEncoder
 
 
 @login_required(login_url='/login')
@@ -117,24 +118,34 @@ def asset_amortization_report(request):
 	context={}
 	try:
 		depts =Dept.objects.all()
-		context.update({'depts':depts})
+		dept_default =ApDomain.objects.get(type='PROVINCE',code='CODE')
+		context.update({'depts':depts,'dept_default':dept_default})
 		if request.POST:
 			dept_id = ''
 			if request.POST['slDept']:
 				dept_id=request.POST['slDept']
+			report_name =request.POST['slReportName']
 			from_date = request.POST["dtFromDate"]
 			to_date = request.POST["dtToDate"]
 			arrFromDate = from_date.split('/')
 			arrTomDate = to_date.split('/')
-			from_date ="01"+"/"+arrFromDate[1]+"/"+arrFromDate[2]
-			to_date ="01"+"/"+arrTomDate[1]+"/"+arrTomDate[2]
+			from_date_default ="01"+"/"+arrFromDate[1]+"/"+arrFromDate[2]
+			to_date_default ="01"+"/"+arrTomDate[1]+"/"+arrTomDate[2]
 			authorization = client.getAuthorization(request.user.username)
+			params_object_default = {
+								"p_from_date":from_date_default,
+								"p_to_date":to_date_default,
+								"p_dept_id":dept_id
+							}
 			params_object = {
 								"p_from_date":from_date,
 								"p_to_date":to_date,
 								"p_dept_id":dept_id
 							}
-			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetAmortization", params_object,"PDF")
+			if report_name=="RPTAssetAmortization":
+				fileOut = client.exportReportByJasper(authorization, request.user.username, report_name, params_object_default,"PDF")
+			else:
+				fileOut = client.exportReportByJasper(authorization, request.user.username, report_name, params_object,"EXCEL")
 			return HttpResponseRedirect('/report/' + fileOut)
 	except xmlrpclib.ProtocolError:
 		context.update({'has_error':'Không kết nối được server report'})

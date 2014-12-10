@@ -35,20 +35,34 @@
 				{% endif %}
 				<div class="alert alert-info" style="padding-left: 5px;padding-right: 5px;">
 					<div class="row">
-						<div class="col-lg-4">
+						<div class="col-lg-6">
 							<label>{% trans 'Đơn vị' %}</label>
 							<select id="slDept" class="form-control chosen-select"
 								data-placeholder="{% trans 'Đơn vị' %}" 
 								name = "slDept">
-								<option value="">-------------------------------------{% trans 'Tất cả' %}-------------------------------------</option>
+								<option value="{{ dept_default.id }}">{{ dept_default.name }}</option>
 								{% for dept in depts %}
 									<option value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 								{% endfor%}
 							</select>
 							<label for="slDept" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 						</div>
-						
-						<div class="col-lg-4">
+						<div class="col-lg-6">
+							<label>{% trans 'Tên báo cáo' %}</label>
+							<select id="slReportName" class="form-control chosen-select"
+								data-placeholder="{% trans 'Tên báo cáo' %}" 
+								name = "slReportName" required>
+									<option value="RPTAssetAmortization">{% trans 'Khấu hao tài sản cơ bản' %}</option>
+									<option value="RPTAssetSumAmortizeDeptDetail">{% trans 'Khấu hao tài sản cố định' %}</option>
+									<option value="RPTAssetSumAmortizeAcountDetail">{% trans 'Khấu hao tài sản cố định theo tài khoản' %}</option>
+									<option value="RPTAssetSumAmortizeCapitalDetail">{% trans 'Khấu hao tài sản cố định theo nguồn vốn' %}</option>
+									<option value="RPTAssetSumCapitalAccount">{% trans 'Khấu hao tài sản cố định theo nguồn vốn-định khoản' %}</option>
+							</select>
+							<label for="slReportName" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div class="col-lg-6">
 							<label>{% trans 'Từ ngày' %}</label>
 							<div class="input-group">
 								<input type="text" style="padding: 8px;" class="form-control"
@@ -58,7 +72,7 @@
 							</div>
 						</div>
 						
-						<div class="col-lg-4">
+						<div class="col-lg-6">
 							<label>{% trans 'Đến ngày' %}</label>
 							<div class="input-group">
 								<input type="text" style="padding: 8px;" class="form-control"
@@ -69,7 +83,6 @@
 						</div>
 						
 					</div>
-					
 					<div class="row" style="margin-top: 30px;">
 						<div class="col-sm col-sm-offset-5">
 							<button class="btn btn-primary" onclick="return onSubmit();">{% trans 'Thực hiện' %}</button>
