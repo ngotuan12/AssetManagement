@@ -51,21 +51,21 @@ FROM v_asset a,
 			<textField>
 				<reportElement uuid="5e1082b4-74b2-46f0-8ff2-75f1f8be4018" style="Title" x="186" y="56" width="473" height="44"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="18" isBold="true"/>
+					<font fontName="Times New Roman" size="18" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["HIỆN TRẠNG TÀI SẢN CỐ ĐỊNH NGÀY "+ $P{p_date}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="0ea6378e-b136-47c7-9622-9a2132b78b4b" x="0" y="23" width="317" height="21"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{p_dept_name}.toString() != "-1" ? "Đơn vị báo cáo: Viễn Thông "+$P{p_dept_name} :"Tất cả các đơn vị"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="be5dcd13-f8cf-456b-bddb-4541c9233ee9" x="0" y="2" width="317" height="16"/>
 				<textElement>
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TẬP ĐOÀN BƯU CHÍNH VIỄN THÔNG VIỆT NAM]]></text>
 			</staticText>
@@ -85,10 +85,17 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cấp 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="be5dcd13-f8cf-456b-bddb-4541c9233ee9" x="0" y="2" width="317" height="16"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TẬP ĐOÀN BƯU CHÍNH VIỄN THÔNG VIỆT NAM]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="bdf109e1-0080-46c9-b86c-16b586c73f9e" style="Column header" x="35" y="22" width="35" height="15" forecolor="#000000"/>
@@ -99,8 +106,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cấp 2 ]]></text>
 			</staticText>
@@ -113,8 +120,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cấp 3]]></text>
 			</staticText>
@@ -127,8 +134,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cấp 4]]></text>
 			</staticText>
@@ -141,8 +148,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cấp 5]]></text>
 			</staticText>
@@ -155,8 +162,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tên]]></text>
 			</staticText>
@@ -169,8 +176,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Thời gian sử dụng]]></text>
 			</staticText>
@@ -183,8 +190,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nguyên giá]]></text>
 			</staticText>
@@ -197,8 +204,8 @@ FROM v_asset a,
 					<bottomPen lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[KH Lũy kế ]]></text>
 			</staticText>
@@ -211,8 +218,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Giá trị còn lại]]></text>
 			</staticText>
@@ -225,8 +232,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tài khoản]]></text>
 			</staticText>
@@ -239,8 +246,8 @@ FROM v_asset a,
 					<bottomPen lineColor="#000000"/>
 					<rightPen lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center">
-                    <font fontName="Arial" size="12" isBold="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mã nhận diện]]></text>
 			</staticText>
@@ -254,72 +261,83 @@ FROM v_asset a,
 					<reportElement uuid="58f60dc5-c671-40a1-9622-f0d7b0ae5ed6" style="Detail" x="0" y="0" width="35" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{LEVEL1}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement uuid="a61a4d24-38b8-4ec8-83a7-fff147d97bf1" style="Detail" x="35" y="0" width="35" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{LEVEL2}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement uuid="b9862e89-227a-4757-b488-f7303e757766" style="Detail" x="70" y="0" width="35" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{LEVEL3}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement uuid="fbe74d8b-88cf-4afc-a592-2ebbaf941b7c" style="Detail" x="105" y="0" width="35" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{LEVEL4}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement uuid="445789a8-9a75-4041-b064-e8e71653068f" style="Detail" x="140" y="0" width="35" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{LEVEL5}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement uuid="87cab438-36c3-4396-b8b3-d4f88957608e" style="Detail" x="175" y="0" width="200" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement >
+					<textElement>
+						<font fontName="Times New Roman"/>
 						<paragraph leftIndent="4"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
@@ -328,12 +346,13 @@ FROM v_asset a,
 					<reportElement uuid="1e91f99d-e233-4599-998d-5f936d41124b" style="Detail" x="375" y="0" width="55" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right">
+						<font fontName="Times New Roman"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{INTERVAL}]]></textFieldExpression>
@@ -342,48 +361,56 @@ FROM v_asset a,
 					<reportElement uuid="532d5174-b190-4206-aa9b-548cba930701" style="Detail" x="430" y="0" width="95" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{STA_VALUE}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
 					<reportElement uuid="d66f5c00-e84e-4105-a696-4f3745de4d9c" style="Detail" x="525" y="0" width="95" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{AMORTIZE_VALUE}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
 					<reportElement uuid="ec6ace81-ca07-4461-bc58-0d417a786ef3" style="Detail" x="620" y="0" width="95" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Right"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{REMAIN_VALUE}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement uuid="1d016ac5-87fb-474e-a709-6784702ccbec" style="Detail" x="715" y="0" width="70" height="15"/>
 					<box>
 						<pen lineWidth="0.5"/>
-						<topPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<leftPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<bottomPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
-						<rightPen lineStyle="Solid" lineColor="#000000" lineWidth="0.5"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Center"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman"/>
+					</textElement>
 					<textFieldExpression><![CDATA[$F{ACCOUNT_NO}]]></textFieldExpression>
 				</textField>
 			</frame>
@@ -400,7 +427,7 @@ FROM v_asset a,
 			<staticText>
 				<reportElement uuid="ba8f6641-00bc-4dc1-a4f7-8dc86b979387" x="0" y="0" width="128" height="39"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Người lập
 (Ký, ghi rõ họ tên)
@@ -409,7 +436,7 @@ FROM v_asset a,
 			<staticText>
 				<reportElement uuid="1a1a0e0f-c2e4-4d84-98e6-f15334466b23" x="287" y="0" width="128" height="39"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Kế toán trưởng
 (Ký, ghi rõ họ tên)
@@ -418,7 +445,7 @@ FROM v_asset a,
 			<staticText>
 				<reportElement uuid="5c040549-583f-42da-869e-6bc035c89809" x="595" y="1" width="154" height="38"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Thủ trưởng đơn vị
 (Ký, ghi rõ họ tên,đóng dấu)
