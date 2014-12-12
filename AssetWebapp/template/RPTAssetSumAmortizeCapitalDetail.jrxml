@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetSumAmortizeCapitalDetail" language="groovy" pageWidth="1200" pageHeight="842" columnWidth="1160" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="37ff6c15-066b-4aaf-aed5-ee493242f50a">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="74"/>
-	<property name="ireport.y" value="15"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
 	</parameter>
@@ -63,19 +63,19 @@
 				</textElement>
 				<text><![CDATA[KHẤU HAO TÀI SẢN CỐ ĐỊNH THEO NGUỒN VỐN]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="c8436f12-b358-47a0-9957-d0cab2151593" x="0" y="0" width="1160" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="4147d52a-a572-4a69-96c7-284e5e55772b" x="0" y="20" width="1160" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4147d52a-a572-4a69-96c7-284e5e55772b" x="161" y="20" width="999" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Văn phòng viễn thông tỉnh "+ $P{p_dept_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="4da6ae5b-9424-460c-ac0d-17286b4863de" x="0" y="84" width="1160" height="20"/>
@@ -84,6 +84,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA["Từ ngày: "+$P{p_from_date}+" đến ngày: "+$P{p_to_date}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="f445f325-05ab-407c-bd4a-ef3cd6941bb0" x="0" y="20" width="161" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Văn phòng viễn thông tỉnh ]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>

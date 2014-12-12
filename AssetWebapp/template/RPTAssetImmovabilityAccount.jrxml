@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetImmovabilityAccount" language="groovy" pageWidth="2300" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="2260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1b1c37bc-ee5f-4fc5-afaa-35ce63f8ea7e">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="1484"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
@@ -117,11 +117,11 @@ AND c.code=b.code(+)]]>
 				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="dab7c48f-965c-48c0-8f2e-b6ed1a712fc9" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="21" width="2260" height="20"/>
+				<reportElement uuid="dab7c48f-965c-48c0-8f2e-b6ed1a712fc9" positionType="Float" stretchType="RelativeToTallestObject" x="161" y="21" width="2099" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Văn phòng viễn thông "+ $P{p_dept_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="ef306418-77a7-4547-a794-0de31441a79a" x="0" y="85" width="2260" height="20"/>
@@ -136,6 +136,13 @@ AND c.code=b.code(+)]]>
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[BIỂU TỔNG HỢP TÀI SẢN CỐ ĐỊNH THEO TÀI KHOẢN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="166a1d32-3c08-4d14-8043-0eef9f38e831" x="0" y="21" width="161" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Văn phòng viễn thông tỉnh ]]></text>
 			</staticText>
 		</band>
 	</title>

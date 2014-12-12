@@ -102,11 +102,11 @@ ORDER BY c.row_num]]>
 				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="9a923668-f7ad-4b4c-927d-e65600d7471c" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="20" width="1960" height="20"/>
+				<reportElement uuid="9a923668-f7ad-4b4c-927d-e65600d7471c" positionType="Float" stretchType="RelativeToTallestObject" x="161" y="20" width="1799" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Văn phòng viễn thông "+ $P{p_dept_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="d9d7f3f1-df11-4f96-9c81-dcd7cdcee41b" x="0" y="80" width="1960" height="20"/>
@@ -121,6 +121,13 @@ ORDER BY c.row_num]]>
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[BIỂU TỔNG HỢP TÀI SẢN CỐ ĐỊNH THEO NGUỒN VỐN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7338e2bf-3910-4b73-952e-44b40f454e8e" x="0" y="20" width="161" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Văn phòng viễn thông tỉnh ]]></text>
 			</staticText>
 		</band>
 	</title>

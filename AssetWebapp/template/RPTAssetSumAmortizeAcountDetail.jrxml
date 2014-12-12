@@ -58,19 +58,19 @@
 	</background>
 	<title>
 		<band height="120" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="05c046bf-48cb-4b4e-a682-9bedc831e4ee" x="0" y="0" width="1060" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="b3e53b64-e632-49da-b315-c62b3bf8c4b4" x="0" y="20" width="1060" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b3e53b64-e632-49da-b315-c62b3bf8c4b4" x="161" y="20" width="899" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Văn phòng viễn thông tỉnh "+ $P{p_dept_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="69e4136c-f337-4dad-84ce-8488905c643f" x="0" y="80" width="1060" height="20"/>
@@ -86,6 +86,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA["Từ ngày: "+$P{p_from_date}+" đến ngày: "+$P{p_to_date}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="ac927fef-8483-4a36-8724-8e5ad5e9c2be" x="0" y="20" width="161" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Văn phòng viễn thông tỉnh ]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
