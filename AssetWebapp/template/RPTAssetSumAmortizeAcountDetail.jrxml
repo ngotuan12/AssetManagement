@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetSumAmortizeAcountDetail" language="groovy" pageWidth="1100" pageHeight="842" columnWidth="1060" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="deabae7a-0792-431c-940d-2a5a7d3c84c1">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetSumAmortizeAcountDetail" language="groovy" pageWidth="1100" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="1060" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="deabae7a-0792-431c-940d-2a5a7d3c84c1">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="413"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
@@ -115,7 +115,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TÊN]]></text>
+				<text><![CDATA[TÊN ĐƠN VỊ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="65b4c92d-7148-4bf0-83a0-3572777cfd12" x="360" y="20" width="100" height="20"/>
