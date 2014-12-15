@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetAmortization" language="groovy" pageWidth="1500" pageHeight="1000" whenNoDataType="AllSectionsNoDetail" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab8461ac-922f-4713-884f-8ee820cf98d2">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="655"/>
+	<property name="ireport.x" value="222"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_to_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
@@ -13,41 +13,41 @@
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from TABLE (pck_report.report_amotize_sum_capital(trunc(to_date($P{p_from_date},'dd/mm/yyyy'),'mm'),trunc(to_date($P{p_to_date},'dd/mm/yyyy'),'mm'),$P{p_dept_id}))]]>
+		<![CDATA[select * from TABLE (pck_report.rp_amotize_sum_dept_capital(to_date($P{p_from_date},'dd/mm/yyyy'),to_date($P{p_to_date},'dd/mm/yyyy'),$P{p_dept_id},'2'))]]>
 	</queryString>
 	<field name="ROW_NUM" class="java.math.BigDecimal"/>
-	<field name="DEPT" class="java.lang.String"/>
-	<field name="AMORTIZE_MONTH" class="java.math.BigDecimal"/>
-	<field name="AMORTIZE_PREVIOUS_MONTH" class="java.math.BigDecimal"/>
-	<field name="AMORTIZE_NATIONAL_BUDGET" class="java.math.BigDecimal"/>
-	<field name="AMORTIZE_LOAN" class="java.math.BigDecimal"/>
-	<field name="AMORTIZE_BASIC" class="java.math.BigDecimal"/>
-	<field name="AMORTIZE_CONTRUCTION" class="java.math.BigDecimal"/>
-	<field name="AMORTIZE_OTHER" class="java.math.BigDecimal"/>
-	<field name="AMORTIZE_BUSSINESS" class="java.math.BigDecimal"/>
-	<variable name="sum_amortize_month" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{AMORTIZE_MONTH}]]></variableExpression>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="INCYCLE" class="java.math.BigDecimal"/>
+	<field name="PREVIOUS" class="java.math.BigDecimal"/>
+	<field name="NATIONAL_BUDGET" class="java.math.BigDecimal"/>
+	<field name="LOAN" class="java.math.BigDecimal"/>
+	<field name="BASIC" class="java.math.BigDecimal"/>
+	<field name="CONTRUCTION" class="java.math.BigDecimal"/>
+	<field name="OTHER" class="java.math.BigDecimal"/>
+	<field name="BUSSINESS" class="java.math.BigDecimal"/>
+	<variable name="sum_INCYCLE" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{INCYCLE}]]></variableExpression>
 	</variable>
-	<variable name="sum_amortize_prev_month" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{AMORTIZE_PREVIOUS_MONTH}]]></variableExpression>
+	<variable name="sum_prev_month" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREVIOUS}]]></variableExpression>
 	</variable>
-	<variable name="sum_amortize_national_budget" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{AMORTIZE_NATIONAL_BUDGET}]]></variableExpression>
+	<variable name="sum_national_budget" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{NATIONAL_BUDGET}]]></variableExpression>
 	</variable>
-	<variable name="sum_amortize_loan" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{AMORTIZE_LOAN}]]></variableExpression>
+	<variable name="sum_loan" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{LOAN}]]></variableExpression>
 	</variable>
-	<variable name="sum_amortize_basic" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{AMORTIZE_BASIC}]]></variableExpression>
+	<variable name="sum_basic" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{BASIC}]]></variableExpression>
 	</variable>
-	<variable name="sum_amortize_countruction" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{AMORTIZE_CONTRUCTION}]]></variableExpression>
+	<variable name="sum_countruction" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{CONTRUCTION}]]></variableExpression>
 	</variable>
-	<variable name="sum_amortize_bussiness" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{AMORTIZE_BUSSINESS}]]></variableExpression>
+	<variable name="sum_bussiness" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{BUSSINESS}]]></variableExpression>
 	</variable>
-	<variable name="sum_amortize_other" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{AMORTIZE_OTHER}]]></variableExpression>
+	<variable name="sum_other" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{OTHER}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -66,7 +66,7 @@
 				<textElement verticalAlignment="Bottom">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Văn phòng "+$F{DEPT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Văn phòng "+$F{NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="7627b64d-a702-496b-b61c-23a3c99936aa" x="0" y="59" width="1460" height="20"/>
@@ -227,7 +227,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{DEPT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="adfaaf40-d8d2-447f-82db-4b4f5ab84be3" positionType="Float" stretchType="RelativeToTallestObject" x="500" y="0" width="120" height="20"/>
@@ -238,7 +238,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_MONTH}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{INCYCLE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="5b0bb79d-a524-4e67-a408-f3e5a23378ac" positionType="Float" stretchType="RelativeToTallestObject" x="620" y="0" width="120" height="20"/>
@@ -249,7 +249,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_PREVIOUS_MONTH}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PREVIOUS}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="78d8ad1f-68ef-4fdd-a73c-041231494008" positionType="Float" stretchType="RelativeToTallestObject" x="740" y="0" width="120" height="20"/>
@@ -260,7 +260,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_NATIONAL_BUDGET}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NATIONAL_BUDGET}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="bf416686-d3d5-48c6-a3bd-b7dbd4c02fc7" positionType="Float" stretchType="RelativeToTallestObject" x="860" y="0" width="120" height="20"/>
@@ -271,7 +271,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_LOAN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{LOAN}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="14949176-05cf-417d-a8ef-ecfc29ca117f" positionType="Float" stretchType="RelativeToTallestObject" x="980" y="0" width="120" height="20"/>
@@ -282,7 +282,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_BASIC}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{BASIC}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="9f93517b-e0f3-4085-8977-661643787428" positionType="Float" stretchType="RelativeToTallestObject" x="1100" y="0" width="120" height="20"/>
@@ -293,7 +293,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_CONTRUCTION}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CONTRUCTION}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="8c99121a-3d01-470e-beea-aef8ab209f7b" positionType="Float" stretchType="RelativeToTallestObject" x="1220" y="0" width="120" height="20"/>
@@ -304,7 +304,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_OTHER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OTHER}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="b0a6b2c1-e981-4bea-ada1-f9085f049605" positionType="Float" stretchType="RelativeToTallestObject" x="1340" y="0" width="120" height="20"/>
@@ -316,7 +316,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_BUSSINESS}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{BUSSINESS}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -347,7 +347,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_amortize_month}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_INCYCLE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="45f35b1e-fcf0-4138-8e0c-ca9dcd197260" mode="Opaque" x="620" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -358,7 +358,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_amortize_prev_month}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_prev_month}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="c04930e8-bd31-45fa-98e5-52b5d4d4fdd5" mode="Opaque" x="740" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -369,7 +369,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_amortize_national_budget}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_national_budget}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="57ce1bd6-6978-40ed-b1ed-99a5e255a030" mode="Opaque" x="860" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -380,7 +380,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_amortize_loan}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_loan}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="b7556ea6-df5c-45db-b601-6a0d3b94d189" mode="Opaque" x="980" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -391,7 +391,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_amortize_basic}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_basic}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="f99be999-e811-42b5-a361-2040ab775823" mode="Opaque" x="1100" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -402,7 +402,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_amortize_countruction}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_countruction}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="8f9bf90c-bd8e-4efc-bb71-f65294b25bb7" mode="Opaque" x="1340" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -414,7 +414,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_amortize_bussiness}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_bussiness}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="2fb0e57c-620d-4759-899a-f6766479d9cb" x="0" y="80" width="430" height="20"/>
@@ -479,7 +479,7 @@
 				<textElement/>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true" pattern="#,##0">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="17fed0ff-0235-456a-adc2-b01b02f6596f" mode="Opaque" x="1220" y="0" width="120" height="20" backcolor="#CCCCFF"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
@@ -488,7 +488,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_amortize_other}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_other}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="be220889-d147-4711-b12a-96462e3a2f3b" x="430" y="60" width="480" height="20"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetAmortizationSum" language="groovy" pageWidth="1500" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="1460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2044df1-64e8-4b64-a98e-e06710eabdfe">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="203"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="81"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
 	</parameter>
@@ -11,45 +11,45 @@
 	</parameter>
 	<parameter name="p_dept_id" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from TABLE (pck_report.report_amotize_sum_asset(trunc(to_date($P{p_from_date},'dd/mm/yyyy'),'mm'),trunc(to_date($P{p_to_date},'dd/mm/yyyy'),'mm'),$P{p_dept_id}))]]>
+		<![CDATA[select * from TABLE (pck_report.rp_amotize_sum_dept_account(to_date($P{p_from_date},'dd/mm/yyyy'),to_date($P{p_to_date},'dd/mm/yyyy'),$P{p_dept_id},'2'))]]>
 	</queryString>
 	<field name="ROW_NUM" class="java.math.BigDecimal"/>
-	<field name="DEPT" class="java.lang.String"/>
-	<field name="KH_TONG" class="java.math.BigDecimal"/>
-	<field name="KH_MMTBDL" class="java.math.BigDecimal"/>
-	<field name="KH_MMTBCT" class="java.math.BigDecimal"/>
-	<field name="KH_DCDLTN" class="java.math.BigDecimal"/>
-	<field name="KH_TBPTVT" class="java.math.BigDecimal"/>
-	<field name="KH_DCQL" class="java.math.BigDecimal"/>
-	<field name="KH_NCVKT" class="java.math.BigDecimal"/>
-	<field name="KH_TSCDHH" class="java.math.BigDecimal"/>
-	<field name="KH_TSCDVH" class="java.math.BigDecimal"/>
-	<variable name="KH_MMTBDL" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{KH_MMTBDL}]]></variableExpression>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="luyke" class="java.math.BigDecimal"/>
+	<field name="MMTBDL" class="java.math.BigDecimal"/>
+	<field name="MMTBCT" class="java.math.BigDecimal"/>
+	<field name="DCDLTN" class="java.math.BigDecimal"/>
+	<field name="TBPTVT" class="java.math.BigDecimal"/>
+	<field name="DCQL" class="java.math.BigDecimal"/>
+	<field name="NCVKT" class="java.math.BigDecimal"/>
+	<field name="TSCDHH" class="java.math.BigDecimal"/>
+	<field name="TSCDVH" class="java.math.BigDecimal"/>
+	<variable name="MMTBDL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{MMTBDL}]]></variableExpression>
 	</variable>
-	<variable name="KH_MMTBCT" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{KH_MMTBCT}]]></variableExpression>
+	<variable name="MMTBCT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{MMTBCT}]]></variableExpression>
 	</variable>
-	<variable name="KH_DCDLTN" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{KH_DCDLTN}]]></variableExpression>
+	<variable name="DCDLTN" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{DCDLTN}]]></variableExpression>
 	</variable>
-	<variable name="KH_TBPTVT" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{KH_TBPTVT}]]></variableExpression>
+	<variable name="TBPTVT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TBPTVT}]]></variableExpression>
 	</variable>
-	<variable name="KH_DCQL" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{KH_DCQL}]]></variableExpression>
+	<variable name="DCQL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{DCQL}]]></variableExpression>
 	</variable>
-	<variable name="KH_NCVKT" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{KH_NCVKT}]]></variableExpression>
+	<variable name="NCVKT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{NCVKT}]]></variableExpression>
 	</variable>
-	<variable name="KH_TSCDHH" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{KH_TSCDHH}]]></variableExpression>
+	<variable name="TSCDHH" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TSCDHH}]]></variableExpression>
 	</variable>
-	<variable name="KH_TSCDVH" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{KH_TSCDVH}]]></variableExpression>
+	<variable name="TSCDVH" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TSCDVH}]]></variableExpression>
 	</variable>
-	<variable name="KH_TONG" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{KH_TONG}]]></variableExpression>
+	<variable name="TONG" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{luyke}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -61,14 +61,14 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{DEPT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="a419eb66-f07a-4527-bd70-b7fb8a838174" x="0" y="20" width="1460" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Văn phòng "+$F{DEPT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Văn phòng "+$F{NAME}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="ba1f771a-bfa0-4216-93dc-e2c209fc12ca" x="0" y="80" width="1460" height="20"/>
@@ -263,7 +263,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{DEPT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="b7923383-3290-4b6e-9426-741e23bb7a74" positionType="Float" stretchType="RelativeToTallestObject" x="368" y="0" width="132" height="20"/>
@@ -274,7 +274,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{KH_TONG}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{luyke}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="92427ebf-8c41-451a-8948-f095c4684411" positionType="Float" stretchType="RelativeToTallestObject" x="500" y="0" width="120" height="20"/>
@@ -285,7 +285,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{KH_MMTBDL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MMTBDL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="a00cc5a9-d6de-40cf-9767-b9caf0c892ff" positionType="Float" stretchType="RelativeToTallestObject" x="620" y="0" width="120" height="20"/>
@@ -296,7 +296,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{KH_MMTBCT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MMTBCT}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="f43565ce-b1dd-47cc-b5b1-5c7fa652761d" positionType="Float" stretchType="RelativeToTallestObject" x="740" y="0" width="120" height="20"/>
@@ -307,7 +307,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{KH_DCDLTN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DCDLTN}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="65230acc-7ccb-439d-9566-665a0cae5212" positionType="Float" stretchType="RelativeToTallestObject" x="860" y="0" width="120" height="20"/>
@@ -318,7 +318,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{KH_TBPTVT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TBPTVT}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="70df04f4-572d-4bbc-afa9-895a47bd1264" positionType="Float" stretchType="RelativeToTallestObject" x="980" y="0" width="120" height="20"/>
@@ -329,10 +329,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{KH_DCQL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DCQL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement uuid="0277bbc5-efe0-4099-834b-2dd3539d66b5" positionType="Float" stretchType="RelativeToTallestObject" x="1100" y="0" width="120" height="20"/>
+				<reportElement uuid="0277bbc5-efe0-4099-834b-2dd3539d66b5" positionType="Float" stretchType="RelativeToTallestObject" x="1100" y="0" width="120" height="20" isPrintInFirstWholeBand="true"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
@@ -340,7 +340,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{KH_NCVKT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NCVKT}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="cf2ff88d-d92c-41bc-8cb2-284f2102d6d4" positionType="Float" stretchType="RelativeToTallestObject" x="1220" y="0" width="120" height="20"/>
@@ -351,7 +351,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{KH_TSCDHH}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TSCDHH}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="db30f05b-9eee-4d50-9bb7-e6ebad1b7979" positionType="Float" stretchType="RelativeToTallestObject" x="1340" y="0" width="120" height="20"/>
@@ -363,7 +363,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{KH_TSCDVH}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TSCDVH}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -405,7 +405,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{KH_TONG}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{TONG}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="bf1336fd-9ce1-461c-a6c8-988ebcf6541f" mode="Opaque" x="500" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -416,7 +416,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{KH_MMTBDL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MMTBDL}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="c2efdaea-db45-4229-aff3-9aa96a8ed095" mode="Opaque" x="740" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -427,7 +427,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{KH_DCDLTN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{DCDLTN}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="cb71f9a7-17da-47a9-9647-5e27e7b9c791" mode="Opaque" x="980" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -438,7 +438,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{KH_DCQL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{DCQL}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="612ad2e0-6975-4791-b30f-44ae29f5067d" mode="Opaque" x="1220" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -449,7 +449,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{KH_TSCDHH}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{TSCDHH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="1774f426-708c-4d9c-ba11-796c15055a7d" mode="Opaque" x="620" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -460,7 +460,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{KH_MMTBCT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MMTBCT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="97bd796f-9e07-4016-bc80-8cc56fb3c9ce" mode="Opaque" x="860" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -471,7 +471,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{KH_TBPTVT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{TBPTVT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="fed5cb4d-de9d-42c1-ac9a-8493e9e9be6d" mode="Opaque" x="1100" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -482,7 +482,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{KH_NCVKT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{NCVKT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="86c25c88-72b2-4a98-a875-08f68c453b77" mode="Opaque" x="1340" y="0" width="120" height="20" backcolor="#CCCCFF"/>
@@ -494,7 +494,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{KH_TSCDVH}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{TSCDVH}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement uuid="769760aa-07f3-4f8a-8d9a-303e0fb4683e" x="0" y="60" width="741" height="20"/>
@@ -534,7 +534,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[(Ký, họtên)]]></text>
+				<text><![CDATA[(Ký, họtên )]]></text>
 			</staticText>
 		</band>
 	</summary>
