@@ -18,7 +18,6 @@ from myapp.models.ApDomain import ApDomain
 from myapp.models.Dept import Dept
 from myapp.models.List import List
 from myapp.models.StockAssetSerial import StockAssetSerial
-from myapp.views.PrintAsset import print_asset
 from myapp.util import client
 from myapp.util.DateEncoder import DateEncoder
 
@@ -126,6 +125,7 @@ def asset_amortization_report(request):
 			dept_id = ''
 			if request.POST['slDept']:
 				dept_id=request.POST['slDept']
+				dept_name =request.POST['hd_dept_name']
 			report_name =request.POST['slReportName']
 			from_date = request.POST["dtFromDate"]
 			to_date = request.POST["dtToDate"]
@@ -137,12 +137,14 @@ def asset_amortization_report(request):
 			params_object_default = {
 								"p_from_date":from_date_default,
 								"p_to_date":to_date_default,
-								"p_dept_id":dept_id
+								"p_dept_id":dept_id,
+								"p_dept_name":dept_name
 							}
 			params_object = {
 								"p_from_date":from_date,
 								"p_to_date":to_date,
-								"p_dept_id":dept_id
+								"p_dept_id":dept_id,
+								"p_dept_name":dept_name
 							}
 			if report_name=="RPTAssetAmortization":
 				fileOut = client.exportReportByJasper(authorization, request.user.username, report_name, params_object_default,"PDF")
@@ -161,11 +163,13 @@ def asset_sum_amortization_report(request):
 	context={}
 	try:
 		depts =Dept.objects.all()
-		context.update({'depts':depts})
+		dept_default =ApDomain.objects.get(type='PROVINCE',code='CODE')
+		context.update({'depts':depts,'dept_default':dept_default})
 		if request.POST:
 			dept_id = ''
 			if request.POST['slDept']:
 				dept_id=request.POST['slDept']
+				dept_name =request.POST['hd_dept_name']
 			from_date = request.POST["dtFromDate"]
 			to_date = request.POST["dtToDate"]
 			arrFromDate = from_date.split('/')
@@ -176,7 +180,8 @@ def asset_sum_amortization_report(request):
 			params_object = {
 								"p_from_date":from_date,
 								"p_to_date":to_date,
-								"p_dept_id":dept_id
+								"p_dept_id":dept_id,
+								"p_dept_name":dept_name
 							}
 			fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTAssetAmortizationSum", params_object,"PDF")
 			return HttpResponseRedirect('/report/' + fileOut)
@@ -192,7 +197,8 @@ def asset_change_report(request):
 	context={}
 	try:
 		depts =Dept.objects.all()
-		context.update({'depts':depts})
+		dept_default =ApDomain.objects.get(type='PROVINCE',code='CODE')
+		context.update({'depts':depts,'dept_default':dept_default})
 		if request.POST:
 			dept_id = ''
 			dept_name = '-1'
@@ -266,11 +272,20 @@ def card_asset(request):
 			stock_asset_serials.append(row)
 		context.update({'data':json.dumps(stock_asset_serials,cls=DateEncoder)})
 		if request.POST:
-			stock_asset_id = ''
-			if request.POST['slSerial']:
-				stock_asset_id=request.POST['slSerial']
-				print_asset(request, stock_asset_id)
-			print(stock_asset_id)
+			stock_asset_id=request.POST['slSerial'].strip()
+			authorization = client.getAuthorization(request.user.username)
+			if str(stock_asset_id) == '-1':
+				for stock_asset_serials in ls_stock_asset_serials:
+					params_object = {
+								"p_stock_serial_id":str(stock_asset_serials.id)
+							}
+					client.exportReportByJasper(authorization, request.user.username, "RPTAssetSerial", params_object,"PDF")
+			else:
+				params_object = {
+								"p_stock_serial_id":stock_asset_id
+							}
+				client.exportReportByJasper(authorization, request.user.username, "RPTAssetSerial", params_object,"PDF")
+# 			return HttpResponseRedirect('/report/' + fileOut)
 	except xmlrpclib.ProtocolError:
 		context.update({'has_error':'Không kết nối được server report'})
 	except Exception as ex:
