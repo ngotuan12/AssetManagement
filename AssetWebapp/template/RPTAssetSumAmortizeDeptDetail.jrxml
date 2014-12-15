@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetSumAmortizeDeptDetail" language="groovy" pageWidth="1000" pageHeight="842" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d01daa97-c626-4137-9cbd-a5d345ee00a1">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetSumAmortizeDeptDetail" language="groovy" pageWidth="1000" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d01daa97-c626-4137-9cbd-a5d345ee00a1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -54,19 +54,19 @@
 				</textElement>
 				<text><![CDATA[BÁO CÁO TỔNG HỢP KHẤU HAO TÀI SẢN CỐ ĐỊNH]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="626bcddc-f6be-43e8-8372-cf0e09bed0b8" x="0" y="0" width="960" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="10e936af-de96-4318-80cb-5592d78dbe8f" x="0" y="20" width="960" height="20"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="10e936af-de96-4318-80cb-5592d78dbe8f" x="161" y="20" width="799" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Văn phòng viễn thông tỉnh "+$P{p_dept_name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{p_dept_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="80ca437d-0198-46bf-a4cb-8affd6eb494f" x="0" y="80" width="960" height="20"/>
@@ -75,6 +75,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA["Từ ngày: "+$P{p_from_date}+" đến ngày: "+$P{p_to_date}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="d91d75e3-83d5-4848-8028-7ac8291e4cbd" x="0" y="20" width="161" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Văn phòng viễn thông tỉnh ]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>

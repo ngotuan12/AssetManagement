@@ -40,7 +40,7 @@
 							<select id="slDept" class="form-control chosen-select"
 								data-placeholder="{% trans 'Đơn vị' %}" 
 								name = "slDept">
-								<option value="">-------------------------------------{% trans 'Tất cả' %}-------------------------------------</option>
+								<option value="{{ dept_default.id }}" name="{{ dept_default.name }}">{{ dept_default.name }}</option>
 								{% for dept in depts %}
 									<option name="{{ dept.name }}" value="{{ dept.id }}">{{ dept.code }} - {{ dept.name }}</option>
 								{% endfor%}
@@ -80,7 +80,7 @@
 				</div>
 			</div>
 		</div>
-		<input type="hidden" id="hd_dept_name" name="hd_dept_name" value="">
+		<input type="hidden" id="hd_dept_name" name="hd_dept_name" value="{{ dept_default.name }}">
 	</form>
 </div>
 {% endblock content %}
