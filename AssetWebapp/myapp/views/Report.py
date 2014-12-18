@@ -292,3 +292,39 @@ def card_asset(request):
 		context.update({'has_error':str(ex)})
 	context.update(csrf(request))
 	return render_to_response("report/card-asset.html", context, RequestContext(request))
+@login_required(login_url='/login/')
+@permission_required('myapp.asset_project_report', login_url='/permission-error/')
+def asset_fix_report(request):
+	context={}
+	try:
+		depts =Dept.objects.all()
+		dept_default =ApDomain.objects.get(type='PROVINCE',code='CODE')
+		context.update({'depts':depts,'dept_default':dept_default})
+		if request.POST:
+			dept_id = ''
+			if request.POST['slDept']:
+				dept_id=request.POST['slDept']
+				dept_name =request.POST['hd_dept_name']
+			report_name =request.POST['slReportName']
+			from_date = request.POST["dtFromDate"]
+			to_date = request.POST["dtToDate"]
+			authorization = client.getAuthorization(request.user.username)
+			type_extension =""
+			params_object = {
+								"p_from_date":from_date,
+								"p_to_date":to_date,
+								"p_dept_id":dept_id,
+								"p_dept_name":dept_name
+							}
+			if report_name=="RPTAssetAmortization":
+				type_extension="PDF"
+			else:
+				type_extension="EXCEL"
+			fileOut = client.exportReportByJasper(authorization, request.user.username, report_name, params_object,type_extension)
+			return HttpResponseRedirect('/report/' + fileOut)
+	except xmlrpclib.ProtocolError:
+		context.update({'has_error':'Không kết nối được server report'})
+	except Exception as ex:
+		context.update({'has_error':str(ex)})
+	context.update(csrf(request))
+	return render_to_response("report/report-fix.html", context, RequestContext(request))
