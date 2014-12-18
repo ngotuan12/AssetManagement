@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PRTAssetFix" language="groovy" pageWidth="2400" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="2360" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="590fea00-6bf9-4d93-a5ea-090d96d58777">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="788"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
@@ -1129,7 +1129,7 @@ ORDER BY get_root_code_asset(a.asset_id,''),v.capital_id]]>
 			<textField>
 				<reportElement uuid="f03a52f0-8c72-41bf-8e15-e73f3a67fc9b" x="0" y="80" width="2360" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="14" isBold="true"/>
+					<font fontName="Times New Roman" size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Từ ngày: "+$P{p_from_date}+" đến ngày: "+$P{p_to_date}]]></textFieldExpression>
 			</textField>
