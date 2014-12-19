@@ -8,6 +8,7 @@ import cx_Oracle
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.context_processors import csrf
 from django.db import connection
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.utils.translation import ugettext as _
@@ -17,10 +18,12 @@ from myapp.models.Country import Country
 from myapp.models.Dept import Dept
 from myapp.models.List import List
 from myapp.models.Reason import Reason
+from myapp.models.Staff import Staff
 from myapp.models.Stock import Stock
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.Supplier import Supplier
-from myapp.models.Staff import Staff
+from myapp.util import client
+
 
 @login_required(login_url='/login/')
 @permission_required('myapp.transfer_asset', login_url='/permission-error/')
@@ -99,6 +102,15 @@ def index(request):
             cursor.close()
             if p_error.getvalue() is not None:
                 raise Exception(p_error.getvalue())
+            else:
+                report_name ='RPTAssetDelivery'
+                type_extension="DOCX"
+                authorization = client.getAuthorization(request.user.username)
+                params_object = {
+                                "p_stock_asset_serial_id":'1',
+                            }
+                fileOut=client.exportReportByJasper(authorization, request.user.username, report_name, params_object,type_extension)
+                return HttpResponseRedirect('/report/' + fileOut)
             context.update({'has_success':_(u"Chuyển đổi thành công")})
     except Exception as ex:
         context.update({'has_error':str(ex)})

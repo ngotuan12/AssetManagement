@@ -1,0 +1,1000 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetDelivery" language="groovy" pageWidth="900" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12591efe-4ebe-43f6-8106-72c3963b6b8d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="317"/>
+	<queryString>
+		<![CDATA[select name from stock_asset_serial where ROWNUM<2]]>
+	</queryString>
+	<field name="NAME" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="460" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="0c3fd06f-5733-4247-8027-27e94bea712a" x="0" y="0" width="215" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Viễn thông TTP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b3270d1e-e96b-425b-ae80-ef068b6f58ea" x="696" y="0" width="164" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mẫu số 02- QTTSCĐ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8fe4aea9-8e44-4d7d-bd01-9ec0f7f6eb15" x="0" y="80" width="860" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ngày ...tháng ...năm ....]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="53d3a0bb-fa6f-4b18-86df-b128e202b776" x="188" y="220" width="672" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Chức vụ..................................Đại diện bên giao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="270a4993-9a6a-4d93-b95f-55dd8aa0ef9b" x="767" y="100" width="93" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Số: ........................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="50f7e09c-be7a-4c9d-88e3-8253ffa3935c" x="0" y="200" width="860" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Các bên giao nhận TSCĐ gồm:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0614a276-58ea-4d66-af9a-c6cd1dafdc6d" x="767" y="120" width="93" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nợ: .......................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="007970d8-2046-413d-9c5e-f29110113bee" x="0" y="60" width="860" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BIÊN BẢN GIAO NHẬN TSCĐ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="32c84bd8-e863-4f6c-bb64-29d377468bfb" x="767" y="140" width="93" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Có: .......................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="19b2cef4-c0e6-4e1f-a7ad-d0c963228c9c" x="0" y="240" width="860" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[- Ông/Bà ....................................................Chức vụ..................................Đại diện bên nhận]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a244471f-adf4-4ad4-8c88-435c080e8f15" x="0" y="160" width="860" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Căn cứ Quyết định số: .................ngày ....tháng ....năm .........của...............................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e0620c27-9b32-46be-9efa-d3b7d3661785" x="0" y="180" width="116" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[về việc bàn giao TSCĐ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dfcd67e8-38af-4cfb-a27c-0f25040477df" x="215" y="0" width="481" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4e836447-4f69-45c7-beb6-9d575942eb68" x="0" y="260" width="860" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[- Ông/Bà ....................................................Chức vụ .................................Đại diện...............]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4e419938-d112-496f-9485-d904cfe904a3" x="0" y="280" width="860" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Địa điểm giao nhận TSCĐ: ...................................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a3318edd-d0b8-47ea-ac94-8e1595d3763e" x="0" y="340" width="127" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nước sản xuất(xây dựng):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0c2a2ac2-83a4-405a-bfcf-3e25546d23ce" x="0" y="320" width="215" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tên, ký mã hiệu, quy cách (cấp hạng ) TSCĐ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="14e37e21-cf9f-4bfa-924a-ee7cbbf947bf" x="0" y="300" width="860" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Xác nhận việc giao nhận TSCĐ như sau:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="540eac4f-f32c-4120-a17b-051e1dc7cc00" x="0" y="360" width="144" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Công suất(diện tích thiết kế):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c1fcffb9-ae13-47e1-9a9a-8975c79659f2" x="0" y="380" width="127" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Bộ phận quản lý ,sử dụng:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9fa82812-0def-4267-a745-002601db546e" x="0" y="400" width="230" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Mục đích sử dụng TSCĐ (dịch vụ sử dụng TSCĐ):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="90dcaa7f-3bc9-4535-bfcb-7e8fc3b38dcb" x="0" y="420" width="92" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Thời hạn khấu hao:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4f8f0be3-777e-42df-9dce-77a9529a7a9c" x="0" y="440" width="860" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nguồn hình thành TSCĐ…………………………………………]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ed1c1eee-8529-4697-b981-a81d709a79d0" x="0" y="100" width="767" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="87a146a8-8848-4468-b17e-2feea07394f0" x="0" y="120" width="767" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="772b43d7-e8ea-4935-a426-f975cdaab425" x="0" y="140" width="767" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="4287ef3a-b85b-4105-804f-870cb304e9f9" positionType="Float" stretchType="RelativeToTallestObject" x="115" y="180" width="745" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e1b0245a-e5b7-44e4-8002-02b6562480fa" x="0" y="220" width="47" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[- Ông/Bà ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="09c0982f-29fd-4837-aa7a-de66f3ea7096" positionType="Float" stretchType="RelativeToTallestObject" x="47" y="220" width="141" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NGUYEN VAN A"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cd9a4f2f-abe6-4ed8-87c6-700b458c5365" x="500" y="320" width="80" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Số hiệu TSCĐ:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="3d136344-ac54-4ed6-a045-3456b3ca0e45" positionType="Float" stretchType="RelativeToTallestObject" x="215" y="320" width="285" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="a71421f3-3400-43ac-8f0d-6f0648dd4248" positionType="Float" stretchType="RelativeToTallestObject" x="580" y="320" width="280" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ee12868e-dcc0-481e-838b-af3b05564ce7" x="500" y="340" width="80" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Năm sản xuất:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="61dd3811-5c6a-4ac9-831e-458c67ba2e6d" positionType="Float" stretchType="RelativeToTallestObject" x="127" y="340" width="373" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="bdd65e3d-5d6b-4bb5-8428-ec380c8b3f8a" positionType="Float" stretchType="RelativeToTallestObject" x="580" y="340" width="280" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="05570265-0e61-4364-b489-ace830e102ef" positionType="Float" stretchType="RelativeToTallestObject" x="144" y="360" width="716" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7fad9ea7-0502-4461-97e5-648a52add5ba" x="500" y="380" width="111" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Năm đưa vào sử dụng:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="7429086e-07d9-45d1-9bf7-a39e9f920322" positionType="Float" stretchType="RelativeToTallestObject" x="611" y="380" width="249" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e108a677-6e25-4df4-a647-d85458f22956" positionType="Float" stretchType="RelativeToTallestObject" x="127" y="380" width="373" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="221513f5-b019-492d-81ae-91ba44362100" positionType="Float" stretchType="RelativeToTallestObject" x="230" y="400" width="630" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e993e624-43a8-4fc4-8da2-8bad149f68a5" x="500" y="420" width="111" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Mức khấu hao (tháng):]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ad2d1910-503e-486e-be85-361c55fbb04c" positionType="Float" stretchType="RelativeToTallestObject" x="611" y="420" width="249" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="6feeebc4-67e1-4114-a956-7cff912800a2" positionType="Float" stretchType="RelativeToTallestObject" x="92" y="420" width="408" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS A"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="160" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="64244dbe-2185-429d-94a9-9c13916419bb" x="0" y="0" width="35" height="60"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="302728d1-5514-449c-b1e2-64079e272f6d" x="35" y="0" width="125" height="60"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Tên, ký hiệu, quy cách cấp hạng TSCĐ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="112ddffb-13d7-4f6b-8445-d431c4ac268b" x="230" y="0" width="70" height="60"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Nước sản xuất (XD)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3c5d4036-ef6b-4d09-9e59-9ea920098f44" x="160" y="0" width="70" height="60"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Số hiệu TSCĐ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5f84627d-1a7d-4ec5-8a22-5d739ac419ff" x="370" y="0" width="70" height="60"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Năm đưa vào sử dụng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1a0f7aa-4322-4ef9-b4f3-abb9ce2058fa" x="440" y="0" width="70" height="60"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Công suất
+(diện tích thiết kế)
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7bad378a-7969-4e04-bacb-6c1365be6fda" x="510" y="0" width="350" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Tính nguyên giá tài sản cố định]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="864c7d5a-7380-4a9e-bb41-417a7c7d0e86" x="510" y="20" width="70" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Giá mua
+(ZSX)
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6b8d8055-c4c7-4ab4-a3ed-119743143f94" x="580" y="20" width="70" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Chi phí vận chuyển]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="335a6c1c-9452-47a9-9471-e1656cb97383" x="650" y="20" width="70" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Chi phí chạy thử]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d0bda23b-59c5-4a3e-a703-be22118e2298" x="720" y="20" width="70" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Nguyên giá TSCĐ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3b0203ba-b986-4ef6-a364-90a8f0ed16a7" x="790" y="20" width="70" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Tài liệu kỹ thuật kèm theo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0b461de7-37f3-49c6-89ee-279f6676bafe" x="300" y="0" width="70" height="60"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Năm sản xuất]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="86f2de18-722b-47d6-b345-9bd8d4a48ce0" x="510" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="052f1d56-afc2-4b85-bd3f-661799f5227f" x="580" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="89da77c1-fcfd-4605-a00f-eae550112b90" x="790" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[E]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="47bc9978-20b8-4103-a411-d7e5c1df6b47" x="720" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ad93e4fd-c2bb-4f30-813d-ccc39c0b136a" x="650" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7ea390d1-5124-406d-9b84-e866f00a0707" x="160" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[C]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ce3d6018-0541-41ac-bb70-855f34a704d7" x="230" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[D]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="22368175-b1d0-4754-9604-ad6b63639378" x="440" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="57fd7718-247f-412e-9a87-f2d740d58ce7" x="370" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2b577dab-786c-450c-b46e-31a0fc0bad99" x="300" y="60" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6e181f57-376f-4b48-8c1e-414b8007eec7" x="0" y="60" width="35" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b8e8e2df-3eda-4048-8e73-85eddecb000e" x="35" y="60" width="125" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8f1a8758-0632-4689-8bdd-ac3da5467cca" x="300" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1d507e57-a3c0-43bc-83ed-97d8bbf99561" x="0" y="80" width="35" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e1a0dbd1-7516-47fe-ae92-cd48216d7e66" x="440" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="958f1fe7-55a0-41a1-b457-20eb04bdf52d" x="35" y="80" width="125" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="430ec73c-ae19-4300-821b-b9fb11b3b0af" x="720" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f910a707-bf42-4185-8e6d-e43459ff2e09" x="580" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ac9d3b42-b589-42c5-9ac1-b696060d2bac" x="790" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="666934a8-f05f-4b3a-bd98-3dbe565f90bd" x="160" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c012f173-5c5d-4cf9-9639-b99784def7ef" x="370" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b09d03a2-7e62-4840-b1fc-dc9087fbf59d" x="650" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="58328632-a083-4c4d-b67b-93c65b9ee6ac" x="510" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="85c79ee4-bd86-4de7-b14a-a1166e92e4c0" x="230" y="80" width="70" height="60"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12d22ed6-7e00-4114-ae35-7b2134770343" x="0" y="140" width="860" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DỤNG CỤ PHỤ TÙNG KÈM THEO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b9be7884-9eb2-48cf-8168-4f1fa8fd55d8" x="0" y="0" width="35" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9470ee6c-ec06-4fe0-bc09-61ea02d33ed1" x="35" y="0" width="125" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c914b15e-e42c-49a9-a4f6-358ba9ae1574" x="160" y="0" width="70" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Đơn vị tính]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9d5f22c3-5e8f-4a4a-8dc9-a2416e9e0ea3" x="230" y="0" width="70" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Số lượng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="33ec7b88-2058-455a-b724-827f13e19f39" x="300" y="0" width="140" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Giá trị]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="130a68dd-18e5-4f50-a5a7-728dab88b375" x="300" y="20" width="140" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9a8ed363-87e6-4edb-991c-0285aff057ac" x="0" y="20" width="35" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="744eb41f-6712-4fd1-a089-381eed2e16e2" x="35" y="20" width="125" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72d9b0cc-39ac-4ff1-94be-44bf1735cab8" x="160" y="20" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[C]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="46c54b18-8bb8-47b9-a358-c595c520d2c2" x="230" y="20" width="70" height="20"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7ca4f1c2-c8b1-4b99-ba7b-5f32e897d7d2" mode="Transparent" x="35" y="40" width="125" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="90e5694e-5ba9-4f90-9e2d-3761460505b6" mode="Transparent" x="160" y="40" width="70" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ab5f7bb3-6633-4c17-9790-33bd76b3a9d6" mode="Transparent" x="0" y="40" width="35" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="519e7c34-715b-4df7-90d3-220f4cdb8f88" mode="Transparent" x="300" y="40" width="140" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="35db2c65-6878-4dbb-9af8-d1cdca6c0477" mode="Transparent" x="230" y="40" width="70" height="40"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a3bca2a1-ebe5-4e51-a259-3bce7267b7c4" x="116" y="0" width="204" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Phòng Đầu tư]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ad52d0e6-cfd2-405a-b28a-3bfe6eb001d8" x="320" y="0" width="247" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Phòng Tài chính Kế toán]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5de77ccf-4b04-46cb-94e6-a5d19901304e" x="683" y="0" width="177" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ba773798-cc90-4554-9d5c-edfdfe7e63f3" x="0" y="40" width="215" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chuyên viên]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cc19c035-19eb-47a0-b818-c1635246f030" x="215" y="40" width="225" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trưởng bộ phận]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ebe3ea4a-ccdd-459b-ae23-b0e6d3893a74" x="440" y="40" width="243" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Chuyên viên]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c5fff78f-0f39-4728-8d6a-47157f011cf9" x="683" y="40" width="177" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kế toán tưởng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c7625ebb-9066-4962-9ffa-012a86512015" x="0" y="0" width="116" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="957439d8-414b-44a4-a6c0-471cc4522cc1" x="567" y="0" width="116" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7210d2a1-f081-4c9c-9d88-e39e491c27ee" x="0" y="20" width="860" height="20"/>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

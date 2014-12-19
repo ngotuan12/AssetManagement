@@ -210,7 +210,7 @@
 <script src="/js/jquery-ui-1.10.3.min.js"></script>
 <script src="/js/jquery.validate.min.js"></script>
 <script src="/js/jquery.numeric.js"></script>
-
+<script src="/js/message.js"></script>
 
 <script src="/js/custom.js"></script>
 <script src="/js/loading.js"></script>
@@ -286,7 +286,15 @@ function onSubmitFormTransfer()
 		$validator.focusInvalid();
 		return false;
 	}
-	jQuery('#transferAsset').submit();
+	else
+	{
+		confirm = $.message.confirm('Bạn có chắc không muốn sử dụng nguồn vốn ?');
+		confirm.on('message.confirm',function(){
+			alert('1');
+			$.message.destroy()
+		});
+		jQuery('#transferAsset').submit();
+	}
 }
 function onGetCode(stock_id,id_name)
 {
