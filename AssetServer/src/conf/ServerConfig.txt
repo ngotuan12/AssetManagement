@@ -13,7 +13,7 @@ ConnCacheScheme==fixed_wait_scheme
 Encrypt==N
 Connection
 	Oracle
-		Url==jdbc:oracle:thin:@10.0.3.10:1521:db
+		Url==jdbc:oracle:thin:@localhost:1521:db
 		UserName==ASSET
 		Password==asset
 	MySQL

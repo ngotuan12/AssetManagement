@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//AdminManagement/models/App.py=utf-8
 encoding//AdminManagement/models/Module.py=utf-8
 encoding//AdminManagement/models/ModulePermission.py=utf-8
+encoding//AdminManagement/views/Ajax.py=utf-8
 encoding//AdminManagement/views/App.py=utf-8
 encoding//AdminManagement/views/Module.py=utf-8
 encoding//myapp/models/ModulePermission.py=utf-8

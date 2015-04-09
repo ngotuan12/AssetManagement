@@ -74,7 +74,7 @@ DATABASES = {
         'NAME': 'db',
         'USER': 'ASSET',
         'PASSWORD': 'asset',
-        'HOST': '10.0.3.10',
+        'HOST': 'localhost',
         'PORT': '1521',
     },
     'default_1': {
