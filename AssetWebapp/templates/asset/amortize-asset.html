@@ -29,11 +29,12 @@
 						<div class="col-lg-6">
 							<label> {% trans 'Tháng tính khấu hao' %}</label>
 							<div class="input-group">
-								<input type="text" class="form-control"
+								<input type="text" class="form-control" value = "{{ amortize_mon }}"
 									style ="padding:8px;"
 									data-provide="datepicker" data-date-format="mm/yy" placeholder="{% trans 'Tháng tính khấu hao' %}" id="amortize_month"
 									name = "dtAmortizeMonth" required> <span
-									class="input-group-addon"><i class="fa fa-calendar"></i></span>
+									class="input-group-addon"><i class="fa fa-calendar"
+									></i></span>
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -74,11 +75,14 @@
 											<!--  {% trans 'CHỌN' %}--> 
 											<!--  <input type="checkbox" checked= "true" onclick="checkAll(this)">--> 												 
 											</th>											
-											<th style='width: 15%;text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'SỐ THẺ TÀI SẢN' %} </th>
+											<th style='width: 13%;text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'SỐ THẺ TÀI SẢN' %} </th>
 											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'THÁNG' %} </th>
-											<th style='width: 15%;text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'NGUỒN VỐN' %} </th>											
-											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'SỐ TIỀN' %} </th>
-											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'ĐIỀU CHỈNH' %} </th>											
+											<th style='width: 13%;text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'NGUỒN VỐN' %} </th>
+											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'NGUYÊN GIÁ' %} </th>
+											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'KH ĐẦU KỲ' %} </th>											
+											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'KH TRONG KỲ' %} </th>
+											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'ĐC TRONG KỲ' %} </th>
+											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'CÒN LẠI' %} </th>
 											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'PHƯƠNG PHÁP TÍNH' %} </th>
 											<th style='text-align: left;font-family: Arial,Helvetica,sans-serif;'>{% trans 'TRẠNG THÁI' %}</th>
 										</tr>
@@ -93,13 +97,16 @@
 												style="text-align: center;"
 												checked= "true"
 												></td> -->
-											<td width='30'></td>
-											<td width='100'>{{ amortizeAsset.serial_no }}</td>
+											<td width='10'></td>
+											<td width='80'>{{ amortizeAsset.serial_no }}</td>
 											<td>{{ amortizeAsset.month|date:'m/Y' }}</td>
-											<td width='100'>{{ amortizeAsset.capital_id }}</td>
+											<td width='100'>{{ amortizeAsset.capital_name }}</td>
+											<td class="currency" style="text-align: right;">{{ amortizeAsset.original_value }}</td>
+											<td class="currency" style="text-align: right;">{{ amortizeAsset.sta_of_cycle }}</td>
 											<td class="currency" style="text-align: right;">{{ amortizeAsset.amount }}</td>
-											<td class="currency" style="text-align: right;">{{ amortizeAsset.adjustment }}</td>											
-											<td>{{ amortizeAsset.amortize.name }}</td>
+											<td class="currency" style="text-align: right;">{{ amortizeAsset.adjustment }}</td>
+											<td class="currency" style="text-align: right;">{{ amortizeAsset.remain }}</td>
+											<td width='30'>{{ amortizeAsset.amortize_name }}</td>
 											{% if amortizeAsset.status == '00' %}
 												<td>
 													{% trans 'Đã tính' %}
@@ -134,7 +141,7 @@
 					<input id="txtChooseAsset" type="hidden" name="txtChooseAsset"  />
 					<div class="row">
 						<div class="col-sm col-sm-offset-5" >
-								<button class="btn btn-primary" onclick=" return onApproved();">{% trans 'Cập nhật' %}</button>
+								<button class="btn btn-primary" onclick=" return onApproved();">{% trans 'Duyệt' %}</button>
 						</div>
 					</div>	
 				</form>

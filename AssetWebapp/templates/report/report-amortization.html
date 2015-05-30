@@ -52,11 +52,17 @@
 							<select id="slReportName" class="form-control chosen-select"
 								data-placeholder="{% trans 'Tên báo cáo' %}" 
 								name = "slReportName" required>
-									<option value="RPTAssetAmortization">{% trans 'Khấu hao tài sản cơ bản' %}</option>
-									<option value="RPTAssetSumAmortizeDeptDetail">{% trans 'Khấu hao tài sản cố định' %}</option>
-									<option value="RPTAssetSumAmortizeAcountDetail">{% trans 'Khấu hao tài sản cố định theo tài khoản' %}</option>
-									<option value="RPTAssetSumAmortizeCapitalDetail">{% trans 'Khấu hao tài sản cố định theo nguồn vốn' %}</option>
-									<option value="RPTAssetSumCapitalAccount">{% trans 'Khấu hao tài sản cố định theo nguồn vốn-định khoản' %}</option>
+									<option value="RPTAssetAmortization">{% trans 'BC Khấu hao tài sản cơ bản' %}</option>
+									<option value="RPTAssetSumAmortizeDeptDetail">{% trans 'BC Khấu hao tài sản cố định' %}</option>
+									<option value="RPTAssetSumAmortizeAcountDetail">{% trans 'BC Khấu hao tài sản cố định theo tài khoản' %}</option>
+									<option value="RPTAssetSumAmortizeCapitalDetail">{% trans 'BC Khấu hao tài sản cố định theo nguồn vốn' %}</option>
+									<option value="RPTAssetSumCapitalAccount">{% trans 'BC Khấu hao tài sản cố định theo nguồn vốn-định khoản' %}</option>
+									<option value="RPTAssetAmortizationSum">{% trans 'BC Tổng hợp KH TSCĐ theo tài khoản' %}</option>
+									<option value="RPTAssetAmortizationSumCapital">{% trans 'BC Tổng hợp KH TSCĐ theo nguồn vốn' %}</option>
+									<option value="RPTAssetSumAmortizeDeptDetail">{% trans 'BC Tổng hợp KH TSCĐ theo đơn vị' %}</option>
+									<!--  <option value="RPTAssetImmovabilityAccount">{% trans 'BC Tổng hợp KH TSCĐ theo đơn vị' %}</option> -->
+																											
+									<option value="07CTKHHT">{% trans 'Bảng chi tiết trích lập khấu hao TSCĐ' %}</option>									
 							</select>
 							<label for="slReportName" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 						</div>

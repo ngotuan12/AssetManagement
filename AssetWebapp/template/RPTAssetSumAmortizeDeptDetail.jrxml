@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RPTAssetSumAmortizeDeptDetail" language="groovy" pageWidth="1000" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d01daa97-c626-4137-9cbd-a5d345ee00a1">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="226"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="p_from_date" class="java.lang.String">
 		<defaultValueExpression><![CDATA["01/01/2014"]]></defaultValueExpression>
@@ -88,9 +88,9 @@
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="40" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="005e9cb6-1d34-4794-8d82-e2eeee42d4bf" x="0" y="0" width="70" height="20"/>
+				<reportElement uuid="005e9cb6-1d34-4794-8d82-e2eeee42d4bf" x="0" y="0" width="70" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -102,7 +102,7 @@
 				<text><![CDATA[STT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f48b10ef-a3c3-4d76-939c-beec11c551ea" x="70" y="0" width="118" height="20"/>
+				<reportElement uuid="f48b10ef-a3c3-4d76-939c-beec11c551ea" x="70" y="0" width="118" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -114,7 +114,7 @@
 				<text><![CDATA[MÃ ĐƠN VỊ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3676e8e1-4a84-4ba9-8435-43aae94c2705" x="188" y="0" width="332" height="20"/>
+				<reportElement uuid="3676e8e1-4a84-4ba9-8435-43aae94c2705" x="188" y="0" width="332" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -126,7 +126,7 @@
 				<text><![CDATA[TÊN ĐƠN VỊ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="32c559e2-7bba-4569-a6cc-cf7ac22e01d3" x="520" y="0" width="110" height="20"/>
+				<reportElement uuid="32c559e2-7bba-4569-a6cc-cf7ac22e01d3" x="520" y="0" width="110" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -138,7 +138,7 @@
 				<text><![CDATA[NGUYÊN GIÁ CUỐI KỲ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f21e30a6-59a6-4648-81b0-2641686c5f9e" x="630" y="0" width="110" height="20"/>
+				<reportElement uuid="f21e30a6-59a6-4648-81b0-2641686c5f9e" x="630" y="0" width="110" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -150,7 +150,7 @@
 				<text><![CDATA[KHẤU HAO TRONG KỲ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="73fc4ac5-0c6a-4647-9127-19ef7903760e" x="740" y="0" width="110" height="20"/>
+				<reportElement uuid="73fc4ac5-0c6a-4647-9127-19ef7903760e" x="740" y="0" width="110" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -162,7 +162,7 @@
 				<text><![CDATA[KHẤU HAO CUỐI KỲ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="eb179fea-6a9e-4a15-8998-3a44a4e3f228" x="850" y="0" width="110" height="20"/>
+				<reportElement uuid="eb179fea-6a9e-4a15-8998-3a44a4e3f228" x="850" y="0" width="110" height="40"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -175,7 +175,7 @@
 				<text><![CDATA[GIÁ TRỊ CÒN LẠI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4d1399cf-4c98-4a6e-b8d5-e3a8b98b1fdb" x="520" y="20" width="110" height="20"/>
+				<reportElement uuid="4d1399cf-4c98-4a6e-b8d5-e3a8b98b1fdb" x="520" y="40" width="110" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -186,7 +186,7 @@
 				<text><![CDATA[4]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dc17590b-ed46-4844-92db-ca5904a00d67" x="630" y="20" width="110" height="20"/>
+				<reportElement uuid="dc17590b-ed46-4844-92db-ca5904a00d67" x="630" y="40" width="110" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -197,7 +197,7 @@
 				<text><![CDATA[5]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cb93d359-4dc5-46e9-aeb0-81623df70b2f" x="850" y="20" width="110" height="20"/>
+				<reportElement uuid="cb93d359-4dc5-46e9-aeb0-81623df70b2f" x="850" y="40" width="110" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -209,7 +209,7 @@
 				<text><![CDATA[7]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="03ee19c1-2a47-4557-b06f-99aa22c438c8" x="0" y="20" width="70" height="20"/>
+				<reportElement uuid="03ee19c1-2a47-4557-b06f-99aa22c438c8" x="0" y="40" width="70" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -220,7 +220,7 @@
 				<text><![CDATA[1]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ed0e652f-9d1e-4867-ac30-ee9ad1d6d2f8" x="740" y="20" width="110" height="20"/>
+				<reportElement uuid="ed0e652f-9d1e-4867-ac30-ee9ad1d6d2f8" x="740" y="40" width="110" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -231,7 +231,7 @@
 				<text><![CDATA[6]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="75e90754-ff18-4b75-89c3-f5e2940a96fa" x="70" y="20" width="118" height="20"/>
+				<reportElement uuid="75e90754-ff18-4b75-89c3-f5e2940a96fa" x="70" y="40" width="118" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -242,7 +242,7 @@
 				<text><![CDATA[2]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="84c13a94-0fbf-4b2f-9112-111b4e681f4b" x="188" y="20" width="332" height="20"/>
+				<reportElement uuid="84c13a94-0fbf-4b2f-9112-111b4e681f4b" x="188" y="40" width="332" height="20"/>
 				<box>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
@@ -309,7 +309,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AMORTIZE_VALUE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{AMORTIZE_INCREASE_VALUE}-$F{AMORTIZE_DECREASE_VALUE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="44658dad-5e27-4fe2-b2d8-3f7c68c55ae7" positionType="Float" stretchType="RelativeToTallestObject" x="740" y="0" width="110" height="20"/>

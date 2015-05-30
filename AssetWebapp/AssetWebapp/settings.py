@@ -139,7 +139,7 @@ TEMPLATE_DIRS = (
                 #os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)), '/templates'),
 )
 
-REPORT_SERVER = 'http://localhost:8080/AssetServer/'
+REPORT_SERVER = 'http://localhost:5451/'
 REPORT_SERVICE = 'ReportService'
 PERMISSION_SERVICE = 'AuthorizationService'
 if not os.path.exists(STATIC_ROOT):

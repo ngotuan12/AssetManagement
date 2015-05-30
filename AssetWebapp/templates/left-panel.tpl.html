@@ -11,29 +11,18 @@
 			<li class="nav-parent"><a href="#"><i
 					class="fa fa-building-o"></i> <span>{% trans 'CHỨC NĂNG'%} </span></a>
 				<ul class="children">
-					<li><a href="/join-asset/"><i class="fa fa-caret-right"></i>{% trans 'GỘP TÀI SẢN'%}
-					<li><a href="/decrement-asset/"><i
-							class="fa fa-caret-right"></i>{% trans 'GIẢM TÀI SẢN'%} </a></li>
-					<li><a href="{% url 'increment-asset' %}"><i
-							class="fa fa-caret-right"></i>{% trans 'TĂNG TÀI SẢN'%} </a></li>
-					<!-- <li><a href="/revaluate-asset/"><i class="fa fa-caret-right"></i>
-							<span>ĐÁNH GIÁ LẠI TS</span></a></li> -->
-					
-							</a></li>
-					<li><a href="/release-asset/"><i class="fa fa-caret-right"></i>{% trans 'TÁCH TÀI SẢN'%}
-							</a></li>
-					<li><a href="/distribute-asset/"><i class="fa fa-caret-right"></i>{% trans 'PHÂN BỔ TÀI SẢN'%}</a></li>
-					<li><a href="/verify-asset/"><i class="fa fa-caret-right"></i>
-							{% trans 'KIỂM KÊ TÀI SẢN'%}</a></li>
-					<li><a href="/view-asset/"><i class="fa fa-caret-right"></i>
-							TRA CỨU TÀI SẢN</a></li>
+					<li><a href="/view-asset/"><i class="fa fa-caret-right"></i>{% trans 'TRA CỨU TÀI SẢN' %}</a></li>				
+					<li><a href="{% url 'increment-asset' %}"><i class="fa fa-caret-right"></i>{% trans 'TĂNG TÀI SẢN'%} </a></li>				
+					<li><a href="/decrement-asset/"><i class="fa fa-caret-right"></i>{% trans 'GIẢM TÀI SẢN'%} </a></li>
+					<li><a href="/amortize-asset/"><i class="fa fa-caret-right"></i>{% trans 'KHẤU HAO TÀI SẢN'%} </a></li>
+					<!-- <li><a href="/revaluate-asset/"><i class="fa fa-caret-right"></i><span>ĐÁNH GIÁ LẠI TS</span></a></li> -->
 					<li><a href="/upgrade-asset/"><i class="fa fa-caret-right"></i>{% trans 'NÂNG CẤP TÀI SẢN'%}</a></li>
-					<li><a href="/amortize-asset/"><i
-							class="fa fa-caret-right"></i>{% trans 'KHẤU HAO TÀI SẢN'%} </a></li>
-					<li><a href="/evaluation-asset/"><i
-							class="fa fa-caret-right"></i>{% trans 'ĐÁNH GIÁ LẠI TÀI SẢN'%}</a></li>
-					<li><a href="/transfer-asset/"><i
-							class="fa fa-caret-right"></i>{% trans 'ĐIỀU CHUYỂN TÀI SẢN'%}</a></li>
+					<li><a href="/evaluation-asset/"><i class="fa fa-caret-right"></i>{% trans 'ĐÁNH GIÁ LẠI TÀI SẢN'%}</a></li>
+					<li><a href="/transfer-asset/"><i class="fa fa-caret-right"></i>{% trans 'ĐIỀU CHUYỂN TÀI SẢN'%}</a></li>
+					<li><a href="/verify-asset/"><i class="fa fa-caret-right"></i>{% trans 'KIỂM KÊ TÀI SẢN'%}</a></li>
+					<li><a href="/distribute-asset/"><i class="fa fa-caret-right"></i>{% trans 'PHÂN BỔ TÀI SẢN'%}</a></li>
+					<li><a href="/join-asset/"><i class="fa fa-caret-right"></i>{% trans 'GỘP TÀI SẢN'%}</a></li>
+					<li><a href="/release-asset/"><i class="fa fa-caret-right"></i>{% trans 'TÁCH TÀI SẢN'%}</a></li>
 				</ul></li>
 			<li class="nav-parent"><a href="#"><i class="fa fa-bar-chart-o"></i> <span>{% trans 'BÁO CÁO'%}</span></a>
 				<ul class="children">

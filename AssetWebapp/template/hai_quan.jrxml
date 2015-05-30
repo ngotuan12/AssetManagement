@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hai_quan" language="groovy" pageWidth="1684" pageHeight="1190" orientation="Landscape" columnWidth="1644" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d9299aba-abe1-4d95-911d-09a93f74fda9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="677"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT field_1 Ma_DN,field_2 Ten_DN,field_3 Dia_Chi,field_10 Tinh_Thanhpho,field_4 Dien_Thoai,field_5 Giam_Doc,
+       field_6 Cuc_HQ,field_7 Chi_Cuc,field_8 Loai_Hinh,tong SL_To_khai
+FROM sheet3$
+WHERE (field_1,ROWID,tong) IN
+                            (SELECT field_1,max(ROWID) row_id,max(tong) max_tong FROM sheet3$
+                             WHERE 1=1
+--                               AND  field_1 LIKE '3600245631'
+                               AND ((field_6=field_10 AND tong>=5) OR (tong=max_tong)  )
+                             GROUP BY field_1)
+ ORDER BY 1]]>
+	</queryString>
+	<field name="MA_DN" class="java.lang.String"/>
+	<field name="TEN_DN" class="java.lang.String"/>
+	<field name="DIA_CHI" class="java.lang.String"/>
+	<field name="TINH_THANHPHO" class="java.lang.String"/>
+	<field name="DIEN_THOAI" class="java.lang.String"/>
+	<field name="GIAM_DOC" class="java.lang.String"/>
+	<field name="CUC_HQ" class="java.lang.String"/>
+	<field name="CHI_CUC" class="java.lang.String"/>
+	<field name="LOAI_HINH" class="java.lang.String"/>
+	<field name="SL_TO_KHAI" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="eef2261e-f468-4f1c-932e-41c17752199f" stretchType="RelativeToBandHeight" x="0" y="0" width="83" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{MA_DN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0d941191-b9b8-412b-8c25-7967619f93a1" stretchType="RelativeToBandHeight" x="83" y="0" width="310" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TEN_DN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e08042a6-019c-4996-a230-a1642d134719" stretchType="RelativeToBandHeight" x="393" y="0" width="209" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DIA_CHI}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="72c43efe-fa2a-41c8-9679-c021afc46df9" stretchType="RelativeToBandHeight" x="602" y="0" width="159" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TINH_THANHPHO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="66d3d308-2a69-45ae-bb9b-9fd930d9333e" stretchType="RelativeToBandHeight" x="761" y="0" width="84" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DIEN_THOAI}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="91edb666-8ba8-4603-bd2f-7f2eca579cdb" stretchType="RelativeToBandHeight" x="845" y="0" width="117" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{GIAM_DOC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fda97036-d24f-4394-8751-85bc977417b4" stretchType="RelativeToBandHeight" x="962" y="0" width="197" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{CUC_HQ}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="266cd1b0-174e-4bed-b6a4-a5f08d020abd" stretchType="RelativeToBandHeight" x="1159" y="0" width="248" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{CHI_CUC}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="954144d9-3a23-41be-904b-cef74b261c4a" stretchType="RelativeToBandHeight" x="1407" y="0" width="196" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{LOAI_HINH}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement uuid="2b388955-89d0-4e9c-9054-8acbaf82d261" x="1603" y="0" width="41" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SL_TO_KHAI}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

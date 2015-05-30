@@ -1,0 +1,7 @@
+userid=asset/asset@HQV_AM
+log=exp_asset.log
+file=exp_asset.dmp
+rows=y
+indexes=y
+statistics=none
+
