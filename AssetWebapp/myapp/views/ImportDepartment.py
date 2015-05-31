@@ -65,7 +65,7 @@ def do_import(request):
                 p_error = cursor.var(cx_Oracle.STRING).var
                 values=[]
                 values.append(p_error)
-                for j in range(0,to_columns+1):
+                for j in range(0,to_columns):
                     cell_value=sheet.cell_value(i,j)
                     values.append(cell_value)
                     result_sheet.write(i,j,cell_value)
@@ -83,7 +83,7 @@ def do_import(request):
                 elif i==from_row-1:
                     result_sheet.write(i,to_columns+1,"Kết quả")
             result_book.save(result_path)
-            return HttpResponse(json.dumps({"handle":"success","file_name":file_name,"total_record":to_row-1,"total_success":success,"total_error":to_row-1-success,"result_file":result_file_name},encoding='utf-8') ,content_type="application/json;charset=utf-8")
+            return HttpResponse(json.dumps({"handle":"success","file_name":file_name,"total_record":to_row-1,"total_success":success+1,"total_error":to_row-1-success-1,"result_file":result_file_name},encoding='utf-8') ,content_type="application/json;charset=utf-8")
             #return HttpResponseRedirect("/log/"+result_file_name)
     except Exception as ex:
         return HttpResponse(json.dumps({"handle":"error", "message": str(ex)}),content_type="application/json;charset=utf-8")

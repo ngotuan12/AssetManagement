@@ -55,7 +55,7 @@ def index(request):
                     if serial.strip()!='':
                         #amortizeAssets = AmortizeAsset.objects.filter(month=dtmonth,serial_no=serial).order_by("status")
                         amortizeAssets = AmortizeAsset.objects.raw("""SELECT a.id,serial_no, a.month,b.capital_id , (SELECT code||'-'||name FROM LIST WHERE list_type='3' AND id=b.capital_id) capital_name,
-                                b.amount,b.adjustment,b.original_value,b.sta_of_cycle,(b.original_value-(b.sta_of_cycle- b.amount-b.adjustment)) remain,
+                                b.amount,b.adjustment,b.original_value,b.sta_of_cycle,(b.original_value-(b.sta_of_cycle+ b.amount+b.adjustment)) remain,b.end_of_cycle,
                                 b.status,b.amortize_id,((SELECT code||'-'||name FROM LIST WHERE list_type='6' AND id=b.amortize_id)) amortize_name,b.stock_asset_serial_id
                                 FROM asset_amortize a,asset_amortize_capital b
                                 WHERE a.id=b.asset_amortize_id
@@ -66,7 +66,7 @@ def index(request):
                         #amortizeAssets = AmortizeAsset.objects.filter(month=dtmonth)
                                 
                         amortizeAssets = AmortizeAsset.objects.raw("""SELECT a.id,serial_no, a.month,b.capital_id , (SELECT code||'-'||name FROM LIST WHERE list_type='3' AND id=b.capital_id) capital_name,
-                                b.amount,b.adjustment,b.original_value,b.sta_of_cycle,(b.original_value-(b.sta_of_cycle- b.amount-b.adjustment)) remain,
+                                b.amount,b.adjustment,b.original_value,b.sta_of_cycle,(b.original_value-(b.sta_of_cycle+ b.amount+b.adjustment)) remain,b.end_of_cycle,
                                 b.status,b.amortize_id,((SELECT code||'-'||name FROM LIST WHERE list_type='6' AND id=b.amortize_id)) amortize_name,b.stock_asset_serial_id
                                 FROM asset_amortize a,asset_amortize_capital b
                                 WHERE a.id=b.asset_amortize_id
@@ -97,7 +97,7 @@ def index(request):
                         if p_serial.strip()!='':
                             #amortizeAssets = AmortizeAsset.objects.filter(month=dtmonth,serial_no=serial).order_by("status")
                             amortizeAssets = AmortizeAsset.objects.raw("""SELECT a.id,serial_no, a.month,b.capital_id , (SELECT code||'-'||name FROM LIST WHERE list_type='3' AND id=b.capital_id) capital_name,
-                                    b.amount,b.adjustment,b.original_value,b.sta_of_cycle,(b.original_value-(b.sta_of_cycle- b.amount-b.adjustment)) remain,
+                                    b.amount,b.adjustment,b.original_value,b.sta_of_cycle,(b.original_value-(b.sta_of_cycle+b.amount+b.adjustment)) remain,
                                     b.status,b.amortize_id,((SELECT code||'-'||name FROM LIST WHERE list_type='6' AND id=b.amortize_id)) amortize_name,b.stock_asset_serial_id
                                     FROM asset_amortize a,asset_amortize_capital b
                                     WHERE a.id=b.asset_amortize_id
@@ -108,7 +108,7 @@ def index(request):
                             #amortizeAssets = AmortizeAsset.objects.filter(month=dtmonth)
                                     
                             amortizeAssets = AmortizeAsset.objects.raw("""SELECT a.id,serial_no, a.month,b.capital_id , (SELECT code||'-'||name FROM LIST WHERE list_type='3' AND id=b.capital_id) capital_name,
-                                    b.amount,b.adjustment,b.original_value,b.sta_of_cycle,(b.original_value-(b.sta_of_cycle- b.amount-b.adjustment)) remain,
+                                    b.amount,b.adjustment,b.original_value,b.sta_of_cycle,(b.original_value-(b.sta_of_cycle+ b.amount+b.adjustment)) remain,
                                     b.status,b.amortize_id,((SELECT code||'-'||name FROM LIST WHERE list_type='6' AND id=b.amortize_id)) amortize_name,b.stock_asset_serial_id
                                     FROM asset_amortize a,asset_amortize_capital b
                                     WHERE a.id=b.asset_amortize_id

@@ -354,7 +354,7 @@
 							<label>{% trans 'TT tài liệu' %}</label>
 							<select id="slDocumentStatus" class="form-control chosen-select"
 								data-placeholder="{% trans 'TT tài liệu' %}" 
-								name = "slDocumentStatus" required>
+								name = "slDocumentStatus" >
 								{% if document_status == '0' %}
 									<option value="1">{% trans 'Có' %}</option>
 									<option value="0"selected >{% trans 'Không' %}</option>
@@ -393,7 +393,7 @@
 							<label>{% trans 'Nước sản xuất' %}</label>
 							<select id="slCountry" class="form-control chosen-select"
 								data-placeholder="{% trans 'Nước sản xuất' %}" 
-								name = "slCountry" required>
+								name = "slCountry">
 								<option value=""></option>
 								{% for country in countries %}
 									{% if country_id|truncatechars:100 == country.id|truncatechars:100 %}
