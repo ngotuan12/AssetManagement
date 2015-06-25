@@ -612,7 +612,7 @@ function addRow(capital_id,capital_name,capital_original,capital_remain)
 			$(strRemainId).val(remain+amount);
 		});
 		$('input[id^=txtAssetRemain]').numeric({negative : false });
-		$('input[id^=txtAssetRemain]').prop("disabled",true);
+		$('input[id^=txtAssetRemain]').prop("readonly",true);
 }
 //Validate form
 function onSubmitFormEvaluation()
