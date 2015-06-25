@@ -584,7 +584,7 @@ function addRow(capital_id,capital_name,capital_original,capital_remain)
 			}
 			div +='<div class="col-sm-6">'
 			+'<div class="input-group">'
-			+'<input type="text" value = "'+ capital_original +'" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
+			+'<input type="text" capital_id = "'+ capital_id +'" value = "'+ capital_original +'" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
 			+'class="form-control numberic" maxlength="10" required="required">'
 			+'<span class="input-group-addon" style="background:#EEE">VND</span>'
 			+'</div>'
@@ -601,7 +601,15 @@ function addRow(capital_id,capital_name,capital_original,capital_remain)
 		$("#addDiv").append(div1);
 		stt+=1;
 		$('input[id^=txtAssetOriginal]').numeric({negative : false });
+		$('input[id^=txtAssetOriginal]').change(function() 
+		{
+			var strRemainId ="input#txtAssetRemain"+$(this).attr("capital_id");
+			var amount = $(this).val() - capital_original;
+			var remain = capital_remain - 0;
+			$(strRemainId).val(remain+amount);
+		});
 		$('input[id^=txtAssetRemain]').numeric({negative : false });
+		$('input[id^=txtAssetRemain]').prop("disabled",true);
 }
 //Validate form
 function onSubmitFormEvaluation()
