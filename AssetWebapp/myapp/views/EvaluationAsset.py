@@ -136,7 +136,7 @@ def index(request):
 def get_list_stock_serial(request,stock_id):
     try:
         serials_qs = List.objects.raw("""
-                                SELECT a.reason_id,a.decision_no,a.decisioner,a.id, a.stock_id, a.asset_id, a.serial, a.original_value,
+                                SELECT a.reason_id,a.note,a.decision_no,a.decisioner,a.id, a.stock_id, a.asset_id, a.serial, a.original_value,
                                        a.remain_value,a.state_id,b.name as state_name, a.goal_id,c.name as goal_name,a.capital_id,
                                        a.interval, a.source, a.name as name
                               FROM stock_asset_serial a ,list b,list c
@@ -158,6 +158,7 @@ def get_list_stock_serial(request,stock_id):
             row.update({'reason_id':serial.reason_id})
             row.update({'decision_no':serial.decision_no})
             row.update({'decisioner':serial.decisioner})
+            row.update({'note':serial.note})
             serials.append(row)
         return HttpResponse(json.dumps({'serials':serials,}) ,content_type="application/json")
     except Exception as ex:

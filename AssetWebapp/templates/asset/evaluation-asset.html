@@ -479,6 +479,7 @@ function onGetCode(stock_id)
 			option.attr("reason-id",serial.reason_id)
 			option.attr("decision-no",serial.decision_no)
 			option.attr("decisioner",serial.decisioner)
+			option.attr("note",serial.note)
 			option.text(serial.serial+"-"+serial.name)
 			$('#slSerial').append(option)
 		}
@@ -542,6 +543,8 @@ function onGetCapital(asset_id)
 		$('input#txtDecisionNo').val($("#slSerial").find('option:selected').attr('decision-no'));
 		//txtDecisionName
 		$('input#txtDecisionName').val($("#slSerial").find('option:selected').attr('decisioner'));
+		//txtNote
+		$('input#txtNote').val($("#slSerial").find('option:selected').attr('note'));
 		//total original,remain
 		total();
 		//$('#btnAddCapital').prop("disabled", false);
