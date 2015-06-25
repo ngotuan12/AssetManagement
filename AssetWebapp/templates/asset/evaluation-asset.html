@@ -587,14 +587,14 @@ function addRow(capital_id,capital_name,capital_original,capital_remain)
 			}
 			div +='<div class="col-sm-6">'
 			+'<div class="input-group">'
-			+'<input type="text" capital_id = "'+ capital_id +'" value = "'+ capital_original +'" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
+			+'<input type="text" amount = "'+ capital_original +'" capital_id = "'+ capital_id +'" value = "'+ capital_original +'" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
 			+'class="form-control numberic" maxlength="10" required="required">'
 			+'<span class="input-group-addon" style="background:#EEE">VND</span>'
 			+'</div>'
 			+'</div>'
 			+'<div class="col-sm-6">'
 			+'<div class="input-group">'
-			+'<input type="text" value = "'+ capital_remain +'" name="txtAssetRemain'+capital_id+'" id="txtAssetRemain'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
+			+'<input type="text" amount = "'+ capital_remain +'" value = "'+ capital_remain +'" name="txtAssetRemain'+capital_id+'" id="txtAssetRemain'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
 			+'class="form-control numberic" maxlength="10" required="required">'
 			+'<span class="input-group-addon" style="background:#EEE">VND</span>'
 			+'</div>'
@@ -607,8 +607,8 @@ function addRow(capital_id,capital_name,capital_original,capital_remain)
 		$('input[id^=txtAssetOriginal]').change(function() 
 		{
 			var strRemainId ="input#txtAssetRemain"+$(this).attr("capital_id");
-			var amount = $(this).val() - capital_original;
-			var remain = capital_remain - 0;
+			var amount = parseFloat($(this).val()) - parseFloat($(this).attr("amount"));
+			var remain = parseFloat($(strRemainId).attr("amount"));
 			$(strRemainId).val(remain+amount);
 		});
 		$('input[id^=txtAssetRemain]').numeric({negative : false });
