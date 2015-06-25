@@ -476,6 +476,9 @@ function onGetCode(stock_id)
 			option.attr("goal-id",serial.goal_id)
 			option.attr("goal-name",serial.goal_name)
 			option.attr("interval",serial.interval)
+			option.attr("reason-id",serial.reason_id)
+			option.attr("decision-no",serial.decision_no)
+			option.attr("decisioner",serial.decisioner)
 			option.text(serial.serial+"-"+serial.name)
 			$('#slSerial').append(option)
 		}
@@ -519,9 +522,26 @@ function onGetCapital(asset_id)
 		$("#lbViewSerialId").html($("#slSerial").find('option:selected').attr('serial'));
 		$("#lbViewSerialName").html($("#slSerial").find('option:selected').attr('name'));
 		$("#lbViewIntervalValue").html($("#slSerial").find('option:selected').attr('interval'));
-		$("#lbViewGoalName").html($("#slSerial").find('option:selected').attr('goal-id')+"-"+$("#slSerial").find('option:selected').attr('goal-name'));
-		$("#lbViewStateName").html($("#slSerial").find('option:selected').attr('state-id')+"-"+$("#slSerial").find('option:selected').attr('state-name'));
+		$('#txtInterval').val($("#slSerial").find('option:selected').attr('interval'));
+		//goal
+		var goalId = $("#slSerial").find('option:selected').attr('goal-id');
 		
+		$("#lbViewGoalName").html($("#slSerial").find('option:selected').attr('goal-id')+"-"+$("#slSerial").find('option:selected').attr('goal-name'));
+		$('select#slGoal').val(goalId);
+		$('select#slGoal').trigger("chosen:updated");
+		//state
+		$("#lbViewStateName").html($("#slSerial").find('option:selected').attr('state-id')+"-"+$("#slSerial").find('option:selected').attr('state-name'));
+		var stateId = $("#slSerial").find('option:selected').attr('state-id');
+		$('select#slState').val(stateId);
+		$('select#slState').trigger("chosen:updated");
+		//reason
+		var reasonId = $("#slSerial").find('option:selected').attr('reason-id');
+		$('select#slReason').val(reasonId);
+		$('select#slReason').trigger("chosen:updated");
+		//txtDecisionNo
+		$('input#txtDecisionNo').val($("#slSerial").find('option:selected').attr('decision-no'));
+		//txtDecisionName
+		$('input#txtDecisionName').val($("#slSerial").find('option:selected').attr('decisioner'));
 		//total original,remain
 		total();
 		//$('#btnAddCapital').prop("disabled", false);
@@ -564,14 +584,14 @@ function addRow(capital_id,capital_name,capital_original,capital_remain)
 			}
 			div +='<div class="col-sm-6">'
 			+'<div class="input-group">'
-			+'<input type="text" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
+			+'<input type="text" value = "'+ capital_original +'" name="txtAssetOriginal'+capital_id+'" id="txtAssetOriginal'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Nguyên giá' %}"'
 			+'class="form-control numberic" maxlength="10" required="required">'
 			+'<span class="input-group-addon" style="background:#EEE">VND</span>'
 			+'</div>'
 			+'</div>'
 			+'<div class="col-sm-6">'
 			+'<div class="input-group">'
-			+'<input type="text" name="txtAssetRemain'+capital_id+'" id="txtAssetRemain'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
+			+'<input type="text" value = "'+ capital_remain +'" name="txtAssetRemain'+capital_id+'" id="txtAssetRemain'+capital_id+'" style="padding: 8px; text-align: right;" placeholder="{% trans 'Giá trị còn lại' %}"'
 			+'class="form-control numberic" maxlength="10" required="required">'
 			+'<span class="input-group-addon" style="background:#EEE">VND</span>'
 			+'</div>'
