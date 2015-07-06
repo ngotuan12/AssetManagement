@@ -41,7 +41,8 @@ def index(request):
 			stock_id = request.POST["slStock"]
 			goal_id = request.POST["slGoal"]
 			state_id = request.POST["slState"]
-			original = '-1'
+#			original = '-1'
+			serialno = request.POST["txtSerial"]
 			
 			stockAsset = StockAssetSerial.objects.all().order_by('-import_date')
 			if asset_id !='-1':
@@ -54,24 +55,27 @@ def index(request):
 				stockAsset = stockAsset.filter(goal = goal_id)
 			if country_id !='-1':
 				stockAsset = stockAsset.filter(country = country_id)
-			if request.POST["txtOriginal"] :
-				original = float(request.POST["txtOriginal"])
-				stockAsset = stockAsset.filter(original_value = original)
-				lsCapital_value_child =CapitalValue.objects.filter(stock_asset_serial__in =stockAsset)
+#			if request.POST["txtOriginal"] :
+#				original = float(request.POST["txtOriginal"])
+			if request.POST["txtSerial"] :
+				serialno = request.POST["txtSerial"]
+				stockAsset = stockAsset.filter(serial = serialno)
+			lsCapital_value_child =CapitalValue.objects.filter(stock_asset_serial__in =stockAsset)
 			context.update({'stockeAssets':lsCapital_value_child})
-			context.update({'original':original,'stock_id':stock_id,'country_id':country_id,'asset_id':asset_id,'goal_id':goal_id,'state_id':state_id})
+			context.update({'serial':serialno,'stock_id':stock_id,'country_id':country_id,'asset_id':asset_id,'goal_id':goal_id,'state_id':state_id})
 		else :
 			asset_id = '-1'
 			country_id = '-1'
 			stock_id = '-1'
 			goal_id = '-1'
 			state_id = '-1'
-			original = '-1'
+#			original = '-1'
+			serialno = ''
 			
 			stockAsset = StockAssetSerial.objects.all().order_by('-import_date')
 			lsCapital_value_child =CapitalValue.objects.filter(stock_asset_serial__in =stockAsset)
 			context.update({'stockeAssets':lsCapital_value_child})
-			context.update({'original':original,'stock_id':stock_id,'country_id':country_id,'asset_id':asset_id,'goal_id':goal_id,'state_id':state_id})
+			context.update({'serialno':serialno,'stock_id':stock_id,'country_id':country_id,'asset_id':asset_id,'goal_id':goal_id,'state_id':state_id})
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

@@ -22,6 +22,22 @@
 				{% endif %}
 				<div class="form-group" style="padding: 0px;">
 					<div class = "row row-pad-5">
+						<div class="col-lg-6">
+							<select id="slStock" class="form-control chosen-select"
+								data-placeholder="{% trans 'Đơn vị sử dụng' %}" 
+								name = "slStock">
+								<option value="-1"></option>
+								{% for stock in stocks %}
+									<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
+								{% endfor%}
+							</select>
+						</div>
+
+						<div class="col-lg-6">
+							<input type="text" id="txtSerial" name="txtSerial" value="{{ serialno }}" placeholder="{% trans 'Số thẻ tài sản' %}"
+								class="form-control" maxlength="20" style="padding-bottom: 6px;">
+						</div>	
+<!--						
 						<div class="col-lg-4">
 							<select id="slAsset" class="form-control chosen-select"
 								data-placeholder="{% trans 'Tài sản' %}"
@@ -32,8 +48,12 @@
 								{% endfor%}
 							</select>
 						</div>
+-->						
 						
-						<div class="col-lg-4">
+					</div>
+					
+					<div class = "row row-pad-5">
+<!--  						<div class="col-lg-4">
 							<select id="slCountry" class="form-control chosen-select"
 								data-placeholder="{% trans 'Xuất sứ' %}" 
 								name = "slCountry">
@@ -43,21 +63,8 @@
 								{% endfor%}
 							</select>
 						</div>
-						
-						<div class="col-lg-4">
-							<select id="slStock" class="form-control chosen-select"
-								data-placeholder="{% trans 'Kho' %}" 
-								name = "slStock">
-								<option value="-1"></option>
-								{% for stock in stocks %}
-									<option dept_id ="{{ stock.dept.id }}" value="{{ stock.id }}">{{ stock.code }} - {{ stock.name }}</option>
-								{% endfor%}
-							</select>
-						</div>
-					</div>
-					
-					<div class = "row row-pad-5">
-						<div class="col-lg-4">
+-->						
+						<div class="col-lg-6">
 							<select id="slGoal" class="form-control chosen-select"
 								data-placeholder="{% trans 'Mục đích sử dụng' %}" 
 								name = "slGoal">
@@ -68,7 +75,7 @@
 							</select>
 						</div>
 						
-						<div class="col-lg-4">
+						<div class="col-lg-6">
 							<select id="slState" class="form-control chosen-select"
 								data-placeholder="{% trans 'Hiện trạng sử dụng' %}" 
 								name = "slState">
@@ -78,11 +85,11 @@
 								{% endfor%}
 							</select>
 						</div>
-						
+<!--  						
 						<div class="col-lg-4">
 							<input type="text" id="txtOriginal" name="txtOriginal" placeholder="{% trans 'Nguyên giá' %}" class="form-control numberic" style="padding-bottom: 6px;">
 						</div>
-						
+-->											
 					</div>
 					<div class = "row row-pad-5">
 						<div class="col-lg-12">
@@ -225,7 +232,8 @@ jQuery(window).load(function(){
 	var country_id ='{{ country_id }}';
 	var goal_id ='{{ goal_id }}';
 	var state_id ='{{ state_id }}';
-	var original ='{{ original }}';
+	//var original ='{{ original }}';
+	var serialno ='{{ serialno }}';
 	
 	if( stock_id != '-1')
 		{
@@ -261,8 +269,11 @@ jQuery(window).load(function(){
 		$('#slState').chosen('destroy');
 		$('#slState').chosen();
 	}
-	if( original != '-1')
-		$("#txtOriginal").val(original);
+//	if( original != '-1')
+//		$("#txtOriginal").val(original);
+//	if( serialno != '-1')
+//		$("#txtSerial").val(serialno);	
+	
 });
 function onSearchFormAsset()
 {
