@@ -63,7 +63,7 @@
 								{% endfor%}
 							</select>
 						</div>
--->						
+						
 						<div class="col-lg-6">
 							<select id="slGoal" class="form-control chosen-select"
 								data-placeholder="{% trans 'Mục đích sử dụng' %}" 
@@ -73,6 +73,23 @@
 									<option value="{{ goal.id }}">{{ goal.code }} - {{ goal.name }}</option>
 								{% endfor%}
 							</select>
+						</div>
+-->						
+						<div class="col-lg-6">
+							<!--<label>{% trans 'Dự án *' %}</label> -->
+							<select id="slProject" class="form-control chosen-select"
+								data-placeholder="{% trans 'Dự án' %}" 
+								name = "slProject" required>
+								<option value=""></option>
+								{% for project in projects %}
+									{% if project_id|truncatechars:100 == project.id|truncatechars:100 %}
+										<option value="{{ project.id }}" selected>{{ project.code }} - {{ project.name }}</option>
+									{% else %}
+										<option value="{{ project.id }}">{{ project.code }} - {{ project.name }}</option>
+									{% endif %}
+								{% endfor%}
+							</select>
+							<label for="slProject" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 						</div>
 						
 						<div class="col-lg-6">
@@ -84,6 +101,25 @@
 									<option value="{{ state.id }}">{{ state.code }} - {{ state.name }}</option>
 								{% endfor%}
 							</select>
+						</div>
+						<div class="col-lg-6">
+							<label>{% trans 'Từ ngày' %}</label>
+							<div class="input-group">
+								<input type="text" style="padding: 8px;" class="form-control"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Từ ngày' %}" id="dtFromDate"
+									name = "dtFromDate" >
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
+						</div>
+						
+						<div class="col-lg-6">
+							<label>{% trans 'Đến ngày' %}</label>
+							<div class="input-group">
+								<input type="text" style="padding: 8px;" class="form-control"
+									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Đến ngày' %}" id="dtToDate"
+									name = "dtToDate" >
+								<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							</div>
 						</div>
 <!--  						
 						<div class="col-lg-4">
@@ -232,6 +268,7 @@ jQuery(window).load(function(){
 	var country_id ='{{ country_id }}';
 	var goal_id ='{{ goal_id }}';
 	var state_id ='{{ state_id }}';
+	var project_id ='{{ project_id }}';
 	//var original ='{{ original }}';
 	var serialno ='{{ serialno }}';
 	
@@ -255,7 +292,13 @@ jQuery(window).load(function(){
 		$('#slCountry').chosen('destroy');
 		$('#slCountry').chosen();
 	}
+	if( project_id != '-1')
+	{
 	
+		$("#slproject").val(project_id);
+		$('#slproject').chosen('destroy');
+		$('#slproject').chosen();
+	}	
 	if( goal_id != '-1')
 	{
 		$("#slGoal").val(goal_id);

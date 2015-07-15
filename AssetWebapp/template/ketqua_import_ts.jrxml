@@ -34,7 +34,7 @@
 	<field name="PHONGBAN" class="java.lang.String"/>
 	<field name="NGUON_GOC" class="java.lang.String"/>
 	<field name="SO_QD_PDQT" class="java.lang.String"/>
-	<field name="NAM_QD_PDQT" class="java.math.BigDecimal"/>
+	<field name="NAM_QD_PDQT" class="java.lang.String"/>
 	<field name="TKHT" class="java.lang.String"/>
 	<field name="TINHTRANG_HS" class="java.lang.String"/>
 	<field name="GHI_CHU" class="java.lang.String"/>

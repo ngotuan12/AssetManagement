@@ -44,12 +44,12 @@ def upload(request):
 def do_import_temp(request):
     try:
         if request.method == 'POST':
-            file_name = request.POST["uploaded-file"]
+            file_name = request.POST["uploaded-file"    ]
             real_file_name = request.POST["real-uploaded-file"]
             description = request.POST["description"]
             work_book = xlrd.open_workbook(UPLOAD_ROOT + "/" + file_name)
             sheet= work_book.sheet_by_index(0)
-            from_row=4
+            from_row=3
             to_row = sheet.nrows
             cursor = connection.cursor()
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS' "  
@@ -115,10 +115,26 @@ def do_import_temp(request):
                     p_phongban=sheet.cell_value(i,19)
                     p_nguon_goc=sheet.cell_value(i,20)
                     p_so_qd_pdqt=sheet.cell_value(i,21)
-                    p_nam_qd_pdqt=sheet.cell_value(i,22)
+                    cell_type =sheet.cell_type(i,22)
+                    if cell_type == xlrd.XL_CELL_DATE:
+                        p_thoigian_sd=datetime(*xlrd.xldate_as_tuple(sheet.cell_value(i,22), work_book.datemode))
+                        p_nam_qd_pdqt=p_thoigian_sd.strftime(" %d/%m/%Y")
+                    else:
+                        if sheet.cell_value(i,22)=='':
+                            p_nam_qd_pdqt=''
+                        else:
+                            p_nam_qd_pdqt=''
+#                        p_nam_qd_pdqt=sheet.cell_value(i,22)
                     p_tkht=sheet.cell_value(i,23)
                     p_tinhtrang_hs=sheet.cell_value(i,24)
                     p_ghi_chu=sheet.cell_value(i,25)
+                    cell_type =sheet.cell_type(i,26)
+                    if cell_type == xlrd.XL_CELL_DATE:
+                        p_thoigian_sd=datetime(*xlrd.xldate_as_tuple(sheet.cell_value(i,26), work_book.datemode))
+                        p_amortize_date=p_thoigian_sd.strftime(" %d/%m/%Y")
+                    else:                    
+                        #p_amortize_date='';
+                        p_amortize_date=sheet.cell_value(i,26)
                     try:
                         cursor.callproc("pck_import.load_asset_serial",(p_error,
                                                             p_stt,
@@ -152,7 +168,8 @@ def do_import_temp(request):
                                                             p_ghi_chu,
                                                             request.user.username,
                                                             file_id,
-                                                            file_name,))
+                                                            file_name,
+                                                            p_amortize_date,))
                         if(p_error.getvalue() is None):
                             success=success+1
                             #text_file.write("Dòng %s : %s\n" %(i,'Thành công'))

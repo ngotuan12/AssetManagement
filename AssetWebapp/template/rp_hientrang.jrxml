@@ -24,9 +24,12 @@ FROM v_asset a,
                 (aa.remain_value-aa.old_remain_value) remain_value
               FROM capital_value_his aa, stock_asset_serial a
               WHERE aa.stock_asset_serial_id=a.id
+              and a.type in ('0','1')
               AND aa.capital_id IS NOT NULL
               AND trunc(create_date) < trunc(to_date($P{p_date},'dd/mm/yyyy'))
-              AND stock_id IN (SELECT stock_id FROM stock s WHERE ($P{p_dept_id} IS NULL OR get_dept_stock(s.stock_id) = $P{p_dept_id}))
+              AND a.stock_id IN (SELECT stock_id FROM stock s WHERE dept_id IN (SELECT id  FROM dept WHERE 1 = 1
+                                                                            START WITH id = $P{p_dept_id}
+                                                                            CONNECT BY PRIOR id = parent_id))
               )
         GROUP BY asset_id) b
  WHERE a.id=b.asset_id(+)]]>

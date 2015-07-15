@@ -13,7 +13,7 @@
 	<parameter name="p_dept_name" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT c.row_num,c.NAME,a.total d_total,a.national_budget d_national_budget,a.loan d_loan,a.basic d_basic,a.contruction d_contruction,a.other d_other,a.bussiness d_bussiness,
-              nvl(b.incycle,0),nvl(b.previous,0),
+              nvl(b.incycle,0),nvl(b.total,0),
               c.total c_total,c.national_budget c_national_budget,c.loan c_loan,c.basic c_basic,c.contruction c_contruction,c.other c_other,c.bussiness c_bussiness
 FROM
     TABLE (pck_report.rp_amotize_sum_dept_capital(to_date($P{p_from_date},'dd/mm/yyyy')  ,to_date($P{p_to_date},'dd/mm/yyyy')  ,$P{p_dept_id},'1')) a,
@@ -33,7 +33,7 @@ ORDER BY c.row_num]]>
 	<field name="D_OTHER" class="java.math.BigDecimal"/>
 	<field name="D_BUSSINESS" class="java.math.BigDecimal"/>
 	<field name="NVL(B.INCYCLE,0)" class="java.math.BigDecimal"/>
-	<field name="NVL(B.PREVIOUS,0)" class="java.math.BigDecimal"/>
+	<field name="NVL(B.TOTAL,0)" class="java.math.BigDecimal"/>
 	<field name="C_TOTAL" class="java.math.BigDecimal"/>
 	<field name="C_NATIONAL_BUDGET" class="java.math.BigDecimal"/>
 	<field name="C_LOAN" class="java.math.BigDecimal"/>
@@ -65,8 +65,8 @@ ORDER BY c.row_num]]>
 	<variable name="NVL(B.INCYCLE,0)" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{NVL(B.INCYCLE,0)}]]></variableExpression>
 	</variable>
-	<variable name="NVL(B.PREVIOUS,0)" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{NVL(B.PREVIOUS,0)}]]></variableExpression>
+	<variable name="NVL(B.TOTAL,0)" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{NVL(B.TOTAL,0)}]]></variableExpression>
 	</variable>
 	<variable name="C_TOTAL" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{C_TOTAL}]]></variableExpression>
@@ -709,7 +709,7 @@ ORDER BY c.row_num]]>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{NVL(B.PREVIOUS,0)}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NVL(B.TOTAL,0)}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="776f79d0-a1f3-4b90-ac96-12c482ae8d67" positionType="Float" stretchType="RelativeToTallestObject" x="1260" y="0" width="100" height="20"/>
@@ -978,7 +978,7 @@ ORDER BY c.row_num]]>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{NVL(B.PREVIOUS,0)}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{NVL(B.TOTAL,0)}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="df9ee5e8-a459-467c-9e29-1b3d63dacf41" positionType="Float" stretchType="RelativeToTallestObject" mode="Opaque" x="560" y="0" width="100" height="20" backcolor="#CDCDFF"/>

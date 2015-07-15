@@ -31,7 +31,7 @@
 						<div class = "row row-pad-5">
 						
 							<div class="col-lg-2">
-								<label>{% trans 'Lý do' %}</label>
+								<label>{% trans 'Lý do *' %}</label>
 								<select class="form-control chosen-select"
 									data-placeholder="{% trans 'Lý do' %}" id="slReason" name = "slReason" required>
 									<option value=""></option>
@@ -47,7 +47,7 @@
 							</div>
 							
 							<div class="col-lg-2">
-								<label>{% trans 'Đơn vị' %}</label>
+								<label>{% trans 'Đơn vị *' %}</label>
 								<select id="slDept" class="form-control chosen-select"
 									data-placeholder="{% trans 'Đơn vị' %}" 
 									name = "slDept" required>
@@ -65,7 +65,7 @@
 						
 
 							<div class="col-lg-2">
-								<label>{% trans 'Kho' %}</label>
+								<label>{% trans 'Kho *' %}</label>
 								<select id="slStock" class="form-control chosen-select"
 									data-placeholder="{% trans 'Kho' %}" 
 									name = "slStock" required>
@@ -78,14 +78,14 @@
 							</div>
 							
 							<div class="col-lg-2">
-								<label>{% trans 'Tên tài sản' %}</label>
+								<label>{% trans 'Tên tài sản *' %}</label>
 								<input type="text" style="padding: 8px;" name="txtAssetName" value="{{ asset_name }}" placeholder="{% trans 'Tên tài sản' %}"
 									class="form-control" required>
 							</div>
 							
 							
 							<div class="col-lg-2">
-								<label>{% trans 'Mã nhận diện' %}</label>
+								<label>{% trans 'Mã nhận diện*' %}</label>
 								<select id="slAsset" class="form-control chosen-select"
 									data-placeholder="{% trans 'Mã nhận diện' %}" 
 									name = "slAsset" required>
@@ -101,7 +101,7 @@
 								<label for="slAsset" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 							<div class="col-lg-2">
-								<label>{% trans 'Ngày ghi tăng' %}</label>
+								<label>{% trans 'Ngày ghi tăng *' %}</label>
 								<div class="input-group">
 								<input type="text" style="padding: 8px;" class="form-control"
 										data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày ghi tăng' %}" id="up_date"
@@ -112,7 +112,7 @@
 						</div>
 						<div class = "row row-pad-5">
 							<div class="col-lg-2">
-								<label>{% trans 'Dự án' %}</label>
+								<label>{% trans 'Dự án *' %}</label>
 								<select id="slProject" class="form-control chosen-select"
 									data-placeholder="{% trans 'Dự án' %}" 
 									name = "slProject" required>
@@ -146,7 +146,7 @@
 							</div>
 							
 							<div class="col-lg-2">
-								<label>{% trans 'Mục đích sử dụng' %}</label>
+								<label>{% trans 'Mục đích sử dụng *' %}</label>
 								<select id="slGoal" class="form-control chosen-select"
 									data-placeholder="{% trans 'Mục đích sử dụng' %}" 
 									name = "slGoal" required>
@@ -163,7 +163,7 @@
 							</div>
 							
 							<div class="col-lg-2">
-								<label>{% trans 'Hiện trạng sử dụng' %}</label>
+								<label>{% trans 'Hiện trạng sử dụng *' %}</label>
 								<select id="slState" class="form-control chosen-select"
 									data-placeholder="{% trans 'Hiện trạng sử dụng' %}" 
 									name = "slState" required>
@@ -271,7 +271,7 @@
 							<div class="col-lg-6" style="padding: 0px;">
 								<div class="col-lg-12" style="padding: 0px;margin-bottom: 0px;">
 									<div class="col-lg-4">
-										<label>{% trans 'Phương pháp tính' %}</label>
+										<label>{% trans 'Phương pháp tính *' %}</label>
 										<select id="slMethod" class="form-control chosen-select"
 												data-placeholder="{% trans 'Phương pháp tính' %}" 
 												name = "slMethod" required>
@@ -288,13 +288,13 @@
 										</div>
 										
 										<div class="col-lg-4">
-											<label>{% trans 'Thời gian sử dụng' %}</label>
+											<label>{% trans 'Thời gian sử dụng *' %}</label>
 											<input type="text" style="padding: 8px;" name="txtInterval" value="{{ interval }}" id="txtInterval" placeholder="{% trans 'Thời gian sử dụng' %}"
 												class="form-control numberic" maxlength="2" required>
 										</div>
 										
 										<div class="col-lg-4">
-											<label>{% trans 'Ngày tính khấu hao' %}</label>
+											<label>{% trans 'Ngày tính khấu hao *' %}</label>
 											<div class="input-group">
 												<input type="text" style="padding: 8px;" class="form-control"
 													data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày tính khấu hao' %}" id="atrophy_date"
@@ -333,7 +333,7 @@
 									</div>
 									
 									<div class="col-lg-4">
-										<label>{% trans 'Ngày bắt đầu sử dụng' %}</label>
+										<label>{% trans 'Ngày bắt đầu sử dụng *' %}</label>
 										<div class="input-group">
 											<input type="text" style="padding: 8px;" class="form-control"
 												data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày bắt đầu sử dụng' %}" id="start_use_date"
@@ -342,7 +342,7 @@
 										</div>
 									</div>
 									<div class="col-lg-4">
-										<label>{% trans 'Số thẻ tài sản' %}</label>
+										<label>{% trans 'Số thẻ tài sản *' %}</label>
 										<input type="text" style="padding: 8px;background: rgb(52, 235, 242);color: rgb(3, 3, 3);" id="txtSerial" name="txtSerial" value="{{ serial }}" placeholder="{% trans 'Số thẻ tài sản' %}"
 											class="form-control" maxlength="20" required>
 									</div>
@@ -351,7 +351,7 @@
 						</div>
 						<div class="row row-pad-5">
 						<div class="col-lg-2">
-							<label>{% trans 'TT tài liệu' %}</label>
+							<label>{% trans 'TT tài liệu *' %}</label>
 							<select id="slDocumentStatus" class="form-control chosen-select"
 								data-placeholder="{% trans 'TT tài liệu' %}" 
 								name = "slDocumentStatus" >
@@ -367,7 +367,7 @@
 						</div>
 						
 						<div class="col-lg-2">
-							<label>{% trans 'Đơn vị tính' %}</label>
+							<label>{% trans 'Đơn vị tính *' %}</label>
 							<select id="slUnit" class="form-control chosen-select"
 								data-placeholder="{% trans 'Đơn vị tính' %}" 
 								name = "slUnit" required>
@@ -384,7 +384,7 @@
 						</div>
 						
 						<div class="col-lg-2">
-							<label>{% trans 'Số lượng' %}</label>
+							<label>{% trans 'Số lượng *' %}</label>
 							<input type="text" style="padding: 8px;" name="txtQuantity" value="{{ quantity }}" placeholder="{% trans 'Số lượng' %}"
 								class="form-control numberic"  maxlength="3" required>
 						</div>
@@ -454,7 +454,7 @@
 								{% if parent_serial == None %}
 									<select id = "slParent" class="form-control chosen-select"
 										data-placeholder="{% trans 'Tài sản cha' %}" 
-										name = "slParent" disabled="disabled">
+										name = "slParent" disabled="disabled" >
 										<option value=""></option>
 										{% for parent in parents %}
 											<option value="{{ parent.serial }}">{{ parent.serial }} - {{ parent.name }}</option>

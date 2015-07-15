@@ -20,7 +20,9 @@ b.original_value nguyen_gia,(b.amount+b.adjustment) trong_ky,b.end_of_cycle luy_
 GET_ACC_NO(a.asset_id,null) tk,(SELECT dept_code FROM dept WHERE id=(SELECT dept_id FROM stock WHERE stock_id=a.stock_id)) bophan_sd
 FROM stock_asset_serial a,asset_amortize_capital b WHERE a.id=b.stock_asset_serial_id
               AND b.month = trunc(to_date($P{p_from_date},'dd/mm/yyyy'),'month')
-              AND a.stock_id IN (SELECT stock_id FROM stock s WHERE ($P{p_dept_id} IS NULL OR get_dept_stock(s.stock_id) = $P{p_dept_id}))
+              AND a.stock_id IN (SELECT stock_id FROM stock s WHERE dept_id IN (SELECT id  FROM dept WHERE 1 = 1
+                                                                            START WITH id = $P{p_dept_id}
+                                                                            CONNECT BY PRIOR id = parent_id))
  ORDER BY a.serial,b.capital_id]]>
 	</queryString>
 	<field name="SO_THE" class="java.lang.String"/>

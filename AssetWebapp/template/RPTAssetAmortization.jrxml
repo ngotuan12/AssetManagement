@@ -18,7 +18,7 @@
 	<field name="ROW_NUM" class="java.math.BigDecimal"/>
 	<field name="NAME" class="java.lang.String"/>
 	<field name="INCYCLE" class="java.math.BigDecimal"/>
-	<field name="PREVIOUS" class="java.math.BigDecimal"/>
+	<field name="TOTAL" class="java.math.BigDecimal"/>
 	<field name="NATIONAL_BUDGET" class="java.math.BigDecimal"/>
 	<field name="LOAN" class="java.math.BigDecimal"/>
 	<field name="BASIC" class="java.math.BigDecimal"/>
@@ -28,8 +28,8 @@
 	<variable name="sum_INCYCLE" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{INCYCLE}]]></variableExpression>
 	</variable>
-	<variable name="sum_prev_month" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{PREVIOUS}]]></variableExpression>
+	<variable name="sum_total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL}]]></variableExpression>
 	</variable>
 	<variable name="sum_national_budget" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{NATIONAL_BUDGET}]]></variableExpression>
@@ -249,7 +249,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PREVIOUS}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="78d8ad1f-68ef-4fdd-a73c-041231494008" positionType="Float" stretchType="RelativeToTallestObject" x="740" y="0" width="120" height="20"/>
@@ -358,7 +358,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{sum_prev_month}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_total}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement uuid="c04930e8-bd31-45fa-98e5-52b5d4d4fdd5" mode="Opaque" x="740" y="0" width="120" height="20" backcolor="#CCCCFF"/>
