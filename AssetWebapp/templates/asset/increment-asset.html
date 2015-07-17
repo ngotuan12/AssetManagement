@@ -47,7 +47,7 @@
 							</div>
 							
 							<div class="col-lg-2">
-								<label>{% trans 'Đơn vị *' %}</label>
+								<label>{% trans 'Bộ phận sử dụng *' %}</label>
 								<select id="slDept" class="form-control chosen-select"
 									data-placeholder="{% trans 'Đơn vị' %}" 
 									name = "slDept" required>
@@ -101,10 +101,10 @@
 								<label for="slAsset" class="error" style="display: none;">{% trans 'Trường không được để trống' %}</label>
 							</div>
 							<div class="col-lg-2">
-								<label>{% trans 'Ngày ghi tăng *' %}</label>
+								<label>{% trans 'Ngày hạch toán tăng *' %}</label>
 								<div class="input-group">
 								<input type="text" style="padding: 8px;" class="form-control"
-										data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày ghi tăng' %}" id="up_date"
+										data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Ngày hạch toán tăng' %}" id="up_date"
 										name = "dtUpDate" required>
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 								</div>
@@ -260,7 +260,13 @@
 											</tr>
 										</thead>
 										<tbody id="tbView" style="height: 124px;display: block;overflow-x: hidden;overflow-y:auto;">
-											<tr support="support">
+<!--  											<tr sum="sum">
+												<td class="currency" style="text-align:right;min-width:300px;">TỔNG CỘNG</td>
+												<td class="currency" style="text-align:right;min-width:109px;">0</td>
+												<td class="currency" style="text-align:right;min-width:109px;">0</td>
+												<td class="currency" style="text-align:right;min-width:40px;">''</td>
+											</tr>
+-->											<tr support="support">
 												<td colspan = "4" style="width:618px;"> Bấm vào chọn nguồn vốn để thêm nguồn vốn vào tài sản</td>
 											</tr>
 										</tbody>
@@ -450,7 +456,7 @@
 							</div>
 							
 							<div class="col-lg-6">
-								<label>{% trans 'Tài sản cha' %}</label>
+								<label>{% trans 'Tài sản gốc' %}</label>
 								{% if parent_serial == None %}
 									<select id = "slParent" class="form-control chosen-select"
 										data-placeholder="{% trans 'Tài sản cha' %}" 
@@ -597,10 +603,10 @@ $(document).ready(function(){
   
   // Date Picker
   $('#dtDecision').datepicker({dateFormat: 'dd/mm/yy',maxDate: new Date() });
-  if($("#hd_decision_date").val().length >0)
-	  $("#dtDecision").datepicker("setDate",$("#hd_decision_date").val());
-  else
- 	 $("#dtDecision").datepicker("setDate",new Date());
+//  if($("#hd_decision_date").val().length >0)
+//	  $("#dtDecision").datepicker("setDate",$("#hd_decision_date").val());
+//  else
+// 	 $("#dtDecision").datepicker("setDate",new Date());
   
   $('#buy_date').datepicker({dateFormat: 'dd/mm/yy',maxDate: new Date()});
   if($("#hd_buy_date").val().length >0)

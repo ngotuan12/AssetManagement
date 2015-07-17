@@ -13,11 +13,15 @@ from django.db import connection
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-
+from django.http.response import HttpResponseRedirect
 from myapp.models.AmortizeAsset import AmortizeAsset
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.ApDomain import ApDomain
 
+from AssetWebapp.settings import UPLOAD_ROOT
+from sc.util.base import handle_uploaded_file
+import xlrd
+from myapp.util import client
 
 @login_required(login_url='/login/')
 @permission_required('myapp.amortize_asset',login_url='/permission-error/')
@@ -74,6 +78,24 @@ def index(request):
                                 AND a.MONTH=to_date("""+"'"+month+"'"+""",'mm/yyyy')""")
                     context.update(({"amortize_assets": amortizeAssets}))
                     context.update({"has_success":"Tính khấu hao thành công!"})
+
+                    authorization = client.getAuthorization(request.user.username)
+                    params_object = {
+                                     "p_month":month,
+                                     "p_serial":serial,
+                                    }
+                    fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTExportAmortize", params_object,"EXCEL")
+
+                    return HttpResponseRedirect('/report/' + fileOut)
+                    #return HttpResponse(json.dumps({"handle":"success","result_file":fileOut},encoding='utf-8') ,content_type="application/json;charset=utf-8")        
+                    #authorization = client.getAuthorization(request.user.username)
+                    #params_object = {
+                    #                 "p_month":month,
+                    #                 "p_serial":serial,
+                    #                }
+                    #fileOut = client.exportReportByJasper(authorization, request.user.username, "RPTExportAmortize", params_object,"EXCEL")
+                    #return HttpResponse(json.dumps({"handle":"success","result_file":fileOut},encoding='utf-8') ,content_type="application/json;charset=utf-8")
+                    
             else:
                 strChoosen=request.POST['txtChooseAsset']
                 list_choosen=strChoosen.split(';')

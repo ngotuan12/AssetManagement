@@ -17,6 +17,7 @@ from myapp.models.Stock import Stock
 from myapp.models.StockAssetSerial import StockAssetSerial
 from myapp.models.Supplier import Supplier
 from myapp.models.CapitalValue import CapitalValue
+from datetime import datetime
 
 @login_required(login_url='/login/')
 @permission_required('myapp.view_asset', login_url='/permission-erro/r')
@@ -40,15 +41,25 @@ def index(request):
 #			asset_id = request.POST["slAsset"]
 #			country_id = request.POST["slCountry"]
 			stock_id = request.POST["slStock"]
-			goal_id = request.POST["slGoal"]
+#			goal_id = request.POST["slGoal"]
+			goal_id = '-1'
 			state_id = request.POST["slState"]
 #			original = '-1'
 			serialno = request.POST["txtSerial"]
-			
-			project_id = request.POST["slProject"]
-			
+			projectid = request.POST["slProject"]
+			dtFromDate =  request.POST["dtFromDate"]
+			dtToDate =  request.POST["dtToDate"]
+			if dtFromDate=='':
+				from_date = datetime(1945, 12, 12)
+			else:
+				from_date = datetime.strptime(dtFromDate,"%d/%m/%Y")
+			if dtToDate =='':
+				to_date = datetime.today() + 1
+			else: 
+				to_date = datetime.strptime(dtToDate,"%d/%m/%Y")
 			
 			stockAsset = StockAssetSerial.objects.all().order_by('-import_date')
+			stockAsset = stockAsset.filter(use_date__range = [from_date,to_date])
 #			if asset_id !='-1':
 #				stockAsset = stockAsset.filter(asset =asset_id)
 			if stock_id !='-1' :
@@ -57,8 +68,8 @@ def index(request):
 				stockAsset = stockAsset.filter(state = state_id)
 			if goal_id !='-1':
 				stockAsset = stockAsset.filter(goal = goal_id)
-			if project_id !='-1' :
-				stockAsset = stockAsset.filter(project = project_id)				
+			if projectid !='-1' :
+				stockAsset = stockAsset.filter(project_id = projectid)				
 #			if country_id !='-1':
 #				stockAsset = stockAsset.filter(country = country_id)
 #			if request.POST["txtOriginal"] :
@@ -74,7 +85,7 @@ def index(request):
 #			asset_id = '-1'
 			country_id = '-1'
 			stock_id = '-1'
-			project_id='-1'
+			projectid='-1'
 			goal_id = '-1'
 			state_id = '-1'
 #			original = '-1'
@@ -84,7 +95,7 @@ def index(request):
 			lsCapital_value_child =CapitalValue.objects.filter(stock_asset_serial__in =stockAsset)
 			context.update({'stockeAssets':lsCapital_value_child})
 #			context.update({'serialno':serialno,'stock_id':stock_id,'country_id':country_id,'asset_id':asset_id,'goal_id':goal_id,'state_id':state_id})
-			context.update({'serialno':serialno,'stock_id':stock_id,'country_id':country_id,'goal_id':goal_id,'state_id':state_id,'project_id':project_id})			
+			context.update({'serialno':serialno,'stock_id':stock_id,'country_id':country_id,'goal_id':goal_id,'state_id':state_id,'project_id':projectid})			
 	except Exception as ex:
 		context.update({'has_error':str(ex)})
 	finally:

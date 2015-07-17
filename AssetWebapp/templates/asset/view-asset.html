@@ -79,7 +79,7 @@
 							<!--<label>{% trans 'Dự án *' %}</label> -->
 							<select id="slProject" class="form-control chosen-select"
 								data-placeholder="{% trans 'Dự án' %}" 
-								name = "slProject" required>
+								name = "slProject">
 								<option value=""></option>
 								{% for project in projects %}
 									{% if project_id|truncatechars:100 == project.id|truncatechars:100 %}
@@ -103,7 +103,6 @@
 							</select>
 						</div>
 						<div class="col-lg-6">
-							<label>{% trans 'Từ ngày' %}</label>
 							<div class="input-group">
 								<input type="text" style="padding: 8px;" class="form-control"
 									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Từ ngày' %}" id="dtFromDate"
@@ -113,7 +112,6 @@
 						</div>
 						
 						<div class="col-lg-6">
-							<label>{% trans 'Đến ngày' %}</label>
 							<div class="input-group">
 								<input type="text" style="padding: 8px;" class="form-control"
 									data-provide="datepicker" data-date-format="dd/mm/yy" placeholder="{% trans 'Đến ngày' %}" id="dtToDate"
@@ -215,6 +213,15 @@ $(document).ready(function()
 	$(".chosen-select").chosen({'width':'100%','white-space':'nowrap'});
 	
 	// Date Picker
+	$('#dtFromDate').datepicker({dateFormat: 'dd/mm/yy',maxDate:new Date(),onSelect: function(dateText) {
+		jQuery("#dtToDate").datepicker('option', 'minDate', dateText);
+	}});
+	$('#dtToDate').datepicker({dateFormat: 'dd/mm/yy',maxDate:new Date(),onSelect: function(dateText) {
+		jQuery("#dtFromDate").datepicker('option', 'maxDate', dateText);
+	}});
+	
+	$("#dtFromDate").mask("99/99/9999");
+	$("#dtToDate").mask("99/99/9999");
 	$('#buy_date').datepicker({dateFormat: 'dd/mm/yy',});
 	$('#start_use_date').datepicker({dateFormat: 'dd/mm/yy',});
 	$('#up_date').datepicker({dateFormat: 'dd/mm/yy',});
@@ -246,7 +253,7 @@ $('#slDept').change(function(){
 	$("#slStock option[dept_id][dept_id!='" + dept_id + "']").hide();
 	
 	
-	$('#slStock').chosen('destroy');
+//	$('#slStock').chosen('destroy');
 	$('#slStock').prop("selectedIndex", -1);
 	$('#slStock').chosen();
 	
@@ -275,41 +282,41 @@ jQuery(window).load(function(){
 	if( stock_id != '-1')
 		{
 			$("#slStock").val(stock_id);
-			$('#slStock').chosen('destroy');
+			//$('#slStock').chosen('destroy');
 			$('#slStock').chosen();
 		}
 	if( asset_id != '-1')
 	{
 	
 		$("#slAsset").val(asset_id);
-		$('#slAsset').chosen('destroy');
+		//$('#slAsset').chosen('destroy');
 		$('#slAsset').chosen();
 	}
 	
 	if( country_id != '-1')
 	{
 		$("#slCountry").val(country_id);
-		$('#slCountry').chosen('destroy');
+		//$('#slCountry').chosen('destroy');
 		$('#slCountry').chosen();
 	}
 	if( project_id != '-1')
 	{
 	
 		$("#slproject").val(project_id);
-		$('#slproject').chosen('destroy');
+		//$('#slproject').chosen('destroy');
 		$('#slproject').chosen();
 	}	
 	if( goal_id != '-1')
 	{
 		$("#slGoal").val(goal_id);
-		$('#slGoal').chosen('destroy');
+		//$('#slGoal').chosen('destroy');
 		$('#slGoal').chosen();
 	}
 	
 	if( state_id != '-1')
 	{
 		$("#slState").val(state_id);
-		$('#slState').chosen('destroy');
+		//$('#slState').chosen('destroy');
 		$('#slState').chosen();
 	}
 //	if( original != '-1')
