@@ -1,7 +1,7 @@
 Django==1.7
 Markdown==2.4.1
 Pillow==2.5.3
-PyYAML==3.11
+PyYAML==5.4
 South==1.0
 bson==0.3.3
 cx-oracle==5.1.3
