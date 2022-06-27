@@ -25,7 +25,7 @@ oauthlib==0.6.3
 openpyxl==1.6.1
 py2exe==0.6.9
 pytz==2014.7
-reportlab==3.1.8
+reportlab==3.5.55
 requests==2.3.0
 shortuuid==0.4.2
 six==1.7.3
