@@ -22,7 +22,7 @@ httplib2==0.9
 mysql-python==1.2.5
 oauth2==1.5.211
 oauthlib==0.6.3
-openpyxl==1.6.1
+openpyxl==2.4.2
 py2exe==0.6.9
 pytz==2014.7
 reportlab==3.1.8
